@@ -1,0 +1,6 @@
+/IATA_server/node_modules
+/Unleash_server/node_modules
+/IATA_server/sequelize/.env
+/IATA_server/.env
+/Unleash_server/sequelize/.env
+/Unleash_server/.env
