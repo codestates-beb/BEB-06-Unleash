@@ -1,4 +1,6 @@
 /************LandingPage***************/
+@import url('https://fonts.googleapis.com/css?family=Poppins:900&display=swap');
+
 .landing  {
   justify-content: center;
   display: flex;
@@ -311,21 +313,26 @@
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   padding: 0 36px;
-  margin-bottom: 20px;
+  padding-bottom: 50px;
   flex-direction: column;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.413);
 }
 
 .marketplace_info_container {
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+  padding-top: 10px;
 }
 
 .marketplace_info_avatar {
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 30px;
   background: url('../image/loading.jpg');
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
 }
 
 .marketplace_info_name {
@@ -334,7 +341,7 @@
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 38px;
 }
 .marketplace_info_flexgrow {
   flex-grow: 1;
@@ -355,24 +362,248 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  max-width: 552px;
-    min-height: 120px
+  max-width: 750px;
+  min-height: 120px;
+  font-size: 18px;
 }
 
 .marketplace_description_eth {
-  margin-left: 500px;
+  margin-left: 300px;
+  font-size: 23px;
 }
 
 .marketplace_description_dollars {
+  font-size: 23px;
+  
+}
+
+.marketplace_contents_container {
+  font-family: sans-serif;
+  display: grid;
 }
 
 
+.marketplace_contents_dividing {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding-top: 50px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.413);
+}
+
+.marketplace_contents_b2c {
+  margin-right: 10px;
+}
+.marketplace_contents_b2c > button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  border-bottom: 3px solid blue;
+}
+.marketplace_contents_b2c:hover {
+
+  
+}
+.marketplace_contents_p2p {
+  margin-left: 10px;
+}
+
+.marketplace_contents_p2p > button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  
+}
+
+.marketplace_contents_p2p:hover {
+}
 
 
+.marketplace_contents {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+
+}
+
+.marketplace_contents_aside {
+  display: grid;
+  justify-items: center;
+  border-right: 0.5px solid rgba(0, 0, 0, 0.413);
+
+  height: calc(100vh - 40px);
+}
+
+.marketplace_contents_nfts {
+  background-color: whitesmoke;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+  grid-gap: 24px;
+  gap: 24px;
+  justify-items: center;
+  padding: 16px;
+  
+}
+
+.marketplace_contents_nft_container {
+  display: flex;
+  justify-content: baseline;
+  flex-direction: column;
+  width: 220px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  padding: 8px;
+  height: 300px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #dee2ff;
+  
+}
+.marketplace_contents_nft_container:hover {
+  box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
+  transition: 300ms;
+}
+.marketplace_contents_nft_img {
+  border-radius: 10px;
+  position: relative;
+  background: url('../image/TokyoNFT2.jpg');
+  background-repeat: none;
+  overflow: hidden;
+  width: 220px;
+  height: 220px;
+}
+
+.marketplace_contents_nft_img::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(51, 43, 48, 0.85);
+}
+.marketplace_contents_whiteimg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  display: flex;
+}
+
+.marketplace_contents_whiteimg span {
+  width: 20%;
+  height: 105%;
+  background: url("../image/TokyoNFT2.jpg");
+  transition: 0.3s ease;
+  
+  align-items: center;
+  background-size: cover;
+}
+.marketplace_contents_whiteimg.hover span:nth-child(1) {
+  border-bottom-left-radius: 5px;
+  background-position: 0%;
+  transition-delay: 0s;
+
+}
+.marketplace_contents_whiteimg span:nth-child(2) {
+  background-position: 25%;
+  transition-delay: 50ms;
+}
+.marketplace_contents_whiteimg span:nth-child(3) {
+  background-position: 50%;
+  transition-delay: 100ms;
+}
+.marketplace_contents_whiteimg span:nth-child(4) {
+  background-position: 75%;
+  transition-delay: 150ms;
+}
+.marketplace_contents_whiteimg span:nth-child(5) {
+  border-bottom-right-radius: 5px;
+  background-position: 100%;
+  transition-delay: 200ms;
+}
 
 
+.marketplace_contents_whiteimg:hover > span {
+  transform: translateY(-100%);
+}
 
 
+.marketplace_contents_contentwrapper {
+  
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  height: 220px;
+  width: 100%;
+  transform: translateY(100%);
+}
+
+.marketplace_contents_whiteimg:hover .marketplace_contents_contentwrapper{
+  transform: translateY(0%);
+  transition: 0.3s ease-in-out;
+  transition-delay: 0.1s;
+}
+
+.marketplace_contents_contentwrapper h2{
+  font-size: 30px;
+}
+
+.marketplace_contents_contentwrapper p {
+  font-family: 'Roboto',sans-serif;
+  line-height: 25px;
+}
+.marketplace_contents_nft_info_container {
+  font-family:"Poppins";
+  display: flex;
+  justify-content: space-between;
+}
+
+.marketplace_contents_nft_info {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+}
+
+.marketplace_contents_nft_seminame {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(128, 128, 128, 0.658);
+}
+
+.marketplace_contents_nft_name {
+  padding-top: 4px;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.marketplace_contents_nft_values {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 300;
+}
+
+.marketplace_contents_nft_price {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(128, 128, 128, 0.658);
+}
+
+.marketplace_contents_nft_eth {
+  padding-top: 4px;
+  font-weight: 300;
+  color: rgb(254, 183, 96);
+}
 /***********MarketPlace_Info_Css**************/
 
 
