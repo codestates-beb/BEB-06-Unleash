@@ -17,7 +17,6 @@ const MarketPlaceContents = () => {
         <aside className="marketplace_contents_aside">11</aside>
         <div className="marketplace_contents_nfts">
           {Array.from(Array(30), x => <MarketPlaceNft />)}
-
         </div>
       </div>
     </div>

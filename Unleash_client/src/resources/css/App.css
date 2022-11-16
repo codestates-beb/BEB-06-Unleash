@@ -78,6 +78,8 @@
   height: 100vh;
 }
 
+
+
 .landing_gradiant_h::before {
   --size: 0;
   content: '';
@@ -87,13 +89,28 @@
   width: var(--size);
   height: var(--size);
   /*이런식으로 gradient를 넣을 수도 있다.*/
-  background: radial-gradient(circle closest-side,  rgba(63, 235, 251, 0.524) 0%, rgba(252, 70, 91, 0.14) 100%, transparent);
+  background: linear-gradient(#37eba9d9 0%, #5b37eb 100%);
   transform: translate(-50%, -50%);
   transition: 0.13s ease-out;
 }
+
+
 /*그라데이션 크기 설정.*/
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* rotate도 하면 좋은데 easing을 설정하면 마우스커서대로 안감...*/
 .landing_gradiant_h:hover::before {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  filter: blur(calc(var(--size) / 5));
+  --speed: 10s;
   --size: 500px;
+  animation: rotate var(--speed) var(--easing) alternate infinite;
 }
 
 
