@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import '../resources/css/App.css'
-import image from '../resources/image/4.jpg'
 
 const LandingPage = () => {
+  const [bgImg, setBgImg] = useState('landing_bgImg');
+  const handleLogoChange = () => {
+    setBgImg('landing_bgImg1')
+  }
   return (
     <>
       <div className="landing">
         <h1 className="landing_logo">𝙐𝙣𝙡𝙚𝙖𝙨𝙝</h1>
-        <img className="landing_bgImg" src={image} alt=""/>
-        <button className="landing_button">Unleash your travel</button>
+        <div className={bgImg} />
+        <button className="landing_button" onClick={handleLogoChange}>Unleash your travel</button> {/*버튼을 누르면 bgImg classanme이 bgImg1로 바뀜. */}
       </div>
     </>
   );
