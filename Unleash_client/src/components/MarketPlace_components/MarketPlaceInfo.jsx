@@ -1,5 +1,5 @@
 import React from "react";
-import city from '../../resources/image/TokyoNFT2.jpg'
+import city from '../../resources/image/newyork.png'
 // 나중에 해야할것.
 // 전역상태에 따라 도시 이름도 바뀌어야하기 때문에 Ticket To City 부분 수정.
 // 디테일정보 수정 깃허브주소 이런거 넣으면될듯.
@@ -14,7 +14,7 @@ const MarketPlaceInfo = () => {
     <>
       <div className="marketplace_info">
         <div className="marketplace_info_container">
-          <div className="marketplace_info_avatar" style={{background: `url(${city})`}}/>
+          <div className="marketplace_info_avatar" style={{background: `url(${city})`, backgroundSize: "cover"}}/>
           <span className="marketplace_info_name">Ticket To Tokyo</span>
           <div className="marketplace_info_flexgrow" />
           <div className="marketplace_info_detail">디테일정보</div>

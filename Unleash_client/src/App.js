@@ -19,7 +19,7 @@ function App() {
           <Route path='/mainpage' element={<MainPage />} />
           <Route path='/mypage' element={<MyPage  />}  />
           <Route path='/tiketingpage' element={<TicketingPage />}/>
-          <Route path='/marketplace' element={<MarketPlace />}/>
+          <Route path='/marketplace/:id' element={<MarketPlace />}/>
           <Route path='/nftdetailpage' element={<NftDetailPage />}/>
           <Route path='/sellPage' element={<SellPage />}/>
           <Route path='/loadingpage' element={<LoadingPage />}/>

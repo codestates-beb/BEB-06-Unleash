@@ -345,10 +345,10 @@
 
 .marketplace_info_avatar {
   position: relative;
+  object-fit: cover;
   width: 220px;
   height: 220px;
   border-radius: 30px;
-  background: url('../image/loading.jpg');
   cursor: pointer;
   box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
 }
@@ -437,8 +437,9 @@
   cursor: pointer;
 }
 
+/***********MarketPlace_Info_Css**************/
 
-
+/***********MarketPlace_Contents_Css**************/
 
 .marketplace_contents {
   display: grid;
@@ -451,25 +452,65 @@
   justify-items: center;
   border-right: 0.5px solid rgba(0, 0, 0, 0.413);
   padding-top: 30px;
-
   height: calc(100vh);
 }
 
-.marcketplace_contents_input {
-  align-items: center;
+.marcketplace_contents_sidebar_container {
+  display: block;
+  width: 220px;
   justify-content: center;
-  display: flex;
 }
 
-.marketplace_contents_input_s {
+.marketplace_contents_sidebar_header {
+  display: flex;
+  flex-direction: column;
+}
+
+.marketplace_contents_collapse {
+  width: 220px;
+  height: 40px;
+}
+.marketplace_contents_destination {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.marketplace_contents_destination span {
+  font-size: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
   
 }
 
+.marketplace_contents_class {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.marketplace_contents_class button {
+  width: 220px;
+  height: 40px;
+}
 
+.marketpace_contents_class_value {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
+.marketpace_contents_class_value span {
+  font-size: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
 
+/***********MarketPlace_Contents_Css**************/
 
-
+/***********MarketPlace_NFT_Css**************/
 
 .marketplace_contents_nfts {
   background-color: whitesmoke;
@@ -640,7 +681,11 @@
   font-weight: 300;
   color: rgb(254, 183, 96);
 }
-/***********MarketPlace_Info_Css**************/
+
+/***********MarketPlace_NFT_Css**************/
+
+/***********MarketPlaceCss**************/
 
 
-/**************************************/
+
+/***********MarketPlace_Account_Css**************/

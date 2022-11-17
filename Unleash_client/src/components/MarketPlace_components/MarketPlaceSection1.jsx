@@ -25,7 +25,7 @@ const MarketPlaceSection1 = () => {
     <>
       <div className="marketplace_section1">
         <div className="marketplace_section1_img" style={{background: `url(${city})`}}>
-          <span className="marketplace_section1_span">Tokyo</span>
+          <span className="marketplace_section1_span">New York</span>
         </div>
       </div>
     </>
