@@ -14,7 +14,6 @@ const MarketPlaceSection1 = () => {
   // city값에 전역으로 설정된 === 필터링된 도착지. city를 대입해야함.
   // const context = useContext(AppContext); -> city이름이옴.
 
-
   // city 필터.
   /*
   setSectionImg(() => a.filter((item) => {

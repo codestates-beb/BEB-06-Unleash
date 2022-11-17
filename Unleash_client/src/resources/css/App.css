@@ -108,6 +108,7 @@
 .landing_gradiant_h:hover::before {
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   filter: blur(calc(var(--size) / 5));
+  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
   --speed: 10s;
   --size: 500px;
   animation: rotate var(--speed) var(--easing) alternate infinite;
@@ -406,36 +407,37 @@
   flex-direction: row;
   padding-top: 50px;
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.413);
+
 }
 
 .marketplace_contents_b2c {
+  padding-bottom: 10px;
   margin-right: 10px;
 }
-.marketplace_contents_b2c > button {
+
+.marketplace_contents_p2p {
+  padding-bottom: 10px; 
+  margin-left: 10px;
+}
+
+.marketplace_b2c_button_click {
   background: none;
   border: none;
   font-size: 22px;
   cursor: pointer;
   border-bottom: 3px solid blue;
-}
-.marketplace_contents_b2c:hover {
-
+  border-radius: 3px;
   
 }
-.marketplace_contents_p2p {
-  margin-left: 10px;
-}
 
-.marketplace_contents_p2p > button {
+.marketplace_button_default {
   background: none;
   border: none;
   font-size: 22px;
   cursor: pointer;
-  
 }
 
-.marketplace_contents_p2p:hover {
-}
+
 
 
 .marketplace_contents {
@@ -444,13 +446,30 @@
 
 }
 
-.marketplace_contents_aside {
+.marketplace_contents_sidebar {
   display: grid;
   justify-items: center;
   border-right: 0.5px solid rgba(0, 0, 0, 0.413);
+  padding-top: 30px;
 
-  height: calc(100vh - 40px);
+  height: calc(100vh);
 }
+
+.marcketplace_contents_input {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.marketplace_contents_input_s {
+  
+}
+
+
+
+
+
+
 
 .marketplace_contents_nfts {
   background-color: whitesmoke;
@@ -515,10 +534,10 @@
   height: 105%;
   background: url("../image/TokyoNFT2.jpg");
   transition: 0.3s ease;
-  
   align-items: center;
   background-size: cover;
 }
+
 .marketplace_contents_whiteimg.hover span:nth-child(1) {
   border-bottom-left-radius: 5px;
   background-position: 0%;

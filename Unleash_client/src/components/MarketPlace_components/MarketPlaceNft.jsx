@@ -1,18 +1,15 @@
 import React from "react";
 
 const MarketPlaceNft = () => {
+  // state에 빈배열 넣어서 NFT100개 면 다 false였다가,
 
   //const [animated, setAnimated] = useState(false);
   // hover한 상태에서 transition이 끝날 경우에.
-/*     const handleMouseEnter = (e) => {
-      e.target.classList.add("hover");
-    }
-    const handleTransitionEnd = (e) => {
-      e.target.classList.remove("hover");
-    } */
+
+  //nft class 별로, shadow다르기 first gold business neon green economy black
+
 
   return (
-    <>
       <div className="marketplace_contents_nft_container">
         <div className="marketplace_contents_nft_img">
           <div className="marketplace_contents_whiteimg">
@@ -34,7 +31,6 @@ const MarketPlaceNft = () => {
           </div>
         </div>
       </div>
-     </>
   );
 }
 

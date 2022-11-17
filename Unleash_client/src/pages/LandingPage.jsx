@@ -9,8 +9,8 @@ const LandingPage = () => {
   }
   const handleMouseOver = (e) => {
     let rect = e.target.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    let y = e.clientY - rect.top;
+    let x = e.clientX - rect.left - 150;
+    let y = e.clientY - rect.top - 150;
     e.target.style.setProperty('--x', x + 'px');
     e.target.style.setProperty('--y', y + 'px');
   }
