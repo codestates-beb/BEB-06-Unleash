@@ -15,7 +15,7 @@ const MarketPlaceNft = () => {
         <Tilt 
         glareBorderRadius={0}
         glareEnable={true}
-        glareMaxOpacity={1}
+        glareMaxOpacity={0.5}
         glarePosition="all"
         transitionSpeed={100}
         glareColor="white">
