@@ -521,6 +521,10 @@
   justify-items: center;
   padding: 16px;
 }
+.default_nft_container::before {
+  width: 220px;
+  background-color: #000;
+}
 
 .default_nft_container {
   display: flex;
