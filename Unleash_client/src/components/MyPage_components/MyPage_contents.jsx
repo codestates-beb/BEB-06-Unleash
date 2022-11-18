@@ -1,5 +1,5 @@
 import React from "react";
-import MarketPlaceNft from "../MarketPlace_components/MarketPlaceNft";
+import MarketPlaceNft from "../NFTs/DefaultNft";
 
 const MyPageContents = () => {
   const arr = Array.from(Array(20));

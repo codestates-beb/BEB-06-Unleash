@@ -522,7 +522,7 @@
   padding: 16px;
 }
 
-.marketplace_contents_nft_container {
+.default_nft_container {
   display: flex;
   justify-content: baseline;
   flex-direction: column;
@@ -535,13 +535,13 @@
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px #dee2ff;
-  
+
 }
-.marketplace_contents_nft_container:hover {
+.default_nft_container:hover {
   box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
   transition: 300ms;
 }
-.marketplace_contents_nft_img {
+.default_nft_img {
   border-radius: 10px;
   position: relative;
   background: url('../image/TokyoNFT2.jpg');
@@ -551,7 +551,7 @@
   height: 220px;
 }
 
-.marketplace_contents_nft_img::before {
+.default_nft_img::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -560,7 +560,7 @@
   left: 0;
   background-color: rgba(51, 43, 48, 0.85);
 }
-.marketplace_contents_whiteimg {
+.default_nft_whiteimg {
   position: absolute;
   top: 0;
   left: 0;
@@ -569,7 +569,7 @@
   display: flex;
 }
 
-.marketplace_contents_whiteimg span {
+.default_nft_whiteimg span {
   width: 20%;
   height: 105%;
   background: url("../image/TokyoNFT2.jpg");
@@ -578,37 +578,37 @@
   background-size: cover;
 }
 
-.marketplace_contents_whiteimg.hover span:nth-child(1) {
+.default_nft_whiteimg.hover span:nth-child(1) {
   border-bottom-left-radius: 5px;
   background-position: 0%;
   transition-delay: 0s;
 
 }
-.marketplace_contents_whiteimg span:nth-child(2) {
+.default_nft_whiteimg span:nth-child(2) {
   background-position: 25%;
   transition-delay: 50ms;
 }
-.marketplace_contents_whiteimg span:nth-child(3) {
+.default_nft_whiteimg span:nth-child(3) {
   background-position: 50%;
   transition-delay: 100ms;
 }
-.marketplace_contents_whiteimg span:nth-child(4) {
+.default_nft_whiteimg span:nth-child(4) {
   background-position: 75%;
   transition-delay: 150ms;
 }
-.marketplace_contents_whiteimg span:nth-child(5) {
+.default_nft_whiteimg span:nth-child(5) {
   border-bottom-right-radius: 5px;
   background-position: 100%;
   transition-delay: 200ms;
 }
 
 
-.marketplace_contents_whiteimg:hover > span {
+.default_nft_whiteimg:hover > span {
   transform: translateY(-100%);
 }
 
 
-.marketplace_contents_contentwrapper {
+.default_nft_contents_contentwrapper {
   
   position: absolute;
   display: flex;
@@ -623,59 +623,61 @@
   transform: translateY(100%);
 }
 
-.marketplace_contents_whiteimg:hover .marketplace_contents_contentwrapper{
+.default_nft_whiteimg:hover .default_nft_contents_contentwrapper{
   transform: translateY(0%);
   transition: 0.3s ease-in-out;
   transition-delay: 0.1s;
 }
 
-.marketplace_contents_contentwrapper h2{
+.default_nft_contents_contentwrapper h2{
   font-size: 30px;
+  text-shadow: 0 0 30px #ffffff;
 }
 
-.marketplace_contents_contentwrapper p {
-  font-family: 'Roboto',sans-serif;
+.default_nft_contents_contentwrapper p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 25px;
+  
 }
-.marketplace_contents_nft_info_container {
+.default_nft_info_container {
   font-family:"Poppins";
   display: flex;
   justify-content: space-between;
 }
 
-.marketplace_contents_nft_info {
+.default_nft_info {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
   padding-left: 5px;
 }
 
-.marketplace_contents_nft_seminame {
+.default_nft_seminame {
   font-size: 12px;
   font-weight: 300;
   color: rgba(128, 128, 128, 0.658);
 }
 
-.marketplace_contents_nft_name {
+.default_nft_name {
   padding-top: 4px;
   font-size: 18px;
   font-weight: 300;
 }
 
-.marketplace_contents_nft_values {
+.default_nft_values {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
   padding-right: 300;
 }
 
-.marketplace_contents_nft_price {
+.default_nft_price {
   font-size: 12px;
   font-weight: 300;
   color: rgba(128, 128, 128, 0.658);
 }
 
-.marketplace_contents_nft_eth {
+.default_nft_eth {
   padding-top: 4px;
   font-weight: 300;
   color: rgb(254, 183, 96);

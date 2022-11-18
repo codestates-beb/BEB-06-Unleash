@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import MarketPlaceNft from "./MarketPlaceNft";
+import MarketPlaceNft from "../NFTs/DefaultNft";
 import MarketPlaceAside from "./MarketPlaceAside"
 
 const MarketPlaceContents = () => {

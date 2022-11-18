@@ -21,7 +21,7 @@ function App() {
           <Route path='/tiketingpage' element={<TicketingPage />}/>
           <Route path='/marketplace/:id' element={<MarketPlace />}/>
           <Route path='/nftdetailpage' element={<NftDetailPage />}/>
-          <Route path='/sellPage' element={<SellPage />}/>
+          <Route path='/sellpage' element={<SellPage />}/>
           <Route path='/loadingpage' element={<LoadingPage />}/>
           <Route path='/tiketchangepage' element={<TiketChangePage />}/>
         </Routes>
