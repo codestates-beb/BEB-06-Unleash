@@ -45,6 +45,7 @@
   }
 }
 
+
 .landing_bgImg {
   position: absolute;
   top: 0;
@@ -288,51 +289,107 @@
   height: 100%;
   background-size: 100% 100%;
   opacity: 0;
-  transition: 1s ease-in-out;
-  transition-delay: 2s;
+  transition: 1.5s ease-in-out;
+  transition-delay: 1s;
   display: inline-block;
   transform:translateY(-100%);
 }
-
+.mainpage_landing {
+  width: 100vw;
+  height: 100vh;
+}
 .mainpage_landing_bg {
-  animation:slide 3s ease-in-out;
-  background-image: linear-gradient(-180deg, #386289 33%, rgb(222, 234, 242) 33% , #8faccb 33% );
+  transition: none;
+  transition-delay: none;
   bottom:0;
-  left:-50%;
   opacity:1;
   position:fixed;
-  right:-50%;
   top:0;
+  left: -50%;
+  right: -50%;
   z-index:-1;
-  animation-fill-mode: forwards;
-  transition: 1.3s ease-in-out;
+}
+
+.bg1 {
+  z-index: -1;
+  animation:slide1 1s ease-in-out;
 }
 
 .bg2 {
-  
-  background-color: #386289;
-  border-radius: 70% 50% 0% 0%;
-  animation-duration:1s;
+  z-index: -2;
+  animation:slide2 1.5s ease-in-out;
 }
 
 .bg3 {
-  
-  background-color: #386289;
-  border-radius: 70% 50% 0% 0%;
-  animation:slide 0.5s ease-in-out;
-  animation-duration:2s;
+  z-index: -3;
+  animation:slide3 2s ease-in-out;
 }
 
+.bg4 {
+  z-index: -4;
+  animation:slide4 2.5s ease-in-out;
+}
 
-@keyframes slide {
+@keyframes slide1 {
   0% {
+    background-color: #e63946;
+    border-radius: 150% 150% 0% 0%;
     transform:translateY(-100%);
   }
   100% {
+    border-radius: 10% 10% 0% 0%;
     transform:translateY(100%);
-    transform:scaleY(1.2);
+    background-color: #e63946;
    }
 }
+@keyframes slide2 {
+  0% {
+    background-color: #f1faee;
+    border-radius: 100% 800% 0% 0%;
+    transform:translateY(-100%);
+  }
+  95% {
+    border-radius: 30% 30% 0% 0%;
+    
+  }
+  100% {
+    background-color: #f1faee;
+    border-radius: 30% 30% 0% 0%;
+    transform:translateY(100%);
+   }
+}
+@keyframes slide3 {
+  0% {
+    background-color: #a8dadc;
+    border-radius: 800% 100% 0% 0%;
+    transform:translateY(-100%);
+  }
+  90% {
+    border-radius: 30% 30% 0% 0%;
+    
+  }
+  100% {
+    background-color: #a8dadc;
+    border-radius: 30% 30% 0% 0%;
+    transform:translateY(100%);
+   }
+}
+@keyframes slide4 {
+  0% {
+    background-color: #457b9d;
+    border-radius: 100% 800% 0% 0%;
+    transform:translateY(-100%);
+  }
+  85% {
+    border-radius: 30% 30% 0% 0%;
+  }
+  100% {
+    border-radius: 30% 30% 0% 0%;
+    transform:translateY(100%);
+    background-color: #457b9d;
+   }
+}
+
 
 .active .mainpage_landing_bg {
   opacity: 1;
@@ -343,7 +400,7 @@
 
 .active .mainPage {
   transform:translateY(-100%);
-  opacity: 0.5;
+  opacity: 1;
 }
  .entered .mainPage {
   transform:translateY(0%);
