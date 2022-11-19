@@ -733,7 +733,6 @@
 .marketplace_contents {
   display: grid;
   grid-template-columns: 1fr 5fr;
-
 }
 
 .marketplace_contents_sidebar {
@@ -804,7 +803,7 @@
 .marketplace_contents_nfts {
   background-color: whitesmoke;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
   grid-gap: 24px;
   gap: 24px;
   justify-items: center;
@@ -816,7 +815,7 @@
   display: flex;
   justify-content: baseline;
   flex-direction: column;
-  width: 220px;
+  width: 250px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -830,7 +829,7 @@
   display: flex;
   justify-content: baseline;
   flex-direction: column;
-  width: 220px;
+  width: 250px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -848,8 +847,10 @@
   background: url('../image/TokyoNFT2.jpg');
   background-repeat: none;
   overflow: hidden;
-  width: 220px;
-  height: 220px;
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  height: 300px;
 }
 
 .default_nft_img::before {
@@ -866,7 +867,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 220px;
+  height: 300px;
   display: flex;
 }
 
@@ -902,6 +903,11 @@
   background-position: 100%;
   transition-delay: 200ms;
 }
+.default_nft_whiteimg span:nth-child(6) {
+  border-bottom-right-radius: 5px;
+  background-position: 100%;
+  transition-delay: 250ms;
+}
 
 .default_nft_poka:hover .default_nft_whiteimg:hover > span  {
   transform: translateY(-100%);
@@ -913,8 +919,8 @@
 .default_nft_poka {
   z-index: 1;
   position: absolute;
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 300px;
 	background: url("https://github.com/simeydotme/pokemon-cards-css/blob/main/public/img/angular.png?raw=true");
   background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
   filter: brightness(2) contrast(1) saturate(1);

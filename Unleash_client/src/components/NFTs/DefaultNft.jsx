@@ -8,7 +8,7 @@ const DefaultNft = () => {
   // hover한 상태에서 transition이 끝날 경우에.
 
   //nft class 별로, shadow다르기 first gold business neon green economy black
-  const arr = Array.from(Array(5));
+  const arr = Array.from(Array(6));
 
 
   return ( 

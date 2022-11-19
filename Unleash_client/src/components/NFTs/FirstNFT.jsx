@@ -2,7 +2,7 @@ import React from "react";
 import Tilt from 'react-parallax-tilt';
 
 const FirstNFT = () => {
-  const arr = Array.from(Array(5));
+  const arr = Array.from(Array(6));
   const glare2 = "rgb(255, 119, 115) 10%, rgba(255,237,95,1) 20%, rgba(168,255,95,1) 30%, rgba(131,255,247,1) 40%, rgba(120,148,255,1) 50%, rgb(216, 117, 255) 60%, rgb(255, 119, 115) 70%, rgb(255, 119, 115) 80%, rgba(255,237,95,1) 90%, rgba(168,255,95,1) 100%"
 
     return (
