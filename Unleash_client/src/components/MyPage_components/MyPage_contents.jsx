@@ -1,5 +1,7 @@
 import React from "react";
 import MarketPlaceNft from "../NFTs/DefaultNft";
+import FirstNFT from "../NFTs/FirstNFT";
+import BusinessNFT from "../NFTs/BusinessNFT";
 
 const MyPageContents = () => {
   const arr = Array.from(Array(20));
@@ -12,6 +14,16 @@ const MyPageContents = () => {
         <span>selled</span>
       </div>
       <div className="mypage_contents_nfts">
+        <FirstNFT />
+        <FirstNFT />
+        <FirstNFT />
+        <FirstNFT />
+        <BusinessNFT />
+        <BusinessNFT />
+        <BusinessNFT />
+        <BusinessNFT />
+        <BusinessNFT />
+        <BusinessNFT />
           {arr.map((item, idx) => {return <MarketPlaceNft key={idx} />})}
         </div>
     </div>

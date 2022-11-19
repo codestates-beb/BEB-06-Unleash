@@ -1,32 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import Tilt from 'react-parallax-tilt';
 
-const MarketPlaceNft = () => {
+const DefaultNft = () => {
   // state에 빈배열 넣어서 NFT100개 면 다 false였다가,
 
   //const [animated, setAnimated] = useState(false);
   // hover한 상태에서 transition이 끝날 경우에.
 
   //nft class 별로, shadow다르기 first gold business neon green economy black
+  const arr = Array.from(Array(5));
 
 
   return ( 
       <>
-        <Tilt 
-        glareBorderRadius={0}
-        glareEnable={true}
-        glareMaxOpacity={0.5}
-        glarePosition="all"
-        transitionSpeed={100}
-        glareColor="white">
-          <div className="default_nft_container">
-            <div className="default_nft_img">
+        <Tilt glareEnable={true} glareMaxOpacity={0.5} glarePosition="all"  transitionSpeed={400} scale={1.1} tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="white">
+          <div className="default_nft_container" >
+            <div className="default_nft_img" >
               <div className="default_nft_whiteimg">
-                <span></span><span></span><span></span><span></span><span></span>
+                {arr.map((item, idx) => <span key={idx}></span>)}
                 <div className="default_nft_contents_contentwrapper">
                   <h2>To Tokyo</h2>
                   <p>tokyo is great place to visit</p>
                 </div>
+              <div className="default_nft_poka" />
               </div>
             </div>
             <div className="default_nft_info_container">
@@ -46,4 +42,4 @@ const MarketPlaceNft = () => {
   );
 }
 
-export default MarketPlaceNft;
+export default DefaultNft;

@@ -101,7 +101,7 @@ const MainPage = () => {
             </div>
             <div className="mainpage_landing">
               <div className="mainpage_landing_bg" ></div>
-              {/* <div className="mainpage_landing_bg bg2"></div> */}
+              <div className="mainpage_landing_bg bg2"></div>
               <div className="mainpage_landing_bg bg3"></div>
             </div>
          </div>

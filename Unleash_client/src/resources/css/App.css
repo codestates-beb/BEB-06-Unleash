@@ -274,41 +274,71 @@
   }
 }
 
-/*background color를 rgb()/
-/**************************************/
+/*background color를 rgb()*/
 
 
 
+/************MainPage***************/
 
 
 
+.mainPage {
+  background: url("../image/main.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  opacity: 0;
+  transition: 1s ease-in-out;
+  transition-delay: 2s;
+  display: inline-block;
+  transform:translateY(-100%);
+}
 
-/* .bg2 {
-  animation-direction:alternate-reverse;
-  animation-duration:0.6s;
-} */
+.mainpage_landing_bg {
+  animation:slide 3s ease-in-out;
+  background-image: linear-gradient(-180deg, #386289 33%, rgb(222, 234, 242) 33% , #8faccb 33% );
+  bottom:0;
+  left:-50%;
+  opacity:1;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+  animation-fill-mode: forwards;
+  transition: 1.3s ease-in-out;
+}
+
+.bg2 {
+  
+  background-color: #386289;
+  border-radius: 70% 50% 0% 0%;
+  animation-duration:1s;
+}
 
 .bg3 {
+  
+  background-color: #386289;
+  border-radius: 70% 50% 0% 0%;
   animation:slide 0.5s ease-in-out;
-  animation-duration:1.3s;
+  animation-duration:2s;
 }
 
 
 @keyframes slide {
   0% {
-    transform:translateY(-75%);
+    transform:translateY(-100%);
   }
   100% {
-    transform:translateY(75%);
+    transform:translateY(100%);
     transform:scaleY(1.2);
    }
 }
 
 .active .mainpage_landing_bg {
-  opacity: 0.7;
+  opacity: 1;
 }
  .entered .mainpage_landing_bg {
-  opacity: 0;
+  opacity: 1;
 }  
 
 .active .mainPage {
@@ -327,14 +357,14 @@
 }
 
 .mainPage_ticketing_box {
-  width: 1300px;
-  height: 250px;
+  width: 1500px;
+  height: 300px;
   background-color: #f5f5ffb8;
   box-shadow: 2px 5px 5px #878787;
   margin: 0 auto;
-  margin-top: 440px;
+  margin-top: 700px;
   border-radius: 5px;
-  animation: fadein 1s cubic-bezier(.17,.67,.63,.3);
+  animation:fadein 1s cubic-bezier(.17,.67,.63,.3);
   animation-delay: 1.3s;
   opacity: 0;
   animation-fill-mode: forwards;
@@ -351,6 +381,139 @@
     opacity: 1;
   }
 }
+
+
+
+.mainPage_ticketing_text {
+  margin-top: 40px;
+  display: inline-block;
+  margin-left: 80px;
+  font-size: 25px;
+  color: #455d7f;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #455d7f;
+  width: 80px;
+  text-align: center;
+}
+
+
+.mainPage_ticketing_detail_form {
+  width: 160px;
+  height: 60px;
+  margin-top: 70px;
+  margin-left: 40px;
+  display: inline-block;
+  background-color: white;
+  box-shadow: 1px 2px 6px #c7b9b9;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+}
+
+.mainPage_ticketing_name {
+  display: inline-block;
+  padding: 7px 0 0 15px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #465e7f;
+  width: 100%;
+}
+
+.mainPage_ticketing_select {
+  display: inline-block;
+  margin: 7px 0 0 15px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #bdbfc3;
+  width: 100%;
+}
+
+.mainPage_ticketing_detail_box {
+  padding-left: 34px;
+}
+
+.mainPage_tiketing_input {
+  outline: 0;
+  border: 0;
+  width: 160px;
+  height: 60px;
+  margin-top: 70px;
+  margin-left: 40px;
+  display: inline-block;
+  background-color: white;
+  box-shadow: 1px 2px 6px #c7b9b9;
+  cursor: pointer;
+  border-radius: 4px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  padding-top: 27px;
+  font-size: 13px;
+}
+
+.mainPage_tiketing_button {
+  width: 160px;
+  height: 60px;
+  margin-top: 70px;
+  margin-left: 40px;
+  display: inline-block;
+  border-radius: 4px;
+  border: 2px solid #475f7f;
+  text-align: center;
+  line-height: 60px;
+  font-size: 20px;
+  vertical-align: top;
+  color: #475f7f;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mainPage_tiketting_input_text {
+  position: absolute;
+  top: 77px;
+  left: 57px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #465e7f;
+}
+
+.mainPage_tiketting_calendar_box {
+  width: 550px;
+  position: relative;
+}
+
+.react-calendar {
+  position: absolute;
+  top: 18px;
+  left: -88px;
+}
+
+.mainPage_ticketing_select_box {
+  position: absolute;
+  width: 160px;
+  background-color: white;
+  border: 1px solid #b3b7bd;
+  top: 61px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.mainPage_ticketing_select_text {
+    width: 160px;
+    height: 40px;
+    padding-left: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #2f3e55;
+    box-sizing: border-box;
+
+}
+
+.mainPage_ticketing_select_text:hover {
+  background-color:#2f3e55 ;
+  color:white;
+}
+
 
 /***********MarketPlaceCss**************/
 
@@ -590,10 +753,7 @@
   justify-items: center;
   padding: 16px;
 }
-.default_nft_container::before {
-  width: 220px;
-  background-color: #000;
-}
+
 
 .default_nft_container {
   display: flex;
@@ -605,15 +765,26 @@
   position: relative;
   padding: 8px;
   height: 300px;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px #dee2ff;
+}
 
+.default_nft_container_first {
+  display: flex;
+  justify-content: baseline;
+  flex-direction: column;
+  width: 220px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  padding: 8px;
+  height: 300px;
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 0px 2px white ,0 0px 4px white, 0 0px 8px white,0 0px 16px white, 0 0px 32px white;
 }
-.default_nft_container:hover {
-  box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
-  transition: 300ms;
-}
+
+
 .default_nft_img {
   border-radius: 10px;
   position: relative;
@@ -645,13 +816,13 @@
 .default_nft_whiteimg span {
   width: 20%;
   height: 105%;
-  background: url("../image/TokyoNFT2.jpg");
-  transition: 0.3s ease;
+  background: url("../image/paris.png");
+  transition: 0.4s ease;
   align-items: center;
   background-size: cover;
 }
 
-.default_nft_whiteimg.hover span:nth-child(1) {
+.default_nft_whiteimg span:nth-child(1) {
   border-bottom-left-radius: 5px;
   background-position: 0%;
   transition-delay: 0s;
@@ -675,14 +846,69 @@
   transition-delay: 200ms;
 }
 
+.default_nft_poka:hover .default_nft_whiteimg:hover > span  {
+  transform: translateY(-100%);
+}
 
 .default_nft_whiteimg:hover > span {
   transform: translateY(-100%);
 }
+.default_nft_poka {
+  z-index: 1;
+  position: absolute;
+  width: 220px;
+  height: 220px;
+	background: url("https://github.com/simeydotme/pokemon-cards-css/blob/main/public/img/angular.png?raw=true");
+  background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
+  filter: brightness(2) contrast(1) saturate(1);
+  opacity: 0.1 ;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.business_nft_poka {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+	background: url("../image/angular.png"),
+      repeating-linear-gradient( 33deg,
+      rgb(255, 119, 115) 5%, rgba(255,237,95,1) 10%, rgba(168,255,95,1) 15%,
+      rgba(131,255,247,1) 20%,
+      rgba(120,148,255,1) 25%,
+      rgb(216, 117, 255) 30%,
+      rgb(255, 119, 115) 35%
+      );
+
+  background-blend-mode: exclusion, hue, hard-light;
+  background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
+  filter: brightness(0.7) contrast(2.6) saturate(3);
+  opacity: 0.2;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.first_nft_poka {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+	background: url('../image/business.jpeg'),
+      repeating-linear-gradient( 232deg,
+      rgb(255, 119, 115) 5%, rgba(255,237,95,1) 10%, rgba(168,255,95,1) 15%,
+      rgba(131,255,247,1) 20%, 
+      rgba(120,148,255,1) 25%, 
+      rgb(216, 117, 255) 30%, 
+      rgb(255, 119, 115) 35% );
+  
+  background-blend-mode: exclusion, hue, hard-light;
+  background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
+  filter: brightness(0.7) contrast(2) saturate(1.6);
+  opacity: 0.4;
+  justify-content: center;
+  border-radius: 5px;
+}
 
 
 .default_nft_contents_contentwrapper {
-  
   position: absolute;
   display: flex;
   justify-content: center;
@@ -703,8 +929,9 @@
 }
 
 .default_nft_contents_contentwrapper h2{
+  z-index: 1;
   font-size: 30px;
-  text-shadow: 0 0 30px #ffffff;
+  text-shadow: 0 2 10px #ffffff;
 }
 
 .default_nft_contents_contentwrapper p {
@@ -962,7 +1189,6 @@
   display: flex;
   flex-direction: row;
   padding: 20px 10px;
-  
   margin-left: 64px;
   margin-top: 50px;
   margin-bottom: 30px;
@@ -978,240 +1204,17 @@
   grid-gap: 24px;
   gap: 24px;
   justify-items: center;
-  padding: 0 60px
+  padding: 0 60px;
+  
+  
 }
 /***********MarketPlace_mypage_Css**************/
 
 
-/************MainPage***************/
 
 
 
-.mainPage {
-  background: url("../image/main.jpg");
-  width: 100%;
-  height: 100%;
-  background-size: 100% 100%;
-  opacity: 0;
-  transition: 1s ease-in-out;
-  transition-delay: 0.3s;
-  display: inline-block;
-  transform:translateY(-100%);
-}
-
-.mainpage_landing_bg {
-  animation:slide 0.8s ease-in-out;
-  background-image: linear-gradient(-180deg, #386289 33%, rgb(222, 234, 242) 33% , #8faccb 33% );
-  bottom:0;
-  left:-50%;
-  opacity:.7;
-  position:fixed;
-  right:-50%;
-  top:0;
-  z-index:-1;
-  animation-fill-mode: forwards;
-  transition: 1.3s ease-in-out;
-}
-
-/* .bg2 {
-  animation-direction:alternate-reverse;
-  animation-duration:0.6s;
-} */
-
-.bg3 {
-  animation:slide 0.5s ease-in-out;
-  animation-duration:1.3s;
-}
 
 
-@keyframes slide {
-  0% {
-    transform:translateY(-75%);
-  }
-  100% {
-    transform:translateY(75%);
-    transform:scaleY(1.2);
-   }
-}
-
-.active .mainpage_landing_bg {
-  opacity: 0.7;
-}
- .entered .mainpage_landing_bg {
-  opacity: 0;
-}  
-
-.active .mainPage {
-  transform:translateY(-100%);
-  opacity: 0.5;
-}
- .entered .mainPage {
-  transform:translateY(0%);
-  opacity: 1;
-}  
-
-.mainPage_overFlow {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.mainPage_ticketing_box {
-  width: 1500px;
-  height: 300px;
-  background-color: #f5f5ffb8;
-  box-shadow: 2px 5px 5px #878787;
-  margin: 0 auto;
-  margin-top: 700px;
-  border-radius: 5px;
-  animation:fadein 1s cubic-bezier(.17,.67,.63,.3);
-  animation-delay: 1.3s;
-  opacity: 0;
-  animation-fill-mode: forwards;
-}
-
-
-@keyframes fadein {
-  0% {
-    transform:translateY(50%);
-    opacity: 0;
-  }
-  100% {
-    transform:translateY(0);
-    opacity: 1;
-  }
-}
-
-
-
-.mainPage_ticketing_text {
-  margin-top: 40px;
-  display: inline-block;
-  margin-left: 80px;
-  font-size: 25px;
-  color: #455d7f;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #455d7f;
-  width: 80px;
-  text-align: center;
-}
-
-
-.mainPage_ticketing_detail_form {
-  width: 160px;
-  height: 60px;
-  margin-top: 70px;
-  margin-left: 40px;
-  display: inline-block;
-  background-color: white;
-  box-shadow: 1px 2px 6px #c7b9b9;
-  cursor: pointer;
-  border-radius: 4px;
-  position: relative;
-}
-
-.mainPage_ticketing_name {
-  display: inline-block;
-  padding: 7px 0 0 15px;
-  font-weight: 600;
-  font-size: 15px;
-  color: #465e7f;
-  width: 100%;
-}
-
-.mainPage_ticketing_select {
-  display: inline-block;
-  margin: 7px 0 0 15px;
-  font-weight: 600;
-  font-size: 13px;
-  color: #bdbfc3;
-  width: 100%;
-}
-
-.mainPage_ticketing_detail_box {
-  padding-left: 34px;
-}
-
-.mainPage_tiketing_input {
-  outline: 0;
-  border: 0;
-  width: 160px;
-  height: 60px;
-  margin-top: 70px;
-  margin-left: 40px;
-  display: inline-block;
-  background-color: white;
-  box-shadow: 1px 2px 6px #c7b9b9;
-  cursor: pointer;
-  border-radius: 4px;
-  padding-left: 15px;
-  box-sizing: border-box;
-  padding-top: 27px;
-  font-size: 13px;
-}
-
-.mainPage_tiketing_button {
-  width: 160px;
-  height: 60px;
-  margin-top: 70px;
-  margin-left: 40px;
-  display: inline-block;
-  border-radius: 4px;
-  border: 2px solid #475f7f;
-  text-align: center;
-  line-height: 60px;
-  font-size: 20px;
-  vertical-align: top;
-  color: #475f7f;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.mainPage_tiketting_input_text {
-  position: absolute;
-  top: 77px;
-  left: 57px;
-  font-weight: 600;
-  font-size: 15px;
-  color: #465e7f;
-}
-
-.mainPage_tiketting_calendar_box {
-  width: 550px;
-  position: relative;
-}
-
-.react-calendar {
-  position: absolute;
-  top: 18px;
-  left: -88px;
-}
-
-.mainPage_ticketing_select_box {
-  position: absolute;
-  width: 160px;
-  background-color: white;
-  border: 1px solid #b3b7bd;
-  top: 61px;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.mainPage_ticketing_select_text {
-    width: 160px;
-    height: 40px;
-    padding-left: 14px;
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 40px;
-    color: #2f3e55;
-    box-sizing: border-box;
-
-}
-
-.mainPage_ticketing_select_text:hover {
-  background-color:#2f3e55 ;
-  color:white;
-}
 
 /**************************************/
