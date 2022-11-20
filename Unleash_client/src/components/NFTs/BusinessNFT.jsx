@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Tilt from 'react-parallax-tilt';
-const BusinessNFT = () => {
+
+const BusinessNFT = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
   const handleActive = (e) => {
@@ -24,7 +25,7 @@ const BusinessNFT = () => {
               <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} />
             </div>
             <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-              <button>buy</button>
+              <a href={props.locate}><button>{props.bs}</button></a>
             </div>
           </Tilt>
         </>

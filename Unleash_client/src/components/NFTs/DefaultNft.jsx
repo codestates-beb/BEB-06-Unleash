@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Tilt from 'react-parallax-tilt';
 
-const DefaultNft = () => {
+const DefaultNft = (props) => {
   // state에 빈배열 넣어서 NFT100개 면 다 false였다가,
 
   //const [animated, setAnimated] = useState(false);
@@ -32,7 +32,7 @@ const DefaultNft = () => {
             <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} />
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-              <button>buy</button>
+              <a href={props.locate}><button>{props.bs}</button></a>
           </div>
         </Tilt>
       </>
