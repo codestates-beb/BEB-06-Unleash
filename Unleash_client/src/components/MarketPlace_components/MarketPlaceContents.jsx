@@ -29,10 +29,10 @@ const MarketPlaceContents = () => {
       <div className="marketplace_contents">
         <MarketPlaceAside />
         <div className="marketplace_contents_nfts">
-          <FirstNFT />
-          <FirstNFT />
-          <FirstNFT />
-          <FirstNFT />
+          <FirstNFT/>
+          <FirstNFT/>
+          <FirstNFT/>
+          <FirstNFT/>
           <BusinessNFT />
           <BusinessNFT />
           <BusinessNFT />
