@@ -5,7 +5,9 @@ import FirstNFT from "../NFTs/FirstNFT";
 import MarketPlaceAside from "./MarketPlaceAside"
 
 const MarketPlaceContents = () => {
-  const arr = Array.from(Array(30));
+  const arr = Array.from(Array(10));
+  const arr2 = Array.from(Array(5));
+  const arr3 = Array.from(Array(5));
 
   const [click, setClick] = useState([true, false]);
   const handleButtonClickp2p = () => {
@@ -29,14 +31,9 @@ const MarketPlaceContents = () => {
       <div className="marketplace_contents">
         <MarketPlaceAside />
         <div className="marketplace_contents_nfts">
-          <FirstNFT />
-          <FirstNFT />
-          <FirstNFT />
-          <FirstNFT />
-          <BusinessNFT />
-          <BusinessNFT />
-          <BusinessNFT />
-          {arr.map((item, idx) => {return <DefaultNft key={idx} />})}
+        {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="buy" locate="/ticketingpage"/>})}
+      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="buy" locate="/ticketingpage"/>})}
+      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="buy" locate="/ticketingpage"/>})}
         </div>
       </div>
     </div>
