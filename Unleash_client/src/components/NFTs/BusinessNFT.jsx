@@ -9,7 +9,7 @@ const BusinessNFT = (props) => {
   }
     return (
         <>
-          <Tilt glareEnable={true} glareMaxOpacity={0.5} glarePosition="all"  transitionSpeed={400} scale={1.1} tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="white">
+          <Tilt glareEnable={true} glareMaxOpacity={0.5} glarePosition="all"  transitionSpeed={400} scale={1.2} tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="white">
             <div className={active ? "default_nft_container_active" : "default_nft_container"} onClick={handleActive} >
               <div className="default_nft_img" >
                 <div className="default_nft_whiteimg">

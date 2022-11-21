@@ -2,13 +2,6 @@ import React from "react";
 
 const DetailInfo = () => {
 
-  const Base = () => (
-    <div className="detailpage_price">
-      <div className="detail_top" >
-        price
-      </div>
-    </div>
-  )
   return (
     <>
       <div className="detailpage_container_info">

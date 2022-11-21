@@ -4,15 +4,13 @@ import DetailInfo from "../components/DetailPage_components/DetailInfo";
 
 const NftDetailPage = () => {
   return (
-    <div className="detail_main">
+    <main className="detail_main">
       {/* 헤더헤더 */}
-      <div className="detailpage">
         <div className="detailpage_container">
           <DetailDesc />
           <DetailInfo />
         </div>
-      </div>
-    </div>
+    </main>
   );
 };
 

@@ -16,7 +16,7 @@ const FirstNFT = (props) => {
     return (
         <>
           <Tilt glareEnable={true} glareMaxOpacity={0.2} glarePosition="all"  transitionSpeed={400}  tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor={glare2}
-          scale={1.1}>
+          scale={1.2}>
             <div className={active ? "default_nft_container_first_active" : "default_nft_container_first"} onClick={handleActive}>
               <div className="default_nft_img">
                 <div className="default_nft_whiteimg">

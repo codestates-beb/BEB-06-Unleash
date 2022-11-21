@@ -1167,7 +1167,6 @@
   font-size: 18px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 600;
-  
 }
 
 .nft_buy_button_active button::before {
@@ -1440,10 +1439,10 @@
 
 /****************Detail_Page*******************/
 
-.detailpage {
+.detail_main {
   margin-top: 72px;
   width: 100%;
-  height: 110vh;
+  height: 100%;
   background-color: black;
 }
 .detailpage_container {
@@ -1590,3 +1589,138 @@
 }
 
 /****************Detail_Page*******************/
+
+/****************Sell_Page*******************/
+
+
+.sellpage_main {
+  margin-top: 72px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: grid;
+}
+.sellpage_container {
+  display: grid;
+  margin: 0 20%;
+  grid-template-columns: 3fr 2fr;
+}
+
+.sellpage_listing {
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sellpage_listing span{
+  font-size: 50px;
+  color: white;
+}
+
+.sellpage_listing_wrapper {
+  margin-top: 50px;
+}
+.sellpage_listing_wrapper span{
+  font-size: 30px;
+}
+
+.sellpage_listing_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  width: 100%;
+  margin: 40px;
+  margin-left: 0;
+}
+.sellpage_type_button {
+  display: flex;
+  width: 80%;
+  height: 100px;
+}
+.sellpage_type_button button {
+  margin-right: 10px;
+  width: 100%;
+  background: none;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid white;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.sellpage_listing_input {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sellpage_listing_input input {
+  margin-top: 20px;
+  width: 80%;
+  height: 30px;
+  background: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 25px;
+}
+
+.sellpage_listing_summary {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid gray;
+  width: 80%;
+}
+.sellpage_listing_summary span{
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.sellpage_summary_details {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sellpage_summary_details span {
+  font-size: 14px;
+}
+
+.sellpage_total {
+  width: 80%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sellpage_listing_form > button {
+  justify-content: center;
+  margin-top: 40px;
+  width: 80%;
+  height: 40px;
+  border-radius: 5px;
+  background: none;
+  border: 1px solid white;
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.sellpage_item {
+  margin-top: 25%;
+}
+
+.sellpage_nft {
+  display: block;
+  width: 260px;
+  height: 350px;
+}
+
+.sellpage_nft button {
+  display: none;
+}
+/****************Sell_Page*******************/
