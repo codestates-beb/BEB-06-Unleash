@@ -1,5 +1,6 @@
 import React from "react";
 import DefaultNft from '../components/NFTs/DefaultNft'
+import FirstNFT from '../components/NFTs/FirstNFT'
 
 const NftDetailPage = () => {
   return (
@@ -9,7 +10,7 @@ const NftDetailPage = () => {
         <div className="detailpage_container">
           <div className="detailpage_container_nft">
             <div className="detailpage_container_nft_container">
-              <DefaultNft/>
+              <FirstNFT/>
               <div className="detailpage_nft_info">
                 <span>Paris</span>
 
@@ -24,5 +25,5 @@ const NftDetailPage = () => {
     </>
   );
 };
-
+  
 export default NftDetailPage;

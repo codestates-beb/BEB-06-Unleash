@@ -829,23 +829,6 @@
   animation-fill-mode: forwards;
 }
 
-.default_nft_container_first {
-  display: flex;
-  justify-content: baseline;
-  flex-direction: column;
-  width: 250px;
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  padding: 10px;
-  height: 350px;
-  background-color: black;
-  border-radius: 10px;
-  box-shadow: 0 0px 2px white ,0 0px 4px white, 0 0px 8px white,0 0px 16px white, 0 0px 32px white;
-  transform-style: preserve-3d;
-  animation: nftrotate 0.5s ease-in ;
-  animation-fill-mode: forwards;
-}
 .default_nft_container_active {
   display: flex;
   justify-content: baseline;
@@ -864,6 +847,24 @@
   animation-fill-mode: forwards;
 }
 
+.default_nft_container_first {
+  display: flex;
+  justify-content: baseline;
+  flex-direction: column;
+  width: 250px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+  height: 350px;
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 0px 2px white ,0 0px 4px white, 0 0px 8px white,0 0px 16px white, 0 0px 32px white;
+  transform-style: preserve-3d;
+  animation: nftrotate 0.5s ease-in ;
+  animation-fill-mode: forwards;
+}
+
 .default_nft_container_first_active {
   display: flex;
   justify-content: baseline;
@@ -878,7 +879,7 @@
   border-radius: 10px;
   box-shadow: 0 0px 2px white ,0 0px 4px white, 0 0px 8px white,0 0px 16px white, 0 0px 32px white;
   transform-style: preserve-3d;
-  animation: nftrotate1 0.5s ease-in ;
+  animation: nftrotate1 0.5s ease-in;
   animation-fill-mode: forwards;
 }
 @keyframes nftrotate {
