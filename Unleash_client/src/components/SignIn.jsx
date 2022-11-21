@@ -1,6 +1,8 @@
 import { Fragment , useState } from "react";
-import axios from 'axios';
+// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BsPerson } from "react-icons/bs";
+import { AiOutlineLock } from "react-icons/ai";
 
 function SiginIn(props) {
     const [ signinOepn , setSigninOepn ] =  useState(false);
@@ -72,30 +74,26 @@ function SiginIn(props) {
     return (
         <div className="popup_layer" >
         <div className="dim" ></div>
-          <div className="neon_buy_popup" >
-            <div className="login" >
+          {/* <div className="neon_buy_popup" > */}
+            
             <div className="login_box" >
                 <div className="login_title" >로그인</div>
 
                 <div className="relative">
                 <input className="login_input" placeholder="아이디" onChange={onChangeId} value={id}  ></input>
-                <span className="material-symbols-outlined">
-                    person
-                </span>
+                <BsPerson className="signIn_input_icon" />
                 </div>
 
                 <div  className="relative">
                 <input className="login_input" placeholder="비밀번호"  onChange={onChangePassword} value={password}  type="password"  ></input>
-                <span className="material-symbols-outlined">
-                lock
-                </span>
+                <AiOutlineLock  className="signIn_input_icon" />
                 </div>
 
-                <div className="login_button" onClick={onSignIn} >로그인</div>
+                <div className="login_button" >로그인</div>
                 <div className="sign_up_page_text" onClick={onOpenSignIn}  > 아이디가 없다면 <span style={{ cursor : "pointer" , color:"#343434" }}  >회원가입</span>  </div>
             </div>
-            </div>
-        </div>
+           
+        {/* </div> */}
       </div>
     );
   }

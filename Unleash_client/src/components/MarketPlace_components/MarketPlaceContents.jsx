@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import MarketPlaceNft from "./MarketPlaceNft";
+import DefaultNft from "../NFTs/DefaultNft";
+import BusinessNFT from "../NFTs/BusinessNFT";
+import FirstNFT from "../NFTs/FirstNFT";
 import MarketPlaceAside from "./MarketPlaceAside"
 
 const MarketPlaceContents = () => {
@@ -27,7 +29,14 @@ const MarketPlaceContents = () => {
       <div className="marketplace_contents">
         <MarketPlaceAside />
         <div className="marketplace_contents_nfts">
-          {arr.map((item, idx) => {return <MarketPlaceNft key={idx} />})}
+          <FirstNFT />
+          <FirstNFT />
+          <FirstNFT />
+          <FirstNFT />
+          <BusinessNFT />
+          <BusinessNFT />
+          <BusinessNFT />
+          {arr.map((item, idx) => {return <DefaultNft key={idx} />})}
         </div>
       </div>
     </div>

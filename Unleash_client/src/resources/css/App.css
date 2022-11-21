@@ -45,6 +45,7 @@
   }
 }
 
+
 .landing_bgImg {
   position: absolute;
   top: 0;
@@ -66,7 +67,6 @@
   height: 100vh;
   background-size: 100% 100vh;
 }
-
 .landing_gradiant_h {
   z-index: 3;
   position: absolute;
@@ -115,7 +115,6 @@
   --size: 500px;
   animation: rotate var(--speed) var(--easing) alternate infinite;
 }
-
 
 @keyframes movebg {
   0% {background-position: 0;}
@@ -276,8 +275,8 @@
   }
 }
 
-/*background color를 rgb()/
-/**************************************/
+/*background color를 rgb()*/
+
 
 
 /************MainPage***************/
@@ -290,57 +289,118 @@
   height: 100%;
   background-size: 100% 100%;
   opacity: 0;
-  transition: 1s ease-in-out;
-  transition-delay: 0.3s;
+  transition: 1.5s ease-in-out;
+  transition-delay: 1s;
   display: inline-block;
   transform:translateY(-100%);
 }
-
+.mainpage_landing {
+  width: 100vw;
+  height: 100vh;
+}
 .mainpage_landing_bg {
-  animation:slide 0.8s ease-in-out;
-  background-image: linear-gradient(-180deg, #386289 33%, rgb(222, 234, 242) 33% , #8faccb 33% );
+  transition: none;
+  transition-delay: none;
   bottom:0;
-  left:-50%;
-  opacity:.7;
+  opacity:1;
   position:fixed;
-  right:-50%;
   top:0;
+  left: -50%;
+  right: -50%;
   z-index:-1;
-  animation-fill-mode: forwards;
-  transition: 1.3s ease-in-out;
 }
 
-/* .bg2 {
-  animation-direction:alternate-reverse;
-  animation-duration:0.6s;
-} */
+.bg1 {
+  z-index: -1;
+  animation:slide1 1s ease-in-out;
+}
+
+.bg2 {
+  z-index: -2;
+  animation:slide2 1.5s ease-in-out;
+}
 
 .bg3 {
-  animation:slide 0.5s ease-in-out;
-  animation-duration:1.3s;
+  z-index: -3;
+  animation:slide3 2s ease-in-out;
 }
 
+.bg4 {
+  z-index: -4;
+  animation:slide4 2.5s ease-in-out;
+}
 
-@keyframes slide {
+@keyframes slide1 {
   0% {
-    transform:translateY(-75%);
+    background-color: #e63946;
+    border-radius: 150% 150% 0% 0%;
+    transform:translateY(-100%);
   }
   100% {
-    transform:translateY(75%);
-    transform:scaleY(1.2);
+    border-radius: 10% 10% 0% 0%;
+    transform:translateY(100%);
+    background-color: #e63946;
+   }
+}
+@keyframes slide2 {
+  0% {
+    background-color: #f1faee;
+    border-radius: 100% 800% 0% 0%;
+    transform:translateY(-100%);
+  }
+  95% {
+    border-radius: 30% 30% 0% 0%;
+    
+  }
+  100% {
+    background-color: #f1faee;
+    border-radius: 30% 30% 0% 0%;
+    transform:translateY(100%);
+   }
+}
+@keyframes slide3 {
+  0% {
+    background-color: #a8dadc;
+    border-radius: 800% 100% 0% 0%;
+    transform:translateY(-100%);
+  }
+  90% {
+    border-radius: 30% 30% 0% 0%;
+    
+  }
+  100% {
+    background-color: #a8dadc;
+    border-radius: 30% 30% 0% 0%;
+    transform:translateY(100%);
+   }
+}
+@keyframes slide4 {
+  0% {
+    background-color: #457b9d;
+    border-radius: 100% 800% 0% 0%;
+    transform:translateY(-100%);
+  }
+  85% {
+    border-radius: 30% 30% 0% 0%;
+  }
+  100% {
+    border-radius: 30% 30% 0% 0%;
+    transform:translateY(100%);
+    background-color: #457b9d;
    }
 }
 
+
 .active .mainpage_landing_bg {
-  opacity: 0.7;
+  opacity: 1;
 }
  .entered .mainpage_landing_bg {
-  opacity: 0;
+  opacity: 1;
 }  
 
 .active .mainPage {
   transform:translateY(-100%);
-  opacity: 0.5;
+  opacity: 1;
 }
  .entered .mainPage {
   transform:translateY(0%);
@@ -352,6 +412,7 @@
   height: 100vh;
   overflow: hidden;
 }
+
 
 .mainPage_ticketing_box {
   width: 1300px;
@@ -367,9 +428,6 @@
   animation-fill-mode: forwards;
 }
 
-.react-calendar .react-calendar__navigation {
-      margin-bottom: 0;
-}
 
 @keyframes fadein {
   0% {
@@ -381,6 +439,8 @@
     opacity: 1;
   }
 }
+
+
 
 .mainPage_ticketing_text {
   margin-top: 40px;
@@ -481,7 +541,7 @@
 
 .react-calendar {
   position: absolute;
-  top: 10px;
+  top: 18px;
   left: -88px;
 }
 
@@ -511,10 +571,11 @@
   background-color:#2f3e55 ;
   color:white;
 }
-.mainPage_tiketting_calendar_box .react-calendar__tile {
-  padding: 7.5px 6.6667px;
-}
 
+.mainPage .react-calendar__tile {
+  padding: 6px 6.6667px;
+  line-height: 15px;
+}
 
 /***********MarketPlaceCss**************/
 
@@ -677,7 +738,6 @@
 .marketplace_contents {
   display: grid;
   grid-template-columns: 1fr 5fr;
-
 }
 
 .marketplace_contents_sidebar {
@@ -748,43 +808,57 @@
 .marketplace_contents_nfts {
   background-color: whitesmoke;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
   grid-gap: 24px;
   gap: 24px;
   justify-items: center;
   padding: 16px;
 }
 
-.marketplace_contents_nft_container {
+
+.default_nft_container {
   display: flex;
   justify-content: baseline;
   flex-direction: column;
-  width: 220px;
+  width: 250px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
   padding: 8px;
   height: 300px;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px #dee2ff;
-  
 }
-.marketplace_contents_nft_container:hover {
-  box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
-  transition: 300ms;
+
+.default_nft_container_first {
+  display: flex;
+  justify-content: baseline;
+  flex-direction: column;
+  width: 250px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  padding: 8px;
+  height: 300px;
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 0px 2px white ,0 0px 4px white, 0 0px 8px white,0 0px 16px white, 0 0px 32px white;
 }
-.marketplace_contents_nft_img {
+
+
+.default_nft_img {
   border-radius: 10px;
   position: relative;
   background: url('../image/TokyoNFT2.jpg');
   background-repeat: none;
   overflow: hidden;
-  width: 220px;
-  height: 220px;
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  height: 300px;
 }
 
-.marketplace_contents_nft_img::before {
+.default_nft_img::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -793,56 +867,116 @@
   left: 0;
   background-color: rgba(51, 43, 48, 0.85);
 }
-.marketplace_contents_whiteimg {
+.default_nft_whiteimg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 220px;
+  height: 300px;
   display: flex;
 }
 
-.marketplace_contents_whiteimg span {
+.default_nft_whiteimg span {
   width: 20%;
   height: 105%;
-  background: url("../image/TokyoNFT2.jpg");
-  transition: 0.3s ease;
+  background: url("../image/paris.png");
+  transition: 0.4s ease;
   align-items: center;
   background-size: cover;
 }
 
-.marketplace_contents_whiteimg.hover span:nth-child(1) {
+.default_nft_whiteimg span:nth-child(1) {
   border-bottom-left-radius: 5px;
   background-position: 0%;
   transition-delay: 0s;
 
 }
-.marketplace_contents_whiteimg span:nth-child(2) {
+.default_nft_whiteimg span:nth-child(2) {
   background-position: 25%;
   transition-delay: 50ms;
 }
-.marketplace_contents_whiteimg span:nth-child(3) {
+.default_nft_whiteimg span:nth-child(3) {
   background-position: 50%;
   transition-delay: 100ms;
 }
-.marketplace_contents_whiteimg span:nth-child(4) {
+.default_nft_whiteimg span:nth-child(4) {
   background-position: 75%;
   transition-delay: 150ms;
 }
-.marketplace_contents_whiteimg span:nth-child(5) {
+.default_nft_whiteimg span:nth-child(5) {
   border-bottom-right-radius: 5px;
   background-position: 100%;
   transition-delay: 200ms;
 }
+.default_nft_whiteimg span:nth-child(6) {
+  border-bottom-right-radius: 5px;
+  background-position: 100%;
+  transition-delay: 250ms;
+}
 
-
-.marketplace_contents_whiteimg:hover > span {
+.default_nft_poka:hover .default_nft_whiteimg:hover > span  {
   transform: translateY(-100%);
 }
 
+.default_nft_whiteimg:hover > span {
+  transform: translateY(-100%);
+}
+.default_nft_poka {
+  z-index: 1;
+  position: absolute;
+  width: 250px;
+  height: 300px;
+	background: url("https://github.com/simeydotme/pokemon-cards-css/blob/main/public/img/angular.png?raw=true");
+  background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
+  filter: brightness(2) contrast(1) saturate(1);
+  opacity: 0.1 ;
+  justify-content: center;
+  border-radius: 10px;
+}
 
-.marketplace_contents_contentwrapper {
+.business_nft_poka {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+	background: url("../image/angular.png"),
+      repeating-linear-gradient( 33deg,
+      rgb(255, 119, 115) 5%, rgba(255,237,95,1) 10%, rgba(168,255,95,1) 15%,
+      rgba(131,255,247,1) 20%,
+      rgba(120,148,255,1) 25%,
+      rgb(216, 117, 255) 30%,
+      rgb(255, 119, 115) 35%
+      );
+
+  background-blend-mode: exclusion, hue, hard-light;
+  background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
+  filter: brightness(0.7) contrast(2.6) saturate(3);
+  opacity: 0.2;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.first_nft_poka {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+	background: url('../image/business.jpeg'),
+      repeating-linear-gradient( 232deg,
+      rgb(255, 119, 115) 5%, rgba(255,237,95,1) 10%, rgba(168,255,95,1) 15%,
+      rgba(131,255,247,1) 20%, 
+      rgba(120,148,255,1) 25%, 
+      rgb(216, 117, 255) 30%, 
+      rgb(255, 119, 115) 35% );
   
+  background-blend-mode: exclusion, hue, hard-light;
+  background-size: 50% 42%, 200% 700%, 300% 100%, 200% 100%;
+  filter: brightness(0.7) contrast(2) saturate(1.6);
+  opacity: 0.4;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+
+.default_nft_contents_contentwrapper {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -856,59 +990,62 @@
   transform: translateY(100%);
 }
 
-.marketplace_contents_whiteimg:hover .marketplace_contents_contentwrapper{
+.default_nft_whiteimg:hover .default_nft_contents_contentwrapper{
   transform: translateY(0%);
   transition: 0.3s ease-in-out;
   transition-delay: 0.1s;
 }
 
-.marketplace_contents_contentwrapper h2{
+.default_nft_contents_contentwrapper h2{
+  z-index: 1;
   font-size: 30px;
+  text-shadow: 0 2 10px #ffffff;
 }
 
-.marketplace_contents_contentwrapper p {
-  font-family: 'Roboto',sans-serif;
+.default_nft_contents_contentwrapper p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 25px;
+  
 }
-.marketplace_contents_nft_info_container {
+.default_nft_info_container {
   font-family:"Poppins";
   display: flex;
   justify-content: space-between;
 }
 
-.marketplace_contents_nft_info {
+.default_nft_info {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
   padding-left: 5px;
 }
 
-.marketplace_contents_nft_seminame {
+.default_nft_seminame {
   font-size: 12px;
   font-weight: 300;
   color: rgba(128, 128, 128, 0.658);
 }
 
-.marketplace_contents_nft_name {
+.default_nft_name {
   padding-top: 4px;
   font-size: 18px;
   font-weight: 300;
 }
 
-.marketplace_contents_nft_values {
+.default_nft_values {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
   padding-right: 300;
 }
 
-.marketplace_contents_nft_price {
+.default_nft_price {
   font-size: 12px;
   font-weight: 300;
   color: rgba(128, 128, 128, 0.658);
 }
 
-.marketplace_contents_nft_eth {
+.default_nft_eth {
   padding-top: 4px;
   font-weight: 300;
   color: rgb(254, 183, 96);
@@ -1095,9 +1232,6 @@
 }
 
 
-
-
-/**************************************/
 .mypage_avatar_default {
   background: url('../image/austrailia.png');
   position: absolute;
@@ -1123,7 +1257,6 @@
   display: flex;
   flex-direction: row;
   padding: 20px 10px;
-  
   margin-left: 64px;
   margin-top: 50px;
   margin-bottom: 30px;
@@ -1139,11 +1272,11 @@
   grid-gap: 24px;
   gap: 24px;
   justify-items: center;
-  padding: 0 60px
+  padding: 0 60px;
+  
+  
 }
 /***********MarketPlace_mypage_Css**************/
-
-
 
 
 /***********Header**************/
@@ -1225,7 +1358,7 @@
   top: 18px;
 }
 
-.neon_buy_popup {
+/* .neon_buy_popup {
   padding: 0 8px 8px;
   width: 600px;
   height: 600px;
@@ -1236,20 +1369,13 @@
   box-shadow: #4c4949 0px 0px 8px;
   border-radius: 60px;
   background-color: white;
-}
+} */
 
 .material-symbols-outlined.close {
   top: 18px;
   right: 26px;
   font-size: 30px;
   cursor: pointer;
-}
-
-.login {
-  width: 100%;
-  height: 937px;
-  float: left;
-  background: linear-gradient( 331deg, #9fdf95 , #27b5b7 );
 }
 
 .login_box {
@@ -1261,6 +1387,7 @@
   border-radius: 32px;
   box-shadow: 0 0 44px #6f6f6f;
   border: 1px solid #bef5d7;
+  position: relative;
 }
 
 .login_title {
@@ -1318,5 +1445,226 @@
   margin-top: 19px;
 }
 
+.signIn_input_icon {
+  position: absolute;
+  left: 112px;
+  bottom: 13px;
+  color: #988686;
+}
 
-/****************************/
+.relative {
+  position: relative;
+}
+
+/*********TicketingPage***********/
+
+.ticketing {
+  background-color: #f0f1f0;
+  width: 100%;
+  height: 1300px;
+}
+
+
+.ticketing_title {
+  color: #32458a;
+  font-weight: 600;
+  font-size: 25px;
+  margin-top: 100px;
+  display: inline-block;
+}
+
+.tiketing_box {
+  margin-top: 50px;
+  width: 1000px;
+  height: auto;
+  border: 1px solid #32458a;
+  border-radius: 10px;
+  box-shadow: 0 7px 15px #ccc;
+  overflow: hidden;
+  padding-bottom: 60px;
+  display: inline-block;
+  background-color: white;
+}
+
+.tiketing_passenger {
+  border: 1px solid #ccc;
+  height: 85px;
+  position: relative;
+}
+
+.tiketing_passenger_icon {
+  font-size: 23px;
+  color: #4088fe;
+}
+
+.tiketing_passenger_box {
+  width: 40px;
+  height: 40px;
+  line-height: 47px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #d9e4f6;
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.tiketing_oneLine {
+  width: 100%;
+}
+
+.tiketing_Line {
+  padding: 10px 10px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.tiketing_Line.half {
+  width: 50%;
+}
+
+.tiketing_Line.third {
+  width: 33%;
+}
+
+.tiketing_Line.full {
+  width: 99%;
+}
+.tiketing_Line.sixty {
+  width: 66%;
+}
+
+.tiketing_Line_input {
+  margin-top: 10px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  line-height: 40px;
+}
+
+.tiketing_passenger_text {
+  display: inline-block;
+  margin-left: 14px;
+  vertical-align: top;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #051d72;
+}
+
+.tiketing_Line_selectBox {
+  margin-top: 10px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  line-height: 40px;
+  color: #aaa;
+  position: relative;
+  cursor: pointer;
+}
+
+.tiketing_Line_SelectBox_icon {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 25px;
+  color: #000;
+}
+
+.tiketing_Line_text {
+  font-size: 16px;
+  margin-left: 5px;
+  color: #5e5e5e;
+}
+
+.tiketing_Line_text_bold {
+  font-weight: 600;
+  margin-left: 5px;
+  margin-bottom: 7px;
+  font-size: 20px;
+  color: blue;
+}
+
+.tiketing_passenger_text_sub {
+  position: absolute;
+  top: 45px;
+  left: 71px;
+  font-size: 14px;
+  color: #a8a5a5;
+}
+
+.ticketing_title_sub {
+  margin-top: 10px;
+  color: #525151;
+}
+
+.tiketing_buy_box {
+  width: 900px;
+  border-radius: 20px;
+  position: fixed;
+  bottom: 30px;
+  background-color: white;
+  box-shadow: 1px 2px 17px #959494;
+  left: 330px;
+  height: 83px;
+}
+
+.tiketing_buy_total {
+  display: inline-block;
+  font-size: 13px;
+  color: #7b8da5;
+  margin-top: 20px;
+  margin-left: 30px;
+  width: 55%;
+}
+
+.tiketing_buy_price {
+  width: 55%;
+  display: inline-block;
+  margin-left: 30px;
+  font-weight: 600;
+  margin-top: 0px;
+}
+
+.tiketing_buy_price span {
+  font-size: 21px;
+  color: purple;
+}
+
+.tiketing_buy_button {
+  float: right;
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #8eb2f3;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: -20px;
+  margin-right: 24px;
+  border-radius: 10px;
+}
+
+.ticketing_center_box {
+  width: 1350px;
+  margin: 0 auto;
+}
+
+.tiketing_nft_box {
+  display: inline-block;
+  margin-left: 60px;
+  vertical-align: top;
+  margin-top: 49px;
+
+}
+
+/**********************************/
+
+
+

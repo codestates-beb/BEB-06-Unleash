@@ -3,18 +3,19 @@ import '../resources/css/App.css'
 import { useNavigate } from 'react-router-dom';
 
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   const navigate = useNavigate();
   const [bgImg, setBgImg] = useState('landing_bgImg');
 
   const handleLogoChange = () => {
     setBgImg('landing_bgImg1')
     navigate("/mainpage");
+    props.onLandingState();
   }
   const handleMouseOver = (e) => {
     let rect = e.target.getBoundingClientRect();
-    let x = e.clientX - rect.left - 150;
-    let y = e.clientY - rect.top - 150;
+    let x = e.clientX - rect.left - 50;
+    let y = e.clientY - rect.top - 50;
     e.target.style.setProperty('--x', x + 'px');
     e.target.style.setProperty('--y', y + 'px');
   }

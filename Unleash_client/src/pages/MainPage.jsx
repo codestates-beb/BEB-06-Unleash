@@ -3,7 +3,8 @@ import { TransitionGroup, Transition } from "react-transition-group";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from "moment";
-import Header from "../components/Header";
+
+
 
 const MainPage = () => {
   const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
@@ -12,6 +13,7 @@ const MainPage = () => {
   const [returnDateOpen, setReturnDateOpen] = useState(false);
   const [toPlace, setToPlace] = useState("paris");
   const [toPlaceSelectBox, setToPlaceSelectBox] = useState(false);
+
 
    const onOpenDepartDate = () => {
       setDepartDateOpen(true);
@@ -47,7 +49,6 @@ const MainPage = () => {
       <Transition in={true} timeout={200} appear>
         {(status)=>(
           <Fragment>
-            <Header />
             <div className={`mainPage_overFlow ${status}`} >
               <div className="mainPage" >
 
@@ -103,11 +104,14 @@ const MainPage = () => {
 
               </div>
               <div className="mainpage_landing">
-                <div className="mainpage_landing_bg" ></div>
-                {/* <div className="mainpage_landing_bg bg2"></div> */}
-                <div className="mainpage_landing_bg bg3"></div>
-              </div>
+              <div className="mainpage_landing_bg" ></div>
+              <div className="mainpage_landing_bg bg1"></div>
+              <div className="mainpage_landing_bg bg2"></div>
+              <div className="mainpage_landing_bg bg3"></div>
+              <div className="mainpage_landing_bg bg4"></div>
+            </div>
           </div>
+
          </Fragment>
         )}
       </Transition>

@@ -1,9 +1,10 @@
-function NftDetailPage() {
-    return (
-      <div>
-      </div>
-    );
-  }
-  
-  export default NftDetailPage;
-  
+import React from "react";
+
+const NftDetailPage = () => {
+  return (
+    <>
+    </>
+  );
+};
+
+export default NftDetailPage;
