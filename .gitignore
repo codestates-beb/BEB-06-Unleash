@@ -5,3 +5,4 @@
 /IATA_server/.env
 /Unleash_server/sequelize/.env
 /Unleash_server/.env
+/Unleash_server/initialSignSet/.env
