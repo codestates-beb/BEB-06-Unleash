@@ -1,7 +1,7 @@
-import Web3 from "web3";
-import dotenv, { config } from "dotenv";
-import Abi from "./contract/Abi.js";
-import air_json from "./json/config.js";
+import Web3 from 'web3';
+import dotenv, { config } from 'dotenv';
+import Abi from './contract/Abi.js';
+import air_json from './json/config.js';
 
 dotenv.config();
 
