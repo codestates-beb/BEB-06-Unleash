@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'nftvoucher',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
