@@ -1,5 +1,5 @@
 /IATA_server/node_modules
 /initialSignSet/node_modules
 /Unleash_server/node_modules
-
+/Unleash_server/.eslintrc.js
 *.env
