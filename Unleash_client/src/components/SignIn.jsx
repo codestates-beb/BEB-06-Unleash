@@ -3,6 +3,8 @@ import { Fragment , useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { BsPerson } from "react-icons/bs";
 import { AiOutlineLock } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import Signup from "../components/Signup";
 
 function SiginIn(props) {
     const [ signinOepn , setSigninOepn ] =  useState(false);
@@ -72,11 +74,12 @@ function SiginIn(props) {
 
 
     return (
+      <Fragment>
         <div className="popup_layer" >
         <div className="dim" ></div>
           {/* <div className="neon_buy_popup" > */}
-            
             <div className="login_box" >
+                <AiOutlineCloseCircle className="login_close_icon"   onClick={props.onCloseSignIn} /> 
                 <div className="login_title" >로그인</div>
 
                 <div className="relative">
@@ -92,9 +95,11 @@ function SiginIn(props) {
                 <div className="login_button" >로그인</div>
                 <div className="sign_up_page_text" onClick={onOpenSignIn}  > 아이디가 없다면 <span style={{ cursor : "pointer" , color:"#343434" }}  >회원가입</span>  </div>
             </div>
-           
-        {/* </div> */}
-      </div>
+          </div>
+            { signinOepn && (
+              <Signup  onCloseSignIn = {onCloseSignIn} />
+            )}
+      </Fragment>
     );
   }
   

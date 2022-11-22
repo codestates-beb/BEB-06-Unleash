@@ -16,7 +16,7 @@ const DefaultNft = (props) => {
 
   return ( 
       <>
-        <Tilt glareEnable={true} glareMaxOpacity={0.5} glarePosition="all"  transitionSpeed={400} scale={1.1} tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="white">
+        <Tilt className={ active ? "Tilt" : ""}  glareEnable={true} glareMaxOpacity={0.5} glarePosition="all"  transitionSpeed={400} scale={1.1} tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="white"  style={{  zIndex : ( active ? 11 : 9 )  }} >
           <div className={active ? "default_nft_container_active" : "default_nft_container"} onClick={handleActive} >
             <div className="default_nft_img" >
               <div className="default_nft_whiteimg">
@@ -34,7 +34,12 @@ const DefaultNft = (props) => {
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
               <a href={props.locate}><button>{props.bs}</button></a>
           </div>
+          
         </Tilt>
+
+        {active && (
+          <div className="dim" ></div>
+        )}
       </>
   );
 }

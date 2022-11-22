@@ -420,7 +420,7 @@
   background-color: #f5f5ffb8;
   box-shadow: 2px 5px 5px #878787;
   margin: 0 auto;
-  margin-top: 483px;
+  margin-top: 30%;
   border-radius: 5px;
   animation: fadein 1s cubic-bezier(.17,.67,.63,.3);
   animation-delay: 1.3s;
@@ -814,7 +814,20 @@
   justify-items: center;
   padding: 30px;
 }
+/* 
+.default_nft_box {
+  position: fixed;
+  animation: nftFixed 0.5s ease-in;
+  animation-fill-mode: forwards;
+}
 
+@keyframes nftrotate1 {
+  
+  100% {
+    top: calc(50% - 240px);
+    left: calc(50% - 175px);
+  }
+} */
 
 .default_nft_container {
   display: flex;
@@ -887,6 +900,14 @@
   animation: nftrotate1 0.5s ease-in;
   animation-fill-mode: forwards;
 }
+
+
+.Tilt {
+  position: fixed;
+  top: calc(50% - 240px);
+  left: calc(50% - 175px);
+}
+
 @keyframes nftrotate {
   
   100% {
@@ -1505,7 +1526,8 @@
   width: 100%;
   height: 100%;
   background-color: #000;
-  opacity: 0.8;
+  opacity: 0.9;
+  z-index: 10;
 }
 
 .popUp_close {
@@ -1529,10 +1551,25 @@
   background-color: white;
 } */
 
-.material-symbols-outlined.close {
-  top: 18px;
-  right: 26px;
-  font-size: 30px;
+.signUp_popup {
+  padding: 0 8px 8px;
+  width: 600px;
+  height: 600px;
+  margin: 0px auto;
+  color: #000;
+  position: relative;
+  top: 10%;
+  box-shadow: #4c4949 0px 0px 8px;
+  border-radius: 60px;
+  background-color: white;
+}
+
+.login_close_icon {
+  position: absolute;
+  right: 23px;
+  top: 17px;
+  font-size: 23px;
+  color: #7d7676;
   cursor: pointer;
 }
 
@@ -1546,6 +1583,7 @@
   box-shadow: 0 0 44px #6f6f6f;
   border: 1px solid #bef5d7;
   position: relative;
+  z-index: 11;
 }
 
 .login_title {
@@ -1632,7 +1670,7 @@
 }
 
 .tiketing_box {
-  margin-top: 50px;
+  margin-top: 30px;
   width: 1000px;
   height: auto;
   border: 1px solid #32458a;
@@ -1669,6 +1707,8 @@
 
 .tiketing_oneLine {
   width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .tiketing_Line {
@@ -1758,7 +1798,7 @@
 }
 
 .ticketing_title_sub {
-  margin-top: 10px;
+  margin-top: 20px;
   color: #525151;
 }
 
@@ -1818,8 +1858,17 @@
   display: inline-block;
   margin-left: 60px;
   vertical-align: top;
-  margin-top: 49px;
+  margin-top: 39px;
 
+}
+
+.tiketing_nft_box.on {
+  position: fixed;
+  top: -26px;
+}
+
+option {
+  font-size: 16px;
 }
 
 /**********************************/

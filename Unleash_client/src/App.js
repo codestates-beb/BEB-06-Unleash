@@ -39,7 +39,7 @@ function App() {
           <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
           <Route path='/mainpage' element={<MainPage />} />
           <Route path='/mypage' element={<MyPage  />}  />
-          <Route path='/tiketingpage' element={<TicketingPage />}/>
+          <Route path='/ticketingpage' element={<TicketingPage />}/>
           <Route path='/marketplace/:id' element={<MarketPlace />}/>
           <Route path='/nftdetailpage' element={<NftDetailPage />}/>
           <Route path='/sellpage' element={<SellPage />}/>
@@ -49,7 +49,7 @@ function App() {
       </BrowserRouter>
 
       {openSignIn &&
-          <SignIn />
+          <SignIn onCloseSignIn={onCloseSignIn} />
       }
     </div>
   );

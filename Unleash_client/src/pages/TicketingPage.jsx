@@ -1,8 +1,44 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import { MdArrowDropDown } from "react-icons/md";
+import { Fragment, useEffect , useState } from "react";
 import FirstNFT from "../components/NFTs/FirstNFT"
+import Nationality_selectBox from '../components/Ticketing_selectBox/Nationality_selectBox';
+import CountryCode_selectBox from '../components/Ticketing_selectBox/CountryCode_selectBox'; 
+import $ from "jquery";
+
 
 function TicketingPage() {
+  const [month, setMonth] = useState([ "Month" , "January" , "February" , "March" , "April" , "May" , "June" , "July" , "Auguest" , "September" , "October" , "November" , "December"  ]);
+  const [day , setDay] = useState([]);
+  const [year , setYear] = useState([]);
+  const [gender , setGender] = useState(["Select gender" , "Female" , "Male"]);
+  const [nftFixed , setnftFixed] = useState(false);
+
+  useEffect(() => {
+    let result = ["Day"];
+    for ( let i = 1; i < 32; i++) {
+      result.push(i);
+    }
+    setDay(result);
+
+    let result2 = ["Year"];
+    for ( let i = 1900; i < 2022; i++) {
+      result2.push(i);
+    }
+    setYear(result2);
+  },[]);
+
+
+  useEffect(() => {
+    $(window).scroll(function () {
+      var scrollValue = $(document).scrollTop();
+      if (  scrollValue >= 150 ) {
+        setnftFixed(true);
+      } else {
+        setnftFixed(false);
+      }
+    });
+  });
+
   return (
     <div className="ticketing" >
       <div className="ticketing_center_box" >
@@ -33,27 +69,43 @@ function TicketingPage() {
           <div className="tiketing_oneLine">
             <div className="tiketing_Line third" >
               <div className="tiketing_Line_text" >Date of birth</div> 
-              <div className="tiketing_Line_selectBox" >Month  <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+              <select className="tiketing_Line_selectBox" >
+                {month.map((value,key) => (
+                  <option key={key} value={value} >{value}</option>
+                ))}
+              </select>
             </div>
 
             <div className="tiketing_Line third" >
-              <div className="tiketing_Line_selectBox"  >Day <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+              <select className="tiketing_Line_selectBox" >
+                {day.map((value,key) => (
+                  <option key={key} value={value} >{value}</option>
+                ))}
+              </select>
             </div>
 
             <div className="tiketing_Line third" >
-              <div className="tiketing_Line_selectBox" >Year <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+              <select className="tiketing_Line_selectBox" >
+                {year.map((value,key) => (
+                  <option key={key} value={value} >{value}</option>
+                ))}
+              </select>
             </div>
           </div>
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line half" >
               <div className="tiketing_Line_text" >Gender</div> 
-              <div className="tiketing_Line_selectBox" > Select gender  <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+                <select className="tiketing_Line_selectBox" >
+                {gender.map((value,key) => (
+                  <option key={key} value={value} >{value}</option>
+                ))}
+               </select>
             </div>
 
             <div className="tiketing_Line half" >
               <div className="tiketing_Line_text" >Nationality</div> 
-              <div className="tiketing_Line_selectBox"  >United States <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+              <Nationality_selectBox />
             </div>
           </div>
 
@@ -62,7 +114,7 @@ function TicketingPage() {
             <div className="tiketing_Line third" >
               <div className="tiketing_Line_text_bold">Contact information</div>
               <div className="tiketing_Line_text" >Country code</div> 
-              <div className="tiketing_Line_selectBox" > +1  <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+              <CountryCode_selectBox />
             </div>
 
             <div className="tiketing_Line sixty" >
@@ -91,7 +143,7 @@ function TicketingPage() {
           <div className="tiketing_oneLine">
             <div className="tiketing_Line third" >
               <div className="tiketing_Line_text" >Country code</div> 
-              <div className="tiketing_Line_selectBox" > +1  <MdArrowDropDown  className="tiketing_Line_SelectBox_icon" /></div>
+              <CountryCode_selectBox />
             </div>
 
             <div className="tiketing_Line sixty" >
@@ -107,7 +159,7 @@ function TicketingPage() {
           <div className="tiketing_buy_button">Buy</div>
 
         </div>
-        <div className="tiketing_nft_box" >
+        <div className={"tiketing_nft_box" + ( nftFixed ? " on" : "") } >
          <FirstNFT />
         </div>
       </div>
