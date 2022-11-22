@@ -24,6 +24,7 @@ const MarketPlaceInfo = () => {
             {/* <span>{filteredCity.description}</span>*/}
             <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis ipsum, explicabo unde vero quas consequatur soluta eveniet dolore aut dicta. Dignissimos aliquid dolore nobis vel eaque similique ducimus maxime fugiat.</span>
             <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis ipsum, explicabo unde vero quas consequatur soluta eveniet dolore aut dicta. Dignissimos aliquid dolore nobis vel eaque similique ducimus maxime fugiat.</span>
+            <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis ipsum, explicabo unde vero quas consequatur soluta eveniet dolore aut dicta. Dignissimos aliquid dolore nobis vel eaque similique ducimus maxime fugiat.</span>
           </div>
           <div className="marketplace_description_eth">
             {/* NFT 가격 이더리움으로 */}

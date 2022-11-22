@@ -16,9 +16,9 @@ const MyPageContents = () => {
         <span>selled</span>
       </div>
       <div className="mypage_contents_nfts">
-      {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="sell" locate="/nftdetailpage"/>})}
-      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="sell" locate="/nftdetailpage"/>})}
-      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="sell" locate="/nftdetailpage"/>})}
+      {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="sell" locate="/sellpage"/>})}
+      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="sell" locate="/sellpage"/>})}
+      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="sell" locate="/sellpage"/>})}
         </div>
     </div>
   );

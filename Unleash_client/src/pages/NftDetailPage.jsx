@@ -1,29 +1,17 @@
 import React from "react";
-import DefaultNft from '../components/NFTs/DefaultNft'
-import FirstNFT from '../components/NFTs/FirstNFT'
+import DetailDesc from "../components/DetailPage_components/DetailNftDesc";
+import DetailInfo from "../components/DetailPage_components/DetailInfo";
 
 const NftDetailPage = () => {
   return (
-    <>
+    <main className="detail_main">
       {/* 헤더헤더 */}
-      <div className="detailpage">
         <div className="detailpage_container">
-          <div className="detailpage_container_nft">
-            <div className="detailpage_container_nft_container">
-              <FirstNFT/>
-              <div className="detailpage_nft_info">
-                <span>Paris</span>
-
-              </div>
-            </div>
-          </div>
-          <div className="detailpage_container_info">
-            infos
-          </div>
+          <DetailDesc />
+          <DetailInfo />
         </div>
-      </div>
-    </>
+    </main>
   );
 };
-  
+
 export default NftDetailPage;
