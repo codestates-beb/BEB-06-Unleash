@@ -10,6 +10,7 @@ import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
 import LoadingPage from './pages/LoadingPage.jsx'
 import TiketChangePage from './pages/TiketChangePage.jsx'
+import Signup from "./pages/Signup";
 import Header from "./components/Header";
 import SignIn from "./components/SignIn";
 
@@ -29,6 +30,8 @@ function App() {
     setOpenSignIn(false);
   }
 
+
+
   return (
     <div className="App">
       <BrowserRouter >
@@ -45,12 +48,13 @@ function App() {
           <Route path='/sellpage' element={<SellPage />}/>
           <Route path='/loadingpage' element={<LoadingPage />}/>
           <Route path='/tiketchangepage' element={<TiketChangePage />}/>
+          <Route path='/signup' element={<Signup />}/>
         </Routes>
       </BrowserRouter>
 
       {openSignIn &&
-          <SignIn onCloseSignIn={onCloseSignIn} />
-      }
+          <SignIn onCloseSignIn={onCloseSignIn}  />
+      } 
     </div>
   );
 }

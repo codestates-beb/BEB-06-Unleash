@@ -1,13 +1,13 @@
 import { Fragment , useState } from "react";
 // import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { BsPerson } from "react-icons/bs";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import Signup from "../components/Signup";
+import { Outlet, Link } from "react-router-dom";
 
-function SiginIn(props) {
-    const [ signinOepn , setSigninOepn ] =  useState(false);
+
+
+const SiginIn = (props) => {
     const [ id ,setId ] = useState("");
     const [ password ,setPassword ] = useState("");
 
@@ -17,14 +17,6 @@ function SiginIn(props) {
 
     const onChangePassword = (e) => {
       setPassword(e.target.value);
-    }
-
-    const onOpenSignIn = () => {
-      setSigninOepn(true);
-    }
-
-    const onCloseSignIn = () => {
-      setSigninOepn(false);
     }
 
     // const navigate = useNavigate();
@@ -93,12 +85,9 @@ function SiginIn(props) {
                 </div>
 
                 <div className="login_button" >로그인</div>
-                <div className="sign_up_page_text" onClick={onOpenSignIn}  > 아이디가 없다면 <span style={{ cursor : "pointer" , color:"#343434" }}  >회원가입</span>  </div>
+                  <div className="sign_up_page_text" onClick={props.onCloseSignIn}  > 아이디가 없다면 <span style={{ cursor : "pointer" , color:"#343434" }}  >회원가입</span>  </div>
             </div>
           </div>
-            { signinOepn && (
-              <Signup  onCloseSignIn = {onCloseSignIn} />
-            )}
       </Fragment>
     );
   }
