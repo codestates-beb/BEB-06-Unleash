@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "email"
     },
-    password: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
     sure_name: {
       type: DataTypes.STRING(100),
       allowNull: false
@@ -37,8 +33,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     phone_number: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: ""
     },
     wallet_address: {
       type: DataTypes.STRING(100),
@@ -46,8 +43,9 @@ module.exports = function(sequelize, DataTypes) {
       unique: "wallet_address"
     },
     birth: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: ""
     }
   }, {
     sequelize,
