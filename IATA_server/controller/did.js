@@ -4,7 +4,7 @@ const {
   createVerifiableCredentialJwt,
   verifyCredential,
 } = require("did-jwt-vc");
-const {getDate} = require('../helper/did')
+const { getDate } = require("../helper/did");
 const db = require("../sequelize/models");
 
 require("dotenv").config();
@@ -18,40 +18,56 @@ const ISSUER_Signer = new ethers.Wallet(ISSUER_PK, provider);
 
 // Issuer DID
 const ISSUER_Did = new EthrDID({
-    identifier: ISSUER_ADDRESS,
-    privateKey: ISSUER_PK,
-    provider: ISSUER_Signer.provider,
-    chainNameOrId,
-    txSigner: ISSUER_Signer,
-    alg: "ES256K",
-  });
+  identifier: ISSUER_ADDRESS,
+  privateKey: ISSUER_PK,
+  provider: ISSUER_Signer.provider,
+  chainNameOrId,
+  txSigner: ISSUER_Signer,
+  alg: "ES256K",
+});
 
 module.exports = {
   claimVC: async (req, res) => {
     let responseData;
     try {
-      const { walletAddress,expiresIn } = req.body;
+      const { walletAddress,userEmail, expiresIn } = req.body;
 
-      const result = await db["user"].findOne({
+      // 회원 정보 조회
+      const userInfo = await db["user"].findOne({
         where: {
           wallet_address: walletAddress,
+          email:userEmail
         },
       });
-      // 회원정보 없을 경우 return Error
-      if (result == null) {
+
+      // RETURN : 회원정보 없을 경우 return Error
+      if (userInfo == null) {
         responseData = {
           ok: false,
-          message: "error : No user data",
+          message: "No user data",
         };
-        return res.status(404).send(responseData);
+        return res.status(201).send(responseData);
       }
 
+      // Create Holder DID
       const subjectDid = new EthrDID({
         chainNameOrId,
-        // DID Identifier
         identifier: walletAddress,
       });
-      const {email,sure_name,given_name,nick_name,national,country_code,phone_number,wallet_address} = result;
+
+      // User Info From DB
+      const {
+        email,
+        sure_name,
+        given_name,
+        nick_name,
+        national,
+        country_code,
+        phone_number,
+        wallet_address,
+      } = userInfo;
+
+      // W3C 표준 V1 데이터 모델 Credential 데이터
       const vcPayload = {
         sub: subjectDid.did,
         vc: {
@@ -65,38 +81,140 @@ module.exports = {
               Address: ISSUER_ADDRESS,
             },
             user: {
-                email,
-                sure_name,
-                given_name,
-                nick_name,
-                national,
-                country_code,
-                phone_number,
-                wallet_address,
-                DateOfIssue: getDate(),
+              email,
+              sure_name,
+              given_name,
+              nick_name,
+              national,
+              country_code,
+              phone_number,
+              wallet_address,
+              DateOfIssue: getDate(),
             },
           },
         },
       };
 
-      // ISSUER : Add Delegate to ERC1056
-      const addDelegate = await ISSUER_Did.createSigningDelegate(DelegateTypes.veriKey,expiresIn);
+      // ISSUER : VC ID 생성 후, ERC1056 DID Registry에 등록
+      const addDelegate = await ISSUER_Did.createSigningDelegate(
+        DelegateTypes.veriKey,
+        expiresIn
+      );
+
+      // VC JWT 서명할 VC ID 준비
       const issuerDelegateKp = new EthrDID(
         Object.assign(Object.assign({}, addDelegate.kp), { chainNameOrId })
       );
 
-      // Sign JWT VC
+      // Sign JWT VC : 최종적인 JWT VC 데이터
       const vcJwt = await createVerifiableCredentialJwt(
         vcPayload,
         issuerDelegateKp
       );
 
-      return res.status(200).send(result);
+      // 기존 VC 있는지 확인
+      const vcInfo = await db["vc_list"].findOne({
+        where: {
+          user_id: userInfo.id,
+        },
+      });
+
+      // RETURN : 기존 VC 있는 경우 갱신, UPDATE
+      if (vcInfo !== null) {
+        const vcSaveInfo = await db["vc_list"].update(
+          {
+            vc: vcJwt,
+          },
+          {
+            where: {
+              user_id: userInfo.id,
+            },
+          }
+        );
+        responseData = {
+          ok: true,
+          message: "Update VC",
+          data: {
+            user_id: vcInfo.user_id,
+            did: vcInfo.did,
+            vc: vcJwt,
+          },
+        };
+        return res.status(200).send(responseData);
+      }
+
+      // 기존 VC 없는 경우 발급, INSERT
+      const vcSaveInfo = await db["vc_list"].create({
+        user_id: userInfo.id,
+        did: subjectDid.did,
+        vc: vcJwt,
+      });
+
+      responseData = {
+        ok: true,
+        message: "Create VC",
+        data: {
+          user_id: vcSaveInfo.user_id,
+          did: vcSaveInfo.did,
+          vc: vcSaveInfo.vc,
+        },
+      };
+
+      return res.status(200).send(responseData);
+
     } catch (error) {
-      console.log(`rqVC API ERROR : ${error}`);
       responseData = {
         ok: false,
-        message: "error",
+        message: "Claim VC API ERROR",
+        data: {
+          error: error,
+        },
+      };
+      return res.status(404).send(responseData);
+    }
+  },
+
+  requestVC: async (req, res) => {
+    let responseData;
+    try {
+      const { walletAddress } = req.body;
+
+      // Create Holder DID
+      const subjectDid = new EthrDID({
+        chainNameOrId,
+        identifier: walletAddress,
+      });
+
+      const vcInfo = await db["vc_list"].findOne({
+        where: {
+          did: subjectDid.did,
+        }
+      });
+
+      // RETURN : vc 정보가 없을 경우 return Error
+      if (vcInfo == null) {
+        responseData = {
+          ok: false,
+          message: `No VC data on ${walletAddress}`,
+        };
+        return res.status(201).send(responseData);
+      }
+
+      responseData = {
+        ok: true,
+        message: `Request VC JWT`,
+        data : {
+          did:vcInfo.did,
+          vc:vcInfo.vc
+        }
+      };
+      return res.status(200).send(responseData);
+
+    } catch (error) {
+      console.log(`Request VC API ERROR : ${error}`);
+      responseData = {
+        ok: false,
+        message: "Request VC API ERROR",
         data: {
           error: error,
         },
