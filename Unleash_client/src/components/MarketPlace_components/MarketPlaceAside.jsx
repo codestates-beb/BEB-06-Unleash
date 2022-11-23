@@ -16,6 +16,9 @@ const MarketPlaceAside = () => {
   const [departDate, setDepartDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
 
+  const handleClassClick = (e) => {
+    console.log(e.target)
+  }
   const handleDButtonClick = () => {
     setIsOpen(() => !isOpen);
   }
@@ -25,7 +28,8 @@ const MarketPlaceAside = () => {
   const handleSubmit = () => {
     const filter = {city: city, seatClass: seatClass, departDate: departDate, returnDate: returnDate}
   }
-
+  
+  // 전체 도시 리스트 완성되면 , 배열 만들어서 46번째 li부분 map처리.
   return (
     
       <div>
@@ -34,19 +38,19 @@ const MarketPlaceAside = () => {
               <button type="button" className="marketplace_contents_collapse" onClick={handleDButtonClick}>Set Destination</button>
               {isOpen &&
               <ul className="marketplace_contents_destination">
-                <li>city</li>
-                <li>NewYork</li>
-                <li>Osaka</li>
-                <li>Australia</li>
-                <li>Roma</li>
+                <li><p>city</p></li>
+                <li><p>NewYork</p></li>
+                <li><p>Osaka</p></li>
+                <li><p>Australia</p> </li>
+                <li><p>Roma</p></li>
               </ul>}
             <div className="marketplace_contents_class">
               <button type="button" onClick={handleCButtonClick}>Set class</button>
               {isOpen2 && 
-              <ul className="marketpace_contents_class_value">
-                <li>First</li>
-                <li>Business</li>
-                <li>Economy</li>
+              <ul className="marketpace_contents_class_value" onClick={handleClassClick}>
+                <li><p>First</p></li>
+                <li><p>Business</p></li>
+                <li><p>Economy</p></li>
               </ul>}
             </div>
             <MarketPlaceCalander />

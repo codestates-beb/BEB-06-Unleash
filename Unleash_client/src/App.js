@@ -43,10 +43,11 @@ function App() {
           <Routes >
             <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
             <Route path='/mainpage' element={<MainPage />} />
-            <Route path='/mypage' element={<MyPage  />}  />
-            <Route path='/ticketingpage' element={<TicketingPage />}/>
-            <Route path='/marketplace/:id' element={<MarketPlace />}/>
+            <Route path='/mypage' element={<MyPage />}  />
+            <Route path='/ticketingpage' element={<TicketingPage />}/>  
+            <Route path='/marketplace' element={<MarketPlace />}/>
             <Route path='/nftdetailpage' element={<NftDetailPage />}/>
+            <Route path='/nftdetailpage2' element={<NftDetailPage />}/>
             <Route path='/sellpage' element={<SellPage />}/>
             <Route path='/loadingpage' element={<LoadingPage />}/>
             <Route path='/tiketchangepage' element={<TiketChangePage />}/>
