@@ -13,6 +13,10 @@ import TiketChangePage from './pages/TiketChangePage.jsx'
 import Header from "./components/Header";
 import SignIn from "./components/SignIn";
 
+//contextAPI
+import ListStore from './resources/context_store/ListContext';
+import Test from './resources/context_store/Test';
+
 function App() {
   const [openSignIn , setOpenSignIn] = useState(false);
   const [landingState , setLandingState ] = useState(false);
@@ -31,26 +35,28 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter >
-        {landingState && (
-          <Header onOpenSignIn={onOpenSignIn} />
-        )}
-        <Routes >
-          <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
-          <Route path='/mainpage' element={<MainPage />} />
-          <Route path='/mypage' element={<MyPage  />}  />
-          <Route path='/ticketingpage' element={<TicketingPage />}/>
-          <Route path='/marketplace/:id' element={<MarketPlace />}/>
-          <Route path='/nftdetailpage' element={<NftDetailPage />}/>
-          <Route path='/sellpage' element={<SellPage />}/>
-          <Route path='/loadingpage' element={<LoadingPage />}/>
-          <Route path='/tiketchangepage' element={<TiketChangePage />}/>
-        </Routes>
-      </BrowserRouter>
-
-      {openSignIn &&
-          <SignIn onCloseSignIn={onCloseSignIn} />
-      }
+      <ListStore>
+        <BrowserRouter >
+          {landingState && (
+            <Header onOpenSignIn={onOpenSignIn} />
+          )}
+          <Routes >
+            <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
+            <Route path='/mainpage' element={<MainPage />} />
+            <Route path='/mypage' element={<MyPage />}  />
+            <Route path='/ticketingpage' element={<TicketingPage />}/>  
+            <Route path='/marketplace' element={<MarketPlace />}/>
+            <Route path='/nftdetailpage' element={<NftDetailPage />}/>
+            <Route path='/nftdetailpage2' element={<NftDetailPage />}/>
+            <Route path='/sellpage' element={<SellPage />}/>
+            <Route path='/loadingpage' element={<LoadingPage />}/>
+            <Route path='/tiketchangepage' element={<TiketChangePage />}/>
+          </Routes>
+        </BrowserRouter>
+        {openSignIn &&
+            <SignIn onCloseSignIn={onCloseSignIn} />
+        }
+      </ListStore>
     </div>
   );
 }
