@@ -49,6 +49,39 @@ const sell = async (req, res) => {
     return res.status(400).send(err);
   }
 };
+const cancel = async (req, res) => {
+  const client_data = req.body;
+
+  try {
+    await db.marketplace.update(
+      {
+        amount: 0,
+      },
+      {
+        where: {
+          offer_id: client_data.offer_id,
+        },
+      }
+    );
+    await db.token_holder.increment(
+      {
+        amount: client_data.amount,
+      },
+      {
+        where: {
+          [Op.and]: [
+            { user_id: client_data.user_id },
+            { token_id: client_data.token_id },
+          ],
+        },
+      }
+    );
+    return res.status(200).send("성공");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send(err);
+  }
+};
 
 const priceHistory = async (req, res) => {
   const client_data = req.body;
@@ -90,4 +123,5 @@ module.exports = {
   ticketInfo,
   priceHistory,
   sell,
+  cancel,
 };

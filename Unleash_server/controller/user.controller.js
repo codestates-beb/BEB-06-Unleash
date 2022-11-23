@@ -98,28 +98,9 @@ const myPageSelling = async (req, res) => {
   }
 };
 
-const myPageCancel = async (req, res) => {
-  const client_data = req.body;
-
-  try {
-    await db.token_holder.update(
-      {
-        user_id: client_data.user_id,
-      },
-      {
-        where: {},
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send(err);
-  }
-};
-
 module.exports = {
   myPageOwned,
   myPageSelling,
-  myPageCancel,
   joinMembership,
   login,
 };
