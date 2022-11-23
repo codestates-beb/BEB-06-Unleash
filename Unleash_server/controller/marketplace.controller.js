@@ -33,6 +33,23 @@ const ticketInfo = async (req, res) => {
   }
 };
 
+const sell = async (req, res) => {
+  const client_data = req.body;
+
+  try {
+    await db.marketplace.create({
+      offer_id: client_data.offer_id,
+      token_id: client_data.token_id,
+      price: client_data.price,
+      amount: client_data.amount,
+      seller: client_data.seller,
+    });
+    return res.status(200).send("성공");
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
 const priceHistory = async (req, res) => {
   const client_data = req.body;
   try {
@@ -72,4 +89,5 @@ const verification = (data) => {
 module.exports = {
   ticketInfo,
   priceHistory,
+  sell,
 };
