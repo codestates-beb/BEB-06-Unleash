@@ -5,7 +5,7 @@ const Layer = () => {
   
   return (
     <>
-      {arr.map((item, idx) => <div className="mypage_layer" key={idx} data-hello={'hello Ethan!'}></div>)}
+      {arr.map((item, idx) => <div className="mypage_layer" key={idx} data-hello={'Unleash\ntravel!'}></div>)}
     </>
    );
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import city from "../../resources/image/4.jpg"
+import Osakabg from "../../resources/image/section1bg/Osakabg.jpg"
 //import city2 from "../../resources/image/main.jpg"
 // 파일명과 전역 설정된 목적지랑 맞춤.
 // import Tokyo from 'Tokyo'
@@ -24,7 +24,7 @@ const MarketPlaceSection1 = () => {
   return (
     <>
       <div className="marketplace_section1">
-        <div className="marketplace_section1_img" style={{background: `url(${city})`}}>
+        <div className="marketplace_section1_img" style={{background: `url(${Osakabg})`}}>
           <span className="marketplace_section1_span">New York</span>
         </div>
       </div>

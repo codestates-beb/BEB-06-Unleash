@@ -14,7 +14,7 @@ const Header = (props) => {
         </Link>
 
         <div className="Header_text" onClick={props.onOpenSignIn} >Log in</div>
-        <Link to = "/marketplace/:id">   
+        <Link to = "/marketplace">   
          <div className="Header_text" >MarketPlace</div>
         </Link>
       </div>

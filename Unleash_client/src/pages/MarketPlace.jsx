@@ -6,7 +6,7 @@ import Test from "../resources/context_store/Test";
 
 const MarketPlace = () => {
   // context API 사용해야하는것, mainpage 에서 받아오는 항공권 리스트 정보.
-  //
+  // login 안해도 볼 순 있는데, buy를 누를경우에 Ethers 연결 필요.
   return (
     <>
       <div className="marketplace">
@@ -14,7 +14,7 @@ const MarketPlace = () => {
           <div className="marketplace_container">
           <MarketPlaceSection1 />
           <MarketPlaceInfo />
-          <Test>
+          <Test> {/*이게 나중에 marcketplace 컴포넌트들을 감싸는 ContextAPI가 될거임. */}
             <MarketPlaceContents />
           </Test>
           </div>
