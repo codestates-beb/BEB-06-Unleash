@@ -4,8 +4,37 @@ const { Op } = require("sequelize");
 const joinMembership = async (req, res) => {
   const client_data = req.body;
 
+  if (
+    client_data.email === undefined ||
+    client_data.sure_name === undefined ||
+    client_data.given_name === undefined ||
+    client_data.nick_name === undefined ||
+    client_data.national === undefined ||
+    client_data.country_code === undefined ||
+    client_data.phone_number === undefined ||
+    client_data.wallet_address === undefined ||
+    client_data.birth === undefined
+  ) {
+    return res.status(400).send("정보가 올바르지 않습니다");
+  }
   try {
+    await db.user.create({
+      email: client_data.email,
+      sure_name: client_data.sure_name,
+      given_name: client_data.given_name,
+      nick_name: client_data.nick_name,
+      national: client_data.national,
+      country_code: client_data.country_code,
+      phone_number: client_data.phone_number,
+      wallet_address: client_data.wallet_address,
+      birth: client_data.birth,
+    });
+    return res.status(200).send("성공");
   } catch (err) {
+    if (err.name === "SequelizeUniqueConstraintError") {
+      console.log(err.message);
+      return res.status(400).send("중복된 주소나 메일입니다.");
+    }
     console.log(err);
     return res.status(400).send(err);
   }
@@ -45,10 +74,18 @@ const myPageCancel = async (req, res) => {
   const client_data = req.body;
 
   try {
+    await db.token_holder.update(
+      {
+        user_id: client_data.user_id,
+      },
+      {
+        where: {},
+      }
+    );
   } catch (err) {
     console.log(err);
     return res.status(400).send(err);
   }
 };
 
-module.exports = { myPageOwned, myPageSelling };
+module.exports = { myPageOwned, myPageSelling, myPageCancel, joinMembership };

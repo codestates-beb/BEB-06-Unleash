@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: true
     },
     sure_name: {
       type: DataTypes.STRING(100),
@@ -42,7 +42,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     wallet_address: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: false,
+      unique: "wallet_address"
     },
     birth: {
       type: DataTypes.INTEGER,
@@ -68,6 +69,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "email" },
+        ]
+      },
+      {
+        name: "wallet_address",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "wallet_address" },
         ]
       },
     ]

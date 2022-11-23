@@ -1,11 +1,15 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('vc_list', {
-    user_id: {
+    id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     did: {
       type: DataTypes.STRING(100),
@@ -14,6 +18,11 @@ module.exports = function(sequelize, DataTypes) {
     vc: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    updateAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -25,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
+          { name: "id" },
         ]
       },
     ]
