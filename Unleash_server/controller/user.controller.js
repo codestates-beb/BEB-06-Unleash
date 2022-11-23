@@ -1,6 +1,25 @@
 const { db } = require("../sequelize/models/index.js");
 const { Op } = require("sequelize");
 
+const login = async (req, res) => {
+  const client_data = req.body;
+
+  try {
+    const userInfo = await db.user.findAll({
+      where: {
+        wallet_address: client_data.wallet_address,
+      },
+    });
+    if (userInfo.length === 0) {
+      return res.status(400).send("일치하는 유저가 없습니다.");
+    }
+    return res.status(200).json(userInfo);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send(err);
+  }
+};
+
 const joinMembership = async (req, res) => {
   const client_data = req.body;
 
@@ -61,7 +80,16 @@ const myPageSelling = async (req, res) => {
 
   try {
     const marketToken = await db.marketplace.findAll({
-      where: {},
+      where: {
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            amount: { [Op.ne]: 0 },
+          },
+        ],
+      },
     });
     return res.status(200).json(marketToken);
   } catch (err) {
@@ -88,4 +116,10 @@ const myPageCancel = async (req, res) => {
   }
 };
 
-module.exports = { myPageOwned, myPageSelling, myPageCancel, joinMembership };
+module.exports = {
+  myPageOwned,
+  myPageSelling,
+  myPageCancel,
+  joinMembership,
+  login,
+};
