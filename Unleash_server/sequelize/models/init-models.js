@@ -4,6 +4,7 @@ var _nftvoucher = require("./nftvoucher");
 var _ticket = require("./ticket");
 var _token_holder = require("./token_holder");
 var _user = require("./user");
+var _vc_list = require("./vc_list");
 
 function initModels(sequelize) {
   var marketplace = _marketplace(sequelize, DataTypes);
@@ -11,6 +12,7 @@ function initModels(sequelize) {
   var ticket = _ticket(sequelize, DataTypes);
   var token_holder = _token_holder(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
+  var vc_list = _vc_list(sequelize, DataTypes);
 
   marketplace.belongsTo(ticket, { as: "token", foreignKey: "token_id"});
   ticket.hasMany(marketplace, { as: "marketplaces", foreignKey: "token_id"});
@@ -27,6 +29,7 @@ function initModels(sequelize) {
     ticket,
     token_holder,
     user,
+    vc_list,
   };
 }
 module.exports = initModels;

@@ -19,6 +19,18 @@
     "nodemon": "^2.0.20",
     "sequelize": "^6.25.5",
     "sequelize-auto": "^0.8.8",
-    "web3": "^1.8.1"
+    "web3": "^1.8.1",
+    "sequelize-auto": "^0.8.8"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1"
   }
 }
