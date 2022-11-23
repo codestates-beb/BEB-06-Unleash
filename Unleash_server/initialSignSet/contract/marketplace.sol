@@ -81,7 +81,7 @@ contract Marketplace is ERC1155Holder, Ownable {
         );
     }
 
-    function cancel(uint256 _offerId) public {
+    function cancel(uint256 _offerId) public returns (uint256) {
         _Offer storage _offer = offers[_offerId];
         require(_offer.offerId == _offerId);
         require(_offer.seller == msg.sender);
@@ -100,6 +100,7 @@ contract Marketplace is ERC1155Holder, Ownable {
             _offer.amount,
             _offer.seller
         );
+        return _offer.amount;
     }
 
     function withdraw() public {
