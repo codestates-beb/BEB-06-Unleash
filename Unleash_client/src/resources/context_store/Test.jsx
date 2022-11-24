@@ -6,8 +6,6 @@ const Test = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
-  const context = {
-  }
 
   return (
     <TestContext.Provider value={{isOpen, setIsOpen, isOpen2, setIsOpen2}}>

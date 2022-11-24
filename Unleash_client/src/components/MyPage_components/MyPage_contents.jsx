@@ -5,10 +5,14 @@ import BusinessNFT from "../NFTs/BusinessNFT";
 import axios from "axios"
 
 const MyPageContents = () => {
+  // const first = metadata.filter((item) => item.class === "퍼스트")
+  // const business = metadata.filter((item) => item.class === "이코노미")
+  // const economy = metadata.filter((item) => item.class === "비지니스")
+
   // mypage contents는 일단 DB에서 리스트를 다 불러온거임.
   // ListState 에 저장.
   useEffect(() => {
-    //axios.get().... user 정보 가져오기.
+    //axios.get(http://localhost:5000/user/owned) // 질문 status별로 나누어져 있어서, status가 필요.
   }, [])
   // 그러면 이 state가지고, user가 보유한 nft 리스트가 나올태니. 상태(owned selling...)에 따라서 보여주는걸 바꾸면됨.
   const arr = Array.from(Array(10));

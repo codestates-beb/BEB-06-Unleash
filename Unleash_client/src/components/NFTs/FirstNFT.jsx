@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Tilt from 'react-parallax-tilt';
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "../MarketPlace_components/MarketplaceDummy";
 
-
 const FirstNFT = (props) => {
   
   const arr = Array.from(Array(11));
