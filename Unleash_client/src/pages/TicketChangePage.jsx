@@ -4,7 +4,7 @@ import { Fragment, useEffect , useState } from "react";
 
 
 const TicketChangePage =() => {
-  const [ticket , setticket ] = useState(false);
+  const [ticket , setticket] = useState(false);
 
     return (
         <div className='ticketChange' >

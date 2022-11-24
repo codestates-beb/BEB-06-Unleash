@@ -5,19 +5,15 @@ export const ListContext = createContext();
 const ListStore = (props) => {
 
   const [list, setList] = useState([1,2,3,4,5]);
+  // 1. useEffect로 list를 불러온다.
+
+  const a = (v) => {
+    setList(v);
+  }
 
   // useState React hook
-  useEffect(() => {
-    // listItem 을 처음에 설정하면됨. 불러오느거.
-    if (localStorage.getItem("ticketList")) {
-      setList(localStorage.getItem("ticketList"))
-    } else {
-      localStorage.setItem("ticketList", list)
-    }
-  }, []);
-
   return (
-    <ListContext.Provider value={{list}}>
+    <ListContext.Provider value={{list,setList, a}}>
       {props.children}
     </ListContext.Provider>
   )

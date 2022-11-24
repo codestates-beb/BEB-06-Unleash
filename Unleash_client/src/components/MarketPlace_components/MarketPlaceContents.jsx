@@ -1,4 +1,5 @@
 import React, {useState, useContext, useEffect} from "react";
+import {Link} from "react-router-dom";
 import DefaultNft from "../NFTs/DefaultNft";
 import BusinessNFT from "../NFTs/BusinessNFT";
 import FirstNFT from "../NFTs/FirstNFT";
@@ -19,7 +20,16 @@ import { ListContext } from "../../resources/context_store/ListContext";
 const MarketPlaceContents = () => {
 
   const context = useContext(ListContext);
-  console.log(context)
+  
+  const {list, setList, a} = context;
+  useEffect(() => {
+    a([1,2,3,4]);
+  }, [])
+
+  console.log(list)
+  //localStorage.setItem("ticketList", JSON.stringify(list));
+  //console.log(JSON.parse(localStorage.ticketList))
+
   // nft 필터링하는 곳.
   // const first = metadata.filter((item) => item.class === "퍼스트")
   // const business = metadata.filter((item) => item.class === "이코노미")
@@ -35,11 +45,11 @@ const MarketPlaceContents = () => {
     <div className="marketplace_contents_container">
       <div className="marketplace_contents_dividing">
         <div className="marketplace_contents_b2c" >
-          <a href="/p2pmarketplace">
+          <Link to="/p2pmarketplace" >
             <button className='marketplace_button_default'>
               <span>Let's Go to P2P macket</span>
-          </button>
-          </a>
+            </button>
+          </Link>
         </div>
       </div>
 
