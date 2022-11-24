@@ -108,17 +108,16 @@
 }
 /* rotate도 하면 좋은데 easing을 설정하면 마우스커서대로 안감...*/
 .landing_gradiant_h:hover::before {
+  --size: 100px;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   filter: blur(calc(var(--size) / 5));
-  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
-  --speed: 10s;
-  --size: 500px;
-  animation: rotate var(--speed) var(--easing) alternate infinite;
+  --size: 400px;
+  animation: rotate 5s ease-in-out infinite;
 }
 
 @keyframes movebg {
   0% {background-position: 0;}
-  100% {background-position: 0 -500px;}
+  100% {background-position: 0 -400px;}
 }
 
 .landing_button {
@@ -290,7 +289,7 @@
   background-size: 100% 100%;
   opacity: 0;
   transition: 1.5s ease-in-out;
-  transition-delay: 1s;
+  transition-delay: 0.8s;
   display: inline-block;
   transform:translateY(-100%);
 }
@@ -327,24 +326,24 @@
 
 .bg4 {
   z-index: -4;
-  animation:slide4 2.5s ease-in-out;
+  animation:slide4 2.6s ease-in-out;
 }
 
 @keyframes slide1 {
   0% {
-    background-color: #e63946;
+    background-color: #ff595e;
     border-radius: 150% 150% 0% 0%;
     transform:translateY(-100%);
   }
   100% {
     border-radius: 10% 10% 0% 0%;
+    background-color: #ff595e;
     transform:translateY(100%);
-    background-color: #e63946;
    }
 }
 @keyframes slide2 {
   0% {
-    background-color: #f1faee;
+    background-color: #ffd256;
     border-radius: 100% 800% 0% 0%;
     transform:translateY(-100%);
   }
@@ -353,14 +352,14 @@
     
   }
   100% {
-    background-color: #f1faee;
+    background-color: #ffd256;
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
    }
 }
 @keyframes slide3 {
   0% {
-    background-color: #a8dadc;
+    background-color: #f6fff8;
     border-radius: 800% 100% 0% 0%;
     transform:translateY(-100%);
   }
@@ -369,14 +368,14 @@
     
   }
   100% {
-    background-color: #a8dadc;
+    background-color: #f6fff8;
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
    }
 }
 @keyframes slide4 {
   0% {
-    background-color: #457b9d;
+    background-color: #1982c4;
     border-radius: 100% 800% 0% 0%;
     transform:translateY(-100%);
   }
@@ -386,7 +385,7 @@
   100% {
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
-    background-color: #457b9d;
+    background-color: #1982c4;
    }
 }
 
