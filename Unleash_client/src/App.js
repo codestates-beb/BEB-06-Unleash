@@ -9,52 +9,57 @@ import MarketPlace from './pages/MarketPlace.jsx'
 import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
 import LoadingPage from './pages/LoadingPage.jsx'
-import TiketChangePage from './pages/TiketChangePage.jsx'
 import Signup from "./pages/Signup";
 import Header from "./components/Header";
-import SignIn from "./components/SignIn";
+import TicketChangePage from "./pages/TicketChangePage";
 
 function App() {
-  const [openSignIn , setOpenSignIn] = useState(false);
   const [landingState , setLandingState ] = useState(false);
+  const [account , setCurrentAccount ] = useState("");
 
   const onLandingState = () => {
     setLandingState(true);
   }
 
-  const onOpenSignIn = () => {
-    setOpenSignIn(true);
+
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const onCloseSignIn = () => {
-    setOpenSignIn(false);
+  const logOut = () => {
+    setCurrentAccount("");
   }
-
-
 
   return (
     <div className="App">
       <BrowserRouter >
-        {landingState && (
-          <Header onOpenSignIn={onOpenSignIn} />
-        )}
+        <Header   connectWallet={connectWallet} account={account} logOut={logOut} />
         <Routes >
           <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
           <Route path='/mainpage' element={<MainPage />} />
           <Route path='/mypage' element={<MyPage  />}  />
-          <Route path='/ticketingpage' element={<TicketingPage />}/>
-          <Route path='/marketplace/:id' element={<MarketPlace />}/>
+          {/* <Route path='/ticketingpage' element={<TicketingPage />}/> */}
+          <Route path='/marketplace' element={<MarketPlace />}/>
           <Route path='/nftdetailpage' element={<NftDetailPage />}/>
           <Route path='/sellpage' element={<SellPage />}/>
           <Route path='/loadingpage' element={<LoadingPage />}/>
-          <Route path='/tiketchangepage' element={<TiketChangePage />}/>
-          <Route path='/signup' element={<Signup />}/>
+          <Route path='/ticketchangepage' element={<TicketChangePage />}/>
+          <Route path='/signup' element={<Signup  />}/>
         </Routes>
       </BrowserRouter>
 
-      {openSignIn &&
-          <SignIn onCloseSignIn={onCloseSignIn}  />
-      } 
+
     </div>
   );
 }

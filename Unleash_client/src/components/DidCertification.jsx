@@ -1,12 +1,8 @@
-import { BsFillPersonFill } from "react-icons/bs";
 import { Fragment, useEffect , useState } from "react";
-import FirstNFT from "../components/NFTs/FirstNFT"
 import Nationality_selectBox from '../components/Ticketing_selectBox/Nationality_selectBox';
 import CountryCode_selectBox from '../components/Ticketing_selectBox/CountryCode_selectBox'; 
-import $ from "jquery";
 
-
-function Signup() {
+function DidCertification() {
   const [month, setMonth] = useState([ "Month" , "January" , "February" , "March" , "April" , "May" , "June" , "July" , "Auguest" , "September" , "October" , "November" , "December"  ]);
   const [day , setDay] = useState([]);
   const [year , setYear] = useState([]);
@@ -44,17 +40,14 @@ function Signup() {
   }
 
   return (
-    <div className="ticketing" >
-      <div className="ticketing_center_box" >
-        <div className="ticketing_title" >Create your account</div>
+      <div className="didCertification_box" >
+        <div className="ticketing_title" ></div>
         <div className="tiketing_box" >
-          {/* <div className="tiketing_passenger" >
-            <div className="tiketing_passenger_box" >
-              <BsFillPersonFill className="tiketing_passenger_icon" />
-            </div>
-            <div className="tiketing_passenger_text" >Passenger</div>
-            <div className="tiketing_passenger_text_sub">Adult | Korea</div>
-          </div> */}
+
+        <div className="tiketing_top">
+            <div className="tiketing_finsh_button did" style={{ marginRight : "40px" }} >Request VC</div>
+            <div className="tiketing_finsh_button did" >Claim VCX</div>
+        </div>
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line full" >
@@ -147,43 +140,17 @@ function Signup() {
               <input className="tiketing_Line_input" value={account} onChange={ e => setCurrentAccount(e.target)}  placeholder="Wallet"  />
             </div>
 
-            <div className={"connect_wallet_button" + ( account ? " on" : "") }  onClick={connectWallet} >Connect Wallet</div>
+            <div className={"connect_wallet_button on"}  onClick={connectWallet} >Connect Wallet</div>
           </div>
 
 
-          <div className="tiketing_finsh_button" >Finsh</div>
+       
 
 
-          {/* <div className="tiketing_oneLine">
-              <div className="tiketing_Line_text_bold">Emergency contact</div>
-              <div className="tiketing_Line full" >
-                <div className="tiketing_Line_text" >Name</div> 
-                <input className="tiketing_Line_input" placeholder="Enter your emergency contact`s name"  />
-              </div>
-          </div>
 
-          <div className="tiketing_oneLine">
-            <div className="tiketing_Line third" >
-              <div className="tiketing_Line_text" >Country code</div> 
-              <CountryCode_selectBox />
-            </div>
-
-            <div className="tiketing_Line sixty" >
-              <div className="tiketing_Line_text" >Phone number</div> 
-              <input className="tiketing_Line_input" placeholder="Enter phone number"  />
-            </div>
-          </div> */}
         </div>
-        {/* <div className="tiketing_buy_box" >
-
-          <div className="tiketing_buy_total" >Total price</div>
-          <div className="tiketing_buy_price" >USDT <span>253</span></div>
-          <div className="tiketing_buy_button">Buy</div>
-
-        </div> */}
       </div>
-    </div>
   );
 }
 
-export default Signup;
+export default DidCertification;
