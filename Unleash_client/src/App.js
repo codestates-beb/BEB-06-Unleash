@@ -9,56 +9,65 @@ import MarketPlace from './pages/MarketPlace.jsx'
 import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
 import LoadingPage from './pages/LoadingPage.jsx'
-import TiketChangePage from './pages/TiketChangePage.jsx'
+import Signup from "./pages/Signup";
 import P2PMarket from './pages/P2PMarket';
 import Header from "./components/Header";
-import SignIn from "./components/SignIn";
+
+//contextAPI
+import ListStore from './resources/context_store/ListContext';
+import Test from './resources/context_store/Test';
 
 //contextAPI
 import ListStore from './resources/context_store/ListContext';
 import Test from './resources/context_store/Test';
 
 function App() {
-  const [openSignIn , setOpenSignIn] = useState(false);
   const [landingState , setLandingState ] = useState(false);
+  const [account , setCurrentAccount ] = useState("");
 
   const onLandingState = () => {
     setLandingState(true);
   }
 
-  const onOpenSignIn = () => {
-    setOpenSignIn(true);
+
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const onCloseSignIn = () => {
-    setOpenSignIn(false);
+  const logOut = () => {
+    setCurrentAccount("");
   }
 
   return (
     <div className="App">
-      <ListStore>
-        <BrowserRouter >
-          {landingState && (
-            <Header onOpenSignIn={onOpenSignIn} />
-          )}
-          <Routes >
-            <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
-            <Route path='/mainpage' element={<MainPage />} />
-            <Route path='/mypage' element={<MyPage />}  />
-            <Route path='/ticketingpage' element={<TicketingPage />}/>
-            <Route path='/marketplace' element={<MarketPlace />}/>
-            <Route path='/p2pmarketplace' element={<P2PMarket />}/>
-            <Route path='/nftdetailpage' element={<NftDetailPage />}/>
-            <Route path='/nftdetailpage2' element={<NftDetailPage />}/>
-            <Route path='/sellpage' element={<SellPage />}/>
-            <Route path='/loadingpage' element={<LoadingPage />}/>
-            <Route path='/tiketchangepage' element={<TiketChangePage />}/>
-          </Routes>
-        </BrowserRouter>
-        {openSignIn &&
-            <SignIn onCloseSignIn={onCloseSignIn} />
-        }
-      </ListStore>
+      <BrowserRouter >
+        <Header   connectWallet={connectWallet} account={account} logOut={logOut} />
+        <Routes >
+          <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
+          <Route path='/mainpage' element={<MainPage />} />
+          <Route path='/mypage' element={<MyPage  />}  />
+          {/* <Route path='/ticketingpage' element={<TicketingPage />}/> */}
+          <Route path='/marketplace' element={<MarketPlace />}/>
+          <Route path='/nftdetailpage' element={<NftDetailPage />}/>
+          <Route path='/sellpage' element={<SellPage />}/>
+          <Route path='/loadingpage' element={<LoadingPage />}/>
+          <Route path='/ticketchangepage' element={<TicketChangePage />}/>
+          <Route path='/signup' element={<Signup  />}/>
+        </Routes>
+      </BrowserRouter>
+
+
     </div>
   );
 }
