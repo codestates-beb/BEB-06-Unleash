@@ -7,6 +7,7 @@ import Test from "../resources/context_store/Test";
 const MarketPlace = () => {
   // context API 사용해야하는것, mainpage 에서 받아오는 항공권 리스트 정보.
   // login 안해도 볼 순 있는데, buy를 누를경우에 Ethers 연결 필요.
+  console.log(localStorage);
   return (
     <>
       <div className="marketplace">

@@ -10,6 +10,7 @@ import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
 import LoadingPage from './pages/LoadingPage.jsx'
 import TiketChangePage from './pages/TiketChangePage.jsx'
+import P2PMarket from './pages/P2PMarket';
 import Header from "./components/Header";
 import SignIn from "./components/SignIn";
 
@@ -46,7 +47,7 @@ function App() {
             <Route path='/mypage' element={<MyPage />}  />
             <Route path='/ticketingpage' element={<TicketingPage />}/>
             <Route path='/marketplace' element={<MarketPlace />}/>
-            <Route path='/p2pmarketplace' element={<MarketPlace />}/>
+            <Route path='/p2pmarketplace' element={<P2PMarket />}/>
             <Route path='/nftdetailpage' element={<NftDetailPage />}/>
             <Route path='/nftdetailpage2' element={<NftDetailPage />}/>
             <Route path='/sellpage' element={<SellPage />}/>

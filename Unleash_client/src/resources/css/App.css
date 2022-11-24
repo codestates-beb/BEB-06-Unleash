@@ -879,6 +879,7 @@
 }
 .marcketplace_contents_sidebar_container .mainPage_tiketting_calendar_box{
   display: block;
+  position: relative;
 }
 
 .marcketplace_contents_sidebar_container .react-calendar {
