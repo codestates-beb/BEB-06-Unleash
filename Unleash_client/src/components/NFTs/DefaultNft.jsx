@@ -41,7 +41,7 @@ const DefaultNft = (props) => {
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
             <Link to={props.locate}><button onClick={handleBuyClick}>{props.bs}</button></Link>
-            {props.bs2 && <a href={props.locate2}><button onClick={handleBuyClick}>{props.bs2}</button></a>}
+            {props.bs2 && <Link to={props.locate2}><button onClick={handleBuyClick}>{props.bs2}</button></Link>}
           </div>
           
         </Tilt>

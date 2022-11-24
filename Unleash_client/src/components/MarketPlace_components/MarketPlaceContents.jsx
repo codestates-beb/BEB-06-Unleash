@@ -45,7 +45,7 @@ const MarketPlaceContents = () => {
     <div className="marketplace_contents_container">
       <div className="marketplace_contents_dividing">
         <div className="marketplace_contents_b2c" >
-          <Link to="/p2pmarketplace" >
+          <Link to="/marketplacep2p" >
             <button className='marketplace_button_default'>
               <span>Let's Go to P2P macket</span>
             </button>
