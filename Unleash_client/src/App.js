@@ -4,7 +4,7 @@ import { Fragment, useEffect , useState } from "react";
 import LandingPage from './pages/LandingPage.jsx'
 import MainPage from './pages/MainPage.jsx'
 import MyPage from './pages/MyPage.jsx'
-import TicketingPage from './pages/TicketingPage.jsx'
+import TicketChangePage from './pages/TicketChangePage.jsx'
 import MarketPlace from './pages/MarketPlace.jsx'
 import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
@@ -12,10 +12,6 @@ import LoadingPage from './pages/LoadingPage.jsx'
 import Signup from "./pages/Signup";
 import P2PMarket from './pages/P2PMarket';
 import Header from "./components/Header";
-
-//contextAPI
-import ListStore from './resources/context_store/ListContext';
-import Test from './resources/context_store/Test';
 
 //contextAPI
 import ListStore from './resources/context_store/ListContext';
@@ -53,18 +49,20 @@ function App() {
     <div className="App">
       <BrowserRouter >
         <Header   connectWallet={connectWallet} account={account} logOut={logOut} />
-        <Routes >
-          <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
-          <Route path='/mainpage' element={<MainPage />} />
-          <Route path='/mypage' element={<MyPage  />}  />
-          {/* <Route path='/ticketingpage' element={<TicketingPage />}/> */}
-          <Route path='/marketplace' element={<MarketPlace />}/>
-          <Route path='/nftdetailpage' element={<NftDetailPage />}/>
-          <Route path='/sellpage' element={<SellPage />}/>
-          <Route path='/loadingpage' element={<LoadingPage />}/>
-          <Route path='/ticketchangepage' element={<TicketChangePage />}/>
-          <Route path='/signup' element={<Signup  />}/>
-        </Routes>
+        <ListStore>
+          <Routes >
+            <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
+            <Route path='/mainpage' element={<MainPage />} />
+            <Route path='/mypage' element={<MyPage  />}  />
+            {/* <Route path='/ticketingpage' element={<TicketingPage />}/> */}
+            <Route path='/marketplace' element={<MarketPlace />}/>
+            <Route path='/nftdetailpage' element={<NftDetailPage />}/>
+            <Route path='/sellpage' element={<SellPage />}/>
+            <Route path='/loadingpage' element={<LoadingPage />}/>
+            <Route path='/ticketchangepage' element={<TicketChangePage />}/>
+            <Route path='/signup' element={<Signup  />}/>
+          </Routes>
+        </ListStore>
       </BrowserRouter>
 
 

@@ -45,9 +45,9 @@ const MyPageContents = () => {
         ))}
       </ul>
       <div className="mypage_contents_nfts">
-      {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketingage"/>})}
-      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketingage"/>})}
-      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketingage"/>})}
+      {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketchangepage"/>})}
+      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketchangepage"/>})}
+      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketchangepage"/>})}
       </div>
     </div>
   );
