@@ -13,9 +13,10 @@ const MarketPlace = () => {
       <div className="marketplace">
         <main className="marketplace_main">
           <div className="marketplace_container">
-          <MarketPlaceSection1 />
-          <MarketPlaceInfo />
-          <Test> {/*이게 나중에 marcketplace 컴포넌트들을 감싸는 ContextAPI가 될거임. */}
+          <Test>
+            <MarketPlaceSection1 />
+            <MarketPlaceInfo />
+            {/*이게 나중에 marcketplace 컴포넌트들을 감싸는 ContextAPI가 될거임. */}
             <MarketPlaceContents />
           </Test>
           </div>
