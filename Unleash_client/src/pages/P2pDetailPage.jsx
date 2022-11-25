@@ -1,12 +1,20 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import DefaultNft from "../components/NFTs/DefaultNft";
 //import FirstNFT from "../components/NFTs/FirstNFT";
 //import BusinessNFT from "../components/NFTs/BusinessNFT";
-//import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
+import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 
 const P2pDetailPage = () => {
   // 해야할것, nft 종류별로 들어오게.
   // token정보 불러오기. dummy랑 합치기.
+
+  const [bg, setBg] = useState('');
+  const [city, setCity] = useState('');
+
+  useEffect(() => {
+    setBg(romaDummy.nftImg);
+    setCity(romaDummy.city);
+  }, [])
 
 
   return (
@@ -17,7 +25,7 @@ const P2pDetailPage = () => {
             <div className="detailp2ppage_nft_top1">
               <span>NFT</span>
             </div>
-            <DefaultNft/>
+            <DefaultNft bg={bg} city={city}/>
           </div>
           <div className="detailp2ppage_nft_desc">
             <div className="detailp2p_top">

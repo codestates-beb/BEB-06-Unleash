@@ -1358,17 +1358,37 @@
 }
 
 .marketplacep2p_section1_img span {
-  color: black;
-  text-shadow: 0 0 20px white, 0 0 30px white, 0 0 10px white;
+  color: #000000;
   letter-spacing: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 125px;
+  font-size: 140px;
   height: 100%;
   font-weight: 600;
+  animation: textshadow 2s ease-in-out infinite alternate forwards;
 }
 
+
+@keyframes textshadow {
+  0% {
+    text-shadow: 0 0 10px white;
+  }
+  100% {
+    text-shadow: 0 0 20px white, 0 0 10px white;
+  }
+}
+
+
+.marketplacep2p_nfts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 24px;
+  gap: 24px;
+  justify-items: center;
+
+  justify-content: center;
+}
 
 
 
