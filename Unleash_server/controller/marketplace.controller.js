@@ -19,27 +19,40 @@ const ticketInfo = async (req, res) => {
         [Op.and]: verification(client_data),
       },
     });
-    const marketplace_data = await db.ticket.findAll({
-      attributes: [],
-      where: {
-        [Op.and]: verification(client_data),
-      },
-      include: [
-        {
-          model: db.marketplace,
-          as: "marketplaces",
-          required: true,
-          attributes: ["offer_id", "token_id", "amount", "seller", "price"],
-        },
-      ],
-    });
+    // const marketplace_data = await db.ticket.findAll({
+    //   attributes: [],
+    //   where: {
+    //     [Op.and]: verification(client_data),
+    //   },
+    //   include: [
+    //     {
+    //       model: db.marketplace,
+    //       as: "marketplaces",
+    //       required: true,
+    //       attributes: ["offer_id", "token_id", "amount", "seller", "price"],
+    //     },
+    //   ],
+    // });
 
-    return res
-      .status(200)
-      .json({ ticket_data: ticket_data, marketplace_data: marketplace_data });
+    return res.status(200).json(ticket_data);
   } catch (err) {
     console.log(err);
     return res.status(400).send(err);
+  }
+};
+
+const marketInfo = async (req, res) => {
+  const client_data = req.body;
+  try {
+    const marketplace_data = await db.marketplace.findAll({
+      attributes: ["offer_id", "token_id", "amount", "seller", "price"],
+      where: {
+        amount: { [Op.ne]: 0 },
+      },
+    });
+    return res.status(200).json(marketplace_data);
+  } catch (err) {
+    return res.status(400).send("실패");
   }
 };
 
@@ -208,4 +221,5 @@ module.exports = {
   sell,
   cancel,
   buy,
+  marketInfo,
 };
