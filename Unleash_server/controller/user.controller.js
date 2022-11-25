@@ -60,7 +60,7 @@ const joinMembership = async (req, res) => {
 };
 
 const myPageOwned = async (req, res) => {
-  const client_data = req.body;
+  const client_data = req.query;
 
   try {
     const myToken = await db.token_holder.findAll({
@@ -76,7 +76,7 @@ const myPageOwned = async (req, res) => {
 };
 
 const myPageSelling = async (req, res) => {
-  const client_data = req.body;
+  const client_data = req.query;
 
   try {
     const marketToken = await db.marketplace.findAll({
@@ -98,9 +98,24 @@ const myPageSelling = async (req, res) => {
   }
 };
 
+const myPageSelled = async (req, res) => {
+  const client_data = req.query;
+  try {
+    const data = await db.transactionHistory.findAll({
+      where: {
+        seller: client_data.seller,
+      },
+    });
+    return res.status(200).json(data);
+  } catch (err) {
+    return res.status(400).send("에러");
+  }
+};
+
 module.exports = {
   myPageOwned,
   myPageSelling,
   joinMembership,
   login,
+  myPageSelled,
 };
