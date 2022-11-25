@@ -7,26 +7,17 @@ const ListStore = (props) => {
 
   const [list, setList] = useState([]);
   const [airlineNFT, setAirlineNFT] = useState([]);
-  console.log(airlineNFT)
-
-  // 1. useEffect로 list를 불러온다.
-/*   useEffect(() => {
-    axios.get("http://localhost:5001/marketplace/ticket",).then(res => {
-      const array = res.data;
-      const filteredArr = [...array].filter((item) => {
-        return item.to == "CDG";
-      });
-      setList(filteredArr);
-    })
-  }, []); */
-
-  // 1. 서치를 해서, 
-
-
+  const [listAll, setListAll] = useState([]);
 
   // useState React hook
   return (
-    <ListContext.Provider value={{list,setList, airlineNFT, setAirlineNFT}}>
+    <ListContext.Provider value={{
+      list,
+      setList,
+      airlineNFT,
+      setAirlineNFT,
+      listAll,
+      setListAll}}>
       {props.children}
     </ListContext.Provider>
   )
