@@ -49,8 +49,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter >
-        <Header connectWallet={connectWallet} account={account} logOut={logOut} />
         <ListStore>
+          <Header connectWallet={connectWallet} account={account} logOut={logOut} />
           <Routes >
             <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
             <Route path='/mainpage' element={<MainPage />} />

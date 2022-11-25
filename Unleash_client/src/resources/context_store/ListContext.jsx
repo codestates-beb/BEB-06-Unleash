@@ -10,14 +10,18 @@ const ListStore = (props) => {
 
   // 1. useEffect로 list를 불러온다.
   useEffect(() => {
-    axios.get("http://localhost:5001/marketplace/ticket").then(res => {
+    axios.get("http://localhost:5001/marketplace/ticket",).then(res => {
       const array = res.data;
       const filteredArr = [...array].filter((item) => {
-        return item.to === "ITM";
-      })
-      setList(filteredArr)
+        return item.to == "CDG";
+      });
+      console.log(filteredArr)
+      setList(filteredArr);
+      console.log(list)
     })
-  }, [list]);
+  }, []);
+
+  // 1. 서치를 해서, 
 
 
 

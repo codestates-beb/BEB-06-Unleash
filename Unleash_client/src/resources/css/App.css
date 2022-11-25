@@ -1336,7 +1336,7 @@
 
 .marketplacep2p {
   background: #e6e6e665;
-  height: 100vh;
+  height: 100%;
 }
 .marketplacep2p_main {
   margin-top: 75px;
@@ -1363,7 +1363,7 @@
 }
 
 .marketplacep2p_section1_img span {
-  color: #000000;
+  color: #43291f;
   letter-spacing: 3px;
   display: flex;
   justify-content: center;
@@ -1384,7 +1384,6 @@
   }
 }
 
-
 .marketplacep2p_nfts {
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
@@ -1393,6 +1392,69 @@
   justify-items: center;
 
   justify-content: center;
+}
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.marketplacep2p_info {
+  
+  display: flex;
+  flex-direction: column;
+  margin: 70px;
+  font-family: 'Bebas Neue', cursive;
+}
+
+.marketplacep2p_info span:nth-child(1) {
+  font-size: 170px;
+  font-weight: 600;
+  color: burlywood;
+  margin-bottom: 30px;
+  text-shadow: 0 0 5px black;
+  transform: translateX(-100%);
+  animation: movefont 0.8s ease-in forwards;
+  font-style: italic;
+}
+.marketplacep2p_info span:nth-child(2) {
+  color: white;
+  text-shadow: 0 0 5px black;
+  font-size: 70px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transform: translateX(-100%);
+  animation: movefont 1s ease-in forwards;
+  animation-delay: 0.5s;
+}
+.marketplacep2p_info span:nth-child(3) {
+  color: salmon;
+  font-size: 50px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transform: translateX(-100%);
+  animation: movefont 1s ease-in forwards;
+  animation-delay: 1s;
+}
+.marketplacep2p_info span:nth-child(4) {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 41%;
+  width: 250px;
+  background-color: white;
+  box-shadow: 0 0 2px, 0 0 4px, 0 0 8px;
+  border-radius: 10px;
+  margin-top: 40px;
+  color: brown;
+  font-size: 100px;
+  font-weight: 600;
+  text-align: center;
+}
+
+@keyframes movefont {
+  90% {
+    font-style: italic;
+  }
+  100% {
+    transform: translateX(0%);
+    font-style: normal;
+  }
 }
 
 

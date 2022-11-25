@@ -18,7 +18,7 @@ const MarketPlaceSection1 = () => {
     if (context.list[0].to === "CDG") return setDestination(parisDummy);
     if (context.list[0].to === "SYD") return setDestination(sydneyDummy);
     if (context.list[0].to === "FCO") return setDestination(romaDummy);
-  }, [destination]);
+  }, []);
   //const a = [city, city2]; a 는 모듈화된 이미지 7개.
 
   // city값에 전역으로 설정된 === 필터링된 도착지. city를 대입해야함.

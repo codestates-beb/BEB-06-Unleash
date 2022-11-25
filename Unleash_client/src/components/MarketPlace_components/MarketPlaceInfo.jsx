@@ -19,7 +19,7 @@ const MarketPlaceInfo = () => {
     if (context.list[0].to === "CDG") return setDestination(parisDummy);
     if (context.list[0].to === "SYD") return setDestination(sydneyDummy);
     if (context.list[0].to === "FCO") return setDestination(romaDummy);
-    console.log(context.list);
+    console.log(context.list[0].nftvoucher.price);
   }, []);
   // const context = useContext(AppContext);
   // const [description, setDescription] = useState('');
@@ -39,9 +39,9 @@ const MarketPlaceInfo = () => {
             <span>{destination.description}</span>
           </div>
           <div className="marketplace_description_eth">
-            <span>First class floor price: 0.1ETH</span>
-            <span>Business class floor price: 0.1ETH</span>
-            <span>Economy class floor price:  </span>
+            <span>First class floor price: {context.list[250].nftvoucher.price} ETH</span>
+            <span>Business class floor price: {context.list[220].nftvoucher.price} ETH</span>
+            <span>Economy class floor price: {context.list[0].nftvoucher.price} ETH</span>
           </div>
         </div>
       </div>

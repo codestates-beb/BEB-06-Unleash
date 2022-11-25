@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import DefaultNft from "../components/NFTs/DefaultNft";
+import FirstNFT from "../components/NFTs/FirstNFT"
+import BusinessNFT from "../components/NFTs/BusinessNFT"
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 
 const P2PMarket = () => {
@@ -8,6 +10,7 @@ const P2PMarket = () => {
   const [city, setCity] = useState('');
 
   useEffect(() => {
+    // axios post 보내기.
     setBg(romaDummy.nftImg);
     setCity(romaDummy.city);
   }, [])
@@ -21,10 +24,23 @@ const P2PMarket = () => {
               <span>𝙐𝙣𝙡𝙚𝙖𝙨𝙝</span>
             </div>
           </div>
-          <div>
-            <span>Get your Ticket!</span>
+          <div className="marketplacep2p_info">
+            <span>We believe,</span> 
+            <span>there's a chance to unleash our identity with DID.</span>
+            <span>This market is the result what we believe.</span>
+            <span>Enjoy.</span>
           </div>
+          {/* advanced */}
+{/*           <div className="marketplacep2p_theme">
+            <div><button></button></div>
+            <div><button>Asia</button></div>
+            <div><button></button></div>
+            <div><button></button></div>
+            <div><button></button></div>
+          </div> */}
           <div className="marketplacep2p_nfts">
+          {arr.map((item, idx) => <DefaultNft locate="/p2pdetailpage" bs="buy" bg={bg} city={city}/>)}
+          {arr.map((item, idx) => <DefaultNft locate="/p2pdetailpage" bs="buy" bg={bg} city={city}/>)}
           {arr.map((item, idx) => <DefaultNft locate="/p2pdetailpage" bs="buy" bg={bg} city={city}/>)}
           </div>
         </div>
