@@ -1,4 +1,4 @@
-const { db } = require("../sequelize/models/index.js");
+const { db, sequelize } = require("../sequelize/models/index.js");
 const { Op, where } = require("sequelize");
 const token_holder = require("../sequelize/models/token_holder.js");
 
@@ -82,6 +82,7 @@ const sell = async (req, res) => {
 };
 const cancel = async (req, res) => {
   const client_data = req.body;
+  const transaction = await sequelize.transaction();
 
   try {
     await db.marketplace.update(
@@ -92,7 +93,8 @@ const cancel = async (req, res) => {
         where: {
           offer_id: client_data.offer_id,
         },
-      }
+      },
+      { transaction }
     );
     await db.token_holder.increment(
       {
@@ -105,10 +107,13 @@ const cancel = async (req, res) => {
             { token_id: client_data.token_id },
           ],
         },
-      }
+      },
+      { transaction }
     );
+    await transaction.commit();
     return res.status(200).send("성공");
   } catch (err) {
+    await transaction.rollback();
     console.log(err);
     return res.status(400).send(err);
   }
@@ -116,6 +121,7 @@ const cancel = async (req, res) => {
 
 const buy = async (req, res) => {
   const client_data = req.body;
+  const transaction = await sequelize.transaction();
 
   try {
     await db.marketplace.decrement(
@@ -126,38 +132,52 @@ const buy = async (req, res) => {
         where: {
           offer_id: client_data.offer_id,
         },
-      }
+      },
+      { transaction }
     );
-    const token_holder = await db.token_holder.findAll({
-      where: {
-        [Op.and]: [
-          { user_id: client_data.user_id },
-          {
-            token_id: client_data.token_id,
-          },
-        ],
+    const token_holder = await db.token_holder.findAll(
+      {
+        where: {
+          [Op.and]: [
+            { user_id: client_data.user_id },
+            {
+              token_id: client_data.token_id,
+            },
+          ],
+        },
       },
-    });
-    const market_data = await db.marketplace.findOne({
-      where: {
-        offer_id: client_data.offer_id,
+      { transaction }
+    );
+    const market_data = await db.marketplace.findOne(
+      {
+        where: {
+          offer_id: client_data.offer_id,
+        },
       },
-    });
+      { transaction }
+    );
 
     if (token_holder.length === 0) {
-      await db.token_holder.create({
-        user_id: client_data.user_id,
-        token_id: client_data.token_id,
-        amount: client_data.amount,
-      });
-      await db.transactionHistory.create({
-        seller: market_data.dataValues.seller,
-        token_id: market_data.dataValues.token_id,
-        offer_id: client_data.offer_id,
-        buyer: client_data.buyer,
-        price: market_data.dataValues.price,
-        amount: client_data.amount,
-      });
+      await db.token_holder.create(
+        {
+          user_id: client_data.user_id,
+          token_id: client_data.token_id,
+          amount: client_data.amount,
+        },
+        { transaction }
+      );
+      await db.transactionHistory.create(
+        {
+          seller: market_data.dataValues.seller,
+          token_id: market_data.dataValues.token_id,
+          offer_id: client_data.offer_id,
+          buyer: client_data.buyer,
+          price: market_data.dataValues.price,
+          amount: client_data.amount,
+        },
+        { transaction }
+      );
+      await transaction.commit();
       return res.status(200).send("보유하지 않았던 토큰 저장 성공");
     }
     await db.token_holder.increment(
@@ -171,18 +191,24 @@ const buy = async (req, res) => {
             { token_id: client_data.token_id },
           ],
         },
-      }
+      },
+      { transaction }
     );
-    await db.transactionHistory.create({
-      seller: market_data.dataValues.seller,
-      token_id: market_data.dataValues.token_id,
-      offer_id: client_data.offer_id,
-      buyer: client_data.buyer,
-      price: market_data.dataValues.price,
-      amount: client_data.amount,
-    });
+    await db.transactionHistory.create(
+      {
+        seller: market_data.dataValues.seller,
+        token_id: market_data.dataValues.token_id,
+        offer_id: client_data.offer_id,
+        buyer: client_data.buyer,
+        price: market_data.dataValues.price,
+        amount: client_data.amount,
+      },
+      { transaction }
+    );
+    await transaction.commit();
     return res.status(200).send("보유하고 있는 토큰 저장 성공");
   } catch (err) {
+    await transaction.rollback();
     return res.status(400).send(err);
   }
 };
