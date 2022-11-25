@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import DefaultNft from "../components/NFTs/DefaultNft";
 //import FirstNFT from "../components/NFTs/FirstNFT";
 //import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
+import { ListContext } from "../resources/context_store/ListContext";
 
 const P2pDetailPage = () => {
-  // 해야할것, nft 종류별로 들어오게.
-  // token정보 불러오기. dummy랑 합치기.
 
   const [bg, setBg] = useState('');
   const [city, setCity] = useState('');

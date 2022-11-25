@@ -3,14 +3,16 @@ import DefaultNft from "../components/NFTs/DefaultNft";
 import FirstNFT from "../components/NFTs/FirstNFT"
 import BusinessNFT from "../components/NFTs/BusinessNFT"
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
-
+import axios from "axios";
 const P2PMarket = () => {
+  
+
   const arr = Array.from(Array(5));
   const [bg, setBg] = useState('');
   const [city, setCity] = useState('');
 
   useEffect(() => {
-    // axios post 보내기.
+    
     setBg(romaDummy.nftImg);
     setCity(romaDummy.city);
   }, [])

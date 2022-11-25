@@ -12,20 +12,15 @@ import { ListContext } from "../../resources/context_store/ListContext";
 const MarketPlaceInfo = () => {
   const context = useContext(ListContext);
   const [destination, setDestination] = useState({});
-  console.log(context.list);
 
   useEffect(() => {
-    if (context.list[0].to === "ITM") return setDestination(osakaDummy);
+    if (context.list[0].to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
     if (context.list[0].to === "JFK") return setDestination(newYorkDummy);
     if (context.list[0].to === "CDG") return setDestination(parisDummy);
     if (context.list[0].to === "SYD") return setDestination(sydneyDummy);
     if (context.list[0].to === "FCO") return setDestination(romaDummy);
-    console.log(context.list[0].nftvoucher.price);
-  }, []);
-  // const context = useContext(AppContext);
-  // const [description, setDescription] = useState('');
-  // const filteredCity = dummy.filter((item) => item === context.state.city);
-  
+  }, [destination]);
+
   return (
     <>
       <div className="marketplace_info">
@@ -40,9 +35,9 @@ const MarketPlaceInfo = () => {
             <span>{destination.description}</span>
           </div>
           <div className="marketplace_description_eth">
-            <span>First class floor price: {context.list[250].nftvoucher.price} ETH</span>
-            <span>Business class floor price: {context.list[220].nftvoucher.price} ETH</span>
-            <span>Economy class floor price: {context.list[0].nftvoucher.price} ETH</span>
+            <span>First class price: {context.list[2].nftvoucher.price} ETH</span>
+            <span>Business class price: {context.list[1].nftvoucher.price} ETH</span>
+            <span>Economy class price: {context.list[0].nftvoucher.price} ETH</span>
           </div>
         </div>
       </div>
