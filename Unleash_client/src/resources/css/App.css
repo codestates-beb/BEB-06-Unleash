@@ -689,8 +689,13 @@
 }
 
 .marketplace_description_eth {
+  display: flex;
+  flex-direction: column;
   margin-left: 300px;
   font-size: 23px;
+}
+.marketplace_description_eth span {
+  margin-top: 20px;
 }
 
 .marketplace_description_dollars {

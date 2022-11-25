@@ -30,7 +30,7 @@ const FirstNFT = (props) => {
                   <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                     <h2>{props.city}</h2>
                     <p>Travel with Unleash</p>
-                    <p>110ETH</p> 
+                    <p>110ETH</p>
                   </div>
                   <div className="first_nft_poka" />
                 </div>

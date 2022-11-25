@@ -24,14 +24,10 @@ const MarketPlaceContents = () => {
   const [bg, setBg] = useState('');
   const [city, setCity] = useState('');
 
-  const {list, setList, a} = context;
-  useEffect(() => {
-    a([1,2,3,4]);
-  }, [])
 
   //console.log(list)
-  localStorage.setItem("ticketList", JSON.stringify(list));
-  console.log(JSON.parse(localStorage.ticketList))
+  //localStorage.setItem("ticketList", JSON.stringify(list));
+  //console.log(JSON.parse(localStorage.ticketList))
 
   // nft 필터링하는 곳.
   // const first = metadata.filter((item) => item.class === "퍼스트")
@@ -45,8 +41,6 @@ const MarketPlaceContents = () => {
     setBg(romaDummy.nftImg);
     setCity(romaDummy.city);
   }, [])
-
-
 
   return (
     

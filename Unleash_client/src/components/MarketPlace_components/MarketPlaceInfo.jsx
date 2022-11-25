@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./MarketplaceDummy";
+import { ListContext } from "../../resources/context_store/ListContext";
 
 // 나중에 해야할것.
 // 전역상태에 따라 도시 이름도 바뀌어야하기 때문에 Ticket To City 부분 수정.
@@ -9,7 +10,17 @@ import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./
 
 
 const MarketPlaceInfo = () => {
+  const context = useContext(ListContext);
   const [destination, setDestination] = useState({});
+
+  useEffect(() => {
+    if (context.list[0].to === "ITM") return setDestination(osakaDummy);
+    if (context.list[0].to === "JFK") return setDestination(newYorkDummy);
+    if (context.list[0].to === "CDG") return setDestination(parisDummy);
+    if (context.list[0].to === "SYD") return setDestination(sydneyDummy);
+    if (context.list[0].to === "FCO") return setDestination(romaDummy);
+    console.log(context.list);
+  }, []);
   // const context = useContext(AppContext);
   // const [description, setDescription] = useState('');
   // const filteredCity = dummy.filter((item) => item === context.state.city);
@@ -18,22 +29,19 @@ const MarketPlaceInfo = () => {
     <>
       <div className="marketplace_info">
         <div className="marketplace_info_container">
-          <div className="marketplace_info_avatar" style={{backgroundImage: `url(${osakaDummy.nftImg})`}}/>
-          <span className="marketplace_info_name">Ticket To {osakaDummy.city}</span>
+          <div className="marketplace_info_avatar" style={{backgroundImage: `url(${destination.nftImg})`}}/>
+          <span className="marketplace_info_name">Ticket To {destination.city}</span>
           <div className="marketplace_info_flexgrow" />
           <div className="marketplace_info_detail">디테일정보</div>
         </div>
         <div className="marketplace_description_container">
           <div className="marketplace_description_contents">
-            <span>{osakaDummy.description}</span>
+            <span>{destination.description}</span>
           </div>
           <div className="marketplace_description_eth">
-            {/* NFT 가격 이더리움으로 */}
-            <span>price 0.1ETH</span>
-          </div>
-          <div className="marketplace_description_dollars">
-            {/* NFT 가격 달러 or KRW로 환산해서 표시 */}
-            <span>price 100$</span>
+            <span>First class floor price: 0.1ETH</span>
+            <span>Business class floor price: 0.1ETH</span>
+            <span>Economy class floor price:  </span>
           </div>
         </div>
       </div>
