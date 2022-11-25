@@ -1,6 +1,12 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('token_holder', {
+    id: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -24,13 +30,14 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'token_holder',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
-        name: "FK_token_holder_user",
+        name: "PRIMARY",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
+          { name: "id" },
         ]
       },
       {
@@ -38,6 +45,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "token_id" },
+        ]
+      },
+      {
+        name: "FK_token_holder_user",
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
         ]
       },
     ]

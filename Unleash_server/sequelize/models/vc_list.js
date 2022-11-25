@@ -1,35 +1,32 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('ticket', {
-    token_id: {
+  return sequelize.define('vc_list', {
+    id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    from: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    to: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    did: {
+      type: DataTypes.STRING(100),
+      allowNull: false
     },
-    departuretime: {
+    vc: {
+      type: DataTypes.STRING(2000),
+      allowNull: false
+    },
+    updateAt: {
       type: DataTypes.DATE,
-      allowNull: true
-    },
-    arrivaltime: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    class: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
-    tableName: 'ticket',
+    tableName: 'vc_list',
     timestamps: true,
     indexes: [
       {
@@ -37,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "token_id" },
+          { name: "id" },
         ]
       },
     ]
