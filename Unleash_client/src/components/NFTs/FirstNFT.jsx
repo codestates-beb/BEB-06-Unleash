@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
-import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "../MarketPlace_components/MarketplaceDummy";
 
 const FirstNFT = (props) => {
   
@@ -19,25 +18,24 @@ const FirstNFT = (props) => {
   // filtering된 값에 JFK가 들어있으면 nftImg는 NewYork로.
   const cities = ["NewYork","Osaka","Roma","Sydney","Paris"];
   const airports = ["JFK", "ITN", "FCO", "SYD", "CDG"];
-  const {nftImg, city} = osakaDummy;
 
     return (
         <>
           <Tilt className={ active ? "Tilt" : ""} glareEnable={true} glareMaxOpacity={0.2} glarePosition="all"  transitionSpeed={400}  tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor={glare2}
-          scale={1.1}  style={{  zIndex : ( active ? 11 : 9 ) }} >
+          scale={1.1}  style={{  zIndex : ( active ? 11 : 9 ) }}>
             <div className={active ? "default_nft_container_first_active" : "default_nft_container_first"} onClick={handleActive}>
-              <div className="default_nft_img" style={{backgroundImage: `url(${nftImg})`}}>
+              <div className="default_nft_img" style={{backgroundImage: `url(${props.bg})`}}>
                 <div className="default_nft_whiteimg">
-                  {arr.map((item, idx) => <span key={idx} style={{backgroundImage: `url(${nftImg})`}}></span>)}
+                  {arr.map((item, idx) => <span key={idx} style={{backgroundImage: `url(${props.bg})`}}></span>)}
                   <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
-                    <h2>{city}</h2>
+                    <h2>{props.city}</h2>
                     <p>Travel with Unleash</p>
                     <p>110ETH</p> 
                   </div>
                   <div className="first_nft_poka" />
                 </div>
               </div>
-              <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${nftImg})`}}/>
+              <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${props.bg})`}}/>
             </div>
             <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
               <Link to={props.locate}><button onClick={handleBuyClick}>{props.bs}</button></Link>

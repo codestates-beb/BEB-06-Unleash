@@ -3,11 +3,19 @@ import DefaultNft from "../NFTs/DefaultNft";
 import FirstNFT from "../NFTs/FirstNFT";
 import BusinessNFT from "../NFTs/BusinessNFT";
 import axios from "axios"
+import { romaDummy } from "../MarketPlace_components/MarketplaceDummy"; // 나중에 추가.
 
 const MyPageContents = () => {
   // const first = metadata.filter((item) => item.class === "퍼스트")
   // const business = metadata.filter((item) => item.class === "이코노미")
   // const economy = metadata.filter((item) => item.class === "비지니스")
+  const [bg, setBg] = useState('');
+  const [city, setCity] = useState('');
+
+  useEffect(() => {
+    setBg(romaDummy.nftImg);
+    setCity(romaDummy.city);
+  }, [])
 
   // mypage contents는 일단 DB에서 리스트를 다 불러온거임.
   // ListState 에 저장.
@@ -35,9 +43,9 @@ const MyPageContents = () => {
       <ul className="mypage_contents_category" >
         {status.map((item, idx) => (
           border[idx]
-          ? <li 
+          ? <li
             key={idx}
-            onClick={handleClick} 
+            onClick={handleClick}
             style={{borderBottom: "5px solid #c1121ec9", transition: "0.3s", borderRadius: "5px", paddingBottom: "3px"}}>
               <span>{item}</span>
             </li>
@@ -45,9 +53,9 @@ const MyPageContents = () => {
         ))}
       </ul>
       <div className="mypage_contents_nfts">
-      {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketchangepage"/>})}
-      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketchangepage"/>})}
-      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="ticketchangepage"/>})}
+      {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="/ticketchangepage" bg={bg} city={city}/>})}
+      {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="/ticketchangepage" bg={bg} city={city}/>})}
+      {arr.map((item, idx) => {return <DefaultNft key={idx} bs="sell" bs2="change" locate="/sellpage" locate2="/ticketchangepage" bg={bg} city={city}/>})}
       </div>
     </div>
   );

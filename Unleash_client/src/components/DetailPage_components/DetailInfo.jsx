@@ -2,13 +2,19 @@ import React from "react";
 
 const DetailInfo = () => {
 
+
+  //Ethers 이용해 TX 보내기.
+  const handleButtonClick = () => {
+
+  }
+
   return (
     <>
       <div className="detailpage_container_info">
         <div className="detailpage_personal_info">
           <span>Osaka TokenID</span>
           <span>owned by airlines</span>
-          <button>Buy</button>
+          <button type="button" onClick={handleButtonClick} >Buy</button>
         </div>
         <div className="detailpage_price">
           <div className="detail_top" >

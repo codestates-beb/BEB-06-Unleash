@@ -5,6 +5,7 @@ import BusinessNFT from "../NFTs/BusinessNFT";
 import FirstNFT from "../NFTs/FirstNFT";
 import MarketPlaceAside from "./MarketPlaceAside"
 import { ListContext } from "../../resources/context_store/ListContext";
+import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "./MarketplaceDummy";
 
 /* metadata
 {
@@ -20,15 +21,17 @@ import { ListContext } from "../../resources/context_store/ListContext";
 const MarketPlaceContents = () => {
 
   const context = useContext(ListContext);
-  
+  const [bg, setBg] = useState('');
+  const [city, setCity] = useState('');
+
   const {list, setList, a} = context;
   useEffect(() => {
     a([1,2,3,4]);
   }, [])
 
-  console.log(list)
-  //localStorage.setItem("ticketList", JSON.stringify(list));
-  //console.log(JSON.parse(localStorage.ticketList))
+  //console.log(list)
+  localStorage.setItem("ticketList", JSON.stringify(list));
+  console.log(JSON.parse(localStorage.ticketList))
 
   // nft 필터링하는 곳.
   // const first = metadata.filter((item) => item.class === "퍼스트")
@@ -37,6 +40,12 @@ const MarketPlaceContents = () => {
   const arr = Array.from(Array(10));
   const arr2 = Array.from(Array(5));
   const arr3 = Array.from(Array(5));
+
+  useEffect(() => {
+    setBg(romaDummy.nftImg);
+    setCity(romaDummy.city);
+  }, [])
+
 
 
   return (
@@ -56,9 +65,9 @@ const MarketPlaceContents = () => {
       <div className="marketplace_contents">
         <MarketPlaceAside />
         <div className="marketplace_contents_nfts">
-        {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="buy" locate="/nftdetailpage"/>})}
-        {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="buy" locate="/nftdetailpage"/>})}
-        {arr.map((item, idx) => {return <DefaultNft key={idx} bs="buy" locate="/nftdetailpage"/>})}
+        {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="buy" locate="/nftdetailpage" bg={bg} city={city}/>})}
+        {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="buy" locate="/nftdetailpage" bg={bg} city={city}/>})}
+        {arr.map((item, idx) => {return <DefaultNft key={idx} bs="buy" locate="/nftdetailpage" bg={bg} city={city}/>})}
         </div>
       </div>
     </div>
