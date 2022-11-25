@@ -6,7 +6,10 @@ import { ListContext } from "../resources/context_store/ListContext";
 const NftDetailPage = () => {
   //nft state 받아와서 적용.
   const context = useContext(ListContext);
-  console.log(localStorage)
+  //console.log(JSON.parse(localStorage.ticketList));
+  /* const {list, setList} = context;
+  console.log(localStorage.ticketList) */
+  //console.log(list)
 
   return (
     <main className="detail_main">

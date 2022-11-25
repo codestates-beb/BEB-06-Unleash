@@ -9,9 +9,16 @@ import MarketPlace from './pages/MarketPlace.jsx'
 import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
 import LoadingPage from './pages/LoadingPage.jsx'
+<<<<<<< HEAD
 import Signup from './pages/Signup'
 import P2PMarket from './pages/P2PMarket'
 import Header from './components/Header'
+=======
+import Signup from "./pages/Signup";
+import P2PMarket from './pages/P2PMarket';
+import P2pDetailPage from './pages/P2pDetailPage'
+import Header from "./components/Header";
+>>>>>>> b72e683e43270563a3a30b5628f964d8b4763ac2
 
 //contextAPI
 import ListStore from './resources/context_store/ListContext'
@@ -49,6 +56,7 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
       <BrowserRouter>
         <Header
           connectWallet={connectWallet}
@@ -70,6 +78,23 @@ function App() {
             <Route path="/loadingpage" element={<LoadingPage />} />
             <Route path="/ticketchangepage" element={<TicketChangePage />} />
             <Route path="/signup" element={<Signup />} />
+=======
+      <BrowserRouter >
+        <Header connectWallet={connectWallet} account={account} logOut={logOut} />
+        <ListStore>
+          <Routes >
+            <Route path='/' element={<LandingPage onLandingState={onLandingState} />} />
+            <Route path='/mainpage' element={<MainPage />} />
+            <Route path='/mypage' element={<MyPage />}  />
+            <Route path='/marketplace' element={<MarketPlace />}/>
+            <Route path='/marketplacep2p' element={<P2PMarket />}/>
+            <Route path='/nftdetailpage' element={<NftDetailPage />}/>
+            <Route path='/p2pdetailpage' element={<P2pDetailPage />}/>
+            <Route path='/sellpage' element={<SellPage />}/>
+            <Route path='/loadingpage' element={<LoadingPage />}/>
+            <Route path='/ticketchangepage' element={<TicketChangePage />}/>
+            <Route path='/signup' element={<Signup  />}/>
+>>>>>>> b72e683e43270563a3a30b5628f964d8b4763ac2
           </Routes>
         </ListStore>
       </BrowserRouter>

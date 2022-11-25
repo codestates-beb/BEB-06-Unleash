@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Link } from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "../MarketPlace_components/MarketplaceDummy";
 
@@ -39,8 +40,8 @@ const DefaultNft = (props) => {
             <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${nftImg})`}}/>
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-              <a href={props.locate}><button>{props.bs}</button></a>
-              {props.bs2 && <a href={props.locate2}><button onClick={handleBuyClick}>{props.bs2}</button></a>}
+            <Link to={props.locate}><button onClick={handleBuyClick}>{props.bs}</button></Link>
+            {props.bs2 && <Link to={props.locate2}><button onClick={handleBuyClick}>{props.bs2}</button></Link>}
           </div>
           
         </Tilt>

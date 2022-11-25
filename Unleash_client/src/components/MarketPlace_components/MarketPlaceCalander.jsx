@@ -34,7 +34,7 @@ const onChangeReturnDate = (e) => {
         <div className="mainPage_ticketing_name">Depart date</div>
         <div className="mainPage_ticketing_select">{moment(departDate).format("YYYY년 MM월 DD일")} </div>
         {departDateOpen && (
-          <div className="mainPage_tiketting_calendar_box" >
+          <div className="mainPage_tiketting_calendar_box">
             <Calendar onChange={onChangeDepartDate} value={departDate}   formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})}/>
           </div>
         )}
