@@ -59,6 +59,7 @@ const MarketPlaceContents = () => {
       <div className="marketplace_contents">
         <MarketPlaceAside />
         <div className="marketplace_contents_nfts">
+          
         {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="buy" locate="/nftdetailpage" bg={bg} city={city}/>})}
         {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="buy" locate="/nftdetailpage" bg={bg} city={city}/>})}
         {arr.map((item, idx) => {return <DefaultNft key={idx} bs="buy" locate="/nftdetailpage" bg={bg} city={city}/>})}

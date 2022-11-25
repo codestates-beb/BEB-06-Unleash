@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useContext, useEffect, useCallback} from "react";
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./MarketplaceDummy";
 import { ListContext } from "../../resources/context_store/ListContext";
 
@@ -12,6 +12,7 @@ import { ListContext } from "../../resources/context_store/ListContext";
 const MarketPlaceInfo = () => {
   const context = useContext(ListContext);
   const [destination, setDestination] = useState({});
+  console.log(context.list);
 
   useEffect(() => {
     if (context.list[0].to === "ITM") return setDestination(osakaDummy);
