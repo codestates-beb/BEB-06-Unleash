@@ -22,11 +22,11 @@ const MarketPlaceContents = () => {
   const context = useContext(ListContext);
   
   const {list, setList, a} = context;
-  useEffect(() => {
-    a([1,2,3,4]);
-  }, [])
+  // useEffect(() => {
+  //   // a([1,2,3,4]);
+  // }, [])
 
-  console.log(list)
+  console.log(list);
   //localStorage.setItem("ticketList", JSON.stringify(list));
   //console.log(JSON.parse(localStorage.ticketList))
 
