@@ -30,23 +30,21 @@ module.exports = {
   claimVC: async (req, res) => {
     let responseData;
     try {
-      const { walletAddress,userEmail, expiresIn } = req.body;
+      const { walletAddress, expiresIn } = req.body;
 
       // 회원 정보 조회
       const userInfo = await db["user"].findOne({
         where: {
-          wallet_address: walletAddress,
-          email:userEmail
+          wallet_address: walletAddress
         },
       });
 
       // RETURN : 회원정보 없을 경우 return Error
       if (userInfo == null) {
         responseData = {
-          ok: false,
-          message: "No user data",
+          message: "No User Info",
         };
-        return res.status(201).send(responseData);
+        return res.status(400).send(responseData);
       }
 
       // Create Holder DID
@@ -131,14 +129,10 @@ module.exports = {
             },
           }
         );
-        responseData = {
-          ok: true,
-          message: "Update VC",
-          data: {
-            user_id: vcInfo.user_id,
-            did: vcInfo.did,
-            vc: vcJwt,
-          },
+        responseData = {            
+          user_id: vcInfo.user_id,
+          did: vcInfo.did,
+          vc: vcJwt,
         };
         return res.status(200).send(responseData);
       }
@@ -151,24 +145,16 @@ module.exports = {
       });
 
       responseData = {
-        ok: true,
-        message: "Create VC",
-        data: {
           user_id: vcSaveInfo.user_id,
           did: vcSaveInfo.did,
           vc: vcSaveInfo.vc,
-        },
       };
-
       return res.status(200).send(responseData);
 
     } catch (error) {
       responseData = {
-        ok: false,
         message: "Claim VC API ERROR",
-        data: {
-          error: error,
-        },
+        error
       };
       return res.status(404).send(responseData);
     }
@@ -194,19 +180,13 @@ module.exports = {
       // RETURN : vc 정보가 없을 경우 return Error
       if (vcInfo == null) {
         responseData = {
-          ok: false,
-          message: `No VC data on ${walletAddress}`,
+          vc:null
         };
-        return res.status(201).send(responseData);
+        return res.status(204).send(responseData);
       }
 
       responseData = {
-        ok: true,
-        message: `Request VC JWT`,
-        data : {
-          did:vcInfo.did,
-          vc:vcInfo.vc
-        }
+        vc:vcInfo.vc
       };
       return res.status(200).send(responseData);
 
