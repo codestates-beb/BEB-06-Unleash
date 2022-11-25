@@ -238,8 +238,8 @@ const verification = (data) => {
     lst.push({
       departuretime: {
         [Op.between]: [
-          data.departuretime + "T00:00:00.000Z",
-          data.departuretime + "T23:59:59.000Z",
+          data.departuretime + "00:00:00.000Z",
+          data.departuretime + "23:59:59.000Z",
         ],
       },
     });
