@@ -18,6 +18,14 @@ const ticketInfo = async (req, res) => {
       where: {
         [Op.and]: verification(client_data),
       },
+      include: [
+        {
+          model: db.nftvoucher,
+          as: "nftvoucher",
+          required: true,
+          attributes: ["price", "totalsupply"],
+        },
+      ],
     });
     // const marketplace_data = await db.ticket.findAll({
     //   attributes: [],
@@ -201,7 +209,14 @@ const verification = (data) => {
     lst.push({ to: data.to });
   }
   if (data.departuretime !== undefined) {
-    lst.push({ departuretime: data.departuretime });
+    lst.push({
+      departuretime: {
+        [Op.between]: [
+          data.departuretime + "T00:00:00.000Z",
+          data.departuretime + "T23:59:59.000Z",
+        ],
+      },
+    });
   }
   if (data.class !== undefined) {
     lst.push({ class: data.class });
@@ -210,7 +225,14 @@ const verification = (data) => {
     lst.push({ from: data.from });
   }
   if (data.arrivaltime) {
-    lst.push({ arrivaltime: data.arrivaltime });
+    lst.push({
+      arrivaltime: {
+        [Op.between]: [
+          data.arrivaltime + "T00:00:00.000Z",
+          data.arrivaltime + "T23:59:59.000Z",
+        ],
+      },
+    });
   }
   return lst;
 };
