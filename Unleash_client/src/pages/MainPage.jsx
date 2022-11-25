@@ -1,19 +1,26 @@
-import { Fragment, useEffect , useState } from "react";
+import { Fragment, useEffect , useState ,useContext } from "react";
 import { TransitionGroup, Transition } from "react-transition-group";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from "moment";
-
+import axios from "axios";
+import { ListContext } from "../resources/context_store/ListContext";
+import { useNavigate } from 'react-router-dom';
 
 
 const MainPage = () => {
+  const context = useContext(ListContext);
+  const navigate = useNavigate();
+
   const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
-  const [departDateOpen, setDepartDateOpen] = useState(false);
   const [returnDate, setReturnDate] = useState(new Date('12/31/2022'));
-  const [returnDateOpen, setReturnDateOpen] = useState(false);
   const [toPlace, setToPlace] = useState("paris");
+
+  const [departDateOpen, setDepartDateOpen] = useState(false);
+  const [returnDateOpen, setReturnDateOpen] = useState(false);
   const [toPlaceSelectBox, setToPlaceSelectBox] = useState(false);
 
+  const ToBox = { roma : "FCO" , osaka : "ITM" , austrailla : "SYD" , newyork : "JFK" , paris: "CDG"   }
 
    const onOpenDepartDate = () => {
       setDepartDateOpen(true);
@@ -44,6 +51,28 @@ const MainPage = () => {
   const onClickToPlaceSelectBox = () => {
     setToPlaceSelectBox(true);
   }
+
+
+  
+  const { list ,  setList , a} = context;
+
+  const onClickSearch = () => {
+    let To = ToBox[toPlace];
+    let params = {  "from" : "ICN" };
+    params["to"] = To;
+    params["departuretime"] = new Date(departDate.getTime() - (departDate.getTimezoneOffset() * 60000)).toISOString().substr(0, 11);
+
+    axios.get('http://localhost:5000/marketplace/ticket', {params} )
+    .then(function(res){
+      setList( () => res.data);
+      navigate("/marketplace");
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
+
 
     return (
       <Transition in={true} timeout={200} appear>
@@ -98,7 +127,7 @@ const MainPage = () => {
                     <div className="mainPage_tiketting_input_text" > Number of people</div>
                     </div>
                     
-                    <div className="mainPage_tiketing_button" >Search</div>
+                    <div className="mainPage_tiketing_button" onClick={onClickSearch} >Search</div>
                   </div>
                 </div>
 
