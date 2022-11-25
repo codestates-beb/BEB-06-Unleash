@@ -60,7 +60,7 @@ const joinMembership = async (req, res) => {
 };
 
 const myPageOwned = async (req, res) => {
-  const client_data = req.body;
+  const client_data = req.query;
 
   try {
     const myToken = await db.token_holder.findAll({
@@ -76,7 +76,7 @@ const myPageOwned = async (req, res) => {
 };
 
 const myPageSelling = async (req, res) => {
-  const client_data = req.body;
+  const client_data = req.query;
 
   try {
     const marketToken = await db.marketplace.findAll({

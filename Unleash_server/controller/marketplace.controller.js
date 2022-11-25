@@ -3,7 +3,7 @@ const { Op, where } = require("sequelize");
 const token_holder = require("../sequelize/models/token_holder.js");
 
 const ticketInfo = async (req, res) => {
-  const client_data = req.body;
+  const client_data = req.query;
 
   try {
     const ticket_data = await db.ticket.findAll({
@@ -188,7 +188,7 @@ const buy = async (req, res) => {
 };
 
 const priceHistory = async (req, res) => {
-  const client_data = req.body;
+  const client_data = req.query;
   try {
     const price_history = await db.marketplace.findAll({
       attributes: ["price"],
@@ -224,16 +224,16 @@ const verification = (data) => {
   if (data.from !== undefined) {
     lst.push({ from: data.from });
   }
-  if (data.arrivaltime) {
-    lst.push({
-      arrivaltime: {
-        [Op.between]: [
-          data.arrivaltime + "T00:00:00.000Z",
-          data.arrivaltime + "T23:59:59.000Z",
-        ],
-      },
-    });
-  }
+  // if (data.arrivaltime) {
+  //   lst.push({
+  //     arrivaltime: {
+  //       [Op.between]: [
+  //         data.arrivaltime + "T00:00:00.000Z",
+  //         data.arrivaltime + "T23:59:59.000Z",
+  //       ],
+  //     },
+  //   });
+  // }
   return lst;
 };
 
