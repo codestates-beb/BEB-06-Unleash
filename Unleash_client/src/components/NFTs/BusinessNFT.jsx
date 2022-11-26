@@ -10,14 +10,14 @@ const BusinessNFT = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id} = props;
-  const {list, setAirlineNFT} = context;
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller} = props;
+  const {listAll, setAirlineNFT} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
-    const filtered = [...list].filter((item) => item.token_id === token_Id);
+    const filtered = [...listAll].filter((item) => item.token_id === token_Id);
     setAirlineNFT(filtered);
   }
   
@@ -32,7 +32,7 @@ const BusinessNFT = (props) => {
                 <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
-                  <p>left : {left}</p>
+                  {left && <p>left : {left}</p>}
                   <p>{price}ETH</p>
                   <p>{departure}</p>
                   <p>{arrival}</p>

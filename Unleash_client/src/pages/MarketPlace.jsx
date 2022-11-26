@@ -5,9 +5,18 @@ import MarketPlaceContents from "../components/MarketPlace_components/MarketPlac
 import Test from "../resources/context_store/Test";
 import { ListContext } from "../resources/context_store/ListContext";
 import {ethers} from "ethers";
+import axios from "axios";
 
 const MarketPlace = () => {
   const context = useContext(ListContext);
+  const {setListAll} = context;
+
+  useEffect(() => {
+    axios.get("http://localhost:5001/marketplace/ticket").then(res => {
+      const data = res.data;
+      setListAll([...data]);
+    })
+  }, [])
 
   //context.list.city~~
   // context API 사용해야하는것, mainpage 에서 받아오는 항공권 리스트 정보.

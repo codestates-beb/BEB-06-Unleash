@@ -57,6 +57,14 @@ const marketInfo = async (req, res) => {
       where: {
         amount: { [Op.ne]: 0 },
       },
+      include: [
+        {
+          model: db.ticket,
+          as: "token",
+          required: true,
+          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+        },
+      ],
     });
     return res.status(200).json(marketplace_data);
   } catch (err) {

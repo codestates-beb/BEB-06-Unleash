@@ -51,11 +51,11 @@ const MarketPlaceContents = () => {
             locate="/nftdetailpage"
             bg={destination.nftImg}
             city={destination.city}
-            price={first[idx].nftvoucher.price}
-            departure={first[idx].departuretime}
-            arrival={first[idx].arrivaltime}
-            left={first[idx].nftvoucher.totalsupply}
-            token_Id={first[idx].token_id}
+            price={item.nftvoucher.price}
+            departure={item.departuretime}
+            arrival={item.arrivaltime}
+            left={item.nftvoucher.totalsupply}
+            token_Id={item.token_id}
           />)
         })}
         {business.map((item, idx) => {
@@ -66,11 +66,11 @@ const MarketPlaceContents = () => {
             locate="/nftdetailpage"
             bg={destination.nftImg}
             city={destination.city}
-            price={business[idx].nftvoucher.price}
-            departure={business[idx].departuretime}
-            arrival={business[idx].arrivaltime}
-            left={business[idx].nftvoucher.totalsupply}
-            token_Id={business[idx].token_id}
+            price={item.nftvoucher.price}
+            departure={item.departuretime}
+            arrival={item.arrivaltime}
+            left={item.nftvoucher.totalsupply}
+            token_Id={item.token_id}
           />)
         })}
         {economy.map((item, idx) => {
@@ -81,11 +81,11 @@ const MarketPlaceContents = () => {
             locate="/nftdetailpage"
             bg={destination.nftImg}
             city={destination.city}
-            price={economy[idx].nftvoucher.price}
-            departure={economy[idx].departuretime}
-            arrival={business[idx].arrivaltime}
-            left={economy[idx].nftvoucher.totalsupply}
-            token_Id={economy[idx].token_id}
+            price={item.nftvoucher.price}
+            departure={item.departuretime}
+            arrival={item.arrivaltime}
+            left={item.nftvoucher.totalsupply}
+            token_Id={item.token_id}
             />)
         })}
         </div>
