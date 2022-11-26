@@ -23,17 +23,10 @@ const P2PMarket = () => {
   // 값이 변할때 팔때 살때 tx가 있을떄마다 ㅇㅇ.
 
   useEffect(() => {
-    axios.get("http://localhost:5001/marketplace/market").then(res => {
-      const data = res.data;
-      setP2pMarketList([...data]);
       setFirst(() => [...p2pMarketList].filter(item => item.token.class === "퍼스트"));
       setBusiness(() => [...p2pMarketList].filter(item => item.token.class === "비지니스"));
       setEconomy(() => [...p2pMarketList].filter(item => item.token.class === "이코노미"));
-    }).catch((e) => {
-      console.log(e);
-      return e;
-    });
-  }, []);
+    }, []);
 
   const firstOsaka = filterOsaka(first);
   const businessOsaka = filterOsaka(business);

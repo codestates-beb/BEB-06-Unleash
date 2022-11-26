@@ -9,12 +9,16 @@ import axios from "axios";
 
 const MarketPlace = () => {
   const context = useContext(ListContext);
-  const {setListAll} = context;
+  const {setListAll, setP2pMarketList} = context;
 
   useEffect(() => {
     axios.get("http://localhost:5001/marketplace/ticket").then(res => {
       const data = res.data;
       setListAll([...data]);
+    })
+    axios.get("http://localhost:5001/marketplace/market").then(res => {
+      const data2 = res.data;
+      setP2pMarketList(() => [...data2]);
     })
   }, [])
 
