@@ -25,14 +25,16 @@ const P2PMarket = () => {
 
   useEffect(() => {
     axios.get("http://localhost:5001/marketplace/market").then(res => {
-      const p2p = res.data;
-      const filtered = [...listAll].filter((ls) => {
-        return p2p.map((item) => {
-          return item.token_id === ls.token_id
-        })
+      const marketlisting = res.data;
+      const a = [...marketlisting].map((item) => {
+        return item.token_id;
+      })  
+
+      const filtered = [...listAll].filter((item) => {
+        return a.includes(item.token_id);
       })
-      console.log(filtered)
-      setP2pMarketList(filtered);
+      // 이러면 tokenId별로 별이 되서, 
+      console.log(filtered);              
     }).catch((e) => {
       console.log(e);
       return e;
