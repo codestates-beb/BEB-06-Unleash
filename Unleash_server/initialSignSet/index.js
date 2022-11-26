@@ -4,9 +4,10 @@ const dotenv = require ("dotenv");
 
 dotenv.config();
 
+
 const Sign = async (props) => { // props로 구매원하는 티켓의 voucher을 보낸다.
 
-    const {tokenId, price, totalSupply} = props;
+    // const {tokenId, price, totalSupply} = props;
 
     const contractAddress = "0xB1f3E9B1B8765a6dc40A2752edAaF2B224Ad6fee";
     const privateKey = process.env.PRIVATE_KEY;
@@ -15,7 +16,7 @@ const Sign = async (props) => { // props로 구매원하는 티켓의 voucher을
     let provider = ethers.providers.getDefaultProvider({ name: 'goerli', chainId: 5 });
     let walletWithProvider = new ethers.Wallet(privateKey, provider);  
 
-    const msg = [tokenId, price, totalSupply];
+    const msg = [1, 300, 301];
     const contract = new ethers.Contract(contractAddress,Abi,walletWithProvider);
     const msgHx = await contract._hash(msg);    
     // Note: messageHash is a string, that is 66-bytes long, to sign the

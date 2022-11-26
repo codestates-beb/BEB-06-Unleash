@@ -22,7 +22,7 @@ const Header = props => {
       </Link>
 
       {!props.account ? (
-        <div className="Header_text" onClick={props.connectWallet}>
+        <div className="Header_text" onClick={props.logIn}>
           Connect Wallet
         </div>
       ) : (
