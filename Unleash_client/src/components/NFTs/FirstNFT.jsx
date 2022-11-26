@@ -2,16 +2,13 @@ import React, {useState, useContext} from "react";
 import {Link} from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
 import { ListContext } from "../../resources/context_store/ListContext";
-import { ethers } from "ethers";
+
 
 const FirstNFT = (props) => {
   const context = useContext(ListContext);
   const arr = Array.from(Array(11));
   const glare2 = "rgb(255, 119, 115) 10%, rgba(255,237,95,1) 20%, rgba(168,255,95,1) 30%, rgba(131,255,247,1) 40%, rgba(120,148,255,1) 50%, rgb(216, 117, 255) 60%, rgb(255, 119, 115) 70%, rgb(255, 119, 115) 80%, rgba(255,237,95,1) 90%, rgba(168,255,95,1) 100%"
   const [active, setActive] = useState(false);
-
-  // ethers
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id} = props;
   const {list, setAirlineNFT} = context;
