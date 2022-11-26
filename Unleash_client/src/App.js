@@ -1,6 +1,6 @@
 import './resources/css/App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Fragment, useEffect, useState } from 'react'
+import { BrowserRouter , Route , Routes } from 'react-router-dom';
+import { Fragment, useEffect , useState } from "react";
 import LandingPage from './pages/LandingPage.jsx'
 import MainPage from './pages/MainPage.jsx'
 import MyPage from './pages/MyPage.jsx'
@@ -9,76 +9,45 @@ import MarketPlace from './pages/MarketPlace.jsx'
 import NftDetailPage from './pages/NftDetailPage.jsx'
 import SellPage from './pages/SellPage.jsx'
 import LoadingPage from './pages/LoadingPage.jsx'
-<<<<<<< HEAD
-import Signup from './pages/Signup'
-import P2PMarket from './pages/P2PMarket'
-import Header from './components/Header'
-=======
 import Signup from "./pages/Signup";
 import P2PMarket from './pages/P2PMarket';
 import P2pDetailPage from './pages/P2pDetailPage'
 import Header from "./components/Header";
->>>>>>> b72e683e43270563a3a30b5628f964d8b4763ac2
 
 //contextAPI
-import ListStore from './resources/context_store/ListContext'
-import Test from './resources/context_store/Test'
+import ListStore from './resources/context_store/ListContext';
+import Test from './resources/context_store/Test';
 
 function App() {
-  const [landingState, setLandingState] = useState(false)
-  const [account, setCurrentAccount] = useState('')
+  const [landingState , setLandingState ] = useState(false);
+  const [account , setCurrentAccount ] = useState("");
 
   const onLandingState = () => {
-    setLandingState(true)
+    setLandingState(true);
   }
 
+
   const connectWallet = async () => {
-    console.log('hi')
     try {
-      const { ethereum } = window
+      const { ethereum } = window;
 
       if (!ethereum) {
-        alert('Get MetaMask!')
-        return
+        alert("Get MetaMask!");
+        return;
       }
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      setCurrentAccount(accounts[0])
-      sessionStorage.setItem('isWalletConnected', true) // sessionStorage에 저장 => 세션종료되면 날라감
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+      setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error)
     }
   }
 
   const logOut = () => {
-    setCurrentAccount('')
-    sessionStorage.setItem('isWalletConnected', false)
+    setCurrentAccount("");
   }
 
   return (
     <div className="App">
-<<<<<<< HEAD
-      <BrowserRouter>
-        <Header
-          connectWallet={connectWallet}
-          account={account}
-          logOut={logOut}
-        />
-        <ListStore>
-          <Routes>
-            <Route
-              path="/"
-              element={<LandingPage onLandingState={onLandingState} />}
-            />
-            <Route path="/mainpage" element={<MainPage />} />
-            <Route path="/mypage" element={<MyPage />} />
-            {/* <Route path='/ticketingpage' element={<TicketingPage />}/> */}
-            <Route path="/marketplace" element={<MarketPlace />} />
-            <Route path="/nftdetailpage" element={<NftDetailPage />} />
-            <Route path="/sellpage" element={<SellPage />} />
-            <Route path="/loadingpage" element={<LoadingPage />} />
-            <Route path="/ticketchangepage" element={<TicketChangePage />} />
-            <Route path="/signup" element={<Signup />} />
-=======
       <BrowserRouter >
         <Header connectWallet={connectWallet} account={account} logOut={logOut} />
         <ListStore>
@@ -94,12 +63,13 @@ function App() {
             <Route path='/loadingpage' element={<LoadingPage />}/>
             <Route path='/ticketchangepage' element={<TicketChangePage />}/>
             <Route path='/signup' element={<Signup  />}/>
->>>>>>> b72e683e43270563a3a30b5628f964d8b4763ac2
           </Routes>
         </ListStore>
       </BrowserRouter>
+
+
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
