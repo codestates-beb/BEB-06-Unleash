@@ -18,24 +18,13 @@ const MarketPlaceSection1 = () => {
     if (context.list[0].to === "CDG") return setDestination(parisDummy);
     if (context.list[0].to === "SYD") return setDestination(sydneyDummy);
     if (context.list[0].to === "FCO") return setDestination(romaDummy);
-  }, []);
-  //const a = [city, city2]; a 는 모듈화된 이미지 7개.
-
-  // city값에 전역으로 설정된 === 필터링된 도착지. city를 대입해야함.
-  // const context = useContext(AppContext); -> city이름이옴.
-
-  // city 필터.
-  /*
-  setSectionImg(() => a.filter((item) => {
-    return item === context.state.city
-  })) */
-
+  }, [destination]);
 
   return (
     <>
       <div className="marketplace_section1">
         <div className="marketplace_section1_img"
-        style={{background: `url(${destination.section1})`}}
+        style={{backgroundImage: `url(${destination.section1})`, backgroundSize:"cover"}}
         >
           <span className="marketplace_section1_span">{destination.city}</span>
         </div>
