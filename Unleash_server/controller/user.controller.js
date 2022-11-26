@@ -23,11 +23,10 @@ const login = async (req, res) => {
     });
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
+      expires: new Date(Date.now() + 9000000),
     });
-    console.log('hi');
     return res.status(200).json(userInfo);
   } catch (err) {
-    console.log(err);
     return res.status(400).send(err);
   }
 };

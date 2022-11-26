@@ -33,11 +33,16 @@ function App() {
     console.log('data', data);
 
     axios
-      .post('http://localhost:5000/user/login', { wallet_address: wallet })
+      .post(
+        'http://localhost:5000/user/login',
+        { wallet_address: wallet },
+        {
+          // withCredentials: true,
+          httponly: true,
+        }
+      )
       .then(function (res) {
-        console.log('here');
         setCurrentAccount(wallet); // 헤더쪽으로 넘어가는 state
-        console.log(res);
       })
       .catch(function (error) {
         console.log(error);
@@ -70,7 +75,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header logIn={logIn} logOut={logOut} />
+        <Header logIn={logIn} logOut={logOut} account={account} />
         <ListStore>
           <Routes>
             <Route
