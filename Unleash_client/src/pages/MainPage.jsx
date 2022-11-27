@@ -7,7 +7,6 @@ import axios from "axios";
 import { ListContext } from "../resources/context_store/ListContext";
 import { useNavigate } from 'react-router-dom';
 
-
 const MainPage = () => {
   const context = useContext(ListContext);
   const navigate = useNavigate();
@@ -53,8 +52,6 @@ const MainPage = () => {
     setToPlaceSelectBox(true);
   }
 
-
-  
   const { list ,  setList , a} = context;
 
   const onClickSearch = () => {

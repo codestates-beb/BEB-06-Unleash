@@ -11,7 +11,7 @@ const FirstNFT = (props) => {
   const [active, setActive] = useState(false);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller} = props;
-  const {listAll, setAirlineNFT, setP2pNFT} = context;
+  const {listAll, setAirlineNFT} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
@@ -19,6 +19,13 @@ const FirstNFT = (props) => {
   const handleDefaultBuyClick = () => {
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
     setAirlineNFT(filtered);
+  }
+  const handleRetrieve = () => {
+    // 여기서 retireve. contract에서 cancel 함수 호출.
+  }
+
+  const handleTicketChange = () => {
+    // ticket과 교환 하는 컨트랙트 함수 호출.
   }
 
     return (
@@ -43,8 +50,9 @@ const FirstNFT = (props) => {
               <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
             </div>
             <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-              <Link to={locate}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>
-              {bs2 && <Link to={locate2}><button onClick={handleDefaultBuyClick}>{bs2}</button></Link>}
+              {bs && <Link to={locate}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+              {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
+              {bs2 === "change" && <Link to={locate2}><button onClick={handleTicketChange}>{bs2}</button></Link>}
             </div>
           </Tilt>
 

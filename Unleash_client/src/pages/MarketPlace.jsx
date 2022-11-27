@@ -7,7 +7,7 @@ import { ListContext } from "../resources/context_store/ListContext";
 import {ethers} from "ethers";
 import axios from "axios";
 
-const MarketPlace = () => {
+const MarketPlace = (props) => {
   const context = useContext(ListContext);
   const {setListAll, setP2pMarketList} = context;
 
@@ -20,7 +20,7 @@ const MarketPlace = () => {
       const data2 = res.data;
       setP2pMarketList(() => [...data2]);
     })
-  }, [])
+  }, []);
 
   //context.list.city~~
   // context API 사용해야하는것, mainpage 에서 받아오는 항공권 리스트 정보.

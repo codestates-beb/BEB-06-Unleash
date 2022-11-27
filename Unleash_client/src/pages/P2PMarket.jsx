@@ -3,22 +3,15 @@ import DefaultNft from "../components/NFTs/DefaultNft";
 import FirstNFT from "../components/NFTs/FirstNFT"
 import BusinessNFT from "../components/NFTs/BusinessNFT"
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
-import axios from "axios";
+import { filterOsaka, filterNewYork, filterSydney, filterParis, filterRoma } from "../components/utils/utils";
 import { ListContext } from "../resources/context_store/ListContext";
 const P2PMarket = () => {
   const context = useContext(ListContext);
-  const {p2pMarketList, setP2pMarketList} = context;
+  const {p2pMarketList} = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
   const [economy, setEconomy] = useState([]);
-
-
-  const filterOsaka = (v) => [...v].filter(item => item.token.to === "ITM");
-  const filterRoma = (v) => [...v].filter(item => item.token.to === "FCO");
-  const filterSydney = (v) => [...v].filter(item => item.token.to === "SYD");
-  const filterNewYork = (v) => [...v].filter(item => item.token.to === "JFK");
-  const filterParis = (v) => [...v].filter(item => item.token.to === "CDG");
 
   // 값이 변할때 팔때 살때 tx가 있을떄마다 ㅇㅇ.
 

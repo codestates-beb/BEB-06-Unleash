@@ -10,6 +10,7 @@ const ListStore = (props) => {
   const [airlineNFT, setAirlineNFT] = useState([]);
   const [listAll, setListAll] = useState([]);
   const [p2pNFT, setP2pNFT] = useState([]);
+  const [accountNFT, setAccountNFT] = useState([]);
 
   // useState React hook
   return (
@@ -23,7 +24,9 @@ const ListStore = (props) => {
       p2pMarketList,
       setP2pMarketList,
       p2pNFT,
-      setP2pNFT}}>
+      setP2pNFT,
+      accountNFT,
+      setAccountNFT}}>
       {props.children}
     </ListContext.Provider>
   )

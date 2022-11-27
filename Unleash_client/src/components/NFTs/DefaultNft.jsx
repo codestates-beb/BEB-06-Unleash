@@ -8,9 +8,8 @@ const DefaultNft = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
   const {listAll, p2pMarketList,  setAirlineNFT, setP2pNFT} = context;
-
 
   const handleActive = (e) => {
     setActive(() => !active);
@@ -23,6 +22,16 @@ const DefaultNft = (props) => {
     setP2pNFT(filtered2);
   }
 
+  const handleRetrieve = () => {
+    // 여기서 retireve. contract에서 cancel 함수 호출.
+  }
+
+  const handleTicketChange = () => {
+    // ticket과 교환 하는 컨트랙트 함수 호출.
+  }
+
+  
+
   return ( 
       <>
         <Tilt className={ active ? "Tilt" : ""}  glareEnable={true} glareMaxOpacity={0.5} glarePosition="all"  transitionSpeed={400} scale={1.1} tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="white"  style={{  zIndex : ( active ? 11 : 9 )  }} >
@@ -34,7 +43,8 @@ const DefaultNft = (props) => {
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
                   {left && <p>left : {left}</p>}
-                  <p>{price}ETH</p>
+                  {amount && <p>amount: {amount}</p>}
+                  {price && <p>{price}ETH</p>}
                   <p>{departure}</p>
                   <p>{arrival}</p>
                 </div>
@@ -44,8 +54,9 @@ const DefaultNft = (props) => {
             <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-            <Link to={locate}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>
-            {bs2 && <Link to={locate2}><button onClick={handleDefaultBuyClick}>{bs2}</button></Link>}
+            {bs && <Link to={locate}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+            {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
+            {bs2 === "change" && <Link to={locate2}><button onClick={handleTicketChange}>{bs2}</button></Link>}
           </div>
           
         </Tilt>
