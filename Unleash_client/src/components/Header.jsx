@@ -78,7 +78,7 @@ const Header = () => {
               )}
           </div>
         </Link>
-        <Link to = "/marketplace">   
+        <Link to = "/marketplacep2p">   
          <div className={"Header_text" + ( locationName == "/marketplace" ? " on" : "" ) } >MarketPlace
          
             { locationName == "/marketplace" && (

@@ -6,8 +6,10 @@ import axios from "axios";
 const DetailInfo = (props) => {
   
   //Ethers 이용해 TX 보내기.
-  const {nft} = props;
+  
   const [number, setNumber] = useState('');
+  const nft = JSON.parse(localStorage.getItem("airlineNFT"));
+  console.log(localStorage)
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
   const [destination, setDestination] = useState({});

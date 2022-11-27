@@ -5,8 +5,11 @@ import DefaultNFT from "../NFTs/DefaultNft"
 import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "../MarketPlace_components/MarketplaceDummy";
 
 const DetailDesc = (props) => {
-  const {nft} = props;
+  
   const [destination, setDestination] = useState({});
+  const nft = JSON.parse(localStorage.getItem("airlineNFT"));
+  console.log(nft)
+
 
   useEffect(() => {
     if (nft[0].to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.

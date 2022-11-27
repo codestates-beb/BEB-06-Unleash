@@ -11,13 +11,15 @@ const MarketPlaceSection1 = () => {
   const context = useContext(ListContext);
   
   const [destination, setDestination] = useState({});
+  const list = JSON.parse(localStorage.getItem("marketList"));
+  console.log(localStorage)
 
   useEffect(() => {
-    if (context.list[0].to === "ITM") return setDestination(osakaDummy);
-    if (context.list[0].to === "JFK") return setDestination(newYorkDummy);
-    if (context.list[0].to === "CDG") return setDestination(parisDummy);
-    if (context.list[0].to === "SYD") return setDestination(sydneyDummy);
-    if (context.list[0].to === "FCO") return setDestination(romaDummy);
+    if (list[0].to === "ITM") return setDestination(osakaDummy);
+    if (list[0].to === "JFK") return setDestination(newYorkDummy);
+    if (list[0].to === "CDG") return setDestination(parisDummy);
+    if (list[0].to === "SYD") return setDestination(sydneyDummy);
+    if (list[0].to === "FCO") return setDestination(romaDummy);
   }, [destination]);
 
   return (

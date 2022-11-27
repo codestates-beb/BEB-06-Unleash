@@ -63,7 +63,9 @@ const MainPage = () => {
 
     axios.get('http://localhost:5001/marketplace/ticket', {params} )
     .then(function(res){
-      console.log(res.data)
+      const data = res.data;
+      const list = JSON.stringify([...data])
+      localStorage.setItem("marketList", list)
       setList( () => res.data);
       navigate("/marketplace");
     }).catch(function (error) {

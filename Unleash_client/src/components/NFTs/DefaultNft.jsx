@@ -18,8 +18,10 @@ const DefaultNft = (props) => {
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
     const filtered2 = [...p2pMarketList].filter(item => 
       item.seller === seller && item.offer_id === offer_id);
-    setAirlineNFT(filtered);
-    setP2pNFT(filtered2);
+    const local1 = JSON.stringify([...filtered]);
+    const local2 = JSON.stringify([...filtered2]);
+    localStorage.setItem("airlineNFT", local1);
+    localStorage.setItem("p2pNFT", local2);
   }
 
   const handleRetrieve = () => {

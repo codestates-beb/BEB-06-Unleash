@@ -7,8 +7,8 @@ import { ListContext } from "../resources/context_store/ListContext";
 
 const P2pDetailPage = () => {
   const context = useContext(ListContext);
-  const nft = context.airlineNFT;
-  const p2pinfo = context.p2pNFT;
+  const nft = JSON.parse(localStorage.getItem("airlineNFT"));
+  const p2pinfo = JSON.parse(localStorage.getItem("p2pNFT"));
   const [destination, setDestination] = useState({});
 
  useEffect(() => {

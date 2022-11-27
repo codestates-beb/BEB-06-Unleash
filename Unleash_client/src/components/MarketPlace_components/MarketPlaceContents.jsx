@@ -11,14 +11,14 @@ const MarketPlaceContents = () => {
 
   const context = useContext(ListContext);
   const [destination, setDestination] = useState({});
-  const {list} = context;
+  const list = JSON.parse(localStorage.getItem("marketList"));
 
   useEffect(() => {
-    if (context.list[0].to === "ITM") setDestination(osakaDummy); // 뒷정리함수.
-    if (context.list[0].to === "JFK") setDestination(newYorkDummy);
-    if (context.list[0].to === "CDG") setDestination(parisDummy);
-    if (context.list[0].to === "SYD") setDestination(sydneyDummy);
-    if (context.list[0].to === "FCO") setDestination(romaDummy);
+    if (list[0].to === "ITM") setDestination(osakaDummy); // 뒷정리함수.
+    if (list[0].to === "JFK") setDestination(newYorkDummy);
+    if (list[0].to === "CDG") setDestination(parisDummy);
+    if (list[0].to === "SYD") setDestination(sydneyDummy);
+    if (list[0].to === "FCO") setDestination(romaDummy);
   }, [destination]);
 
   // nft 필터링

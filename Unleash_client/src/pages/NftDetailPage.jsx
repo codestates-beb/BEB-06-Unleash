@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import DetailDesc from "../components/DetailPage_components/DetailNftDesc";
 import DetailInfo from "../components/DetailPage_components/DetailInfo";
 import { ListContext } from "../resources/context_store/ListContext";
@@ -10,8 +10,8 @@ const NftDetailPage = () => {
   return (
     <main className="detail_main">
         <div className="detailpage_container">
-          <DetailDesc nft={context.airlineNFT}/>
-          <DetailInfo nft={context.airlineNFT}/>
+          <DetailDesc />
+          <DetailInfo />
         </div>
     </main>
   );
