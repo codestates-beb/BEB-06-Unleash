@@ -7,6 +7,10 @@ import { ListContext } from "../resources/context_store/ListContext";
 
 const MarketPlace = () => {
   const context = useContext(ListContext);
+  const { userData , loginStatus } = context;
+
+  // console.log(loginStatus);
+  // console.log(userData);
 
   
   //context.list.city~~
