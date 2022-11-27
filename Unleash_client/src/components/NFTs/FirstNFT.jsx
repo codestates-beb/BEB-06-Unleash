@@ -10,15 +10,20 @@ const FirstNFT = (props) => {
   const glare2 = "rgb(255, 119, 115) 10%, rgba(255,237,95,1) 20%, rgba(168,255,95,1) 30%, rgba(131,255,247,1) 40%, rgba(120,148,255,1) 50%, rgb(216, 117, 255) 60%, rgb(255, 119, 115) 70%, rgb(255, 119, 115) 80%, rgba(255,237,95,1) 90%, rgba(168,255,95,1) 100%"
   const [active, setActive] = useState(false);
 
-  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller} = props;
-  const {listAll, setAirlineNFT} = context;
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
+  const {listAll, p2pMarketList} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
-    setAirlineNFT(filtered);
+    const filtered2 = [...p2pMarketList].filter(item =>
+      item.seller === seller && item.offer_id === offer_id);
+    const local1 = JSON.stringify([...filtered]);
+    const local2 = JSON.stringify([...filtered2]);
+    localStorage.setItem("airlineNFT", local1);
+    localStorage.setItem("p2pNFT", local2);
   }
   const handleRetrieve = () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.

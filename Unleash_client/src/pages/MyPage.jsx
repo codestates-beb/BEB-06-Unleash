@@ -5,8 +5,6 @@ import axios from 'axios';
 import { ListContext } from "../resources/context_store/ListContext";
 
 const MyPage = () => {
-  const context = useContext(ListContext);
-
   // Owned = userID 를 Post 해줘야함.
   // selled 에서 nft 버튼을 retrieve로 설정해서 다시 받아오는 기능.
   // mypage에서 Owned에 버튼 2개

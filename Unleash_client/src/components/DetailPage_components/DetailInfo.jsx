@@ -9,7 +9,6 @@ const DetailInfo = (props) => {
   
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
-  console.log(localStorage)
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
   const [destination, setDestination] = useState({});

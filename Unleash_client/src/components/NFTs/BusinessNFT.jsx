@@ -10,15 +10,20 @@ const BusinessNFT = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller} = props;
-  const {listAll, setAirlineNFT} = context;
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
+  const {listAll, p2pMarketList} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
-    setAirlineNFT(filtered);
+    const filtered2 = [...p2pMarketList].filter(item =>
+      item.seller === seller && item.offer_id === offer_id);
+    const local1 = JSON.stringify([...filtered]);
+    const local2 = JSON.stringify([...filtered2]);
+    localStorage.setItem("airlineNFT", local1);
+    localStorage.setItem("p2pNFT", local2);
   }
   
   const handleRetrieve = () => {

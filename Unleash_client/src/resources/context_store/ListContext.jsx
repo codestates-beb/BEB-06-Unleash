@@ -8,7 +8,6 @@ const ListStore = (props) => {
 
   const [list, setList] = useState([]);
   const [p2pMarketList, setP2pMarketList] = useState([]);
-  const [airlineNFT, setAirlineNFT] = useState([]);
   const [listAll, setListAll] = useState([]);
   const [p2pNFT, setP2pNFT] = useState([]);
   const [accountNFT, setAccountNFT] = useState([]);
@@ -18,8 +17,6 @@ const ListStore = (props) => {
     <ListContext.Provider value={{
       list,
       setList,
-      airlineNFT,
-      setAirlineNFT,
       listAll,
       setListAll,
       p2pMarketList,

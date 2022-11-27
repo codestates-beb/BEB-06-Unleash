@@ -5,9 +5,10 @@ import BusinessNFT from "../components/NFTs/BusinessNFT"
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 import { filterOsaka, filterNewYork, filterSydney, filterParis, filterRoma } from "../components/utils/utils";
 import { ListContext } from "../resources/context_store/ListContext";
+import axios from "axios";
 const P2PMarket = () => {
   const context = useContext(ListContext);
-  const {p2pMarketList} = context;
+  const {p2pMarketList, setP2pMarketList} = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -16,10 +17,21 @@ const P2PMarket = () => {
   // 값이 변할때 팔때 살때 tx가 있을떄마다 ㅇㅇ.
 
   useEffect(() => {
-      setFirst(() => [...p2pMarketList].filter(item => item.token.class === "퍼스트"));
-      setBusiness(() => [...p2pMarketList].filter(item => item.token.class === "비지니스"));
-      setEconomy(() => [...p2pMarketList].filter(item => item.token.class === "이코노미"));
-    }, []);
+    axios.get("http://localhost:5001/marketplace/market").then(res => {
+      const data2 = res.data;
+      setP2pMarketList(() => [...data2]);
+    }).catch((e) => {
+      console.log(e);
+      return e;
+    })
+  }, []);
+
+  useEffect(() => {
+    setFirst(() => [...p2pMarketList].filter(item => item.token.class === "퍼스트"));
+    setBusiness(() => [...p2pMarketList].filter(item => item.token.class === "비지니스"));
+    setEconomy(() => [...p2pMarketList].filter(item => item.token.class === "이코노미"));
+  }, [p2pMarketList]);
+
 
   const firstOsaka = filterOsaka(first);
   const businessOsaka = filterOsaka(business);

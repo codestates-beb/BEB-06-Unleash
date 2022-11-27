@@ -9,14 +9,14 @@ const DefaultNft = (props) => {
   const [active, setActive] = useState(false);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList,  setAirlineNFT, setP2pNFT} = context;
+  const {listAll, p2pMarketList} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
-    const filtered2 = [...p2pMarketList].filter(item => 
+    const filtered2 = [...p2pMarketList].filter(item =>
       item.seller === seller && item.offer_id === offer_id);
     const local1 = JSON.stringify([...filtered]);
     const local2 = JSON.stringify([...filtered2]);
