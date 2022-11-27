@@ -599,6 +599,7 @@
 
 .marketplace_section1 {
   display: flex;
+  
 }
 
 .marketplace_section1_img {
@@ -653,17 +654,35 @@
 }
 
 .marketplace_info_name {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   padding-left: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   font-weight: 700;
-  font-size: 45px;
+  font-size: 70px;
+  color: rgb(255, 169, 57);
+}
+.marketplace_info_name span:nth-child(2) {
+  font-size: 120px;
+  margin-top: 8px;
+  margin-left: 30px;
+  color:#03ad66
 }
 .marketplace_info_flexgrow {
   flex-grow: 1;
 }
 .marketplace_info_detail {
+  margin-right: 100px;
+}
+.marketplace_info_detail a:first-child {
+  color: rgb(139, 222, 255)
+}
+.marketplace_info_detail a {
+  margin: 8px;
+  font-size: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(253, 74, 54)
 }
 
 
@@ -691,11 +710,12 @@
 .marketplace_description_eth {
   display: flex;
   flex-direction: column;
-  margin-left: 300px;
-  font-size: 23px;
+  
 }
 .marketplace_description_eth span {
   margin-top: 20px;
+  margin-right: 100px;
+  font-size: 25px;
 }
 
 .marketplace_description_dollars {
@@ -912,8 +932,8 @@
   background-color: inherit;
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-  grid-gap: 30px;
-  gap: 32px;
+  grid-gap: 50px;
+  gap: 80px;
   justify-items: center;
   padding: 30px;
 }

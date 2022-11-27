@@ -16,14 +16,8 @@ const MarketPlaceAside = () => {
   const [departDate, setDepartDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
 
-  const handleClassClick = (e) => {
-    console.log(e.target)
-  }
-  const handleDButtonClick = () => {
+  const handleDButtonClick = (e) => {
     setIsOpen(() => !isOpen);
-  }
-  const handleCButtonClick = () => {
-    setIsOpen2(() => !isOpen2);
   }
   const handleSubmit = () => {
     const filter = {city: city, seatClass: seatClass, departDate: departDate, returnDate: returnDate}
@@ -44,15 +38,6 @@ const MarketPlaceAside = () => {
                 <li><p>Australia</p> </li>
                 <li><p>Roma</p></li>
               </ul>}
-            <div className="marketplace_contents_class">
-              <button type="button" onClick={handleCButtonClick}>Set class</button>
-              {isOpen2 && 
-              <ul className="marketpace_contents_class_value" onClick={handleClassClick}>
-                <li><p>First</p></li>
-                <li><p>Business</p></li>
-                <li><p>Economy</p></li>
-              </ul>}
-            </div>
             <MarketPlaceCalander />
             <button className="marketplace_search" type="submit">search</button>
           </form>
