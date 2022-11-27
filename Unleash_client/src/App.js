@@ -29,7 +29,7 @@ function App() {
             <Route path='/' element={<LandingPage />} />
             <Route path='/mainpage' element={<MainPage />} />
             <Route path='/mypage' element={<MyPage />}  />
-            <Route path='/marketplace' element={<MarketPlace account={account} setCurrentAccount={setCurrentAccount}/>}/>
+            <Route path='/marketplace' element={<MarketPlace/>}/>
             <Route path='/marketplacep2p' element={<P2PMarket />}/>
             <Route path='/nftdetailpage' element={<NftDetailPage />}/>
             <Route path='/p2pdetailpage' element={<P2pDetailPage />}/>

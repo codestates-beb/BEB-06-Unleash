@@ -1,11 +1,11 @@
-import React, {useState, createContext, useEffect } from "react";
-import axios from "axios";
+import React, {useState, createContext } from "react";
 
 export const ListContext = createContext();
 
 const ListStore = (props) => {
   const [userData, setUserData] = useState([]);
   const [loginStatus, setLoginStatus] = useState([]);
+
   const [list, setList] = useState([]);
   const [p2pMarketList, setP2pMarketList] = useState([]);
   const [airlineNFT, setAirlineNFT] = useState([]);
@@ -27,7 +27,11 @@ const ListStore = (props) => {
       p2pNFT,
       setP2pNFT,
       accountNFT,
-      setAccountNFT}}>
+      setAccountNFT,
+      userData,
+      setUserData,
+      loginStatus,
+      setLoginStatus}}>
       {props.children}
     </ListContext.Provider>
   )

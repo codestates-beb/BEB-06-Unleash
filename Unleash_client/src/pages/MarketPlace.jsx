@@ -12,9 +12,6 @@ const MarketPlace = (props) => {
   const {setListAll, setP2pMarketList} = context;
   const { userData , loginStatus } = context;
 
-  // console.log(loginStatus);
-  // console.log(userData);
-
   useEffect(() => {
     axios.get("http://localhost:5001/marketplace/ticket").then(res => {
       const data = res.data;
