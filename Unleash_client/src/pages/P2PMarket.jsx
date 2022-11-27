@@ -6,9 +6,10 @@ import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "..
 import { filterOsaka, filterNewYork, filterSydney, filterParis, filterRoma } from "../components/utils/utils";
 import { ListContext } from "../resources/context_store/ListContext";
 import axios from "axios";
+
 const P2PMarket = () => {
   const context = useContext(ListContext);
-  const {p2pMarketList, setP2pMarketList} = context;
+  const {p2pMarketList, setP2pMarketList,} = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);

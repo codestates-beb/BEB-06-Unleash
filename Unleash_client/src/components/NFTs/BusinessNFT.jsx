@@ -3,20 +3,19 @@ import { Link } from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
 import { ListContext } from "../../resources/context_store/ListContext";
 
-  
-
 const BusinessNFT = (props) => {
   const context = useContext(ListContext);
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
-  const {listAll, p2pMarketList} = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
+    if (!loginStatus) return alert("지갑을 연결하세요!");
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
     const filtered2 = [...p2pMarketList].filter(item =>
       item.seller === seller && item.offer_id === offer_id);
@@ -28,10 +27,16 @@ const BusinessNFT = (props) => {
   
   const handleRetrieve = () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
-  }
-
-  const handleTicketChange = () => {
-    // ticket과 교환 하는 컨트랙트 함수 호출.
+    const selectOne = [...accountNFT].filter((item) => {
+      return item.offer_id === offer_id;
+    })
+    console.log(selectOne);
+    /* axios.put("http://localhost:5001/marketplace/cancel", {
+      offer_id : selectOne.offer_id,
+      amount : selectOne.amount,
+      user_id : selectOne.user_id,
+      token_id : selectOne.token_id
+    }) */
   }
 
 
@@ -56,9 +61,9 @@ const BusinessNFT = (props) => {
             <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-            {bs && <Link to={locate}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+            {bs && <Link to={loginStatus ? locate : ""}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
             {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
-            {bs2 === "change" && <Link to={locate2}><button onClick={handleTicketChange}>{bs2}</button></Link>}
+            {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
           </div>
         </Tilt>
 

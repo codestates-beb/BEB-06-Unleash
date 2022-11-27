@@ -18,10 +18,13 @@ const DetailInfo = (props) => {
   const [destination, setDestination] = useState({});
 
   useEffect(() => {
-    const realOne = listAll.filter((item) => {
-      return item.token_id === nft[0].token_id && item.class === nft[0].class && item.to === nft[0].to && item.nftvoucher.price === nft[0].nftvoucher.price;
+    const filtered = listAll.filter((item) => {
+      return item.token_id === nft[0].token_id
+      && item.class === nft[0].class
+      && item.to === nft[0].to
+      && item.nftvoucher.price === nft[0].nftvoucher.price;
     });
-    setRealOne(realOne);
+    setRealOne(filtered);
     if (nft[0].to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
     if (nft[0].to === "JFK") return setDestination(newYorkDummy);
     if (nft[0].to === "CDG") return setDestination(parisDummy);
@@ -33,10 +36,7 @@ const DetailInfo = (props) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (realOne) {
-      //컨트렉트 상호작용
-      console.log(1);
-    }
+    if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
   }
 
   return (
@@ -46,8 +46,8 @@ const DetailInfo = (props) => {
           <span>{destination.city} TokenID: {nft[0].token_id}</span>
           <span>owned by airlines</span>
           <form onSubmit={handleSubmit}>
-          <input type="text" value={number} onChange={handleChange} />
-          <button type="submit">Buy</button>
+            <input type="text" value={number} onChange={handleChange} />
+            <button type="submit">Buy</button>
           </form>
         </div>
         <div className="detailpage_price">

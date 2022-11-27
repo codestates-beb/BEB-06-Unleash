@@ -31,7 +31,6 @@ const Header = () => {
         console.log(error);
         alert(error.response.data);
       });
-
     } catch (error) {
       console.log(error)
     }
@@ -39,6 +38,7 @@ const Header = () => {
 
   const logOut = () => {
     setCurrentAccount("");
+    setLoginStatus(false);
   }
 
 

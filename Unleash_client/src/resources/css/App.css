@@ -1657,8 +1657,8 @@
 .mypage_avatar_default {
   background: linear-gradient(0deg, rgb(208, 0, 0) 0%, rgb(193, 193, 193) 100%);
   position: absolute;
-  top: 25%;
-  left: 5%;
+  top: 250px;
+  left: 70px;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -1671,7 +1671,7 @@
 }
 .mypage_contents_category {
   display: flex;
-  margin-top: 30px;
+  margin-top: 80px;
 }
 
 .mypage_contents_category li{
