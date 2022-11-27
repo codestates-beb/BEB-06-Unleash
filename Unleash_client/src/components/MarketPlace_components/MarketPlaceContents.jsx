@@ -9,7 +9,6 @@ import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "./
 
 const MarketPlaceContents = () => {
 
-  const context = useContext(ListContext);
   const [destination, setDestination] = useState({});
   const list = JSON.parse(localStorage.getItem("marketList"));
 

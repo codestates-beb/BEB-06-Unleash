@@ -9,7 +9,7 @@ import axios from "axios";
 
 const MarketPlace = (props) => {
   const context = useContext(ListContext);
-  const {setListAll, setP2pMarketList} = context;
+  const {setListAll} = context;
   const { userData , loginStatus } = context;
 
   useEffect(() => {

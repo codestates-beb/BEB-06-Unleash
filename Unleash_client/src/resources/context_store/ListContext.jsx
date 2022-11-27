@@ -5,11 +5,9 @@ export const ListContext = createContext();
 const ListStore = (props) => {
   const [userData, setUserData] = useState([]);
   const [loginStatus, setLoginStatus] = useState([]);
-
   const [list, setList] = useState([]);
   const [p2pMarketList, setP2pMarketList] = useState([]);
   const [listAll, setListAll] = useState([]);
-  const [p2pNFT, setP2pNFT] = useState([]);
   const [accountNFT, setAccountNFT] = useState([]);
 
   // useState React hook
@@ -21,8 +19,6 @@ const ListStore = (props) => {
       setListAll,
       p2pMarketList,
       setP2pMarketList,
-      p2pNFT,
-      setP2pNFT,
       accountNFT,
       setAccountNFT,
       userData,
