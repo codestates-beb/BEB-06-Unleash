@@ -2,10 +2,14 @@ import React, {useState, useEffect} from "react";
 import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "../MarketPlace_components/MarketplaceDummy";
 import { ethers } from "ethers";
 import axios from "axios";
+import { useContext } from "react";
+import { ListContext } from "../../resources/context_store/ListContext";
 
 const DetailInfo = (props) => {
-  
-  //Ethers 이용해 TX 보내기.
+  const context = useContext(ListContext);
+  const {listAll} = context;
+  // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
+  const [realOne, setRealOne] = useState('')
   
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
@@ -14,6 +18,10 @@ const DetailInfo = (props) => {
   const [destination, setDestination] = useState({});
 
   useEffect(() => {
+    const realOne = listAll.filter((item) => {
+      return item.token_id === nft[0].token_id && item.class === nft[0].class && item.to === nft[0].to && item.nftvoucher.price === nft[0].nftvoucher.price;
+    });
+    setRealOne(realOne);
     if (nft[0].to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
     if (nft[0].to === "JFK") return setDestination(newYorkDummy);
     if (nft[0].to === "CDG") return setDestination(parisDummy);
@@ -25,7 +33,10 @@ const DetailInfo = (props) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(number)
+    if (realOne) {
+      //컨트렉트 상호작용
+      console.log(1);
+    }
   }
 
   return (

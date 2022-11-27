@@ -81,15 +81,6 @@ const P2pDetailPage = () => {
               <span>{p2pinfo[0].price}ETH</span>
             </div>
           </div>
-          {/* history부분 */}
-          <div className="detailp2ppage_history">
-            <div className="detailp2p_top" >
-              <span>NFT History</span>
-            </div>
-            <div className="detailp2ppage_price_history">
-              <span>History</span>
-            </div>
-          </div>
           <div className="detailp2ppage_history">
             <div className="detailp2p_top" >
               <span>Price History</span>

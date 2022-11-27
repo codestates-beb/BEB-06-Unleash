@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
 import { ListContext } from "../../resources/context_store/ListContext";
 
+//unleash contract 주소.
+////0x4e83a90c7C94c35af5e5563Fabb8F0421a5C01Ac
 
 const FirstNFT = (props) => {
   const context = useContext(ListContext);

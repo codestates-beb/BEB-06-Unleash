@@ -12,7 +12,6 @@ const MarketPlaceSection1 = () => {
   
   const [destination, setDestination] = useState({});
   const list = JSON.parse(localStorage.getItem("marketList"));
-  console.log(localStorage)
 
   useEffect(() => {
     if (list[0].to === "ITM") return setDestination(osakaDummy);

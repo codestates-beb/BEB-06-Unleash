@@ -4,6 +4,9 @@ const dotenv = require ("dotenv");
 
 dotenv.config();
 
+//unleash.sol 0xB1f3E9B1B8765a6dc40A2752edAaF2B224Ad6fee;
+//marketplace.sol 
+
 const Sign = async (props) => { // props로 구매원하는 티켓의 voucher을 보낸다.
 
     const {tokenId, price, totalSupply} = props;
