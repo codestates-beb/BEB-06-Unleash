@@ -4,10 +4,13 @@ import FirstNFT from "../components/NFTs/FirstNFT";
 import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 
+import {Data,LineChart,setChartDatas} from "./LineChart";
+
 const P2pDetailPage = () => {
 
   const p2pinfo = JSON.parse(localStorage.getItem("p2pNFT"));
   const [destination, setDestination] = useState({});
+  const [chartData, setChartData] = useState(setChartDatas(Data));
 
  useEffect(() => {
   if (p2pinfo[0].token.to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
@@ -92,7 +95,7 @@ const P2pDetailPage = () => {
               <span>Price History</span>
             </div>
             <div className="detailp2ppage_price_history">
-              <span>Price History</span>
+              <LineChart chartData={chartData} />
             </div>
           </div>
         </div>
