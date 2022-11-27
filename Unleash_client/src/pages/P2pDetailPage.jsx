@@ -5,11 +5,14 @@ import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 import { ListContext } from "../resources/context_store/ListContext";
 
+import {Data,LineChart,setChartDatas} from "./LineChart";
+
 const P2pDetailPage = () => {
   const context = useContext(ListContext);
   const nft = context.airlineNFT;
   const p2pinfo = context.p2pNFT;
   const [destination, setDestination] = useState({});
+  const [chartData, setChartData] = useState(setChartDatas(Data));
 
  useEffect(() => {
   if (nft[0].to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
@@ -91,7 +94,7 @@ const P2pDetailPage = () => {
               <span>Price History</span>
             </div>
             <div className="detailp2ppage_price_history">
-              <span>Price History</span>
+              <LineChart chartData={chartData} />
             </div>
           </div>
         </div>
