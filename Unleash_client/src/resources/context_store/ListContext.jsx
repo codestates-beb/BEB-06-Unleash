@@ -4,7 +4,8 @@ import axios from "axios";
 export const ListContext = createContext();
 
 const ListStore = (props) => {
-
+  const [userData, setUserData] = useState([]);
+  const [loginStatus, setLoginStatus] = useState([]);
   const [list, setList] = useState([]);
   const [p2pMarketList, setP2pMarketList] = useState([]);
   const [airlineNFT, setAirlineNFT] = useState([]);

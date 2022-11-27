@@ -10,6 +10,10 @@ import axios from "axios";
 const MarketPlace = (props) => {
   const context = useContext(ListContext);
   const {setListAll, setP2pMarketList} = context;
+  const { userData , loginStatus } = context;
+
+  // console.log(loginStatus);
+  // console.log(userData);
 
   useEffect(() => {
     axios.get("http://localhost:5001/marketplace/ticket").then(res => {
@@ -21,7 +25,7 @@ const MarketPlace = (props) => {
       setP2pMarketList(() => [...data2]);
     })
   }, []);
-
+  
   //context.list.city~~
   // context API 사용해야하는것, mainpage 에서 받아오는 항공권 리스트 정보.
   // login 안해도 볼 순 있는데, buy를 누를경우에 Ethers 연결 필요.

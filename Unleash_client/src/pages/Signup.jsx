@@ -1,17 +1,39 @@
-import { BsFillPersonFill } from "react-icons/bs";
 import { Fragment, useEffect , useState } from "react";
-import FirstNFT from "../components/NFTs/FirstNFT"
 import Nationality_selectBox from '../components/Ticketing_selectBox/Nationality_selectBox';
 import CountryCode_selectBox from '../components/Ticketing_selectBox/CountryCode_selectBox'; 
-import $ from "jquery";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
-  const [month, setMonth] = useState([ "Month" , "January" , "February" , "March" , "April" , "May" , "June" , "July" , "Auguest" , "September" , "October" , "November" , "December"  ]);
+  const navigate = useNavigate();
+  const [month, setMonth] = useState([ "Month" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "11" , "12"  ]);
   const [day , setDay] = useState([]);
   const [year , setYear] = useState([]);
   const [gender , setGender] = useState(["Select gender" , "Female" , "Male"]);
+
+  const [r_month, setR_Month] = useState();
+  const [r_day , setR_Day] = useState();
+  const [r_year , setR_Year] = useState();
+
   const [account , setCurrentAccount ] = useState("");
+  const [email , setEmail ] = useState("");
+  const [sure_name , setSure_name ] = useState("");
+  const [given_name , setGiven_name ] = useState("");
+  const [nick_name , setNick_name ] = useState("");
+  const [national , setNational ] = useState("");
+  const [country_code , Setcountry_code ] = useState("");
+  const [phone_number , SetPhone_number ] = useState("");
+
+  const onChangeNation = (e) => {
+    let value = e.target.value;
+    setNational(value);
+  }
+
+  const onChangeCountryCode = (e) => {
+    let value = e.target.value;
+    Setcountry_code(value);
+  }
 
   useEffect(() => {
     let result = ["Day"];
@@ -43,60 +65,94 @@ function Signup() {
     }
   }
 
+  const onSignUp = () => {
+    let data = {};
+    if ( r_month == "Month") {
+      alert("Please enter the Month");
+      return;
+    }
+
+    if ( r_day == "Day") {
+      alert("Please enter the Day");
+      return;
+    }
+
+    if ( r_year == "Year") {
+      alert("Please enter the Year");
+      return;
+    }
+    let birth = r_year + "-" + r_month.padStart(2 ,'0') + "-" + r_day.padStart(2 ,'0');
+
+    data["email"] = email;
+    data["sure_name"] = sure_name;
+    data["given_name"] = given_name;
+    data["nick_name"] = given_name;
+    data["national"] = national;
+    data["country_code"] = country_code;
+    data["phone_number"] = phone_number;
+    data["wallet_address"] = account;
+    data["birth"] = birth;
+
+    axios.post('http://localhost:5000/user/joinMembership', data )
+    .then(function(res){
+      console.log(res);
+      alert("회원가입에 성공했습니다");
+      navigate("/mainpage");
+    }).catch(function (error) {
+      console.log(error);
+      alert(error.response.data);
+    });
+  }
+
+  
+
   return (
     <div className="ticketing" >
       <div className="ticketing_center_box" >
         <div className="ticketing_title" >Create your account</div>
         <div className="tiketing_box" >
-          {/* <div className="tiketing_passenger" >
-            <div className="tiketing_passenger_box" >
-              <BsFillPersonFill className="tiketing_passenger_icon" />
-            </div>
-            <div className="tiketing_passenger_text" >Passenger</div>
-            <div className="tiketing_passenger_text_sub">Adult | Korea</div>
-          </div> */}
 
-          <div className="tiketing_oneLine">
+        <div className="tiketing_oneLine">
             <div className="tiketing_Line full" >
-              <div className="tiketing_Line_text" >First name</div> 
-              <input className="tiketing_Line_input" placeholder="Email"  />
+              <div className="tiketing_Line_text" >Nick name</div> 
+              <input className="tiketing_Line_input" onChange={(e) => setNick_name(e.target.value)} value={nick_name} placeholder="Nick_name"  />
             </div>
           </div>
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line half" >
               <div className="tiketing_Line_text" >First name</div> 
-              <input className="tiketing_Line_input" placeholder="First and middle name"  />
+              <input className="tiketing_Line_input" onChange={(e) => setSure_name(e.target.value)} value={sure_name} placeholder="First and middle name"  />
             </div>
 
             <div className="tiketing_Line half" >
               <div className="tiketing_Line_text" >Last name</div> 
-              <input className="tiketing_Line_input" placeholder="Last name"  />
+              <input className="tiketing_Line_input" onChange={(e) => setGiven_name(e.target.value)} value={given_name} placeholder="Last name"  />
             </div>
           </div>
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line third" >
               <div className="tiketing_Line_text" >Date of birth</div> 
-              <select className="tiketing_Line_selectBox" >
+              <select className="tiketing_Line_selectBox" onChange={ (e) => setR_Month(e.target.value) }   >
                 {month.map((value,key) => (
-                  <option key={key} value={value} >{value}</option>
+                  <option  key={key} value={value} >{value}</option>
                 ))}
               </select>
             </div>
 
             <div className="tiketing_Line third" >
-              <select className="tiketing_Line_selectBox" >
+              <select className="tiketing_Line_selectBox" onChange={ (e) => setR_Day(e.target.value) }  >
                 {day.map((value,key) => (
-                  <option key={key} value={value} >{value}</option>
+                  <option  key={key} value={value} >{value}</option>
                 ))}
               </select>
             </div>
 
             <div className="tiketing_Line third" >
-              <select className="tiketing_Line_selectBox" >
+              <select className="tiketing_Line_selectBox" onChange={ (e) => setR_Year(e.target.value) }  >
                 {year.map((value,key) => (
-                  <option key={key} value={value} >{value}</option>
+                  <option  key={key} value={value} >{value}</option>
                 ))}
               </select>
             </div>
@@ -114,32 +170,29 @@ function Signup() {
 
             <div className="tiketing_Line half" >
               <div className="tiketing_Line_text" >Nationality</div> 
-              <Nationality_selectBox />
+              <Nationality_selectBox onChangeNation={onChangeNation} />
             </div>
           </div>
-
           
           <div className="tiketing_oneLine">
             <div className="tiketing_Line third" >
               {/* <div className="tiketing_Line_text_bold">Contact information</div> */}
               <div className="tiketing_Line_text" >Country code</div> 
-              <CountryCode_selectBox />
+              <CountryCode_selectBox onChangeCountryCode={onChangeCountryCode} />
             </div>
 
             <div className="tiketing_Line sixty" >
               <div className="tiketing_Line_text" >Phone number</div> 
-              <input className="tiketing_Line_input" placeholder="Enter phone number"  />
+              <input className="tiketing_Line_input" onChange={(e) => SetPhone_number(e.target.value)} value={phone_number} placeholder="Enter phone number"  />
             </div>
           </div>
-
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line full" >
               <div className="tiketing_Line_text" >Email</div> 
-              <input className="tiketing_Line_input" placeholder="Enter a valid email address"  />
+              <input className="tiketing_Line_input"  onChange={(e) => setEmail(e.target.value)} value={email}  placeholder="Enter a valid email address"  />
             </div>
           </div>
-
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line sixty" >
@@ -150,37 +203,9 @@ function Signup() {
             <div className={"connect_wallet_button" + ( account ? " on" : "") }  onClick={connectWallet} >Connect Wallet</div>
           </div>
 
+          <div className="tiketing_finsh_button" onClick={onSignUp} >Finsh</div>
 
-          <div className="tiketing_finsh_button" >Finsh</div>
-
-
-          {/* <div className="tiketing_oneLine">
-              <div className="tiketing_Line_text_bold">Emergency contact</div>
-              <div className="tiketing_Line full" >
-                <div className="tiketing_Line_text" >Name</div> 
-                <input className="tiketing_Line_input" placeholder="Enter your emergency contact`s name"  />
-              </div>
-          </div>
-
-          <div className="tiketing_oneLine">
-            <div className="tiketing_Line third" >
-              <div className="tiketing_Line_text" >Country code</div> 
-              <CountryCode_selectBox />
-            </div>
-
-            <div className="tiketing_Line sixty" >
-              <div className="tiketing_Line_text" >Phone number</div> 
-              <input className="tiketing_Line_input" placeholder="Enter phone number"  />
-            </div>
-          </div> */}
         </div>
-        {/* <div className="tiketing_buy_box" >
-
-          <div className="tiketing_buy_total" >Total price</div>
-          <div className="tiketing_buy_price" >USDT <span>253</span></div>
-          <div className="tiketing_buy_button">Buy</div>
-
-        </div> */}
       </div>
     </div>
   );
