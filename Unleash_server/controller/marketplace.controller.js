@@ -225,7 +225,8 @@ const priceHistory = async (req, res) => {
   const client_data = req.query;
   try {
     const price_history = await db.marketplace.findAll({
-      attributes: ["price"],
+      attributes: ["price", "updatedAt"],
+      order: [["updatedAt", "asc"]],
       where: {
         token_id: client_data.token_id,
       },

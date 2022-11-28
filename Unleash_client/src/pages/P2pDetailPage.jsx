@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
+import axios from "axios";
 import DefaultNFT from "../components/NFTs/DefaultNft";
 import FirstNFT from "../components/NFTs/FirstNFT";
 import BusinessNFT from "../components/NFTs/BusinessNFT";
@@ -18,6 +19,12 @@ const P2pDetailPage = () => {
   const [number, setNubmer] = useState('');
 
   useEffect(() => {
+    axios.get(`http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`)
+    .then(res => {
+        const data = res.data;
+        console.log(data);
+        setChartData(setChartDatas(data));
+    });
     const filtered = [...p2pMarketList].filter((item) => {
       return item.offer_id === p2pinfo[0].offer_id
       && item.token_id === p2pinfo[0].token_id
@@ -41,6 +48,7 @@ const P2pDetailPage = () => {
   const handleChange = (e) => {
     setNubmer(e.target.value);
   }
+
 
   return (
     <main className="detailp2p_main">
