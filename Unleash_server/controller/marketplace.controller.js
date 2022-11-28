@@ -241,12 +241,13 @@ const priceHistory = async (req, res) => {
 const signature = async (req, res) => {
   const client_data = req.query;
   try {
-    const nftvoucher = await db.nftvoucher.findAll({
+    let nftvoucher = await db.nftvoucher.findAll({
       attributes: ["token_id", "price", "totalsupply"],
       where: {
         token_id: client_data.token_id,
       },
     });
+    nftvoucher[0].dataValues.price *= 10000;
     const signature_data = await Sign(nftvoucher[0].dataValues);
     return res.json({ signature_data: signature_data, nftvoucher: nftvoucher });
   } catch (err) {
