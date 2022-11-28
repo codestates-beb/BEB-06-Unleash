@@ -12,6 +12,7 @@ const Nationality_selectBox = (props) => {
         data-cy="Pax1-Nationality"
         className="tiketing_Line_selectBox" 
         onChange={props.onChangeNation}
+        value={props.national}
       >
         <option
           data-testid="travelers.SKH-1-EXT.countryCode-placeholder"
