@@ -15,6 +15,7 @@ const DetailInfo = (props) => {
   
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
@@ -41,16 +42,25 @@ const DetailInfo = (props) => {
     setPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
   }
   const handleSubmit = async (e) => {
+    console.log(nft[0].token_id)
     e.preventDefault();
     console.log(userData);
     if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
     try {
-      const call = await axios.get("http://localhost:5001/marketplace/signature?token_id=1");
+      await provider.send("eth_requestAccounts", []);
+
+      const call = await axios.get(`http://localhost:5001/marketplace/signature?token_id=${Number(nft[0].token_id)}`);
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
+      const {token_id, price, totalsupply} = voucher[0];
+
+
       const txHash = await contract.connect(signer).mint(
-        userData.wallet_address, Number(number), voucher, signature
-      );
+        userData.wallet_address, number, [token_id, price, totalsupply], signature
+      ).sendTransaction({
+        value: price * number,
+      })
+      // price * number 해서 이더 보내기.
       const txResult =  await txHash.wait();
       console.log(txResult);
 

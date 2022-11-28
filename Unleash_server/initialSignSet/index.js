@@ -8,7 +8,7 @@ const Sign = async (props) => {
   // props로 구매원하는 티켓의 voucher을 보낸다.
 
   const { token_id, price, totalsupply } = props;
-  const contractAddress = "0xB1f3E9B1B8765a6dc40A2752edAaF2B224Ad6fee";
+  const contractAddress = "0x4e83a90c7C94c35af5e5563Fabb8F0421a5C01Ac";
   const privateKey = process.env.PRIVATE_KEY;
 
   let wallet = new ethers.Wallet(privateKey);
