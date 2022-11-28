@@ -4,6 +4,7 @@ import DefaultNft from "../NFTs/DefaultNft";
 import BusinessNFT from "../NFTs/BusinessNFT";
 import FirstNFT from "../NFTs/FirstNFT";
 import MarketPlaceAside from "./MarketPlaceAside"
+import MarketPlaceClass from "./MarketPlaceClass";
 import { ListContext } from "../../resources/context_store/ListContext";
 import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "./MarketplaceDummy";
 
@@ -41,6 +42,7 @@ const MarketPlaceContents = () => {
 
       <div className="marketplace_contents">
         <MarketPlaceAside />
+        <MarketPlaceClass />
         <div className="marketplace_contents_nfts">
         {first.map((item, idx) => {
           return (

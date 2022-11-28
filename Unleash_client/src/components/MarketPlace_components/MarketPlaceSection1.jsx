@@ -8,11 +8,8 @@ import { ListContext } from "../../resources/context_store/ListContext";
 // ,,,,
 
 const MarketPlaceSection1 = () => {
-  const context = useContext(ListContext);
-  
   const [destination, setDestination] = useState({});
   const list = JSON.parse(localStorage.getItem("marketList"));
-  console.log(localStorage)
 
   useEffect(() => {
     if (list[0].to === "ITM") return setDestination(osakaDummy);

@@ -6,28 +6,49 @@ import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 
 import {Data,LineChart,setChartDatas} from "./LineChart";
+import { ListContext } from "../resources/context_store/ListContext";
 
 const P2pDetailPage = () => {
+  const context = useContext(ListContext);
+  const {p2pMarketList} = context;
 
   const p2pinfo = JSON.parse(localStorage.getItem("p2pNFT"));
   const [destination, setDestination] = useState({});
+  const [realOne, setRealOne] = useState('')
   const [chartData, setChartData] = useState(setChartDatas(Data));
+  const [number, setNubmer] = useState('');
 
-
- useEffect(() => {
-  
-  axios.get(`http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`)
-  .then(res => {
+  useEffect(() => {
+    axios.get(`http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`)
+    .then(res => {
         const data = res.data;
         console.log(data);
         setChartData(setChartDatas(data));
-  });
-  if (p2pinfo[0].token.to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
-  if (p2pinfo[0].token.to === "JFK") return setDestination(newYorkDummy);
-  if (p2pinfo[0].token.to === "CDG") return setDestination(parisDummy);
-  if (p2pinfo[0].token.to === "SYD") return setDestination(sydneyDummy);
-  if (p2pinfo[0].token.to === "FCO") return setDestination(romaDummy);
- }, []);
+    });
+    const filtered = [...p2pMarketList].filter((item) => {
+      return item.offer_id === p2pinfo[0].offer_id
+      && item.token_id === p2pinfo[0].token_id
+      && item.price === p2pinfo[0].price
+      && item.seller === p2pinfo[0].seller
+      && item.token.to === p2pinfo[0].token.to
+    });
+    setRealOne(filtered);
+    if (p2pinfo[0].token.to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
+    if (p2pinfo[0].token.to === "JFK") return setDestination(newYorkDummy);
+    if (p2pinfo[0].token.to === "CDG") return setDestination(parisDummy);
+    if (p2pinfo[0].token.to === "SYD") return setDestination(sydneyDummy);
+    if (p2pinfo[0].token.to === "FCO") return setDestination(romaDummy);
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
+    // contract 연결
+  }
+  const handleChange = (e) => {
+    setNubmer(e.target.value);
+  }
+
 
   return (
     <main className="detailp2p_main">
@@ -80,7 +101,10 @@ const P2pDetailPage = () => {
           <div className="detailp2ppage_personal_info">
             <span>Osaka {p2pinfo[0].token_id}</span>
             <span>owned by {p2pinfo[0].seller}</span>
-            <button>Buy</button>
+            <form onSubmit={handleSubmit}>
+            <input type="text" value={number} onChange={handleChange} />
+            <button type="submit">Buy</button>
+            </form>
           </div>
           <div className="detailp2ppage_price">
             <div className="detailp2p_top" >
@@ -88,15 +112,6 @@ const P2pDetailPage = () => {
             </div>
             <div className="detailp2ppage_price_eth">
               <span>{p2pinfo[0].price}ETH</span>
-            </div>
-          </div>
-          {/* history부분 */}
-          <div className="detailp2ppage_history">
-            <div className="detailp2p_top" >
-              <span>NFT History</span>
-            </div>
-            <div className="detailp2ppage_price_history">
-              <span>History</span>
             </div>
           </div>
           <div className="detailp2ppage_history">
