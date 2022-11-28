@@ -31,7 +31,6 @@ const MarketPlace = (props) => {
           <Test>
             <MarketPlaceSection1 />
             <MarketPlaceInfo />
-            {/*이게 나중에 marcketplace 컴포넌트들을 감싸는 ContextAPI가 될거임. */}
             <MarketPlaceContents />
           </Test>
           </div>

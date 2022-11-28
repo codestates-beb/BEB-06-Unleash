@@ -794,7 +794,7 @@
 .marketplace_contents {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 1fr 5fr;
 }
 
 .marketplace_contents_sidebar {
@@ -877,7 +877,6 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid gray;
   border-radius: 5px;
   transform: translateY(-200%);
   animation: destination 0.5s forwards;
@@ -926,16 +925,40 @@
 
 /***********MarketPlace_Contents_Css**************/
 
+.marketplace_class {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 10px;
+  text-align: center;
+  border-left: 1px solid rgba(128, 128, 128, 0.437);
+}
+.marketplace_class span {
+  font-size: 80px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.marketplace_class span:nth-child(1) {
+  color: rgb(255, 194, 39);
+}
+.marketplace_class span:nth-child(2) {
+  color: rgb(148, 230, 255);
+}
+.marketplace_class span:nth-child(3) {
+  color: rgba(128, 128, 128, 0.875);
+}
+
+
 /***********MarketPlace_NFT_Css**************/
 
 .marketplace_contents_nfts {
   background-color: inherit;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-  grid-gap: 50px;
-  gap: 80px;
+  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+  grid-gap: 30px;
+  gap: 70px;
   justify-items: center;
-  padding: 30px;
+  margin: 20px;
 }
 
 
@@ -1007,7 +1030,7 @@
   position: relative;
   padding: 10px;
   height: 350px;
-  background-color: rgba(218, 165, 32, 0.806);;
+  background-color: rgba(218, 165, 32, 0.806);
   border-radius: 10px;
   box-shadow: 0 0px 2px rgba(218, 165, 32, 0.777), 0 0 4px rgba(218, 165, 32, 0.777), 0 0 8px rgba(218, 165, 32, 0.777), 0 0 16px rgba(218, 165, 32, 0.777);
   transform-style: preserve-3d;
@@ -2299,7 +2322,7 @@ option {
   flex-direction: column;
   margin-top: 50px;
   width: 100%;
-  height: 400px;
+  height: 100%;
   background-color: #edede9;
   font-size: 40px;
   color: black;
@@ -2329,6 +2352,7 @@ option {
 }
 .detailpage_nft_desc_list {
   margin: 0;
+  margin-bottom: 30px;
 }
 
 .detailpage_nft_desc_list > li{
@@ -2344,11 +2368,11 @@ option {
 
 
 .detailpage_container_info {
-  
   display: flex;
   flex-direction: column;
   margin-left: 20px;
   width: 80%;
+  height: 100vh;
   color: white;
   border-radius: 10px;
   margin-top: 10%;
@@ -2359,6 +2383,27 @@ option {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+.detailpage_personal_info form {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+}
+.detailpage_personal_info form > input{
+  width: 80px;
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0 4px #f4a259;
+  color: #f4a259;
+  font-weight: 600;
+}
+.detailpage_personal_info form > input:focus {
+  outline: none
 }
 .detailpage_personal_info span {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -2376,7 +2421,6 @@ option {
 }
 
 .detailpage_personal_info button {
-  margin-top: 30px;
   width: 150px;
   height: 50px;
   font-size: 30px;
@@ -2435,7 +2479,6 @@ option {
 .detailp2ppage_container {
   display: flex;
   margin: 0 15%;
-  height: auto;
 }
 
 .detailp2ppage_container_nft {
@@ -2539,7 +2582,7 @@ option {
 }
 .detailp2ppage_nft_desc_list {
   margin: 0 ;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 .detailp2ppage_nft_desc_list > li{
   list-style-type: none;
@@ -2559,6 +2602,7 @@ option {
   flex-direction: column;
   margin-left: 20px;
   width: 80%;
+  height: 110vh;
   color: white;
   border-radius: 10px;
   margin-top: 10%;
@@ -2570,6 +2614,26 @@ option {
   display: flex;
   flex-direction: column;
   max-width: 600px;
+}
+.detailp2ppage_personal_info form {
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+}
+.detailp2ppage_personal_info form input {
+  height: 50px;
+  margin-right: 10px;
+  width: 80px;
+  font-size: 25px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0 4px #5e60ce;
+  color: #5e60ce;
+  font-weight: 600;
+}
+
+.detailp2ppage_personal_info form input:focus {
+  outline: none;
 }
 .detailp2ppage_personal_info span {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -2589,7 +2653,6 @@ option {
 }
 
 .detailp2ppage_personal_info button {
-  margin-top: 30px;
   width: 150px;
   height: 50px;
   font-size: 30px;
@@ -2603,6 +2666,7 @@ option {
 }
 .detailp2ppage_price {
   display: flex;
+  max-width: 800px;
   flex-direction: column;
   margin-top: 50px;
   width: 100%;
@@ -2640,9 +2704,10 @@ option {
 .detailp2ppage_history {
   display: flex;
   flex-direction: column;
+  max-width: 800px;
   margin-top: 50px;
   width: 100%;
-  height: 400px;
+  height: 450px;
   background-color: #edede9;
   font-size: 40px;
   color: white;

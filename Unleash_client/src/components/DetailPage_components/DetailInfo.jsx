@@ -7,7 +7,7 @@ import { ListContext } from "../../resources/context_store/ListContext";
 
 const DetailInfo = (props) => {
   const context = useContext(ListContext);
-  const {listAll} = context;
+  const {listAll, userData} = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
   const [realOne, setRealOne] = useState('')
   
@@ -36,6 +36,7 @@ const DetailInfo = (props) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(userData)
     if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
   }
 

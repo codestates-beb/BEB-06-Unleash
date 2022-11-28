@@ -9,7 +9,7 @@ const BusinessNFT = (props) => {
   const [active, setActive] = useState(false);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus, } = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
