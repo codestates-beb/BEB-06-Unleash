@@ -1,6 +1,6 @@
 const { db, sequelize } = require("../sequelize/models/index.js");
 const { Op, where } = require("sequelize");
-const token_holder = require("../sequelize/models/token_holder.js");
+const { Sign } = require("../initialSignSet/index.js");
 
 const ticketInfo = async (req, res) => {
   const client_data = req.query;
@@ -225,7 +225,8 @@ const priceHistory = async (req, res) => {
   const client_data = req.query;
   try {
     const price_history = await db.marketplace.findAll({
-      attributes: ["price"],
+      attributes: ["price", "updatedAt"],
+      order: [["updatedAt", "asc"]],
       where: {
         token_id: client_data.token_id,
       },
@@ -234,6 +235,24 @@ const priceHistory = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(400).send(err);
+  }
+};
+
+const signature = async (req, res) => {
+  const client_data = req.query;
+  try {
+    let nftvoucher = await db.nftvoucher.findAll({
+      attributes: ["token_id", "price", "totalsupply"],
+      where: {
+        token_id: client_data.token_id,
+      },
+    });
+    nftvoucher[0].dataValues.price *= 10000;
+    const signature_data = await Sign(nftvoucher[0].dataValues);
+    return res.json({ signature_data: signature_data, nftvoucher: nftvoucher });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("실패");
   }
 };
 
@@ -278,4 +297,5 @@ module.exports = {
   cancel,
   buy,
   marketInfo,
+  signature,
 };

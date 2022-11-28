@@ -32,14 +32,14 @@ export const Data = [
     }
 ];
 
-export const setChartDatas =({data})=>{
+export const setChartDatas =(info)=>{
     return(
     {
-        labels: Data.map((data) => data.year), 
+        labels: info.map((data) => String(data.updatedAt).substr(5,5)), 
         datasets: [
           {
-            label: "Users Gained ",
-            data: Data.map((data) => data.userGain),
+            label: "Price ",
+            data: info.map((data) => data.price),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             borderWidth: 2
@@ -57,7 +57,7 @@ export const LineChart =({chartData})=>{
             plugins: {
               title: {
                 display: true,
-                text: "Users Gained between 2016-2020"
+                text: "Price History"
               },
               legend: {
                 display: false

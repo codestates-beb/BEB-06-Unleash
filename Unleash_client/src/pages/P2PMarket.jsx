@@ -6,15 +6,14 @@ import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "..
 import { filterOsaka, filterNewYork, filterSydney, filterParis, filterRoma } from "../components/utils/utils";
 import { ListContext } from "../resources/context_store/ListContext";
 import axios from "axios";
+
 const P2PMarket = () => {
   const context = useContext(ListContext);
-  const {p2pMarketList, setP2pMarketList} = context;
+  const {p2pMarketList, setP2pMarketList,} = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
   const [economy, setEconomy] = useState([]);
-
-  // 값이 변할때 팔때 살때 tx가 있을떄마다 ㅇㅇ.
 
   useEffect(() => {
     axios.get("http://localhost:5001/marketplace/market").then(res => {
@@ -32,26 +31,25 @@ const P2PMarket = () => {
     setEconomy(() => [...p2pMarketList].filter(item => item.token.class === "이코노미"));
   }, [p2pMarketList]);
 
+  const firstOsaka = [...first].filter(item => item.token.to === "ITM");
+  const businessOsaka = [...business].filter(item => item.token.to === "ITM");
+  const economyOsaka = [...economy].filter(item => item.token.to === "ITM");
 
-  const firstOsaka = filterOsaka(first);
-  const businessOsaka = filterOsaka(business);
-  const economyOsaka = filterOsaka(economy);
+  const firstRoma = [...first].filter(item => item.token.to === "FCO");
+  const businessRoma = [...business].filter(item => item.token.to === "FCO");
+  const economyRoma = [...economy].filter(item => item.token.to === "FCO");
 
-  const firstRoma = filterRoma(first);
-  const businessRoma = filterRoma(business);
-  const economyRoma = filterRoma(business);
+  const firstSydney = [...first].filter(item => item.token.to === "SYD");
+  const businessSydney = [...business].filter(item => item.token.to === "SYD");
+  const economySydney = [...economy].filter(item => item.token.to === "SYD");
 
-  const firstSydney = filterSydney(first);
-  const businessSydney = filterSydney(business);
-  const economySydney = filterSydney(economy);
+  const firstNewYork = [...first].filter(item => item.token.to === "JFK");
+  const businessNewYork = [...business].filter(item => item.token.to === "JFK");
+  const economyNewYork = [...economy].filter(item => item.token.to === "JFK");
 
-  const firstNewYork = filterNewYork(first);
-  const businessNewYork = filterSydney(business);
-  const economyNewYork = filterSydney(economy);
-
-  const firstParis = filterParis(first);
-  const businessParis = filterSydney(business);
-  const economyParis = filterSydney(economy);
+  const firstParis = [...first].filter(item => item.token.to === "CDG");
+  const businessParis = [...business].filter(item => item.token.to === "CDG");
+  const economyParis = [...economy].filter(item => item.token.to === "CDG");
 
   return (
     <div className="marketplacep2p">

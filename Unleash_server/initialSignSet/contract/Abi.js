@@ -811,4 +811,4 @@ const Abi = [
     type: "function",
   },
 ];
-export default Abi;
+module.exports = Abi;

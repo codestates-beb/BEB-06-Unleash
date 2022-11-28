@@ -4,7 +4,6 @@ import FirstNFT from "../NFTs/FirstNFT";
 import BusinessNFT from "../NFTs/BusinessNFT";
 import axios from "axios"
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../../components/MarketPlace_components/MarketplaceDummy";
-import { filterOsaka, filterNewYork, filterSydney, filterParis, filterRoma } from "../../components/utils/utils";
 import { useContext } from "react";
 import { ListContext } from "../../resources/context_store/ListContext";
 
@@ -34,25 +33,25 @@ const MyPageContents = () => {
     setEconomy(() => [...accountNFT].filter(item => item.token.class === "이코노미"));
   }, [accountNFT]);
 
-  const firstOsaka = filterOsaka(first);
-  const businessOsaka = filterOsaka(business);
-  const economyOsaka = filterOsaka(economy);
+  const firstOsaka = [...first].filter(item => item.token.to === "ITM");
+  const businessOsaka = [...business].filter(item => item.token.to === "ITM");
+  const economyOsaka = [...economy].filter(item => item.token.to === "ITM");
 
-  const firstRoma = filterRoma(first);
-  const businessRoma = filterRoma(business);
-  const economyRoma = filterRoma(business);
+  const firstRoma = [...first].filter(item => item.token.to === "FCO");
+  const businessRoma = [...business].filter(item => item.token.to === "FCO");
+  const economyRoma = [...economy].filter(item => item.token.to === "FCO");
 
-  const firstSydney = filterSydney(first);
-  const businessSydney = filterSydney(business);
-  const economySydney = filterSydney(economy);
+  const firstSydney = [...first].filter(item => item.token.to === "SYD");
+  const businessSydney = [...business].filter(item => item.token.to === "SYD");
+  const economySydney = [...economy].filter(item => item.token.to === "SYD");
 
-  const firstNewYork = filterNewYork(first);
-  const businessNewYork = filterSydney(business);
-  const economyNewYork = filterSydney(economy);
+  const firstNewYork = [...first].filter(item => item.token.to === "JFK");
+  const businessNewYork = [...business].filter(item => item.token.to === "JFK");
+  const economyNewYork = [...economy].filter(item => item.token.to === "JFK");
 
-  const firstParis = filterParis(first);
-  const businessParis = filterSydney(business);
-  const economyParis = filterSydney(economy);
+  const firstParis = [...first].filter(item => item.token.to === "CDG");
+  const businessParis = [...business].filter(item => item.token.to === "CDG");
+  const economyParis = [...economy].filter(item => item.token.to === "CDG");
 
   const status = ["owned", "selling", "used", "selled"];
   const [border, setBorder] = useState([true, false, false, false]);
