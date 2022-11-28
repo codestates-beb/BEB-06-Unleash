@@ -9,7 +9,7 @@ const MarketPlaceCalander = () => {
   const [departDateOpen, setDepartDateOpen] = useState(false);
 
   const onOpenDepartDate = () => {
-    setDepartDateOpen(() => !departDateOpen);
+    setDepartDateOpen(true);
  }
 
 const onChangeDepartDate = (e) => {

@@ -21,7 +21,7 @@ const Header = () => {
       }
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
-      let data = {wallet_address : accounts};
+      let data = {wallet_address : accounts[0]};
       axios.post('http://localhost:5001/user/login', data )
       .then(function(res){
         setCurrentAccount(accounts[0]);

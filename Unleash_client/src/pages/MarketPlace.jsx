@@ -4,7 +4,7 @@ import MarketPlaceSection1 from "../components/MarketPlace_components/MarketPlac
 import MarketPlaceContents from "../components/MarketPlace_components/MarketPlaceContents";
 import Test from "../resources/context_store/Test";
 import { ListContext } from "../resources/context_store/ListContext";
-import {ethers} from "ethers";
+// import {ethers} from "ethers";
 import axios from "axios";
 
 const MarketPlace = (props) => {
