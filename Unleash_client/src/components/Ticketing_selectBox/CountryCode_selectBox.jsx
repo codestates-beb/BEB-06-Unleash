@@ -11,6 +11,7 @@ const CountryCode_selectBox = (props) => {
         data-cy="Pax1-EmergencyContactPhoneNumber-countryCode"
         className="tiketing_Line_selectBox" 
         onChange={props.onChangeCountryCode}
+        value={props.country_code}
         >
         <optgroup label="">
             <option
