@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
+import axios from "axios";
 import DefaultNFT from "../components/NFTs/DefaultNft";
 import FirstNFT from "../components/NFTs/FirstNFT";
 import BusinessNFT from "../components/NFTs/BusinessNFT";
@@ -12,7 +13,15 @@ const P2pDetailPage = () => {
   const [destination, setDestination] = useState({});
   const [chartData, setChartData] = useState(setChartDatas(Data));
 
+
  useEffect(() => {
+  
+  axios.get(`http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`)
+  .then(res => {
+        const data = res.data;
+        console.log(data);
+        setChartData(setChartDatas(data));
+  });
   if (p2pinfo[0].token.to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
   if (p2pinfo[0].token.to === "JFK") return setDestination(newYorkDummy);
   if (p2pinfo[0].token.to === "CDG") return setDestination(parisDummy);
