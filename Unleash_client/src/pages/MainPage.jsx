@@ -1,19 +1,25 @@
-import { Fragment, useEffect , useState } from "react";
+import { Fragment, useEffect , useState ,useContext } from "react";
 import { TransitionGroup, Transition } from "react-transition-group";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from "moment";
-
-
+import axios from "axios";
+import { ListContext } from "../resources/context_store/ListContext";
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+  const context = useContext(ListContext);
+  const navigate = useNavigate();
+
   const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
-  const [departDateOpen, setDepartDateOpen] = useState(false);
   const [returnDate, setReturnDate] = useState(new Date('12/31/2022'));
-  const [returnDateOpen, setReturnDateOpen] = useState(false);
   const [toPlace, setToPlace] = useState("paris");
+
+  const [departDateOpen, setDepartDateOpen] = useState(false);
+  const [returnDateOpen, setReturnDateOpen] = useState(false);
   const [toPlaceSelectBox, setToPlaceSelectBox] = useState(false);
 
+  const ToBox = { roma : "FCO" , osaka : "ITM" , sydney : "SYD" , newyork : "JFK" , paris: "CDG"   }
 
    const onOpenDepartDate = () => {
       setDepartDateOpen(true);
@@ -37,6 +43,7 @@ const MainPage = () => {
   const onClickToValue = (e) => {
     if(e) e.stopPropagation()
     let value = e.currentTarget.attributes.value.value;
+    console.log(value)
     setToPlace(value);
     setToPlaceSelectBox(false);
   }
@@ -44,6 +51,30 @@ const MainPage = () => {
   const onClickToPlaceSelectBox = () => {
     setToPlaceSelectBox(true);
   }
+
+  const { list ,  setList , a} = context;
+
+  const onClickSearch = () => {
+    let To = ToBox[toPlace];
+    console.log(To)
+    let params = {  "from" : "ICN" };
+    params["to"] = To;
+    params["departuretime"] = new Date(departDate.getTime() - (departDate.getTimezoneOffset() * 60000)).toISOString().substr(0, 11);
+
+    axios.get('http://localhost:5001/marketplace/ticket', {params} )
+    .then(function(res){
+      const data = res.data;
+      const list = JSON.stringify([...data])
+      localStorage.setItem("marketList", list)
+      setList( () => res.data);
+      navigate("/marketplace");
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
+
 
     return (
       <Transition in={true} timeout={200} appear>
@@ -67,7 +98,7 @@ const MainPage = () => {
                         <div className="mainPage_ticketing_select_box" >
                           <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={"paris"} >paris</div>
                           <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={"osaka"} >osaka</div>
-                          <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={"austrailia"} >austrailia</div>
+                          <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={"sydney"} >sydney</div>
                           <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={"newyork"} >newyork</div>
                           <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={"roma"} >roma</div>
                         </div>
@@ -98,7 +129,7 @@ const MainPage = () => {
                     <div className="mainPage_tiketting_input_text" > Number of people</div>
                     </div>
                     
-                    <div className="mainPage_tiketing_button" >Search</div>
+                    <div className="mainPage_tiketing_button" onClick={onClickSearch} >Search</div>
                   </div>
                 </div>
 

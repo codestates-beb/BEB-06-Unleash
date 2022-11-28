@@ -1,19 +1,30 @@
-import React, {useState, createContext, useEffect } from "react";
+import React, {useState, createContext } from "react";
 
 export const ListContext = createContext();
 
 const ListStore = (props) => {
-
-  const [list, setList] = useState([1,2,3,4,5]);
-  // 1. useEffect로 list를 불러온다.
-
-  const a = (v) => {
-    setList(v);
-  }
+  const [userData, setUserData] = useState([]);
+  const [loginStatus, setLoginStatus] = useState(false);
+  const [list, setList] = useState([]);
+  const [p2pMarketList, setP2pMarketList] = useState([]);
+  const [listAll, setListAll] = useState([]);
+  const [accountNFT, setAccountNFT] = useState([]);
 
   // useState React hook
   return (
-    <ListContext.Provider value={{list,setList, a}}>
+    <ListContext.Provider value={{
+      list,
+      setList,
+      listAll,
+      setListAll,
+      p2pMarketList,
+      setP2pMarketList,
+      accountNFT,
+      setAccountNFT,
+      userData,
+      setUserData,
+      loginStatus,
+      setLoginStatus}}>
       {props.children}
     </ListContext.Provider>
   )

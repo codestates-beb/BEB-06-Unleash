@@ -4,40 +4,27 @@ import DefaultNft from "../NFTs/DefaultNft";
 import BusinessNFT from "../NFTs/BusinessNFT";
 import FirstNFT from "../NFTs/FirstNFT";
 import MarketPlaceAside from "./MarketPlaceAside"
+import MarketPlaceClass from "./MarketPlaceClass";
 import { ListContext } from "../../resources/context_store/ListContext";
-
-/* metadata
-{
-"token_id": 1,
-"from": "ICN",
-"to": "ITM",
-"departuretime": "2022-12-01T13:00:00.000Z",
-"arrivaltime": "2022-12-01T14:50:00.000Z",
-"class": "이코노미"
-}
-*/
+import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "./MarketplaceDummy";
 
 const MarketPlaceContents = () => {
 
-  const context = useContext(ListContext);
-  
-  const {list, setList, a} = context;
+  const [destination, setDestination] = useState({});
+  const list = JSON.parse(localStorage.getItem("marketList"));
+
   useEffect(() => {
-    a([1,2,3,4]);
-  }, [])
+    if (list[0].to === "ITM") setDestination(osakaDummy); // 뒷정리함수.
+    if (list[0].to === "JFK") setDestination(newYorkDummy);
+    if (list[0].to === "CDG") setDestination(parisDummy);
+    if (list[0].to === "SYD") setDestination(sydneyDummy);
+    if (list[0].to === "FCO") setDestination(romaDummy);
+  }, [destination]);
 
-  console.log(list)
-  //localStorage.setItem("ticketList", JSON.stringify(list));
-  //console.log(JSON.parse(localStorage.ticketList))
-
-  // nft 필터링하는 곳.
-  // const first = metadata.filter((item) => item.class === "퍼스트")
-  // const business = metadata.filter((item) => item.class === "이코노미")
-  // const economy = metadata.filter((item) => item.class === ")
-  const arr = Array.from(Array(10));
-  const arr2 = Array.from(Array(5));
-  const arr3 = Array.from(Array(5));
-
+  // nft 필터링
+  const first = [...list].filter((item) => item.class === "퍼스트");
+  const business = [...list].filter((item) => item.class === "비지니스");
+  const economy = [...list].filter((item) => item.class === "이코노미");
 
   return (
     
@@ -55,10 +42,53 @@ const MarketPlaceContents = () => {
 
       <div className="marketplace_contents">
         <MarketPlaceAside />
+        <MarketPlaceClass />
         <div className="marketplace_contents_nfts">
-        {arr2.map((item, idx) => {return <FirstNFT key={idx} bs="buy" locate="/nftdetailpage"/>})}
-        {arr3.map((item, idx) => {return <BusinessNFT key={idx} bs="buy" locate="/nftdetailpage"/>})}
-        {arr.map((item, idx) => {return <DefaultNft key={idx} bs="buy" locate="/nftdetailpage"/>})}
+        {first.map((item, idx) => {
+          return (
+          <FirstNFT 
+            key={idx}
+            bs="buy"
+            locate="/nftdetailpage"
+            bg={destination.nftImg}
+            city={destination.city}
+            price={item.nftvoucher.price}
+            departure={item.departuretime}
+            arrival={item.arrivaltime}
+            left={item.nftvoucher.totalsupply}
+            token_Id={item.token_id}
+          />)
+        })}
+        {business.map((item, idx) => {
+          return (
+          <BusinessNFT
+            key={idx}
+            bs="buy"
+            locate="/nftdetailpage"
+            bg={destination.nftImg}
+            city={destination.city}
+            price={item.nftvoucher.price}
+            departure={item.departuretime}
+            arrival={item.arrivaltime}
+            left={item.nftvoucher.totalsupply}
+            token_Id={item.token_id}
+          />)
+        })}
+        {economy.map((item, idx) => {
+          return (
+          <DefaultNft
+            key={idx}
+            bs="buy"
+            locate="/nftdetailpage"
+            bg={destination.nftImg}
+            city={destination.city}
+            price={item.nftvoucher.price}
+            departure={item.departuretime}
+            arrival={item.arrivaltime}
+            left={item.nftvoucher.totalsupply}
+            token_Id={item.token_id}
+            />)
+        })}
         </div>
       </div>
     </div>

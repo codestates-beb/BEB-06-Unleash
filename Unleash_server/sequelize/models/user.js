@@ -9,11 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: false,
+      unique: "email"
     },
     sure_name: {
       type: DataTypes.STRING(100),
@@ -31,13 +28,24 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false
     },
-    wallet_address: {
+    country_code: {
       type: DataTypes.STRING(100),
       allowNull: false
     },
+    phone_number: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: ""
+    },
+    wallet_address: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      unique: "wallet_address"
+    },
     birth: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: ""
     }
   }, {
     sequelize,
@@ -51,6 +59,22 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "email",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "email" },
+        ]
+      },
+      {
+        name: "wallet_address",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "wallet_address" },
         ]
       },
     ]

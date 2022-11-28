@@ -1,7 +1,45 @@
 import { GiCommercialAirplane } from "react-icons/gi";
 import { Link , useNavigate , useLocation  } from "react-router-dom";
+// import { TestContext } from "../resources/context_store/ListContext";
+import { ListContext } from "../resources/context_store/ListContext";
+import { Fragment, useEffect , useState , useContext } from "react";
+import axios from "axios"
 
-const Header = (props) => {
+const Header = () => {
+  const context = useContext(ListContext);
+  const { setUserData , setLoginStatus } = context;
+  const [landingState , setLandingState ] = useState(false);
+  const [account , setCurrentAccount ] = useState("");
+
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+
+      let data = {wallet_address : accounts[0]};
+      axios.post('http://localhost:5001/user/login', data )
+      .then(function(res){
+        setCurrentAccount(accounts[0]);
+        setUserData(res.data[0]);
+        setLoginStatus(true);
+      }).catch(function (error) {
+        console.log(error);
+        alert(error.response.data);
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const logOut = () => {
+    setCurrentAccount("");
+    setLoginStatus(false);
+  }
 
 
   let location = useLocation();
@@ -18,12 +56,12 @@ const Header = (props) => {
             </div>
         </Link>
 
-        { !props.account ? (
-          <div className="Header_text" onClick={props.connectWallet} >Connect Wallet</div>
+        { !account ? (
+          <div className="Header_text" onClick={connectWallet} >Connect Wallet</div>
         ) : (
-          <div className="Header_text" onClick={props.logOut} >Logout</div>
+          <div className="Header_text" onClick={logOut} >Logout</div>
         )}
-        { props.account && (
+        { account && (
           <Link to = "/mypage">   
             <div className={"Header_text" + ( locationName == "/mypage" ? " on" : "" ) }  >
               MyPage
@@ -40,7 +78,7 @@ const Header = (props) => {
               )}
           </div>
         </Link>
-        <Link to = "/marketplace">   
+        <Link to = "/marketplacep2p">   
          <div className={"Header_text" + ( locationName == "/marketplace" ? " on" : "" ) } >MarketPlace
          
             { locationName == "/marketplace" && (
