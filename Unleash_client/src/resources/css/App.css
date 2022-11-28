@@ -290,7 +290,7 @@
   height: 100%;
   background-size: 100% 100%;
   opacity: 0;
-  transition: 1.5s ease-in-out;
+  transition: 1.3s ease-in-out;
   transition-delay: 0.8s;
   display: inline-block;
   transform:translateY(-100%);
@@ -328,24 +328,24 @@
 
 .bg4 {
   z-index: -4;
-  animation:slide4 2.6s ease-in-out;
+  animation:slide4 2.5s ease-in-out;
 }
 
 @keyframes slide1 {
   0% {
-    background-color: #ff595e;
+    background-color: #73c9ff;
     border-radius: 150% 150% 0% 0%;
     transform:translateY(-100%);
   }
   100% {
     border-radius: 10% 10% 0% 0%;
-    background-color: #ff595e;
+    background-color: #73c9ff;
     transform:translateY(100%);
    }
 }
 @keyframes slide2 {
   0% {
-    background-color: #ffd256;
+    background-color: #058cdf;
     border-radius: 100% 800% 0% 0%;
     transform:translateY(-100%);
   }
@@ -354,14 +354,14 @@
     
   }
   100% {
-    background-color: #ffd256;
+    background-color: #058cdf;
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
    }
 }
 @keyframes slide3 {
   0% {
-    background-color: #f6fff8;
+    background-color: #ffffff;
     border-radius: 800% 100% 0% 0%;
     transform:translateY(-100%);
   }
@@ -370,14 +370,14 @@
     
   }
   100% {
-    background-color: #f6fff8;
+    background-color: #ffffff;
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
    }
 }
 @keyframes slide4 {
   0% {
-    background-color: #1982c4;
+    background-color: #acdfff;
     border-radius: 100% 800% 0% 0%;
     transform:translateY(-100%);
   }
@@ -387,7 +387,7 @@
   100% {
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
-    background-color: #1982c4;
+    background-color: #acdfff;
    }
 }
 
