@@ -11,8 +11,8 @@ const DetailInfo = (props) => {
   const {listAll, userData} = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
   const [realOne, setRealOne] = useState('')
-  const contractAddress = "0x4e83a90c7C94c35af5e5563Fabb8F0421a5C01Ac";
-  
+  const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
+
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
 
@@ -21,7 +21,7 @@ const DetailInfo = (props) => {
   const contract = new Contract(contractAddress, Abi, signer);
 
   const [destination, setDestination] = useState({});
-  const [price, setPrice] = useState(nft[0].nftvoucher.price);
+  const [totalprice, setTotalPrice] = useState(nft[0].nftvoucher.price);
 
   useEffect(() => {
     const filtered = listAll.filter((item) => {
@@ -39,27 +39,26 @@ const DetailInfo = (props) => {
   }, []);
   const handleChange = (e) => {
     setNumber(e.target.value);
-    setPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
+    setTotalPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
   }
   const handleSubmit = async (e) => {
     console.log(nft[0].token_id)
     e.preventDefault();
-    console.log(userData);
     if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
     try {
-      await provider.send("eth_requestAccounts", []);
-
       const call = await axios.get(`http://localhost:5001/marketplace/signature?token_id=${Number(nft[0].token_id)}`);
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
+      console.log(signature)
       const {token_id, price, totalsupply} = voucher[0];
 
-
       const txHash = await contract.connect(signer).mint(
-        userData.wallet_address, number, [token_id, price, totalsupply], signature
-      ).sendTransaction({
-        value: price * number,
-      })
+        userData.wallet_address, number, [token_id, price, totalsupply], signature,
+        {
+          value: totalprice * 10000,
+          gasLimit: 3000000,
+        }
+      );
       // price * number 해서 이더 보내기.
       const txResult =  await txHash.wait();
       console.log(txResult);
@@ -86,7 +85,7 @@ const DetailInfo = (props) => {
             <span>Price</span>
           </div>
           <div className="detailpage_price_eth">
-            <span>{price} ETH</span>
+            <span>{totalprice} ETH</span>
           </div>
         </div>
       </div>

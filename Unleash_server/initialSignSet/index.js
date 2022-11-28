@@ -1,4 +1,5 @@
 const Abi = require("./contract/Abi.js");
+const exAbi = require("./contract/exAbi.json")
 const ethers = require("ethers");
 const dotenv = require("dotenv");
 
@@ -8,7 +9,7 @@ const Sign = async (props) => {
   // props로 구매원하는 티켓의 voucher을 보낸다.
 
   const { token_id, price, totalsupply } = props;
-  const contractAddress = "0x4e83a90c7C94c35af5e5563Fabb8F0421a5C01Ac";
+  const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
   const privateKey = process.env.PRIVATE_KEY;
 
   let wallet = new ethers.Wallet(privateKey);
@@ -21,7 +22,7 @@ const Sign = async (props) => {
   const msg = [token_id, price, totalsupply];
   const contract = new ethers.Contract(
     contractAddress,
-    Abi,
+    exAbi,
     walletWithProvider
   );
   const msgHx = await contract._hash(msg);
