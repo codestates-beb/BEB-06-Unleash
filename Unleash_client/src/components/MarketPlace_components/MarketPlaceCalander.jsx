@@ -4,9 +4,9 @@ import 'react-calendar/dist/Calendar.css';
 import moment from "moment";
 
 
-const MarketPlaceCalander = () => {
-  const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
+const MarketPlaceCalander = (props) => {
   const [departDateOpen, setDepartDateOpen] = useState(false);
+  const {departDate, setDepartDate} = props;
 
   const onOpenDepartDate = () => {
     setDepartDateOpen(true);

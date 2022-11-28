@@ -14,19 +14,23 @@ const MarketPlaceAside = () => {
 
   // 아래의 내용은 context 에서 전역으로 설정되서 온 것을 바꿔주면됨.
   const [city, setCity] = useState('');
-  const [seatClass, setSeatClass] = useState('');
-  const [departDate, setDepartDate] = useState('');
+  const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
+  
+
   const cities = ["Paris", "NewYork", "Osaka", "Sydney", "Roma"]
   const [bg, setBg] = useState(false);
 
   const handleDButtonClick = (e) => {
     setIsOpen(() => !isOpen);
   }
-  const handleSubmit = () => {
-    const filter = {city: city, seatClass: seatClass, departDate: departDate,}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const filter = {city: city, departDate: departDate}
+    console.log(filter)
   }
   const handleClick = (e) => {
     setBg(() => !bg);
+    setCity(e.target.textContent)
   }
   
   // 전체 도시 리스트 완성되면 , 배열 만들어서 46번째 li부분 map처리.
@@ -40,7 +44,7 @@ const MarketPlaceAside = () => {
               <ul className="marketplace_contents_destination" onClick={handleClick}>
                 {cities.map((item, idx) => <li key={idx} style={bg? {backgroundColor: "blue"} : {}}><p>{item}</p></li>)}
               </ul>}
-            <MarketPlaceCalander />
+            <MarketPlaceCalander departDate={departDate} setDepartDate={setDepartDate}/>
             <button className="marketplace_search" type="submit">search</button>
           </form>
         </aside>
