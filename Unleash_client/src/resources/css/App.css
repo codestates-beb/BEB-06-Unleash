@@ -650,7 +650,7 @@
   height: 300px;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(45, 104, 141, 0.829);
+  box-shadow: 0 0 20px rgb(255, 169, 57);
 }
 
 .marketplace_info_name {
@@ -800,8 +800,8 @@
 .marketplace_contents_sidebar {
   display: grid;
   justify-items: center;
-  border-right: 0.5px solid rgba(0, 0, 0, 0.413);
   padding-top: 30px;
+  margin-right: 20px;
   height: auto;
 }
 
@@ -926,26 +926,34 @@
 /***********MarketPlace_Contents_Css**************/
 
 .marketplace_class {
+  
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-left: 10px;
+  padding: 0px 30px;
   text-align: center;
   border-left: 1px solid rgba(128, 128, 128, 0.437);
 }
 .marketplace_class span {
-  font-size: 80px;
+  padding: 10px;
+  font-size: 60px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .marketplace_class span:nth-child(1) {
-  color: rgb(255, 194, 39);
+  color: rgb(255, 209, 92);
+  background-color: rgb(234, 28, 28);
+  border-radius: 7px;
 }
 .marketplace_class span:nth-child(2) {
   color: rgb(148, 230, 255);
+  background-color: rgba(8, 0, 255, 0.707);
+  border-radius: 7px;
 }
 .marketplace_class span:nth-child(3) {
-  color: rgba(128, 128, 128, 0.875);
+  color: rgb(128, 128, 128);
+  background-color: rgb(235, 235, 235);
+  border-radius: 7px;
 }
 
 
@@ -1013,7 +1021,7 @@
   height: 350px;
   background-color: rgba(218, 165, 32, 0.518);
   border-radius: 10px;
-  box-shadow: 0 0px 2px rgba(218, 165, 32, 0.777), 0 0 4px rgba(218, 165, 32, 0.777), 0 0 8px rgba(218, 165, 32, 0.777), 0 0 16px rgba(218, 165, 32, 0.777);
+  box-shadow: 0 0px 2px rgba(218, 165, 32, 0.777), 0 0 4px rgba(218, 165, 32, 0.777), 0 0 8px rgba(218, 165, 32, 0.777), 0 0 16px rgba(218, 165, 32, 0.777), 0 0 32px rgba(218, 165, 32, 0.777);
   transform-style: preserve-3d;
   animation: nftrotate 0.5s ease-in ;
   animation-fill-mode: forwards;
@@ -1032,7 +1040,7 @@
   height: 350px;
   background-color: rgba(218, 165, 32, 0.806);
   border-radius: 10px;
-  box-shadow: 0 0px 2px rgba(218, 165, 32, 0.777), 0 0 4px rgba(218, 165, 32, 0.777), 0 0 8px rgba(218, 165, 32, 0.777), 0 0 16px rgba(218, 165, 32, 0.777);
+  box-shadow: 0 0px 2px rgba(218, 165, 32, 0.777), 0 0 4px rgba(218, 165, 32, 0.777), 0 0 8px rgba(218, 165, 32, 0.777), 0 0 16px rgba(218, 165, 32, 0.777),  0 0 32px rgba(218, 165, 32, 0.777);
   transform-style: preserve-3d;
   animation: nftrotate1 0.5s ease-in;
   animation-fill-mode: forwards;

@@ -4,9 +4,9 @@ const MarketPlaceClass = () => {
   return (
     <>
       <div className="marketplace_class">
-        <span>First</span>
-        <span>Business</span>
-        <span>Economy</span>
+        <span>First<br/> Class</span>
+        <span>Business<br/> Class</span>
+        <span>Economy<br/> Class</span>
       </div>
     </>
   );
