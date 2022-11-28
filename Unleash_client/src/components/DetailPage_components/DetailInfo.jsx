@@ -11,15 +11,16 @@ const DetailInfo = (props) => {
   const {listAll, userData} = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
   const [realOne, setRealOne] = useState('')
-  
+  const contractAddress = "0x4e83a90c7C94c35af5e5563Fabb8F0421a5C01Ac";
   
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  //const contract = new Contract(contractAddress, Abi, signer);
+  const contract = new Contract(contractAddress, Abi, signer);
 
   const [destination, setDestination] = useState({});
+  const [price, setPrice] = useState(nft[0].nftvoucher.price);
 
   useEffect(() => {
     const filtered = listAll.filter((item) => {
@@ -34,9 +35,10 @@ const DetailInfo = (props) => {
     if (nft[0].to === "CDG") return setDestination(parisDummy);
     if (nft[0].to === "SYD") return setDestination(sydneyDummy);
     if (nft[0].to === "FCO") return setDestination(romaDummy);
-  }, [])
+  }, []);
   const handleChange = (e) => {
     setNumber(e.target.value);
+    setPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,13 +47,12 @@ const DetailInfo = (props) => {
     try {
       const call = await axios.get("http://localhost:5001/marketplace/signature?token_id=1");
       const signature = call.data.signature_data;
-      const tokenId = call.data.nftvoucher[0].token_id;
-      console.log(tokenId)
-/*       const txHash = await contract.connect(signer).mint(
-        userData.wallet_address, [1, number], voucher, signature
+      const voucher = call.data.nftvoucher;
+      const txHash = await contract.connect(signer).mint(
+        userData.wallet_address, Number(number), voucher, signature
       );
       const txResult =  await txHash.wait();
-      console.log(txResult); */
+      console.log(txResult);
 
     } catch(e) {
       console.log(e);
@@ -75,7 +76,7 @@ const DetailInfo = (props) => {
             <span>Price</span>
           </div>
           <div className="detailpage_price_eth">
-            <span>{nft[0].nftvoucher.price} ETH</span>
+            <span>{price} ETH</span>
           </div>
         </div>
       </div>

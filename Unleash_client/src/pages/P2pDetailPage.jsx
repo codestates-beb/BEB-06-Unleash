@@ -17,6 +17,7 @@ const P2pDetailPage = () => {
   const [realOne, setRealOne] = useState('')
   const [chartData, setChartData] = useState(setChartDatas(Data));
   const [number, setNubmer] = useState('');
+  const [price, setPrice] = useState(p2pinfo[0].price);
 
   useEffect(() => {
     axios.get(`http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`)
@@ -47,6 +48,7 @@ const P2pDetailPage = () => {
   }
   const handleChange = (e) => {
     setNubmer(e.target.value);
+    setPrice(Number(e.target.value) * p2pinfo[0].price);
   }
 
 
@@ -111,7 +113,7 @@ const P2pDetailPage = () => {
               <span>Price</span>
             </div>
             <div className="detailp2ppage_price_eth">
-              <span>{p2pinfo[0].price}ETH</span>
+              <span>{price} ETH</span>
             </div>
           </div>
           <div className="detailp2ppage_history">
