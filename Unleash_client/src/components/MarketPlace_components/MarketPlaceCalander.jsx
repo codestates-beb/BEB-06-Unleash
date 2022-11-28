@@ -11,7 +11,7 @@ const MarketPlaceCalander = () => {
   const [returnDateOpen, setReturnDateOpen] = useState(false);
 
   const onOpenDepartDate = () => {
-    setDepartDateOpen(() => !departDateOpen);
+    setDepartDateOpen(true);
  }
 
 const onChangeDepartDate = (e) => {
@@ -20,7 +20,7 @@ const onChangeDepartDate = (e) => {
 }
 
 const onOpenReturnDate = () => {
-  setReturnDateOpen(() => !returnDateOpen);
+  setReturnDateOpen(true);
 }
 
 const onChangeReturnDate = (e) => {
