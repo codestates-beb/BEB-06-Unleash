@@ -1,8 +1,7 @@
-import React, {useState, createContext } from "react";
+import React, { useState, createContext } from 'react';
 
 export const ListContext = createContext();
-
-const ListStore = (props) => {
+const ListStore = props => {
   const [userData, setUserData] = useState([]);
   const [loginStatus, setLoginStatus] = useState(false);
   const [list, setList] = useState([]);
@@ -13,24 +12,25 @@ const ListStore = (props) => {
 
   // useState React hook
   return (
-    <ListContext.Provider value={{
-      list,
-      setList,
-      listAll,
-      setListAll,
-      p2pMarketList,
-      setP2pMarketList,
-      accountNFT,
-      setAccountNFT,
-      userData,
-      setUserData,
-      loginStatus,
-      setLoginStatus,
-      active,
-      setActive}}>
+    <ListContext.Provider
+      value={{
+        list,
+        setList,
+        listAll,
+        setListAll,
+        p2pMarketList,
+        setP2pMarketList,
+        accountNFT,
+        setAccountNFT,
+        userData,
+        setUserData,
+        loginStatus,
+        setLoginStatus,
+      }}
+    >
       {props.children}
     </ListContext.Provider>
-  )
-}
+  );
+};
 
 export default ListStore;

@@ -1,22 +1,73 @@
 const { db } = require("../sequelize/models/index.js");
 const { Op } = require("sequelize");
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
 
 const login = async (req, res) => {
   const client_data = req.body;
-
   try {
     const userInfo = await db.user.findAll({
       where: {
         wallet_address: client_data.wallet_address,
       },
+      attributes: ["id", "wallet_address"],
     });
-    if (userInfo.length === 0) {
+
+    if (userInfo[0].dataValues.length === 0) {
       return res.status(400).send("일치하는 유저가 없습니다.");
     }
-    return res.status(200).json(userInfo);
+    const accessToken = jwt.sign(
+      userInfo[0].dataValues,
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "1000000sec",
+      }
+    );
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      expiresIn: "1000000sec",
+    });
+    console.log(userInfo[0].dataValues);
+    return res.status(200).json(userInfo[0].dataValues);
   } catch (err) {
-    console.log(err);
+    return res.status(400).send("invalid token");
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    res.cookie("accessToken", "");
+    return res.status(200).send("logout");
+  } catch (err) {
     return res.status(400).send(err);
+  }
+};
+
+const approve = async (req, res) => {
+  const token = req.cookies.accessToken;
+
+  try {
+    const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // if (!req.body.data) {
+    // 클라이언트로부터 온 isUserData가 false이면 상태가 없는것이므로 값을 보내줌
+    return res.status(200).send({
+      message: "ok",
+      data: {
+        userInfo: data,
+      },
+    });
+    // }
+  } catch (e) {
+    if (e.name === "TokenExpiredError") {
+      // 유효기간이 지났을때
+      res.cookie("accessToken", "");
+      return res.status(400).send("expired access token");
+    } else if (typeof cookie == "undefined") {
+      // 쿠키가 제대로 안들어왔을때
+      return res.json({ message: "token undefined" });
+    }
   }
 };
 
@@ -142,4 +193,6 @@ module.exports = {
   joinMembership,
   login,
   myPageSelled,
+  approve,
+  logout,
 };
