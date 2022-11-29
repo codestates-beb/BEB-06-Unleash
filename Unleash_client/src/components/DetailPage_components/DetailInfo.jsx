@@ -66,8 +66,13 @@ const DetailInfo = props => {
       console.log(signature);
       const { token_id, price, totalsupply } = voucher[0];
 
-      const txHash = await contract.connect(signer).mint(
-        userData.wallet_address, number, [token_id, price, totalsupply], signature,
+      const txHash = await contract
+      .connect(signer)
+      .mint(
+        userData.wallet_address,
+        number,
+        [token_id, price, totalsupply],
+        signature,
         {
           value: totalprice * 10000,
         }
