@@ -4,22 +4,33 @@ import DefaultNFT from "../components/NFTs/DefaultNft";
 import FirstNFT from "../components/NFTs/FirstNFT";
 import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
-
+import {ethers, Contract} from "ethers"
 import {Data,LineChart,setChartDatas} from "./LineChart";
 import { ListContext } from "../resources/context_store/ListContext";
+import LoadingPage from "./LoadingPage";
+import Abi from "../resources/exAbi.json";
+import MarketAbi from "../resources/MarketAbi.json";
 
 const P2pDetailPage = () => {
   const context = useContext(ListContext);
-  const {p2pMarketList} = context;
+  const {p2pMarketList, active, setActive} = context;
 
   const p2pinfo = JSON.parse(localStorage.getItem("p2pNFT"));
   const [destination, setDestination] = useState({});
   const [realOne, setRealOne] = useState('')
   const [chartData, setChartData] = useState(setChartDatas(Data));
   const [number, setNubmer] = useState('');
-  const [price, setPrice] = useState(p2pinfo[0].price);
+  const [totalPrice, setTotalPrice] = useState(p2pinfo[0].price);
+
+  const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
+
+  const marketContractAddress = "0xA2B968a108Bd3C407ACb1e72240Db99F47e3c475";
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
   useEffect(() => {
+    console.log(p2pinfo)
     axios.get(`http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`)
     .then(res => {
         const data = res.data;
@@ -40,19 +51,35 @@ const P2pDetailPage = () => {
     if (p2pinfo[0].token.to === "SYD") return setDestination(sydneyDummy);
     if (p2pinfo[0].token.to === "FCO") return setDestination(romaDummy);
   }, []);
+  
+  const handleSubmit = async (e) => {
+    try {
+      setActive(true)
+      e.preventDefault();
+      if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
+      const txHash = await contract.connect(signer).buy(
+        p2pinfo[0].offer_id, Number(number),
+        {
+          value: totalPrice * 10000,
+        }
+      );
+      console.log(txHash)
+      setActive(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
+    } catch (e) {
+      console.log(e)
+      setActive(false);
+      return e;
+    }
     // contract 연결
   }
   const handleChange = (e) => {
     setNubmer(e.target.value);
-    setPrice(Number(e.target.value) * p2pinfo[0].price);
+    setTotalPrice(Number(e.target.value) * p2pinfo[0].price);
   }
 
 
-  return (
+  return ( active ? <LoadingPage/> :
     <main className="detailp2p_main">
       <div className="detailp2ppage_container">
         <div className="detailp2ppage_container_nft">
@@ -113,7 +140,7 @@ const P2pDetailPage = () => {
               <span>Price</span>
             </div>
             <div className="detailp2ppage_price_eth">
-              <span>{price} ETH</span>
+              <span>{totalPrice} ETH</span>
             </div>
           </div>
           <div className="detailp2ppage_history">

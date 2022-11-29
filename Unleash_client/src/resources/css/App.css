@@ -583,7 +583,7 @@
 /***********MarketPlace_Section1_Css**************/
 .marketplace {
   
-  background: #e6e6e665;
+  background: #e6e6e6;
   
 }
 .marketplace_main {
@@ -630,10 +630,9 @@
 .marketplace_info {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
-  margin: 0 6%;
+  margin: 0 5.5%;
   padding-bottom: 50px;
   flex-direction: column;
-  
 }
 
 .marketplace_info_container {
@@ -650,28 +649,33 @@
   height: 300px;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 0 3px black;
+  box-shadow: 0 0 5px black;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik+Glitch&display=swap');
+
 .marketplace_info_name {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Luckiest Guy', cursive;
   padding-left: 30px;
+  justify-content: center;
   display: flex;
   flex-direction: column;
-  font-weight: 700;
-  font-size: 100px;
-  color: rgb(255, 169, 57);
+  font-weight: 400;
+  font-size: 90px;
+  color: white;
 }
+
+
 .marketplace_info_name span:nth-child(2) {
   font-size: 130px;
-  margin-top: 8px;
-  color:#03ad66
+  color: rgb(40, 65, 80);
+  text-indent: 30px;
 }
 .marketplace_info_flexgrow {
   flex-grow: 1;
 }
 .marketplace_info_detail {
-  margin-right: 30px;
+  margin-right: 3%;
 }
 .marketplace_info_detail a:first-child {
   color: rgb(139, 222, 255)
@@ -681,32 +685,31 @@
   font-size: 30px;
   cursor: pointer;
   text-decoration: none;
-  color: rgb(255, 169, 57);
+  color: #2196f3;
 }
 
 
 .marketplace_description_container {
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 96%;
+  width: 100%;
+  height: auto;
   margin-top: 15px;
-  padding: 60px 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px black;
-  background-color: white;
 }
 
 .marketplace_description_contents {
   display: flex;
   width: 100%;
   max-width: 750px;
-  min-height: 120px;
   
+  padding: 50px 30px;
+  border-radius: 15px;
+  color: rgb(40, 65, 80);
 }
 .marketplace_description_contents span {
-  font-size: 22px;
+  
+  font-size: 26px;
 }
 
 .marketplace_description_eth {
@@ -715,9 +718,10 @@
   margin-right: 50px;
 }
 .marketplace_description_eth span {
-  
+  color: rgb(40, 65, 80);
   padding: 10px;
   font-size: 25px;
+  font-family: 'Luckiest Guy', cursive;
 }
 
 
@@ -733,21 +737,20 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  
-  border-bottom: 5px solid rgba(128, 128, 128, 0.437);
+  border-bottom: 1px solid rgb(40, 65, 80);
   padding-bottom: 50px;
 }
 
 .marketplace_contents_b2c .marketplace_button_default {
-  background-color: black;
+  background-color: rgba(119, 192, 240, 0.88);
   width: 100%;
   cursor: pointer;
   border: none;
-  height: 50px;
-  
-  box-shadow: 0px 0px 20px rgb(255, 0, 0), 0 0 10px white, 0 0px 30px white;
+  height: auto;
+  box-shadow: 0px 2px 5px black;
   border-radius: 10px;
   opacity: 1;
+  height: 70px;
 }
 
 .marketplace_button_default:hover {
@@ -758,11 +761,11 @@
 }
 
 
-.marketplace_button_default span {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  padding: 5px;
+.marketplace_button_default > span {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 35px;
+  text-align: center;
+  
   color: red;
   animation: textColor 7s ease infinite alternate;
 }
@@ -933,28 +936,25 @@
   padding: 0px 30px;
   padding-top: 30px;
   text-align: center;
-  border-left: 5px solid rgba(128, 128, 128, 0.437);
+  border-left: 1px solid rgb(40, 65, 80);
 }
 .marketplace_class span {
-  padding: 20px 10px;
-  font-size: 60px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  padding: 20, 10px;
+  font-size: 70px;
+  font-family: 'Luckiest Guy', cursive;
 }
 
 .marketplace_class span:nth-child(1) {
   color: rgb(255, 209, 92);
-  background-color: rgb(234, 28, 28);
-  border-radius: 7px;
+  text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
 }
 .marketplace_class span:nth-child(2) {
   color: rgb(148, 230, 255);
-  background-color: rgba(8, 0, 255, 0.707);
-  border-radius: 7px;
+  text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
 }
 .marketplace_class span:nth-child(3) {
   color: rgb(128, 128, 128);
-  background-color: rgb(235, 235, 235);
-  border-radius: 7px;
+  text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
 }
 
 

@@ -8,14 +8,13 @@ import Abi from "../../resources/exAbi.json"
 
 const DetailInfo = (props) => {
   const context = useContext(ListContext);
-  const {listAll, userData} = context;
+  const {listAll, userData, setActive} = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
-  const [realOne, setRealOne] = useState('')
-  const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
-
+  const [realOne, setRealOne] = useState('');
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
 
+  const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
@@ -37,12 +36,14 @@ const DetailInfo = (props) => {
     if (nft[0].to === "SYD") return setDestination(sydneyDummy);
     if (nft[0].to === "FCO") return setDestination(romaDummy);
   }, []);
+
   const handleChange = (e) => {
     setNumber(e.target.value);
     setTotalPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
   }
+
   const handleSubmit = async (e) => {
-    console.log(nft[0].token_id)
+    setActive(true);
     e.preventDefault();
     if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
     try {
@@ -60,14 +61,16 @@ const DetailInfo = (props) => {
       );
       // price * number 해서 이더 보내기.
       const txResult =  await txHash.wait();
-      console.log(txResult);
-
+      console.log(txResult)
+      if (txResult) setActive(false); 
     } catch(e) {
       console.log(e);
+      setActive(false); 
       return e;
     }
   }
-
+  const text = "티켓을 구매중입니다. 잠시 기다려 주세요"
+  
   return (
     <>
       <div className="detailpage_container_info">
