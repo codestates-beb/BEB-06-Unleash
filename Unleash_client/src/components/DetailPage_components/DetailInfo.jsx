@@ -56,7 +56,6 @@ const DetailInfo = (props) => {
         userData.wallet_address, number, [token_id, price, totalsupply], signature,
         {
           value: totalprice * 10000,
-          gasLimit: 3000000,
         }
       );
       // price * number 해서 이더 보내기.
