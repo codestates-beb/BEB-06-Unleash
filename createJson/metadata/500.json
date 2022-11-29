@@ -1,0 +1,8 @@
+{
+    "token_id": "500",
+    "to": "SYD",
+    "from": "ICN",
+    "departuretime": "2022-12-04 21:00",
+    "arrivaltime": "2022-12-05 7:00",
+    "rating": "비지니스"
+}

@@ -1,16 +1,15 @@
-const { ethers } = require("ethers");
-const { EthrDID, DelegateTypes } = require("ethr-did");
+const { ethers } = require('ethers');
+const { EthrDID, DelegateTypes } = require('ethr-did');
 const {
   createVerifiableCredentialJwt,
   verifyCredential,
-} = require("did-jwt-vc");
-const { getDate } = require("../helper/did");
-const db = require("../sequelize/models");
+} = require('did-jwt-vc');
+const { getDate } = require('../helper/did');
+const db = require('../sequelize/models');
 
-require("dotenv").config();
+require('dotenv').config();
 const chainNameOrId = 5;
 const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
-
 const ISSUER_PK = process.env.ISSUER_PK;
 const ISSUER_ADDRESS = process.env.ISSUER_ADDRESS;
 
@@ -23,7 +22,7 @@ const ISSUER_Did = new EthrDID({
   provider: ISSUER_Signer.provider,
   chainNameOrId,
   txSigner: ISSUER_Signer,
-  alg: "ES256K",
+  alg: 'ES256K',
 });
 
 module.exports = {
@@ -33,16 +32,16 @@ module.exports = {
       const { walletAddress, expiresIn } = req.body;
 
       // 회원 정보 조회
-      const userInfo = await db["user"].findOne({
+      const userInfo = await db['user'].findOne({
         where: {
-          wallet_address: walletAddress
+          wallet_address: walletAddress,
         },
       });
 
       // RETURN : 회원정보 없을 경우 return Error
       if (userInfo == null) {
         responseData = {
-          message: "No User Info",
+          message: 'No User Info',
         };
         return res.status(400).send(responseData);
       }
@@ -69,13 +68,13 @@ module.exports = {
       const vcPayload = {
         sub: subjectDid.did,
         vc: {
-          "@context": ["https://www.w3.org/2018/credentials/v1"],
-          type: ["VerifiableCredential"],
+          '@context': ['https://www.w3.org/2018/credentials/v1'],
+          type: ['VerifiableCredential'],
           credentialSubject: {
             issuer: {
-              Authority: "IATA",
+              Authority: 'IATA',
               Message:
-                "This Credentials is valid for all countries unless otherwise endorsed.",
+                'This Credentials is valid for all countries unless otherwise endorsed.',
               Address: ISSUER_ADDRESS,
             },
             user: {
@@ -111,7 +110,7 @@ module.exports = {
       );
 
       // 기존 VC 있는지 확인
-      const vcInfo = await db["vc_list"].findOne({
+      const vcInfo = await db['vc_list'].findOne({
         where: {
           user_id: userInfo.id,
         },
@@ -119,7 +118,7 @@ module.exports = {
 
       // RETURN : 기존 VC 있는 경우 갱신, UPDATE
       if (vcInfo !== null) {
-        const vcSaveInfo = await db["vc_list"].update(
+        const vcSaveInfo = await db['vc_list'].update(
           {
             vc: vcJwt,
           },
@@ -129,7 +128,7 @@ module.exports = {
             },
           }
         );
-        responseData = {            
+        responseData = {
           user_id: vcInfo.user_id,
           did: vcInfo.did,
           vc: vcJwt,
@@ -138,23 +137,22 @@ module.exports = {
       }
 
       // 기존 VC 없는 경우 발급, INSERT
-      const vcSaveInfo = await db["vc_list"].create({
+      const vcSaveInfo = await db['vc_list'].create({
         user_id: userInfo.id,
         did: subjectDid.did,
         vc: vcJwt,
       });
 
       responseData = {
-          user_id: vcSaveInfo.user_id,
-          did: vcSaveInfo.did,
-          vc: vcSaveInfo.vc,
+        user_id: vcSaveInfo.user_id,
+        did: vcSaveInfo.did,
+        vc: vcSaveInfo.vc,
       };
       return res.status(200).send(responseData);
-
     } catch (error) {
       responseData = {
-        message: "Claim VC API ERROR",
-        error
+        message: 'Claim VC API ERROR',
+        error,
       };
       return res.status(404).send(responseData);
     }
@@ -171,30 +169,29 @@ module.exports = {
         identifier: walletAddress,
       });
 
-      const vcInfo = await db["vc_list"].findOne({
+      const vcInfo = await db['vc_list'].findOne({
         where: {
           did: subjectDid.did,
-        }
+        },
       });
 
       // RETURN : vc 정보가 없을 경우 return Error
       if (vcInfo == null) {
         responseData = {
-          vc:null
+          vc: null,
         };
         return res.status(204).send(responseData);
       }
 
       responseData = {
-        vc:vcInfo.vc
+        vc: vcInfo.vc,
       };
       return res.status(200).send(responseData);
-
     } catch (error) {
       console.log(`Request VC API ERROR : ${error}`);
       responseData = {
         ok: false,
-        message: "Request VC API ERROR",
+        message: 'Request VC API ERROR',
         data: {
           error: error,
         },

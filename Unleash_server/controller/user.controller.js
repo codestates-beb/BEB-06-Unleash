@@ -1,22 +1,66 @@
-const { db } = require("../sequelize/models/index.js");
-const { Op } = require("sequelize");
+const { db } = require('../sequelize/models/index.js');
+const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
 
 const login = async (req, res) => {
   const client_data = req.body;
-
   try {
-    const userInfo = await db.user.findAll({
-      where: {
-        wallet_address: client_data.wallet_address,
-      },
-    });
+    // const userInfo = await db.user.findAll({
+    //   where: {
+    //     wallet_address: client_data.wallet_address,
+    //   },
+    // });
+
+    // userID, wallet 만 token에 집어 넣기
+    const userInfo = { wallet_address: `${client_data.wallet_address}` };
+
     if (userInfo.length === 0) {
-      return res.status(400).send("일치하는 유저가 없습니다.");
+      return res.status(400).send('일치하는 유저가 없습니다.');
     }
+    const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: '10sec',
+    });
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      expiresIn: '10sec',
+    });
     return res.status(200).json(userInfo);
   } catch (err) {
-    console.log(err);
+    return res.status(400).send('invalid token');
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    res.cookie('accessToken', '');
+    return res.status(200).send('logout');
+  } catch (err) {
     return res.status(400).send(err);
+  }
+};
+
+const approve = async (req, res) => {
+  const token = req.cookies.accessToken;
+
+  try {
+    const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    return res.status(200).send({
+      message: 'ok',
+      data: {
+        userInfo: data,
+      },
+    });
+  } catch (e) {
+    if (e.name === 'TokenExpiredError') {
+      // 유효기간이 지났을때
+      res.cookie('accessToken', '');
+      return res.status(400).send('expired access token');
+    } else if (typeof cookie == 'undefined') {
+      // 쿠키가 제대로 안들어왔을때
+      return res.json({ message: 'token undefined' });
+    }
   }
 };
 
@@ -34,7 +78,7 @@ const joinMembership = async (req, res) => {
     client_data.wallet_address === undefined ||
     client_data.birth === undefined
   ) {
-    return res.status(400).send("정보가 올바르지 않습니다");
+    return res.status(400).send('정보가 올바르지 않습니다');
   }
   try {
     await db.user.create({
@@ -48,11 +92,11 @@ const joinMembership = async (req, res) => {
       wallet_address: client_data.wallet_address,
       birth: client_data.birth,
     });
-    return res.status(200).send("성공");
+    return res.status(200).send('성공');
   } catch (err) {
-    if (err.name === "SequelizeUniqueConstraintError") {
+    if (err.name === 'SequelizeUniqueConstraintError') {
       console.log(err.message);
-      return res.status(400).send("중복된 주소나 메일입니다.");
+      return res.status(400).send('중복된 주소나 메일입니다.');
     }
     console.log(err);
     return res.status(400).send(err);
@@ -132,7 +176,7 @@ const myPageSelled = async (req, res) => {
     });
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(400).send("에러");
+    return res.status(400).send('에러');
   }
 };
 
@@ -142,4 +186,6 @@ module.exports = {
   joinMembership,
   login,
   myPageSelled,
+  approve,
+  logout,
 };
