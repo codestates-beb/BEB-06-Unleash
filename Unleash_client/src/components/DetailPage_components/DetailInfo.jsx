@@ -57,7 +57,9 @@ const DetailInfo = props => {
       const call = await axios.get(
         `http://localhost:5001/marketplace/signature?token_id=${Number(
           nft[0].token_id
-        )}`
+        )}`,{
+          withCredentials: true,
+        }
       );
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
