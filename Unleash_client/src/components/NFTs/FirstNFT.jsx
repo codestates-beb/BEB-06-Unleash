@@ -12,7 +12,7 @@ const FirstNFT = (props) => {
   const glare2 = "rgb(255, 119, 115) 10%, rgba(255,237,95,1) 20%, rgba(168,255,95,1) 30%, rgba(131,255,247,1) 40%, rgba(120,148,255,1) 50%, rgb(216, 117, 255) 60%, rgb(255, 119, 115) 70%, rgb(255, 119, 115) 80%, rgba(255,237,95,1) 90%, rgba(168,255,95,1) 100%"
   const [active, setActive] = useState(false);
 
-  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
   const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
 
   const handleActive = (e) => {
@@ -28,6 +28,14 @@ const FirstNFT = (props) => {
     localStorage.setItem("airlineNFT", local1);
     localStorage.setItem("p2pNFT", local2);
   }
+  
+  const handleSellClick = () => {
+    if (!loginStatus) return alert("지갑을 연결하세요!");
+    const filtered3 = [...accountNFT].filter(item => item.token_id === token_Id);
+    const local3 = JSON.stringify([...filtered3]);
+    localStorage.setItem("sellNFT", local3);
+  }
+
   const handleRetrieve = () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
     const selectOne = [...accountNFT].filter((item) => {
@@ -54,7 +62,8 @@ const FirstNFT = (props) => {
                     <h2>{city}</h2>
                     <p>Travel with Unleash</p>
                     {left && <p>left : {left}</p>}
-                    <p>{price}ETH</p>
+                    {amount && <p>amount: {amount}</p>}
+                    <p>{price} ETH</p>
                     <p>{departure}</p>
                     <p>{arrival}</p>
                   </div>
@@ -64,7 +73,8 @@ const FirstNFT = (props) => {
               <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
             </div>
             <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-              {bs && <Link to={loginStatus ? locate : ""}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+              {bs === "buy" && <Link to={loginStatus ? locate : "" }><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+              {bs === "sell" && <Link to={loginStatus ? locate : "" }><button onClick={handleSellClick}>{bs}</button></Link>}
               {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
               {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
             </div>

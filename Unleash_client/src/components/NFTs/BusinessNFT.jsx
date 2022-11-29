@@ -8,7 +8,7 @@ const BusinessNFT = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
   const {listAll, p2pMarketList, accountNFT, loginStatus, } = context;
 
   const handleActive = (e) => {
@@ -24,7 +24,14 @@ const BusinessNFT = (props) => {
     localStorage.setItem("airlineNFT", local1);
     localStorage.setItem("p2pNFT", local2);
   }
-  
+
+  const handleSellClick = () => {
+    if (!loginStatus) return alert("지갑을 연결하세요!");
+    const filtered3 = [...accountNFT].filter(item => item.token_id === token_Id);
+    const local3 = JSON.stringify([...filtered3]);
+    localStorage.setItem("sellNFT", local3);
+  }
+
   const handleRetrieve = () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
     const selectOne = [...accountNFT].filter((item) => {
@@ -51,6 +58,7 @@ const BusinessNFT = (props) => {
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
                   {left && <p>left : {left}</p>}
+                  {amount && <p>amount: {amount}</p>}
                   <p>{price}ETH</p>
                   <p>{departure}</p>
                   <p>{arrival}</p>
@@ -61,7 +69,8 @@ const BusinessNFT = (props) => {
             <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-            {bs && <Link to={loginStatus ? locate : ""}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+            {bs === "buy" && <Link to={loginStatus ? locate : "" }><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+            {bs === "sell" && <Link to={loginStatus ? locate : "" }><button onClick={handleSellClick}>{bs}</button></Link>}
             {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
             {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
           </div>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { ListContext } from "../../resources/context_store/ListContext";
 import Abi from "../../resources/exAbi.json"
+import { useNavigate } from "react-router-dom";
 
 const DetailInfo = (props) => {
   const context = useContext(ListContext);
@@ -14,13 +15,14 @@ const DetailInfo = (props) => {
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
 
-  const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
+  const contractAddress = "0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
 
   const [destination, setDestination] = useState({});
   const [totalprice, setTotalPrice] = useState(nft[0].nftvoucher.price);
+  // 요청만 백에 요청해서 받아오기.
 
   useEffect(() => {
     const filtered = listAll.filter((item) => {
@@ -43,10 +45,9 @@ const DetailInfo = (props) => {
   }
 
   const handleSubmit = async (e) => {
-    setActive(true);
-    e.preventDefault();
-    if (!realOne) return alert("올바르지 않은 방식의 거래입니다.");
     try {
+      setActive(true);
+      e.preventDefault();
       const call = await axios.get(`http://localhost:5001/marketplace/signature?token_id=${Number(nft[0].token_id)}`);
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
@@ -61,16 +62,25 @@ const DetailInfo = (props) => {
       );
       // price * number 해서 이더 보내기.
       const txResult =  await txHash.wait();
-      console.log(txResult)
-      if (txResult) setActive(false); 
+      console.log(userData.id, nft[0].token_id, number, nft[0].nftvoucher.price, userData.wallet_address)
+      if (txResult) {
+        setActive(false); 
+        const a = await axios.post("http://localhost:5001/marketplace/mint", {
+          user_id: userData.id,
+          token_id: nft[0].token_id,
+          amount: number,
+          price: nft[0].nftvoucher.price,
+          buyer: userData.wallet_address
+        })
+        console.log(a)
+      }
     } catch(e) {
       console.log(e);
       setActive(false); 
       return e;
     }
   }
-  const text = "티켓을 구매중입니다. 잠시 기다려 주세요"
-  
+
   return (
     <>
       <div className="detailpage_container_info">

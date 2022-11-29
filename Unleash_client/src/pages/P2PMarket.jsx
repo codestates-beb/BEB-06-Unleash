@@ -57,12 +57,12 @@ const P2PMarket = () => {
         <div className="marketplacep2p_container">
           <div className="marketplacep2p_section1">
             <div className="marketplacep2p_section1_img">
-              <span>𝙐𝙣𝙡𝙚𝙖𝙨𝙝</span>
+              <span>Unleash Market</span>
             </div>
           </div>
           <div className="marketplacep2p_info">
             <span>We believe,</span> 
-            <span>there's a chance to unleash our identity with DID.</span>
+            <span>there's a chance to<br/> unleash our identity with DID.</span>
             <span>This market is the result what we believe.</span>
             <span>Enjoy.</span>
           </div>

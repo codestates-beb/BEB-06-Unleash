@@ -1,6 +1,6 @@
 /************LandingPage***************/
 @import url('https://fonts.googleapis.com/css?family=Poppins:900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Jockey+One&family=Luckiest+Guy&family=Permanent+Marker&family=Rubik+Glitch&family=Shrikhand&display=swap');
 .landing  {
   justify-content: center;
   display: flex;
@@ -377,7 +377,7 @@
 }
 @keyframes slide4 {
   0% {
-    background-color: #058cdf;
+    background-color: #3da0dd;
     border-radius: 100% 800% 0% 0%;
     transform:translateY(-100%);
   }
@@ -387,7 +387,7 @@
   100% {
     border-radius: 30% 30% 0% 0%;
     transform:translateY(100%);
-    background-color: #058cdf;
+    background-color: #3da0dd;
    }
 }
 
@@ -652,7 +652,6 @@
   box-shadow: 0 0 5px black;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik+Glitch&display=swap');
 
 .marketplace_info_name {
   font-family: 'Luckiest Guy', cursive;
@@ -702,8 +701,8 @@
   display: flex;
   width: 100%;
   max-width: 750px;
-  
-  padding: 50px 30px;
+  padding: 40px 0px;
+  padding-top: 20px;
   border-radius: 15px;
   color: rgb(40, 65, 80);
 }
@@ -720,8 +719,18 @@
 .marketplace_description_eth span {
   color: rgb(40, 65, 80);
   padding: 10px;
-  font-size: 25px;
+  font-size: 23px;
   font-family: 'Luckiest Guy', cursive;
+}
+.marketplace_description_eth span:nth-child(1) {
+  color: rgb(255, 200, 60);
+  font-size: 32px;
+}
+
+.marketplace_description_eth span:nth-child(2) {
+  color: rgb(85, 153, 173);
+  text-shadow: 0 0 20px white;
+  font-size: 25px;
 }
 
 
@@ -1405,7 +1414,7 @@
 
 
 .marketplacep2p {
-  background: #e6e6e665;
+  background: #eaeaea;
   height: 100%;
 }
 .marketplacep2p_main {
@@ -1433,24 +1442,25 @@
 }
 
 .marketplacep2p_section1_img span {
-  color: #43291f;
+  font-family: 'Bungee Shade', cursive;
+  font-style: italic;
+  color: rgb(237, 179, 70);
   letter-spacing: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 140px;
+  font-size: 100px;
   height: 100%;
   font-weight: 600;
   animation: textshadow 2s ease-in-out infinite alternate forwards;
 }
 
-
 @keyframes textshadow {
   0% {
-    text-shadow: 0 0 10px white;
+    text-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black;
   }
   100% {
-    text-shadow: 0 0 20px white, 0 0 10px white;
+    text-shadow: 0 0 20px black, 0 0 40px black, 0 0 80px black;
   }
 }
 
@@ -1463,44 +1473,43 @@
   margin: 50px;
   padding: 100px;
   justify-content: center;
-  box-shadow: 0 0 5px black;
-  background-color: gainsboro;
-
+  background-color: #FBAB7E;
+  background-image: linear-gradient(190deg, #FBAB7E 0%, #F7CE68 100%);
+  box-shadow: 0 0 2px black, 0 0 4px black;
   border-radius: 10px
 }
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .marketplacep2p_info {
-  
   display: flex;
   flex-direction: column;
   margin: 70px;
   margin-bottom: 30px;
-  font-family: 'Bebas Neue', cursive;
+  font-family: 'Bungee Shade', cursive;
 }
 
 .marketplacep2p_info span:nth-child(1) {
-  font-size: 170px;
+  font-size: 120px;
   font-weight: 600;
-  color: burlywood;
-  margin-bottom: 30px;
-  text-shadow: 0 0 5px black;
+  color: rgb(40, 65, 80);
+  margin-bottom: 50px;
+  
   transform: translateX(-100%);
   animation: movefont 0.8s ease-in forwards;
   font-style: italic;
 }
 .marketplacep2p_info span:nth-child(2) {
-  color: white;
-  text-shadow: 0 0 5px black;
-  font-size: 70px;
+  color: #457b9d;
+  font-size: 45px;
   font-weight: 600;
   margin-bottom: 30px;
+  
   transform: translateX(-100%);
   animation: movefont 1s ease-in forwards;
   animation-delay: 0.5s;
 }
 .marketplacep2p_info span:nth-child(3) {
-  color: salmon;
-  font-size: 50px;
+  color: #ffc300;
+  font-size: 40px;
   font-weight: 600;
   margin-bottom: 30px;
   transform: translateX(-100%);
@@ -1508,17 +1517,20 @@
   animation-delay: 1s;
 }
 .marketplacep2p_info span:nth-child(4) {
+  font-family: 'Rubik Glitch', cursive;
   display: flex;
   justify-content: center;
   position: relative;
   left: 41%;
   width: 250px;
   background-color: white;
-  box-shadow: 0 0 2px, 0 0 4px, 0 0 8px;
+  box-shadow: 0 0 2px , 0 0 4px, 0 0 8px;
   border-radius: 10px;
   margin-top: 40px;
-  color: brown;
-  font-size: 100px;
+  color: rgb(40, 65, 80);
+  height: 100px;
+  align-items: center;
+  font-size: 50px;
   font-weight: 600;
   text-align: center;
 }
@@ -2758,8 +2770,9 @@ option {
   margin-top: 75px;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: #e6e6e6;
   display: grid;
+  font-family: 'Luckiest Guy', cursive;
 }
 .sellpage_container {
   display: grid;
@@ -2774,15 +2787,17 @@ option {
 }
 
 .sellpage_listing span{
-  font-size: 40px;
-  color: white;
+  font-size: 80px;
+  color: rgb(40, 65, 80);
 }
 
 .sellpage_listing_wrapper {
   margin-top: 50px;
 }
 .sellpage_listing_wrapper span{
-  font-size: 20px;
+  font-size: 40px;
+  color: white;
+  text-shadow: 0 0 2px rgb(40, 65, 80);
 }
 
 .sellpage_listing_form {
@@ -2799,14 +2814,15 @@ option {
   height: 100px;
 }
 .sellpage_type_button button {
+  font-family: 'Luckiest Guy', cursive;
   margin-right: 10px;
   width: 100%;
-  background: none;
+  background-color: #457b9d;
   color: white;
   border-radius: 10px;
-  border: 2px solid white;
+  border: none;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .sellpage_listing_input {
@@ -2818,13 +2834,22 @@ option {
 
 .sellpage_listing_input input {
   margin-top: 20px;
-  width: 80%;
-  height: 30px;
-  background: none;
-  border: 1px solid white;
+  width: 78%;
+  height: 50px;
+  background: white;
+  box-shadow: 0 0 2px black, 0 0 4px black;
+  border: none;
   border-radius: 5px;
-  color: white;
+  color: rgb(40, 65, 80);
   font-size: 25px;
+}
+.sellpage_listing_input input:focus {
+  outline: none;
+}
+.sellpage_listing_input span {
+  font-size: 50px;
+  color: white;
+  text-shadow: 0 0 2px rgb(40, 65, 80);
 }
 
 .sellpage_listing_summary {
@@ -2834,20 +2859,23 @@ option {
   padding-bottom: 30px;
   border-bottom: 1px solid gray;
   width: 80%;
+  
 }
 .sellpage_listing_summary span{
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 600;
+  color: rgb(40, 65, 80);
+  text-shadow: none;
 }
 
 .sellpage_summary_details {
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 .sellpage_summary_details span {
-  font-size: 14px;
+  font-size: 23px;
 }
 
 .sellpage_total {
@@ -2855,6 +2883,7 @@ option {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  
 }
 
 .sellpage_listing_form > button {
@@ -2863,8 +2892,9 @@ option {
   width: 80%;
   height: 40px;
   border-radius: 5px;
-  background: none;
-  border: 1px solid white;
+  border: none;
+  box-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black;
+  background: rgb(40, 65, 80);
   font-size: 25px;
   font-weight: 600;
   color: white;
