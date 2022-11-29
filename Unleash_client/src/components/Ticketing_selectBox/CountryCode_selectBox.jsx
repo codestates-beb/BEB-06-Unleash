@@ -1,5 +1,5 @@
 
-const CountryCode_selectBox = () => {
+const CountryCode_selectBox = (props) => {
     return (
         <select
         id="travelers.SKH-1-EXT.emergencyContactPhoneNumber.select"
@@ -10,6 +10,8 @@ const CountryCode_selectBox = () => {
         aria-invalid="false"
         data-cy="Pax1-EmergencyContactPhoneNumber-countryCode"
         className="tiketing_Line_selectBox" 
+        onChange={props.onChangeCountryCode}
+        value={props.country_code}
         >
         <optgroup label="">
             <option

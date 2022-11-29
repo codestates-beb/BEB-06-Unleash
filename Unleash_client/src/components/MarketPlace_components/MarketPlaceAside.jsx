@@ -2,9 +2,11 @@ import React, {useState, useContext} from "react";
 import MarketPlaceCalander from "./MarketPlaceCalander";
 import { TestContext } from "../../resources/context_store/Test";
 import axios from "axios"
+import { ListContext } from "../../resources/context_store/ListContext";
 
 const MarketPlaceAside = () => {
   const context = useContext(TestContext);
+  const conetext2 = useContext(ListContext);
   // 해야할거, sidebar glow effect, postion 지정,
   // 여기서 선택하는거 state 로 올리기. form태그.
   // 날짜?
@@ -12,21 +14,23 @@ const MarketPlaceAside = () => {
 
   // 아래의 내용은 context 에서 전역으로 설정되서 온 것을 바꿔주면됨.
   const [city, setCity] = useState('');
-  const [seatClass, setSeatClass] = useState('');
-  const [departDate, setDepartDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
+  const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
+  
 
-  const handleClassClick = (e) => {
-    console.log(e.target)
-  }
-  const handleDButtonClick = () => {
+  const cities = ["Paris", "NewYork", "Osaka", "Sydney", "Roma"]
+  const [bg, setBg] = useState(false);
+
+  const handleDButtonClick = (e) => {
     setIsOpen(() => !isOpen);
   }
-  const handleCButtonClick = () => {
-    setIsOpen2(() => !isOpen2);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const filter = {city: city, departDate: departDate}
+    console.log(filter)
   }
-  const handleSubmit = () => {
-    const filter = {city: city, seatClass: seatClass, departDate: departDate, returnDate: returnDate}
+  const handleClick = (e) => {
+    setBg(() => !bg);
+    setCity(e.target.textContent)
   }
   
   // 전체 도시 리스트 완성되면 , 배열 만들어서 46번째 li부분 map처리.
@@ -37,23 +41,10 @@ const MarketPlaceAside = () => {
           <form className="marcketplace_contents_sidebar_container" onSubmit={handleSubmit}>
               <button type="button" className="marketplace_contents_collapse" onClick={handleDButtonClick}>Set Destination</button>
               {isOpen &&
-              <ul className="marketplace_contents_destination">
-                <li><p>city</p></li>
-                <li><p>NewYork</p></li>
-                <li><p>Osaka</p></li>
-                <li><p>Australia</p> </li>
-                <li><p>Roma</p></li>
+              <ul className="marketplace_contents_destination" onClick={handleClick}>
+                {cities.map((item, idx) => <li key={idx} style={bg? {backgroundColor: "blue"} : {}}><p>{item}</p></li>)}
               </ul>}
-            <div className="marketplace_contents_class">
-              <button type="button" onClick={handleCButtonClick}>Set class</button>
-              {isOpen2 && 
-              <ul className="marketpace_contents_class_value" onClick={handleClassClick}>
-                <li><p>First</p></li>
-                <li><p>Business</p></li>
-                <li><p>Economy</p></li>
-              </ul>}
-            </div>
-            <MarketPlaceCalander />
+            <MarketPlaceCalander departDate={departDate} setDepartDate={setDepartDate}/>
             <button className="marketplace_search" type="submit">search</button>
           </form>
         </aside>

@@ -3,14 +3,13 @@ import '../resources/css/App.css'
 import { useNavigate } from 'react-router-dom';
 
 
-const LandingPage = (props) => {
+const LandingPage = () => {
   const navigate = useNavigate();
   const [bgImg, setBgImg] = useState('landing_bgImg');
 
   const handleLogoChange = () => {
     setBgImg('landing_bgImg1')
     navigate("/mainpage");
-    props.onLandingState();
   }
   const handleMouseOver = (e) => {
     let rect = e.target.getBoundingClientRect();

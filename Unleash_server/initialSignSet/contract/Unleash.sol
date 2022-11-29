@@ -99,7 +99,6 @@ contract Unleash is ERC1155Supply, Ownable, AccessControl,EIP712 {
 
         return ecrecover(messageDigest, v, r, s);
     }
-  
 }
 
 // example params

@@ -111,6 +111,14 @@ const myPageOwned = async (req, res) => {
       where: {
         user_id: client_data.user_id,
       },
+      include: [
+        {
+          model: db.ticket,
+          as: "token",
+          required: true,
+          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+        },
+      ],
     });
     return res.status(200).json(myToken);
   } catch (err) {
@@ -134,6 +142,14 @@ const myPageSelling = async (req, res) => {
           },
         ],
       },
+      include: [
+        {
+          model: db.ticket,
+          as: "token",
+          required: true,
+          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+        },
+      ],
     });
     return res.status(200).json(marketToken);
   } catch (err) {
@@ -149,6 +165,14 @@ const myPageSelled = async (req, res) => {
       where: {
         seller: client_data.seller,
       },
+      include: [
+        {
+          model: db.ticket,
+          as: "token",
+          required: true,
+          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+        },
+      ],
     });
     return res.status(200).json(data);
   } catch (err) {

@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useContext, useEffect, useCallback} from "react";
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./MarketplaceDummy";
-
+import { ListContext } from "../../resources/context_store/ListContext";
+import { BsGlobe2, BsFillInfoSquareFill, BsFillTelephoneFill } from "react-icons/bs";
+import {MdHotel} from "react-icons/md"
 // 나중에 해야할것.
 // 전역상태에 따라 도시 이름도 바뀌어야하기 때문에 Ticket To City 부분 수정.
 // 디테일정보 수정 깃허브주소 이런거 넣으면될듯.
@@ -10,30 +12,41 @@ import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./
 
 const MarketPlaceInfo = () => {
   const [destination, setDestination] = useState({});
-  // const context = useContext(AppContext);
-  // const [description, setDescription] = useState('');
-  // const filteredCity = dummy.filter((item) => item === context.state.city);
-  
+  const list = JSON.parse(localStorage.getItem("marketList"));
+
+  useEffect(() => {
+    if (list[0].to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
+    if (list[0].to === "JFK") return setDestination(newYorkDummy);
+    if (list[0].to === "CDG") return setDestination(parisDummy);
+    if (list[0].to === "SYD") return setDestination(sydneyDummy);
+    if (list[0].to === "FCO") return setDestination(romaDummy);
+  }, [destination]);
+
   return (
     <>
       <div className="marketplace_info">
         <div className="marketplace_info_container">
-          <div className="marketplace_info_avatar" style={{backgroundImage: `url(${osakaDummy.nftImg})`}}/>
-          <span className="marketplace_info_name">Ticket To {osakaDummy.city}</span>
+          <div className="marketplace_info_avatar" style={{backgroundImage: `url(${destination.nftImg})`}}/>
+          <div className="marketplace_info_name">
+            <span>Ticket To</span>
+            <span>{destination.city}</span>
+          </div>
           <div className="marketplace_info_flexgrow" />
-          <div className="marketplace_info_detail">디테일정보</div>
+          <div className="marketplace_info_detail">
+            <a href={destination.url}><BsGlobe2 /></a>
+            <a href="https://www.0404.go.kr/dev/country.mofa?idx=&hash=&chkvalue=no2&stext=&group_idx=&alert_level=0"><BsFillInfoSquareFill /></a>
+            <a href={destination.url2}><BsFillTelephoneFill style={{color: "#03ad66"}}/></a>
+            <a href={"https://www.hotels.com"}><MdHotel style={{color: "rgb(255, 100, 115)", fontSize: "35px"}}/></a>
+          </div>
         </div>
         <div className="marketplace_description_container">
           <div className="marketplace_description_contents">
-            <span>{osakaDummy.description}</span>
+            <span>{destination.description}</span>
           </div>
           <div className="marketplace_description_eth">
-            {/* NFT 가격 이더리움으로 */}
-            <span>price 0.1ETH</span>
-          </div>
-          <div className="marketplace_description_dollars">
-            {/* NFT 가격 달러 or KRW로 환산해서 표시 */}
-            <span>price 100$</span>
+            <span>First class price: {list[2].nftvoucher.price} ETH</span>
+            <span>Business class price: {list[1].nftvoucher.price} ETH</span>
+            <span>Economy class price: {list[0].nftvoucher.price} ETH</span>
           </div>
         </div>
       </div>

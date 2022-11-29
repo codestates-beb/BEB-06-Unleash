@@ -1,5 +1,5 @@
 
-const Nationality_selectBox = () => {
+const Nationality_selectBox = (props) => {
   return (
       <select
         id="travelers.SKH-1-EXT.countryCode"
@@ -11,6 +11,8 @@ const Nationality_selectBox = () => {
         aria-invalid="false"
         data-cy="Pax1-Nationality"
         className="tiketing_Line_selectBox" 
+        onChange={props.onChangeNation}
+        value={props.national}
       >
         <option
           data-testid="travelers.SKH-1-EXT.countryCode-placeholder"

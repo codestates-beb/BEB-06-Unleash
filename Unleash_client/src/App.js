@@ -13,9 +13,11 @@ import Signup from './pages/Signup';
 import P2PMarket from './pages/P2PMarket';
 import P2pDetailPage from './pages/P2pDetailPage';
 import Header from './components/Header';
+import axios from 'axios';
 
 //contextAPI
 import ListStore from './resources/context_store/ListContext';
+import Test from './resources/context_store/Test';
 
 function App() {
   return (

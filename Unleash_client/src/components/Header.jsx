@@ -17,7 +17,7 @@ const Header = () => {
         localStorage?.getItem('isLogout') === 'false') // 문자열임
     ) {
       axios
-        .get('http://localhost:5000/user/approve', { withCredentials: true })
+        .get('http://localhost:5001/user/approve', { withCredentials: true })
         .then(res => {
           const data = res.data.data.userInfo.wallet_address;
           if (data && localStorage?.getItem('isLogout') === 'false') {
@@ -96,7 +96,7 @@ const Header = () => {
       let data = { wallet_address: accounts[0] };
 
       axios
-        .post('http://localhost:5000/user/login', data, {
+        .post('http://localhost:5001/user/login', data, {
           withCredentials: true,
         })
         .then(function (res) {
@@ -117,9 +117,10 @@ const Header = () => {
 
   const logOut = () => {
     setCurrentAccount('');
+    setLoginStatus(false);
     localStorage.setItem('isLogout', true);
     axios
-      .get('http://localhost:5000/user/logout', {
+      .get('http://localhost:5001/user/logout', {
         withCredentials: true,
       })
       .then(console.log);

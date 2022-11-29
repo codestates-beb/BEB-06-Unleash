@@ -1,47 +1,72 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {Link} from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
-import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "../MarketPlace_components/MarketplaceDummy";
+import { ListContext } from "../../resources/context_store/ListContext";
+
+//unleash contract 주소.
+
 
 const FirstNFT = (props) => {
-  
+  const context = useContext(ListContext);
   const arr = Array.from(Array(11));
   const glare2 = "rgb(255, 119, 115) 10%, rgba(255,237,95,1) 20%, rgba(168,255,95,1) 30%, rgba(131,255,247,1) 40%, rgba(120,148,255,1) 50%, rgb(216, 117, 255) 60%, rgb(255, 119, 115) 70%, rgb(255, 119, 115) 80%, rgba(255,237,95,1) 90%, rgba(168,255,95,1) 100%"
   const [active, setActive] = useState(false);
+
+  const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id} = props;
+  const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
+
   const handleActive = (e) => {
     setActive(() => !active);
   }
-  const handleBuyClick = () => {
-    console.log(1);
-    //setNFT 로 선택한 NFT를 전역으로 올리고, LIStingpage로 라우팅.
-    // or 여기서 ether로 결제후에 DB로 쏴서 리스팅 업로드. useEffect(()=>{}, [listing])
+  const handleDefaultBuyClick = () => {
+    if (!loginStatus) return alert("지갑을 연결하세요!");
+    const filtered = [...listAll].filter((item) => item.token_id === token_Id);
+    const filtered2 = [...p2pMarketList].filter(item =>
+      item.seller === seller && item.offer_id === offer_id);
+    const local1 = JSON.stringify([...filtered]);
+    const local2 = JSON.stringify([...filtered2]);
+    localStorage.setItem("airlineNFT", local1);
+    localStorage.setItem("p2pNFT", local2);
   }
-  // filtering된 값에 JFK가 들어있으면 nftImg는 NewYork로.
-  const cities = ["NewYork","Osaka","Roma","Sydney","Paris"];
-  const airports = ["JFK", "ITN", "FCO", "SYD", "CDG"];
-  const {nftImg, city} = osakaDummy;
+  const handleRetrieve = () => {
+    // 여기서 retireve. contract에서 cancel 함수 호출.
+    const selectOne = [...accountNFT].filter((item) => {
+      return item.offer_id === offer_id;
+    })
+    console.log(selectOne);
+    /* axios.put("http://localhost:5001/marketplace/cancel", {
+      offer_id : selectOne.offer_id,
+      amount : selectOne.amount,
+      user_id : selectOne.user_id,
+      token_id : selectOne.token_id
+    }) */
+  }
 
     return (
         <>
-          <Tilt className={ active ? "Tilt" : ""} glareEnable={true} glareMaxOpacity={0.2} glarePosition="all"  transitionSpeed={400}  tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor={glare2}
-          scale={1.1}  style={{  zIndex : ( active ? 11 : 9 ) }} >
+          <Tilt className={ active ? "Tilt" : ""} glareEnable={true} glareMaxOpacity={0.3} glarePosition="all"  transitionSpeed={400}  tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor={glare2}
+          scale={1.3}  style={{  zIndex : ( active ? 11 : 9 ) }}>
             <div className={active ? "default_nft_container_first_active" : "default_nft_container_first"} onClick={handleActive}>
-              <div className="default_nft_img" style={{backgroundImage: `url(${nftImg})`}}>
+              <div className="default_nft_img" style={{backgroundImage: `url(${bg})`}}>
                 <div className="default_nft_whiteimg">
-                  {arr.map((item, idx) => <span key={idx} style={{backgroundImage: `url(${nftImg})`}}></span>)}
+                  {arr.map((item, idx) => <span key={idx} style={{backgroundImage: `url(${bg})`}}></span>)}
                   <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                     <h2>{city}</h2>
                     <p>Travel with Unleash</p>
-                    <p>110ETH</p> 
+                    {left && <p>left : {left}</p>}
+                    <p>{price}ETH</p>
+                    <p>{departure}</p>
+                    <p>{arrival}</p>
                   </div>
                   <div className="first_nft_poka" />
                 </div>
               </div>
-              <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${nftImg})`}}/>
+              <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
             </div>
             <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-              <Link to={props.locate}><button onClick={handleBuyClick}>{props.bs}</button></Link>
-              {props.bs2 && <Link to={props.locate2}><button onClick={handleBuyClick}>{props.bs2}</button></Link>}
+              {bs && <Link to={loginStatus ? locate : ""}><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
+              {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
+              {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
             </div>
           </Tilt>
 
