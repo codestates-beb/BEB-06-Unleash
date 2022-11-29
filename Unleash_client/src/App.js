@@ -1,6 +1,6 @@
 import './resources/css/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useContext } from 'react';
 import LandingPage from './pages/LandingPage.jsx';
 import MainPage from './pages/MainPage.jsx';
 import MyPage from './pages/MyPage.jsx';
@@ -13,80 +13,24 @@ import Signup from './pages/Signup';
 import P2PMarket from './pages/P2PMarket';
 import P2pDetailPage from './pages/P2pDetailPage';
 import Header from './components/Header';
-import axios from 'axios';
 
 //contextAPI
 import ListStore from './resources/context_store/ListContext';
-import Test from './resources/context_store/Test';
 
 function App() {
-  const [landingState, setLandingState] = useState(false);
-  const [account, setCurrentAccount] = useState('');
-
-  const onLandingState = () => {
-    setLandingState(true);
-  };
-
-  const logIn = async () => {
-    const wallet = await connectWallet();
-    const data = { wallet_address: wallet };
-    console.log('data', data);
-
-    axios
-      .post(
-        'http://localhost:5000/user/login',
-        { wallet_address: wallet },
-        {
-          // withCredentials: true,
-          httponly: true,
-        }
-      )
-      .then(function (res) {
-        setCurrentAccount(wallet); // 헤더쪽으로 넘어가는 state
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const connectWallet = async () => {
-    try {
-      const { ethereum } = window;
-
-      if (!ethereum) {
-        alert('Get MetaMask!');
-        return;
-      }
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      sessionStorage.setItem('isWalletConnected', true); // sessionStorage에 저장 => 세션종료되면 날라감
-      return accounts[0];
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const logOut = () => {
-    setCurrentAccount('');
-    sessionStorage.setItem('isWalletConnected', false);
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
-        <Header logIn={logIn} logOut={logOut} account={account} />
         <ListStore>
+          <Header />
           <Routes>
-            <Route
-              path="/"
-              element={<LandingPage onLandingState={onLandingState} />}
-            />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/mypage" element={<MyPage />} />
-            {/* <Route path='/ticketingpage' element={<TicketingPage />}/> */}
             <Route path="/marketplace" element={<MarketPlace />} />
+            <Route path="/marketplacep2p" element={<P2PMarket />} />
             <Route path="/nftdetailpage" element={<NftDetailPage />} />
+            <Route path="/p2pdetailpage" element={<P2pDetailPage />} />
             <Route path="/sellpage" element={<SellPage />} />
             <Route path="/loadingpage" element={<LoadingPage />} />
             <Route path="/ticketchangepage" element={<TicketChangePage />} />

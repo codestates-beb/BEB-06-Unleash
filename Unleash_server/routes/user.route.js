@@ -6,5 +6,7 @@ router.get('/selling', controller.myPageSelling);
 router.post('/joinMembership', controller.joinMembership);
 router.post('/login', controller.login);
 router.get('/selled', controller.myPageSelled);
+router.get('/approve', controller.approve);
+router.get('/logout', controller.logout);
 
 module.exports = router;

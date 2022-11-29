@@ -6,28 +6,61 @@ require('dotenv').config();
 
 const login = async (req, res) => {
   const client_data = req.body;
-
   try {
     // const userInfo = await db.user.findAll({
     //   where: {
     //     wallet_address: client_data.wallet_address,
     //   },
     // });
-    const userInfo = { test: 'test' };
+
+    // userID, wallet 만 token에 집어 넣기
+    const userInfo = { wallet_address: `${client_data.wallet_address}` };
 
     if (userInfo.length === 0) {
       return res.status(400).send('일치하는 유저가 없습니다.');
     }
     const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15m',
+      expiresIn: '10sec',
     });
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      expires: new Date(Date.now() + 9000000),
+      expiresIn: '10sec',
     });
     return res.status(200).json(userInfo);
   } catch (err) {
+    return res.status(400).send('invalid token');
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    res.cookie('accessToken', '');
+    return res.status(200).send('logout');
+  } catch (err) {
     return res.status(400).send(err);
+  }
+};
+
+const approve = async (req, res) => {
+  const token = req.cookies.accessToken;
+
+  try {
+    const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    return res.status(200).send({
+      message: 'ok',
+      data: {
+        userInfo: data,
+      },
+    });
+  } catch (e) {
+    if (e.name === 'TokenExpiredError') {
+      // 유효기간이 지났을때
+      res.cookie('accessToken', '');
+      return res.status(400).send('expired access token');
+    } else if (typeof cookie == 'undefined') {
+      // 쿠키가 제대로 안들어왔을때
+      return res.json({ message: 'token undefined' });
+    }
   }
 };
 
@@ -129,4 +162,6 @@ module.exports = {
   joinMembership,
   login,
   myPageSelled,
+  approve,
+  logout,
 };
