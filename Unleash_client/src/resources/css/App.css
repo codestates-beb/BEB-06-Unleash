@@ -742,7 +742,7 @@
 }
 
 .marketplace_contents_b2c .marketplace_button_default {
-  background-color: rgba(119, 192, 240, 0.88);
+  background-color: white;
   width: 100%;
   cursor: pointer;
   border: none;
