@@ -1,4 +1,4 @@
-import { GiCommercialAirplane } from 'react-icons/gi';
+import { GiCommercialAirplane, GiConsoleController } from 'react-icons/gi';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Fragment, useEffect, useState, useContext } from 'react';
 import { ListContext } from '../resources/context_store/ListContext';
@@ -6,64 +6,45 @@ import axios from 'axios';
 
 const Header = () => {
   const context = useContext(ListContext);
-  const { setUserData, setLoginStatus } = context;
+  const { userData, setUserData, setLoginStatus } = context;
   const [landingState, setLandingState] = useState(false);
   const [account, setCurrentAccount] = useState('');
 
   useEffect(() => {
     if (
-      sessionStorage?.getItem('initial') ||
-      (!sessionStorage?.getItem('initial') &&
-        localStorage?.getItem('isLogout') === 'false') // 문자열임
+      sessionStorage?.getItem('initial') || // 맨 처음, 로그인 버튼 누르기 전까지는 로그인 관련 함수가 실행 X
+      (!sessionStorage?.getItem('initial') && // 탭 새로 켰을때, 이전에 로그인 상태였으면 실행 // => 새로켰으므로 session인 initial은 null,
+        localStorage?.getItem('isLogout') === 'false') //local에 있는 isLogout은 탭 닫기 이전의 기록이 있음
     ) {
       axios
-        .get('http://localhost:5001/user/approve', { withCredentials: true })
+        .get('http://localhost:5001/user/approve', {
+          withCredentials: true,
+        })
         .then(res => {
-          const data = res.data.data.userInfo.wallet_address;
+          const userInformation = res.data.data.userInfo;
+
+          setUserData(userInformation);
+          const data = userInformation.wallet_address;
           if (data && localStorage?.getItem('isLogout') === 'false') {
             connect4approve();
-          }
-          // console.log(data);
+          } // 로그인 된 상태로 렌더링 시, jwt 토큰 verify가 된 상태면
+          // connect4approve 실행해서 지갑 연결 자동 실행
+          sessionStorage.setItem('doubleCheck', userData);
         })
         .catch(err => {
-          if (err.response.data == 'expired access token') {
+          console.log(err);
+          if (err.response.data === 'expired access token') {
             // jwt 만료가 된 처음 시점에만 이 에러가 옴
             alert('다시 로그인하세요');
-            localStorage.setItem('isLogout', true);
+            setUserData([]); // jwt 만료되었으므로 유저 정보도 초기화
             logOut();
           }
         });
+      console.log(userData);
     }
-  });
-
-  // (Done) 탭, 창 껐을때, 새로 켰을때 다시 들어오면, 로그인유지
-
-  // 쿠키 소멸시 유저 state 삭제
-  // 유저 state 없을시 받아오는
-  // 유저
-
-  const handleNetworkChanged = (...args) => {
-    const networkId = args[0];
-    if (networkId !== '5') {
-      localStorage.setItem('isLogout', true);
-      logOut();
-    }
-    // window.location.reload(); // 렌더링 시켜주는 메소드
-  };
-
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', accounts => {
-        if (accounts.length > 0) {
-          logOut();
-        }
-      });
-    }
-    window.ethereum?.on('networkChanged', handleNetworkChanged);
-    return () => {
-      window.ethereum?.removeListener('networkChanged', handleNetworkChanged);
-    };
-  });
+    // }
+  }, [window.location.pathname, sessionStorage?.getItem('doubleCheck')]);
+  // 도메인이 바뀔때 한번 // userData 값이 바뀌었을때 한번
 
   const connect4approve = async () => {
     try {
@@ -77,8 +58,36 @@ const Header = () => {
     }
   };
 
+  // (Done) 탭, 창 껐을때, 새로 켰을때 다시 들어오면, 로그인유지
+  // (Done) 쿠키 소멸시 유저 state 삭제
+  // (ing) 유저 state 없을시 받아오는
+  // 유저
+
+  const handleNetworkChanged = (...args) => {
+    const networkId = args[0];
+    if (networkId !== '5') {
+      logOut();
+    }
+  };
+
+  useEffect(() => {
+    // 네트워크변경, 연결된 지갑 변경, 메타마스크 내의 로그아웃시 자동으로 실행
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', accounts => {
+        if (accounts.length > 0) {
+          logOut();
+        }
+      });
+    }
+    window.ethereum?.on('networkChanged', handleNetworkChanged);
+    return () => {
+      window.ethereum?.removeListener('networkChanged', handleNetworkChanged);
+    };
+  });
+
   const connectWallet = async () => {
     try {
+      console.log('here');
       const { ethereum } = window;
 
       if (!ethereum) {
@@ -94,7 +103,6 @@ const Header = () => {
         params: [{ chainId: '0x5' }],
       });
       let data = { wallet_address: accounts[0] };
-
       axios
         .post('http://localhost:5001/user/login', data, {
           withCredentials: true,
@@ -103,7 +111,7 @@ const Header = () => {
           setCurrentAccount(accounts[0]);
           localStorage.setItem('isLogout', false);
           sessionStorage.setItem('initial', true);
-          setUserData(res.data[0]);
+          setUserData(res.data);
           setLoginStatus(true);
         })
         .catch(function (error) {
@@ -116,6 +124,7 @@ const Header = () => {
   };
 
   const logOut = () => {
+    setUserData([]);
     setCurrentAccount('');
     setLoginStatus(false);
     localStorage.setItem('isLogout', true);

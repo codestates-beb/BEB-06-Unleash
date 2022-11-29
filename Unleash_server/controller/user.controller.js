@@ -8,15 +8,13 @@ const login = async (req, res) => {
   const client_data = req.body;
   try {
     const userInfo = await db.user.findAll({
-      attributes: ["id", "wallet_address"],
       where: {
         wallet_address: client_data.wallet_address,
       },
+      attributes: ["id", "wallet_address"],
     });
 
-    // userID, wallet 만 token에 집어 넣기
-    // const userInfo = { wallet_address: `${client_data.wallet_address}` };
-    if (userInfo.length === 0) {
+    if (userInfo[0].dataValues.length === 0) {
       return res.status(400).send("일치하는 유저가 없습니다.");
     }
     const accessToken = jwt.sign(
@@ -30,7 +28,8 @@ const login = async (req, res) => {
       httpOnly: true,
       expiresIn: "1000000sec",
     });
-    return res.status(200).json(userInfo);
+    console.log(userInfo[0].dataValues);
+    return res.status(200).json(userInfo[0].dataValues);
   } catch (err) {
     return res.status(400).send("invalid token");
   }
@@ -50,12 +49,16 @@ const approve = async (req, res) => {
 
   try {
     const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // if (!req.body.data) {
+    // 클라이언트로부터 온 isUserData가 false이면 상태가 없는것이므로 값을 보내줌
     return res.status(200).send({
       message: "ok",
       data: {
         userInfo: data,
       },
     });
+    // }
   } catch (e) {
     if (e.name === "TokenExpiredError") {
       // 유효기간이 지났을때
