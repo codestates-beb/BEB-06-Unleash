@@ -127,6 +127,70 @@ const cancel = async (req, res) => {
   }
 };
 
+const mint = async (req, res) => {
+  const client_data = req.body;
+  const transaction = await sequelize.transaction();
+
+  try {
+    const token_holder = await db.token_holder.findAll(
+      {
+        where: {
+          [Op.and]: [
+            { user_id: client_data.user_id },
+            {
+              token_id: client_data.token_id,
+            },
+          ],
+        },
+      },
+      { transaction }
+    );
+    if (token_holder.length === 0) {
+      await db.token_holder.create(
+        {
+          user_id: client_data.user_id,
+          token_id: client_data.token_id,
+          amount: client_data.amount,
+        },
+        { transaction }
+      );
+    }
+    if (token_holder.length !== 0) {
+      await db.token_holder.increment(
+        {
+          amount: client_data.amount,
+        },
+        {
+          where: {
+            [Op.and]: [
+              { user_id: client_data.user_id },
+              { token_id: client_data.token_id },
+            ],
+          },
+        },
+        { transaction }
+      );
+    }
+    await db.transactionHistory.create(
+      {
+        token_id: client_data.token_id,
+        offer_id: 0,
+        price: client_data.price,
+        amount: client_data.amount,
+        buyer: client_data.buyer,
+        seller: "Unleash",
+      },
+      { transaction }
+    );
+    await transaction.commit();
+    return res.status(200).send("성공");
+  } catch (err) {
+    await transaction.rollback();
+    console.log(err.name);
+    return res.status(400).send("실패");
+  }
+};
+
 const buy = async (req, res) => {
   const client_data = req.body;
   const transaction = await sequelize.transaction();
@@ -143,6 +207,7 @@ const buy = async (req, res) => {
       },
       { transaction }
     );
+
     const token_holder = await db.token_holder.findAll(
       {
         where: {
@@ -298,4 +363,5 @@ module.exports = {
   buy,
   marketInfo,
   signature,
+  mint,
 };

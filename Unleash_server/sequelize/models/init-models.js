@@ -16,8 +16,6 @@ function initModels(sequelize) {
   var user = _user(sequelize, DataTypes);
   var vc_list = _vc_list(sequelize, DataTypes);
 
-  transactionHistory.belongsTo(marketplace, { as: "offer", foreignKey: "offer_id"});
-  marketplace.hasMany(transactionHistory, { as: "transactionHistories", foreignKey: "offer_id"});
   marketplace.belongsTo(ticket, { as: "token", foreignKey: "token_id"});
   ticket.hasMany(marketplace, { as: "marketplaces", foreignKey: "token_id"});
   nftvoucher.belongsTo(ticket, { as: "token", foreignKey: "token_id"});
@@ -27,7 +25,7 @@ function initModels(sequelize) {
   transactionHistory.belongsTo(ticket, { as: "token", foreignKey: "token_id"});
   ticket.hasMany(transactionHistory, { as: "transactionHistories", foreignKey: "token_id"});
   token_holder.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(token_holder, { as: "token_holders", foreignKey: "user_id"});
+  user.hasOne(token_holder, { as: "token_holder", foreignKey: "user_id"});
 
   return {
     marketplace,
