@@ -4,11 +4,9 @@ import { Fragment, useEffect, useState, useContext } from 'react';
 import { ListContext } from '../resources/context_store/ListContext';
 import axios from 'axios';
 
-
 const Header = () => {
   const context = useContext(ListContext);
   const { userData, setUserData, setLoginStatus } = context;
-  const [landingState, setLandingState] = useState(false);
   const [account, setCurrentAccount] = useState('');
   const navigate = useNavigate();
 
@@ -29,12 +27,12 @@ const Header = () => {
           const data = userInformation.wallet_address;
           if (data && localStorage?.getItem('isLogout') === 'false') {
             connect4approve();
+            setLoginStatus(() => true);
           } // 로그인 된 상태로 렌더링 시, jwt 토큰 verify가 된 상태면
           // connect4approve 실행해서 지갑 연결 자동 실행
           sessionStorage.setItem('doubleCheck', userData);
         })
         .catch(err => {
-          console.log(err);
           if (err.response.data === 'expired access token') {
             // jwt 만료가 된 처음 시점에만 이 에러가 옴
             alert('다시 로그인하세요');
@@ -43,9 +41,8 @@ const Header = () => {
           }
         });
     }
-    // }
   }, [window.location.pathname, sessionStorage?.getItem('doubleCheck')]);
-  // 도메인이 바뀔때 한번 // userData 값이 바뀌었을때 한번
+  // 도메인이 바뀔때, userData 값이 바뀔때
 
   const connect4approve = async () => {
     try {
@@ -104,15 +101,20 @@ const Header = () => {
           withCredentials: true,
         })
         .then(function (res) {
+          console.log(res);
+          setUserData(res.data);
+          setLoginStatus(() => true);
           setCurrentAccount(accounts[0]);
           localStorage.setItem('isLogout', false);
           sessionStorage.setItem('initial', true);
-          setUserData(res.data);
-          setLoginStatus(() => true);
+          sessionStorage.setItem('doubleCheck', userData);
         })
         .catch(function (error) {
           console.log(error);
-          alert(error.response.data);
+          if (error.response.data === 'invalid user') {
+            alert('일치하는 유저가 없습니다. \n회원가입 페이지로 이동합니다.');
+            navigate(`/signup`);
+          }
         });
     } catch (error) {
       console.log(error);
@@ -120,16 +122,17 @@ const Header = () => {
   };
 
   const logOut = () => {
-    
     setUserData([]);
     setCurrentAccount('');
     setLoginStatus(() => false);
+    sessionStorage.setItem('doubleCheck', '');
     localStorage.setItem('isLogout', true);
+    window.location.reload();
     axios
       .get('http://localhost:5001/user/logout', {
         withCredentials: true,
-      }).catch(e => e);
-    navigate('/mainpage')
+      })
+      .catch(e => e);
   };
 
   let location = useLocation();
