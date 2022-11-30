@@ -1810,13 +1810,12 @@
 }
 
 .mypage_contents_nfts {
-
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
-  grid-gap: 24px;
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 30px;
+  gap: 50px;
   justify-items: center;
-  padding: 0 60px;
+  padding: 60px 60px;
 }
 /***********MarketPlace_mypage_Css**************/
 
