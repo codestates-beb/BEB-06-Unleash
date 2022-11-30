@@ -74,17 +74,41 @@ const marketInfo = async (req, res) => {
 
 const sell = async (req, res) => {
   const client_data = req.body;
+  const transaction = await sequelize.transaction();
 
   try {
-    await db.marketplace.create({
-      offer_id: client_data.offer_id,
-      token_id: client_data.token_id,
-      price: client_data.price,
-      amount: client_data.amount,
-      seller: client_data.seller,
-    });
+    await db.marketplace.create(
+      {
+        offer_id: client_data.offer_id,
+        token_id: client_data.token_id,
+        price: client_data.price,
+        amount: client_data.amount,
+        seller: client_data.seller,
+      },
+      { transaction }
+    );
+    await db.token_holder.decrement(
+      {
+        amount: client_data.amount,
+      },
+      {
+        where: {
+          [Op.and]: [
+            {
+              token_id: client_data.token_id,
+            },
+            {
+              user_id: client_data.user_id,
+            },
+          ],
+        },
+      },
+      { transaction }
+    );
+    await transaction.commit();
     return res.status(200).send("성공");
   } catch (err) {
+    await transaction.rollback();
     return res.status(400).send(err);
   }
 };
