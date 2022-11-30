@@ -69,11 +69,14 @@ const P2pDetailPage = () => {
       e.preventDefault();
       if (!realOne) return alert('올바르지 않은 방식의 거래입니다.');
       const txHash = await contract
-        .connect(signer)
         .buy(p2pinfo[0].offer_id, Number(number), {
           value: totalPrice * 10000,
         });
       console.log(txHash);
+      const txResult = await txHash.wait();
+      if (txResult) {
+        
+      }
       setActive(false);
     } catch (e) {
       console.log(e);

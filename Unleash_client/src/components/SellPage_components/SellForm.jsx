@@ -10,8 +10,7 @@ const SellForm = (props) => {
   const navigate = useNavigate();
   const {userData} = context;
   const {nft} = props
-  
-  
+
   const result = (110 - 110*0.025).toFixed(2);
   const [price, setPrice] = useState('');
 
@@ -35,17 +34,19 @@ const SellForm = (props) => {
         1
       )
       const txResult =  await txHash.wait();
-      console.log(txResult)
+
       if (txResult) {
         axios.post("http://localhost:5001/marketplace/sell", {
-          offer_id: txResult.value.toString(),
+          offer_id: txHash.value.toString(),
           token_id: nft[0].token_id,
           price: price,
           amount: 1,
           seller: userData.wallet_address
         }, {
           withCredentials: true
-        }).then(res => console.log(res)).catch(e => console.log(e));
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e));
       }
     } catch (e) {
       console.log(e);
