@@ -19,7 +19,7 @@ const MainPage = () => {
   const [returnDateOpen, setReturnDateOpen] = useState(false);
   const [toPlaceSelectBox, setToPlaceSelectBox] = useState(false);
 
-  const ToBox = { roma : "FCO" , osaka : "ITM" , sydney : "SYD" , newyork : "JFK" , paris: "CDG"   }
+  const ToBox = { roma : "FCO" , osaka : "ITM" , sydney : "SYD" , newyork : "JFK" , paris: "CDG"}
 
    const onOpenDepartDate = () => {
       setDepartDateOpen(true);

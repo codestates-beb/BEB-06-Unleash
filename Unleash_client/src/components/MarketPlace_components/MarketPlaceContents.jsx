@@ -8,8 +8,9 @@ import MarketPlaceClass from "./MarketPlaceClass";
 import { ListContext } from "../../resources/context_store/ListContext";
 import { romaDummy, newYorkDummy, sydneyDummy, osakaDummy, parisDummy } from "./MarketplaceDummy";
 
-const MarketPlaceContents = () => {
 
+const MarketPlaceContents = () => {
+  const context = useContext(ListContext);
   const [destination, setDestination] = useState({});
   const list = JSON.parse(localStorage.getItem("marketList"));
 
@@ -19,7 +20,7 @@ const MarketPlaceContents = () => {
     if (list[0].to === "CDG") setDestination(parisDummy);
     if (list[0].to === "SYD") setDestination(sydneyDummy);
     if (list[0].to === "FCO") setDestination(romaDummy);
-  }, [destination]);
+  }, [destination, context]);
 
   // nft 필터링
   const first = [...list].filter((item) => item.class === "퍼스트");

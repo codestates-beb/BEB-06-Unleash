@@ -2,7 +2,7 @@ import React, {useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
 import { ListContext } from "../../resources/context_store/ListContext";
-import axios from "axios";
+
 
 const DefaultNft = (props) => {
   const context = useContext(ListContext);
@@ -75,7 +75,6 @@ const DefaultNft = (props) => {
             {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
             {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
           </div>
-          
         </Tilt>
 
         {active && (

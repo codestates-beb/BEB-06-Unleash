@@ -14,14 +14,15 @@ const SellPage =() => {
     //ethers 이용해서 complete 버튼 누르면 메타마스크에서 tx 보내기.
     const [sellNFT, setSellNFT] = useState([]);
     const [destination, setDestination] = useState('');
-    const [bg, setBg] = useState('');
-    const [city, setCity] = useState('');
+
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
 
     useEffect(() => {
-      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`)
+      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`, {
+        withCredentials: true
+      })
       .then(res => {
-        const data = res.data;
+        const data = res.data.myToken;
         setSellNFT([...data]);
       }).catch((e) => {
         console.log(e);
@@ -35,9 +36,6 @@ const SellPage =() => {
       if (nft[0].token.to === "CDG") return setDestination(parisDummy);
       if (nft[0].token.to === "SYD") return setDestination(sydneyDummy);
       if (nft[0].token.to === "FCO") return setDestination(romaDummy);
-
-      setBg(romaDummy.nftImg); // 나중에는 Map 써서 item.
-      setCity(romaDummy.city);
     }, []);
 
     return (
@@ -48,7 +46,7 @@ const SellPage =() => {
             <span>List for sale</span>
             <div className="sellpage_listing_wrapper">
               <span>Choose a type of sale</span>
-              <SellForm />
+              <SellForm nft={nft}/>
             </div>
           </div>
           <div className="sellpage_item">

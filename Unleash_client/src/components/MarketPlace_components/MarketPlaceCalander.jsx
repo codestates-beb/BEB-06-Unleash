@@ -15,7 +15,6 @@ const MarketPlaceCalander = (props) => {
 const onChangeDepartDate = (e) => {
   setDepartDate(e);
   const a = new Date(departDate.getTime() - (departDate.getTimezoneOffset() * 60000)).toISOString().substr(0, 11)
-  console.log(a);
   setDepartDateOpen(false);
 }
   return (

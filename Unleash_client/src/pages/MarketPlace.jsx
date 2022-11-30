@@ -10,7 +10,6 @@ import axios from "axios";
 const MarketPlace = (props) => {
   const context = useContext(ListContext);
   const {setListAll} = context;
-  const { userData , loginStatus } = context;
 
   useEffect(() => {
     axios.get("http://localhost:5001/marketplace/ticket").then(res => {

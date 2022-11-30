@@ -662,6 +662,7 @@
   font-weight: 400;
   font-size: 90px;
   color: white;
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 
@@ -707,7 +708,6 @@
   color: rgb(40, 65, 80);
 }
 .marketplace_description_contents span {
-  
   font-size: 26px;
 }
 
@@ -721,6 +721,7 @@
   padding: 10px;
   font-size: 23px;
   font-family: 'Luckiest Guy', cursive;
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 .marketplace_description_eth span:nth-child(1) {
   color: rgb(255, 200, 60);
@@ -729,7 +730,7 @@
 
 .marketplace_description_eth span:nth-child(2) {
   color: rgb(85, 153, 173);
-  text-shadow: 0 0 20px white;
+  text-shadow: 1px 2px 6px #c7b9b9;
   font-size: 25px;
 }
 
@@ -756,7 +757,7 @@
   cursor: pointer;
   border: none;
   height: auto;
-  box-shadow: 0px 2px 5px black;
+  box-shadow: 1px 2px 6px black;
   border-radius: 10px;
   opacity: 1;
   height: 70px;
@@ -774,7 +775,6 @@
   font-family: 'Luckiest Guy', cursive;
   font-size: 35px;
   text-align: center;
-  
   color: red;
   animation: textColor 7s ease infinite alternate;
 }
@@ -816,25 +816,28 @@
   padding-top: 50px;
   margin-right: 20px;
   height: auto;
+  font-family: 'Luckiest Guy', cursive;
 }
 
 .marcketplace_contents_sidebar_container {
   display: block;
-  width: 220px;
+  width: 100%;
+  height: auto;
   justify-content: center;
   position: sticky;
-  
 }
 
 .marketplace_contents_collapse {
+  font-family: 'Luckiest Guy', cursive;
   border: none;
-  background-color: white;
+  background-color: rgb(40, 65, 80);
   border-radius: 5px;
-  width: 220px;
-  height: 40px;
-  font-size: 16px;
-  height: 45.5px;
-  font-weight: 600;
+  width: 100%;
+  font-size: 24px;
+  height: 80px;
+  font-weight: 400;
+  color: white;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .marketplace_contents_destination {
   display: flex;
@@ -846,19 +849,24 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
+  background-color: rgb(40, 65, 80);
   border: 1px solid gray;
   border-radius: 5px;
   transform: translateY(-400%);
   animation: destination 0.5s forwards;
+  align-items: center;
+  height: 60px;
   margin: 3px 0px;
   font-weight: 600;;
+  color: white;
+  letter-spacing: 3px;
 }
 
 .marketplace_contents_destination li:first-child {
   text-align: center;
 }
 .marketplace_contents_destination li > p {
-  font-size: 15px;
+  font-size: 18px;
 }
 
 
@@ -867,7 +875,6 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  
 }
 .marketplace_contents_class button {
   border: none;
@@ -877,6 +884,7 @@
   height: 45.5px;
   font-size: 16px;
   font-weight: 600;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .marketpace_contents_class_value {
@@ -894,6 +902,7 @@
   transform: translateY(-200%);
   animation: destination 0.5s forwards;
   margin: 3px 0px;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .marketpace_contents_class_value li > p {
   font-size: 15px;
@@ -910,29 +919,39 @@
 }
 
 
-.marcketplace_contents_sidebar_container .mainPage_ticketing_detail_form {
-  display: block;
+.marcketplace_contents_sidebar_container > .mainPage_ticketing_detail_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   max-block-size: 500px;
   width: 220px;
+  height: 70px;
   margin: 10px 0;
-}
-.marcketplace_contents_sidebar_container .mainPage_tiketting_calendar_box{
-  display: block;
-  position: relative;
 }
 
 .marcketplace_contents_sidebar_container .react-calendar {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+}
+
+.active_destination_list {
+  background-color: white;
 }
 
 .marketplace_search {
   border: none;
   background-color: white;
   border-radius: 5px;
-  width: 220px;
-  height: 45.5px;
+  width: 100%;
+  height: 60px;
   font-size: 16px;
+  box-shadow: 1px 2px 6px #c7b9b9;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 22px;
 }
 
 
@@ -1732,6 +1751,31 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  box-shadow: 1px 2px 6px #c7b9b9;
+}
+
+.mypage_approve {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 320px;
+  top: 350px;
+  
+}
+.mypage_approve button {
+  color: white;
+  background: linear-gradient(180deg, rgb(208, 0, 0) 0%, rgb(193, 193, 193) 100%);
+  box-shadow: 1px 2px 6px #c7b9b9;
+  width: 200px;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 27px;
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow: 0 0 1px white;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 
@@ -1745,7 +1789,7 @@
 }
 
 .mypage_contents_category li{
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Luckiest Guy', cursive;
   display: flex;
   flex-direction: row;
   margin: 30px 10px;
@@ -1754,9 +1798,11 @@
   margin-bottom: 30px;
   color: black;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 200;
   list-style: none;
   cursor: pointer;
+  letter-spacing: 2px;
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .mypage_contents_category li > span {
@@ -2361,6 +2407,7 @@ option {
   background-color: #edede9;
   color: black;
   border-radius: 10px;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .detailpage_container_nft_container {
@@ -2370,7 +2417,6 @@ option {
   width: 100%;
   border-radius: 5px;
   padding-bottom: 20px;
-  box-shadow:0 0 4px black;
 }
 .detailpage_container_nft .detailpage_nft_top1 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2422,7 +2468,7 @@ option {
   font-size: 40px;
   color: black;
   border-radius: 5px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .detailpage_nft_desc .detail_top {
@@ -2493,7 +2539,7 @@ option {
   margin-right: 10px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px #f4a259;
+  box-shadow: 1px 2px 6px #c7b9b9;
   color: #f4a259;
   font-weight: 600;
 }
@@ -2521,7 +2567,7 @@ option {
   font-size: 30px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   background-color: #f4a259;
   color: #f4e285;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -2537,7 +2583,7 @@ option {
   font-size: 40px;
   color: white;
   border-radius: 10px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .detailpage_price .detail_top {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2595,7 +2641,7 @@ option {
   height: 100%;
   border-radius: 5px;
   padding-bottom: 20px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 
@@ -2650,7 +2696,7 @@ option {
   font-size: 40px;
   color: black;
   border-radius: 5px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   max-width: 500px;
 }
 
@@ -2722,7 +2768,7 @@ option {
   font-size: 25px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px #5e60ce;
+  box-shadow: 1px 2px 6px #c7b9b9;
   color: #5e60ce;
   font-weight: 600;
 }
@@ -2753,7 +2799,7 @@ option {
   font-size: 30px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   background-color: white;
   color: #5e60ce;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -2770,7 +2816,7 @@ option {
   font-size: 40px;
   color: white;
   border-radius: 10px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .detailp2ppage_price .detailp2p_top {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2807,7 +2853,7 @@ option {
   font-size: 40px;
   color: white;
   border-radius: 10px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .detailp2ppage_history .detailp2p_top {
@@ -2857,6 +2903,7 @@ option {
 .sellpage_listing span{
   font-size: 80px;
   color: rgb(40, 65, 80);
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_wrapper {
@@ -2865,7 +2912,7 @@ option {
 .sellpage_listing_wrapper span{
   font-size: 40px;
   color: white;
-  text-shadow: 0 0 2px rgb(40, 65, 80);
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_form {
@@ -2891,6 +2938,8 @@ option {
   border: none;
   cursor: pointer;
   font-size: 40px;
+  text-shadow: 1px 2px 6px #c7b9b9;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_input {
@@ -2905,7 +2954,7 @@ option {
   width: 78%;
   height: 50px;
   background: white;
-  box-shadow: 0 0 2px black, 0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   border: none;
   border-radius: 5px;
   color: rgb(40, 65, 80);
@@ -2917,7 +2966,7 @@ option {
 .sellpage_listing_input span {
   font-size: 50px;
   color: white;
-  text-shadow: 0 0 2px rgb(40, 65, 80);
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_summary {
@@ -2961,7 +3010,7 @@ option {
   height: 40px;
   border-radius: 5px;
   border: none;
-  box-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black;
+  box-shadow: 1px 2px 6px white;
   background: rgb(40, 65, 80);
   font-size: 25px;
   font-weight: 600;

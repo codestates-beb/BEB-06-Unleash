@@ -14,7 +14,7 @@ const FirstNFT = (props) => {
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
   const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
-  console.log(loginStatus)
+  
   const handleActive = (e) => {
     setActive(() => !active);
   }
@@ -61,6 +61,7 @@ const FirstNFT = (props) => {
                   <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                     <h2>{city}</h2>
                     <p>Travel with Unleash</p>
+                    {token_Id && <p>token_id : {token_Id}</p>}
                     {left && <p>left : {left}</p>}
                     {amount && <p>amount: {amount}</p>}
                     <p>{price} ETH</p>
