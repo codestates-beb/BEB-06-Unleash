@@ -1,4 +1,4 @@
-const { db } = require("../sequelize/models/index.js");
+const { db, sequelize } = require("../sequelize/models/index.js");
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 
@@ -112,23 +112,41 @@ const joinMembership = async (req, res) => {
 
 const myPageOwned = async (req, res) => {
   const client_data = req.query;
+  const transaction = await sequelize.transaction();
 
   try {
-    const myToken = await db.token_holder.findAll({
-      where: {
-        user_id: client_data.user_id,
-      },
-      include: [
-        {
-          model: db.ticket,
-          as: "token",
-          required: true,
-          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+    const myToken = await db.token_holder.findAll(
+      {
+        where: {
+          user_id: client_data.user_id,
         },
-      ],
+        include: [
+          {
+            model: db.ticket,
+            as: "token",
+            required: true,
+            attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+          },
+        ],
+      },
+      { transaction }
+    );
+    const token_list = myToken.map((el) => {
+      return el.token_id;
     });
-    return res.status(200).json(myToken);
+    const price_list = await db.nftvoucher.findAll(
+      {
+        attributes: ["token_id", "price"],
+        where: {
+          token_id: { [Op.in]: token_list },
+        },
+      },
+      { transaction }
+    );
+    await transaction.commit();
+    return res.status(200).json({ myToken: myToken, price_list: price_list });
   } catch (err) {
+    await transaction.rollback();
     console.log(err);
     return res.status(400).send(err);
   }
