@@ -16,7 +16,7 @@ const SellForm = (props) => {
   const [price, setPrice] = useState('');
 
 
-  const marketContractAddress = "0xd3430935ca701c2aF5844574275D7DB60D08120c";
+  const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
@@ -31,12 +31,14 @@ const SellForm = (props) => {
     try {
       const txHash = await contract.connect(signer).sell(
         nft[0].token_id,
-        Number(price),
+        price,
         1
       )
       const txResult =  await txHash.wait();
+      console.log(txResult)
       if (txResult) {
         axios.post("http://localhost:5001/marketplace/sell", {
+          offer_id: txResult.value.toString(),
           token_id: nft[0].token_id,
           price: price,
           amount: 1,
