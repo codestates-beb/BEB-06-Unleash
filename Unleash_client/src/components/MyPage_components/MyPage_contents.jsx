@@ -109,19 +109,23 @@ const MyPageContents = () => {
       setBs('');
       setBs2('');
       setBorder([false, false, true, false]);
-      axios
-        .get(
-          `http://localhost:5001/user/selled?seller=${userData.wallet_address}`,
-          {
-            withCredentials: true,
-          }
-        )
-        .then(res => {
-          const data = res.data;
-          setAccountNFT([...data]);
-        });
     }
-    if (text === status[3]) return setBorder([false, false, false, true]);
+    if (text === status[3]) {
+      setBs('');
+      setBs2('');
+      setBorder([false, false, false, true]);
+      axios
+      .get(
+        `http://localhost:5001/user/selled?seller=${userData.wallet_address}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(res => {
+        const data = res.data;
+        setAccountNFT([...data]);
+      });
+    };
   };
   // if status 가 selling일 경우에, nft 보여줄때 bs를 retrieve로 바꿔서.
 

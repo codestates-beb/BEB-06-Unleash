@@ -23,7 +23,7 @@ const SellForm = (props) => {
   const handleChange = (e) => {
     setPrice(e.target.value);
   }
-
+  console.log(userData)
   const handleSubmit = async (e) => {
     console.log(nft[0].token_id, price)
     e.preventDefault();
@@ -44,7 +44,8 @@ const SellForm = (props) => {
           token_id: nft[0].token_id,
           price: price,
           amount: 1,
-          seller: userData.wallet_address
+          seller: userData.wallet_address,
+          user_id: userData.id
         }, {
           withCredentials: true
         })
