@@ -9,7 +9,8 @@ import { ListContext } from "../../resources/context_store/ListContext";
 
 const MyPageContents = () => {
   const context = useContext(ListContext);
-  const {accountNFT, setAccountNFT} = context;
+  const {accountNFT, setAccountNFT, userData} = context;
+  console.log(userData)
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -21,7 +22,9 @@ const MyPageContents = () => {
   useEffect(() => {
     setBs("sell");
     setBs2("change")
-    axios.get("http://localhost:5001/user/owned?user_id=1").then(res => {
+    axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`, {
+      withCredentials: true
+    }).then(res => {
       const data = res.data;
       setAccountNFT([...data]);
     });
@@ -63,8 +66,9 @@ const MyPageContents = () => {
       setBorder([true, false, false, false]);
       setBs("sell");
       setBs2("change");
-      // ********************user_id 넣어줘야함.********************
-      axios.get("http://localhost:5001/user/owned?user_id=1").then(res => {
+      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`,{
+        withCredentials: true
+      }).then(res => {
         const data = res.data;
         setAccountNFT([...data]);
       });
@@ -73,8 +77,9 @@ const MyPageContents = () => {
       setBorder([false, true, false, false]);
       setBs("");
       setBs2("retrieve")
-      // ********************address를 넣어야함. seller에********************
-      axios.get("http://localhost:5001/user/selling?seller=0xDa6e260864368Fd847A5d416159CF0d23C499DFb").then(res => {
+      axios.get(`http://localhost:5001/user/selling?seller=${userData.wallet_address}`,{
+        withCredentials: true
+      }).then(res => {
         const data = res.data;
         setAccountNFT([...data])
       })
@@ -83,7 +88,9 @@ const MyPageContents = () => {
       setBs("");
       setBs2("");
       setBorder([false, false, true, false]);
-      axios.get("http://localhost:5001/user/selled?seller=0x3aFA93a829a3d12D56336e6320559C8A372e76AE").then(res => {
+      axios.get(`http://localhost:5001/user/selled?seller=${userData.wallet_address}`,{
+        withCredentials: true
+      }).then(res => {
         const data = res.data;
         setAccountNFT([...data])
       })
@@ -107,7 +114,7 @@ const MyPageContents = () => {
         ))}
       </ul>
       <div className="mypage_contents_nfts">
-      {firstOsaka && firstOsaka.map((item, idx) => <FirstNFT key={idx} locate="/sellpage" locate2="/ticketchangepage" bs={bs} bs2={bs2} bg={osakaDummy.nftImg} city={osakaDummy.city} price={item.price} departure={item.token.departuretime} arrival={item.token.arrivaltime} token_Id={item.token_id} offer_id={item.offer_id} amount={item.amount}/>)}
+      {firstOsaka && firstOsaka.map((item, idx) => <FirstNFT key={idx} locate="/sellpage" locate2="/ticketchangepage" bs={bs} bs2={bs2} bg={osakaDummy.nftImg} city={osakaDummy.city} price={item.token.price} departure={item.token.departuretime} arrival={item.token.arrivaltime} token_Id={item.token_id} offer_id={item.offer_id} amount={item.amount}/>)}
       {firstRoma && firstRoma.map((item, idx) => <FirstNFT key={idx} locate="/sellpage" locate2="/ticketchangepage" bs={bs} bs2={bs2} bg={romaDummy.nftImg} city={romaDummy.city} price={item.price} departure={item.token.departuretime} arrival={item.token.arrivaltime} token_Id={item.token_id} offer_id={item.offer_id} amount={item.amount}/>)}
       {firstParis && firstParis.map((item, idx) => <FirstNFT key={idx} locate="/sellpage" locate2="/ticketchangepage" bs={bs} bs2={bs2} bg={parisDummy.nftImg} city={parisDummy.city} price={item.price} departure={item.token.departuretime} arrival={item.token.arrivaltime} token_Id={item.token_id} offer_id={item.offer_id} amount={item.amount}/>)}
       {firstNewYork && firstNewYork.map((item, idx) => <FirstNFT key={idx} locate="/sellpage" locate2="/ticketchangepage" bs={bs} bs2={bs2} bg={newYorkDummy.nftImg} city={newYorkDummy.city} price={item.price} departure={item.token.departuretime} arrival={item.token.arrivaltime} token_Id={item.token_id} offer_id={item.offer_id} amount={item.amount}/>)}

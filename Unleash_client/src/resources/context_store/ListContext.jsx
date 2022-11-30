@@ -8,25 +8,27 @@ const ListStore = props => {
   const [p2pMarketList, setP2pMarketList] = useState([]);
   const [listAll, setListAll] = useState([]);
   const [accountNFT, setAccountNFT] = useState([]);
+  const [active, setActive] = useState(false);
+  
 
   // useState React hook
   return (
-    <ListContext.Provider
-      value={{
-        list,
-        setList,
-        listAll,
-        setListAll,
-        p2pMarketList,
-        setP2pMarketList,
-        accountNFT,
-        setAccountNFT,
-        userData,
-        setUserData,
-        loginStatus,
-        setLoginStatus,
-      }}
-    >
+    <ListContext.Provider value={{
+      list,
+      setList,
+      listAll,
+      setListAll,
+      p2pMarketList,
+      setP2pMarketList,
+      accountNFT,
+      setAccountNFT,
+      userData,
+      setUserData,
+      loginStatus,
+      setLoginStatus,
+      active,
+      setActive,
+      }}>
       {props.children}
     </ListContext.Provider>
   );

@@ -2,8 +2,6 @@ import React from "react";
 
 const SellForm = () => {
   const result = (110 - 110*0.025).toFixed(2);
-  //handlesubmit = () => {}
-  //handleChange = () => {}
 
   return (
     <form className="sellpage_listing_form">

@@ -1,19 +1,21 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 const port = 5001;
-const db = require('./sequelize/models');
-var cookieParser = require('cookie-parser');
+const db = require("./sequelize/models");
+var cookieParser = require("cookie-parser");
 
-app.use(cors({ origin: true, credentials: true }));
-app.use(cors(), express.json());
-app.use(cookieParser());
+app.use(
+  cors({ origin: true, credentials: true }),
+  express.json(),
+  cookieParser()
+);
 app.listen(port, () => {
-  console.log('서버가 정상적으로 실행되었습니다.');
+  console.log("서버가 정상적으로 실행되었습니다.");
 });
 
-app.get('/', async (req, res) => {
+app.get("/", async (req, res) => {
   res.json(await test());
 });
 
-require('./routes/index.js')(app);
+require("./routes/index.js")(app);

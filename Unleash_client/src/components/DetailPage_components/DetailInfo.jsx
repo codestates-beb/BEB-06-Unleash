@@ -14,20 +14,20 @@ import Abi from '../../resources/exAbi.json';
 
 const DetailInfo = props => {
   const context = useContext(ListContext);
-  const { listAll, userData } = context;
+  const {listAll, userData, setActive} = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
   const [realOne, setRealOne] = useState('');
-  const contractAddress = '0x8313C51a6c28910106558AaAB3Ccf51A30bd854D';
-
   const [number, setNumber] = useState('');
-  const nft = JSON.parse(localStorage.getItem('airlineNFT'));
-  console.log('here');
+  const nft = JSON.parse(localStorage.getItem("airlineNFT"));
+
+  const contractAddress = "0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
 
   const [destination, setDestination] = useState({});
   const [totalprice, setTotalPrice] = useState(nft[0].nftvoucher.price);
+  // 요청만 백에 요청해서 받아오기.
 
   useEffect(() => {
     const filtered = listAll.filter(item => {
@@ -48,16 +48,19 @@ const DetailInfo = props => {
   const handleChange = e => {
     setNumber(e.target.value);
     setTotalPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
-  };
-  const handleSubmit = async e => {
-    console.log(nft[0].token_id);
+  }
+
+  const handleSubmit = async (e) => {
+    setActive(true);
     e.preventDefault();
     if (!realOne) return alert('올바르지 않은 방식의 거래입니다.');
     try {
       const call = await axios.get(
         `http://localhost:5001/marketplace/signature?token_id=${Number(
           nft[0].token_id
-        )}`
+        )}`,{
+          withCredentials: true,
+        }
       );
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
@@ -65,25 +68,36 @@ const DetailInfo = props => {
       const { token_id, price, totalsupply } = voucher[0];
 
       const txHash = await contract
-        .connect(signer)
-        .mint(
-          userData.wallet_address,
-          number,
-          [token_id, price, totalsupply],
-          signature,
-          {
-            value: totalprice * 10000,
-            gasLimit: 3000000,
-          }
-        );
+      .connect(signer)
+      .mint(
+        userData.wallet_address,
+        number,
+        [token_id, price, totalsupply],
+        signature,
+        {
+          value: totalprice * 10000,
+        }
+      );
       // price * number 해서 이더 보내기.
-      const txResult = await txHash.wait();
-      console.log(txResult);
-    } catch (e) {
+      const txResult =  await txHash.wait();
+      console.log(userData.id, nft[0].token_id, number, nft[0].nftvoucher.price, userData.wallet_address)
+      if (txResult) {
+        setActive(false); 
+        const a = await axios.post("http://localhost:5001/marketplace/mint", {
+          user_id: userData.id,
+          token_id: nft[0].token_id,
+          amount: number,
+          price: nft[0].nftvoucher.price,
+          buyer: userData.wallet_address
+        })
+        console.log(a)
+      }
+    } catch(e) {
       console.log(e);
+      setActive(false); 
       return e;
     }
-  };
+  }
 
   return (
     <>

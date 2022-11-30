@@ -4,11 +4,13 @@ import { Fragment, useEffect, useState, useContext } from 'react';
 import { ListContext } from '../resources/context_store/ListContext';
 import axios from 'axios';
 
+
 const Header = () => {
   const context = useContext(ListContext);
   const { userData, setUserData, setLoginStatus } = context;
   const [landingState, setLandingState] = useState(false);
   const [account, setCurrentAccount] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (
@@ -40,7 +42,6 @@ const Header = () => {
             logOut();
           }
         });
-      console.log(userData);
     }
     // }
   }, [window.location.pathname, sessionStorage?.getItem('doubleCheck')]);
@@ -107,7 +108,7 @@ const Header = () => {
           localStorage.setItem('isLogout', false);
           sessionStorage.setItem('initial', true);
           setUserData(res.data);
-          setLoginStatus(true);
+          setLoginStatus(() => true);
         })
         .catch(function (error) {
           console.log(error);
@@ -119,15 +120,16 @@ const Header = () => {
   };
 
   const logOut = () => {
+    
     setUserData([]);
     setCurrentAccount('');
-    setLoginStatus(false);
+    setLoginStatus(() => false);
     localStorage.setItem('isLogout', true);
     axios
       .get('http://localhost:5001/user/logout', {
         withCredentials: true,
-      })
-      .then(console.log);
+      }).catch(e => e);
+    navigate('/mainpage')
   };
 
   let location = useLocation();
