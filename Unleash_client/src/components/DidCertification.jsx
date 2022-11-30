@@ -39,6 +39,8 @@ function DidCertification(props) {
   const [vcJwt, setVcJwt] = useState(undefined);
   const [VCID, setVCID] = useState(undefined);
   const [claimMsg,setClaimMsg] = useState(undefined)
+  const [verifyMsg, setVerifyMsg] = useState(undefined);
+
 
   const [credentialSubject, setCredentialSubject] = useState({
     sure_name: undefined,
@@ -81,7 +83,7 @@ function DidCertification(props) {
       props.setDidLoading(true);
       // VC 발급 및 갱신 요청
       const result = await axios.post(
-        process.env.REACT_APP_IATA_BACKEND_URL + "did/claimVC",
+        process.env.REACT_APP_IATA_BACKEND_URL + "/did/claimVC",
         {
           walletAddress: userData.wallet_address,
         }
@@ -125,7 +127,7 @@ function DidCertification(props) {
     try {
       // IATA DB에 내 JWT VC 요청
       const result = await axios.post(
-        process.env.REACT_APP_IATA_BACKEND_URL + "did/requestVC",
+        process.env.REACT_APP_IATA_BACKEND_URL + "/did/requestVC",
         {
           walletAddress: userData.wallet_address,
         }
@@ -135,6 +137,7 @@ function DidCertification(props) {
         alert("발급된 VC가 없습니다. 새로 발급 받아주세요.");
         return;
       }
+
       setVcJwt(result.data.vc);
 
       // JWT 검증
@@ -171,7 +174,27 @@ function DidCertification(props) {
       alert(error);
     }
   };
+  // VC 검증
+  const verifyVC = async() => {
+    try {
+      // 유저가 제출한 JWT VC와 IATA가 발급해준 ID 비교
+      setVerifyMsg("Verifiable Credential 검증 진행...")
+      const _DID_DOCUMENT = await IATA_DID_Document();
+      const _VCID = DIDtoAddress(VCID);
+      const result = await verifyVCID(_VCID,_DID_DOCUMENT);  
 
+      if(!result) {
+        alert("IATA로부터 인증받은 VC가 아닙니다.")
+        return;
+      }
+      // todo : NFT 회수
+      
+    } catch (error) {
+      alert(error)
+    } finally {
+      setVerifyMsg("End Request")
+    }
+  }
 
   const setUserData = (data) => {
 
@@ -211,8 +234,13 @@ function DidCertification(props) {
 
   }
 
-  const onClickFinsh = () => {
-    props.setticket(true);
+  const onClickFinsh = async() => {
+    try {
+      await verifyVC();
+      props.setticket(true);
+    } catch (error) {
+      
+    } 
   }
 
   return (
@@ -236,11 +264,11 @@ function DidCertification(props) {
 
           <div className="tiketing_oneLine">
             <div className="tiketing_Line full">
-              <div className="tiketing_Line_text">Verifiable Credential</div>
+              <div className="tiketing_Line_text">JWT Of Verifiable Credential</div>
               <input
                 className="tiketing_Line_input"
                 placeholder="Verifiable Credential"
-                value={vc}
+                value={vcJwt}
                 onChange={(e) => setvc(e.target.value)}
               />
             </div>
@@ -331,6 +359,7 @@ function DidCertification(props) {
             </div>
 
             <div className="tiketing_finsh_button" onClick={onClickFinsh} >Finsh</div>
+            <div>{verifyMsg}</div>
         </div>
       </div>
     </Fragment>
