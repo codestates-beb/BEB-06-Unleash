@@ -24,7 +24,7 @@ const P2pDetailPage = () => {
 
   const contractAddress = "0x8313C51a6c28910106558AaAB3Ccf51A30bd854D";
 
-  const marketContractAddress = "0xA2B968a108Bd3C407ACb1e72240Db99F47e3c475";
+  const marketContractAddress = "0xd3430935ca701c2aF5844574275D7DB60D08120c";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);

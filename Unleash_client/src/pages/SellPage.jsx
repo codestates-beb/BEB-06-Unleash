@@ -6,6 +6,8 @@ import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, sydneyDummy, newYorkDummy, osakaDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 import axios from "axios";
 import { ListContext } from "../resources/context_store/ListContext";
+import {ethers, Contract} from "ethers";
+import MarketAbi from "../resources/MarketAbi.json"
 
 
 const SellPage =() => {
@@ -14,9 +16,13 @@ const SellPage =() => {
     //ethers 이용해서 complete 버튼 누르면 메타마스크에서 tx 보내기.
     const [sellNFT, setSellNFT] = useState([]);
     const [destination, setDestination] = useState('');
-    const [bg, setBg] = useState('');
-    const [city, setCity] = useState('');
+
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
+
+    const marketContractAddress = "0xd3430935ca701c2aF5844574275D7DB60D08120c";
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
     useEffect(() => {
       axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`)
@@ -35,9 +41,6 @@ const SellPage =() => {
       if (nft[0].token.to === "CDG") return setDestination(parisDummy);
       if (nft[0].token.to === "SYD") return setDestination(sydneyDummy);
       if (nft[0].token.to === "FCO") return setDestination(romaDummy);
-
-      setBg(romaDummy.nftImg); // 나중에는 Map 써서 item.
-      setCity(romaDummy.city);
     }, []);
 
     return (

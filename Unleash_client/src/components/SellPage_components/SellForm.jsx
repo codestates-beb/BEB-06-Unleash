@@ -1,7 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 
 const SellForm = () => {
+  
   const result = (110 - 110*0.025).toFixed(2);
+  const [price, setPrice] = useState('');
+
+  const handleChange = (e) => {
+    setPrice(e.target.value)
+  }
 
   return (
     <form className="sellpage_listing_form">
@@ -11,7 +17,7 @@ const SellForm = () => {
       </div>
       <div className="sellpage_listing_input">
         <span>Set a Price</span>
-        <input type='text'/>
+        <input type='text' onChange={handleChange} value={price}/>
       </div>
       <div className="sellpage_listing_summary">
         <span>Summary</span>

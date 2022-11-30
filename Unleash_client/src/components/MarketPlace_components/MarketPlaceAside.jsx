@@ -25,7 +25,6 @@ const MarketPlaceAside = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!city || !departDate) return alert("도시와 출발일자를 선택해주세요.")
     let filter = {city: city, departDate: departDate}
     let To = ToBox[filter.city];
@@ -36,11 +35,9 @@ const MarketPlaceAside = () => {
     .then(res => {
       const data = res.data;
       const list = JSON.stringify([...data]);
-      console.log(list)
       localStorage.setItem("marketList", list);
       setList(() => res.data);
-      navigate("/marketplace")
-      window.location.reload();
+      //window.location.reload();
     })
     .catch(e => {
       console.log(e);
