@@ -19,31 +19,28 @@ import MarketAbi from '../resources/MarketAbi.json';
 
 const P2pDetailPage = () => {
   const context = useContext(ListContext);
-  const { p2pMarketList, active, setActive } = context;
+  const { p2pMarketList, active, setActive, userData } = context;
 
   const p2pinfo = JSON.parse(localStorage.getItem('p2pNFT'));
   const [destination, setDestination] = useState({});
   const [realOne, setRealOne] = useState('');
   const [chartData, setChartData] = useState(setChartDatas(Data));
-  const [number, setNubmer] = useState('');
   const [totalPrice, setTotalPrice] = useState(p2pinfo[0].price);
 
   const contractAddress = '0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D';
 
-  const marketContractAddress = '0xd3430935ca701c2aF5844574275D7DB60D08120c';
+  const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
   useEffect(() => {
-    console.log(p2pinfo);
     axios
       .get(
         `http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`
       )
       .then(res => {
         const data = res.data;
-        console.log(data);
         setChartData(setChartDatas(data));
       });
     const filtered = [...p2pMarketList].filter(item => {
@@ -63,17 +60,35 @@ const P2pDetailPage = () => {
     if (p2pinfo[0].token.to === 'FCO') return setDestination(romaDummy);
   }, []);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     try {
-      setActive(true);
       e.preventDefault();
+      setActive(true);
       if (!realOne) return alert('올바르지 않은 방식의 거래입니다.');
       const txHash = await contract
-        .connect(signer)
-        .buy(p2pinfo[0].offer_id, Number(number), {
-          value: totalPrice * 10000,
+        .buy(
+          p2pinfo[0].offer_id,
+          1,
+        {
+          value: totalPrice,
         });
       console.log(txHash);
+      const txResult = await txHash.wait();
+      if (txResult) {
+        const a = await axios.put("http://localhost:5001/marketplace/buy", {
+          amount: 1,
+          offer_id: p2pinfo[0].offer_id,
+          user_id: userData.id,
+          token_id: p2pinfo[0].token_id,
+          buyer: userData.wallet_address
+        }, {
+          withCredentials: true
+        }).catch(e => {
+          console.log(e);
+          return e;
+        })
+        console.log(a);
+      }
       setActive(false);
     } catch (e) {
       console.log(e);
@@ -83,8 +98,8 @@ const P2pDetailPage = () => {
     // contract 연결
   };
   const handleChange = e => {
-    setNubmer(e.target.value);
     setTotalPrice(Number(e.target.value) * p2pinfo[0].price);
+    
   };
 
   return active ? (
@@ -168,7 +183,7 @@ const P2pDetailPage = () => {
             <span>Osaka {p2pinfo[0].token_id}</span>
             <span>owned by {p2pinfo[0].seller}</span>
             <form onSubmit={handleSubmit}>
-              <input type="text" value={number} onChange={handleChange} />
+              <input type="text" value={totalPrice} onChange={handleChange} />
               <button type="submit">Buy</button>
             </form>
           </div>

@@ -18,9 +18,11 @@ const SellPage =() => {
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
 
     useEffect(() => {
-      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`)
+      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`, {
+        withCredentials: true
+      })
       .then(res => {
-        const data = res.data;
+        const data = res.data.myToken;
         setSellNFT([...data]);
       }).catch((e) => {
         console.log(e);

@@ -119,7 +119,14 @@ const myPageOwned = async (req, res) => {
     const myToken = await db.token_holder.findAll(
       {
         where: {
-          user_id: client_data.user_id,
+          [Op.and]: [
+            {
+              user_id: client_data.user_id,
+            },
+            {
+              amount: { [Op.gte]: 0 },
+            },
+          ],
         },
         include: [
           {

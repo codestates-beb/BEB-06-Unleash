@@ -662,6 +662,7 @@
   font-weight: 400;
   font-size: 90px;
   color: white;
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 
@@ -707,7 +708,6 @@
   color: rgb(40, 65, 80);
 }
 .marketplace_description_contents span {
-  
   font-size: 26px;
 }
 
@@ -721,6 +721,7 @@
   padding: 10px;
   font-size: 23px;
   font-family: 'Luckiest Guy', cursive;
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 .marketplace_description_eth span:nth-child(1) {
   color: rgb(255, 200, 60);
@@ -729,7 +730,7 @@
 
 .marketplace_description_eth span:nth-child(2) {
   color: rgb(85, 153, 173);
-  text-shadow: 0 0 20px white;
+  text-shadow: 1px 2px 6px #c7b9b9;
   font-size: 25px;
 }
 
@@ -756,7 +757,7 @@
   cursor: pointer;
   border: none;
   height: auto;
-  box-shadow: 0px 2px 5px black;
+  box-shadow: 1px 2px 6px black;
   border-radius: 10px;
   opacity: 1;
   height: 70px;
@@ -774,7 +775,6 @@
   font-family: 'Luckiest Guy', cursive;
   font-size: 35px;
   text-align: center;
-  
   color: red;
   animation: textColor 7s ease infinite alternate;
 }
@@ -837,7 +837,7 @@
   height: 80px;
   font-weight: 400;
   color: white;
-  
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .marketplace_contents_destination {
   display: flex;
@@ -875,7 +875,6 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  
 }
 .marketplace_contents_class button {
   border: none;
@@ -885,6 +884,7 @@
   height: 45.5px;
   font-size: 16px;
   font-weight: 600;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .marketpace_contents_class_value {
@@ -902,6 +902,7 @@
   transform: translateY(-200%);
   animation: destination 0.5s forwards;
   margin: 3px 0px;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .marketpace_contents_class_value li > p {
   font-size: 15px;
@@ -1750,15 +1751,31 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .mypage_approve {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
+  left: 320px;
+  top: 350px;
   
-  left: 20%;
 }
 .mypage_approve button {
-  font-size: 30px;
+  color: white;
+  background: linear-gradient(180deg, rgb(208, 0, 0) 0%, rgb(193, 193, 193) 100%);
+  box-shadow: 1px 2px 6px #c7b9b9;
+  width: 200px;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 27px;
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow: 0 0 1px white;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 
@@ -1772,7 +1789,7 @@
 }
 
 .mypage_contents_category li{
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Luckiest Guy', cursive;
   display: flex;
   flex-direction: row;
   margin: 30px 10px;
@@ -1781,9 +1798,11 @@
   margin-bottom: 30px;
   color: black;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 200;
   list-style: none;
   cursor: pointer;
+  letter-spacing: 2px;
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .mypage_contents_category li > span {
@@ -1791,13 +1810,12 @@
 }
 
 .mypage_contents_nfts {
-
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
-  grid-gap: 24px;
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 30px;
+  gap: 50px;
   justify-items: center;
-  padding: 0 60px;
+  padding: 60px 60px;
 }
 /***********MarketPlace_mypage_Css**************/
 
@@ -1944,6 +1962,74 @@
   font-size: 23px;
   color: #7d7676;
   cursor: pointer;
+}
+
+.vc_Popup_copy_text {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: #23252f;
+  position: relative;
+  cursor: pointer;
+  height: 120px;
+}
+
+.vcPopup_complete {
+  position: fixed;
+  left: calc(50% - 26px);
+  top: 58%;
+  width: 150px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  background-color: #5b5c62;
+  border-radius: 22px;
+  font-weight: 700;
+}
+
+.vcPopup_span {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  margin-top: 20px;
+  margin-left: 10px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.2em;
+  height: 4.8em;
+}
+
+.vcPopup_download {
+  width: 170px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: #23252f;
+  color: white;
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.copy_icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+}
+
+#copy_text {
+  border: 0px;
+  outline: 0px;
+  background-color: rgb(35, 37, 47);
 }
 
 .login_box {
@@ -2320,6 +2406,7 @@ option {
   background-color: #edede9;
   color: black;
   border-radius: 10px;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .detailpage_container_nft_container {
@@ -2329,7 +2416,6 @@ option {
   width: 100%;
   border-radius: 5px;
   padding-bottom: 20px;
-  box-shadow:0 0 4px black;
 }
 .detailpage_container_nft .detailpage_nft_top1 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2381,7 +2467,7 @@ option {
   font-size: 40px;
   color: black;
   border-radius: 5px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .detailpage_nft_desc .detail_top {
@@ -2452,7 +2538,7 @@ option {
   margin-right: 10px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px #f4a259;
+  box-shadow: 1px 2px 6px #c7b9b9;
   color: #f4a259;
   font-weight: 600;
 }
@@ -2480,7 +2566,7 @@ option {
   font-size: 30px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   background-color: #f4a259;
   color: #f4e285;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -2496,7 +2582,7 @@ option {
   font-size: 40px;
   color: white;
   border-radius: 10px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .detailpage_price .detail_top {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2554,7 +2640,7 @@ option {
   height: 100%;
   border-radius: 5px;
   padding-bottom: 20px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 
@@ -2609,7 +2695,7 @@ option {
   font-size: 40px;
   color: black;
   border-radius: 5px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   max-width: 500px;
 }
 
@@ -2681,7 +2767,7 @@ option {
   font-size: 25px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px #5e60ce;
+  box-shadow: 1px 2px 6px #c7b9b9;
   color: #5e60ce;
   font-weight: 600;
 }
@@ -2712,7 +2798,7 @@ option {
   font-size: 30px;
   border-radius: 10px;
   border: none;
-  box-shadow: 0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   background-color: white;
   color: #5e60ce;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -2729,7 +2815,7 @@ option {
   font-size: 40px;
   color: white;
   border-radius: 10px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 .detailp2ppage_price .detailp2p_top {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2766,7 +2852,7 @@ option {
   font-size: 40px;
   color: white;
   border-radius: 10px;
-  box-shadow:0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .detailp2ppage_history .detailp2p_top {
@@ -2816,6 +2902,7 @@ option {
 .sellpage_listing span{
   font-size: 80px;
   color: rgb(40, 65, 80);
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_wrapper {
@@ -2824,7 +2911,7 @@ option {
 .sellpage_listing_wrapper span{
   font-size: 40px;
   color: white;
-  text-shadow: 0 0 2px rgb(40, 65, 80);
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_form {
@@ -2850,6 +2937,8 @@ option {
   border: none;
   cursor: pointer;
   font-size: 40px;
+  text-shadow: 1px 2px 6px #c7b9b9;
+  box-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_input {
@@ -2864,7 +2953,7 @@ option {
   width: 78%;
   height: 50px;
   background: white;
-  box-shadow: 0 0 2px black, 0 0 4px black;
+  box-shadow: 1px 2px 6px #c7b9b9;
   border: none;
   border-radius: 5px;
   color: rgb(40, 65, 80);
@@ -2876,7 +2965,7 @@ option {
 .sellpage_listing_input span {
   font-size: 50px;
   color: white;
-  text-shadow: 0 0 2px rgb(40, 65, 80);
+  text-shadow: 1px 2px 6px #c7b9b9;
 }
 
 .sellpage_listing_summary {
@@ -2920,7 +3009,7 @@ option {
   height: 40px;
   border-radius: 5px;
   border: none;
-  box-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black;
+  box-shadow: 1px 2px 6px white;
   background: rgb(40, 65, 80);
   font-size: 25px;
   font-weight: 600;
@@ -3085,6 +3174,25 @@ option {
 
 
 /****************TicketChangePage*******************/
+
+.vcPopup {
+  width: 500px;
+  height: 400px;
+  position: absolute;
+  background-color: white;
+  top: calc(50% - 250px);
+  left: calc(50% - 200px);
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.vcPopup_main_text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 500;
+}
+
 
 
 .ticketChange {
