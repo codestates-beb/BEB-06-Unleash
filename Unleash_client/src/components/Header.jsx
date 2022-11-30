@@ -11,6 +11,26 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    approve();
+  }, [window.location.pathname, sessionStorage?.getItem('doubleCheck')]);
+  // 도메인이 바뀔때, userData 값이 바뀔때
+
+  useEffect(() => {
+    // 네트워크변경, 연결된 지갑 변경, 메타마스크 내의 로그아웃시 자동으로 실행
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', accounts => {
+        if (accounts.length > 0) {
+          logOut();
+        }
+      });
+    }
+    window.ethereum?.on('networkChanged', handleNetworkChanged);
+    return () => {
+      window.ethereum?.removeListener('networkChanged', handleNetworkChanged);
+    };
+  });
+
+  const approve = () => {
     if (
       sessionStorage?.getItem('initial') || // 맨 처음, 로그인 버튼 누르기 전까지는 로그인 관련 함수가 실행 X
       (!sessionStorage?.getItem('initial') && // 탭 새로 켰을때, 이전에 로그인 상태였으면 실행 // => 새로켰으므로 session인 initial은 null,
@@ -41,8 +61,7 @@ const Header = () => {
           }
         });
     }
-  }, [window.location.pathname, sessionStorage?.getItem('doubleCheck')]);
-  // 도메인이 바뀔때, userData 값이 바뀔때
+  };
 
   const connect4approve = async () => {
     try {
@@ -62,21 +81,6 @@ const Header = () => {
       logOut();
     }
   };
-
-  useEffect(() => {
-    // 네트워크변경, 연결된 지갑 변경, 메타마스크 내의 로그아웃시 자동으로 실행
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', accounts => {
-        if (accounts.length > 0) {
-          logOut();
-        }
-      });
-    }
-    window.ethereum?.on('networkChanged', handleNetworkChanged);
-    return () => {
-      window.ethereum?.removeListener('networkChanged', handleNetworkChanged);
-    };
-  });
 
   const connectWallet = async () => {
     try {
@@ -101,13 +105,13 @@ const Header = () => {
           withCredentials: true,
         })
         .then(function (res) {
-          console.log(res);
-          setUserData(res.data);
+          setUserData(res.data[0]);
           setLoginStatus(() => true);
           setCurrentAccount(accounts[0]);
           localStorage.setItem('isLogout', false);
           sessionStorage.setItem('initial', true);
           sessionStorage.setItem('doubleCheck', userData);
+          setTimeout(() => approve(), Number(res.data[1].time));
         })
         .catch(function (error) {
           console.log(error);
