@@ -33,11 +33,14 @@ const SellForm = (props) => {
         price,
         1
       )
+      console.log(txHash);
       const txResult =  await txHash.wait();
+      const eventLogs = txResult.events;
+      console.log(eventLogs);
 
       if (txResult) {
         axios.post("http://localhost:5001/marketplace/sell", {
-          offer_id: txHash.value.toString(),
+          offer_id: eventLogs[1].args.offerId.toString(),
           token_id: nft[0].token_id,
           price: price,
           amount: 1,
