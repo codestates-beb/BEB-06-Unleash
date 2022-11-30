@@ -10,6 +10,7 @@ import { ListContext } from "../../resources/context_store/ListContext";
 const MyPageContents = () => {
   const context = useContext(ListContext);
   const {accountNFT, setAccountNFT, userData} = context;
+  console.log(userData)
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -21,7 +22,9 @@ const MyPageContents = () => {
   useEffect(() => {
     setBs("sell");
     setBs2("change")
-    axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`).then(res => {
+    axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`, {
+      withCredentials: true
+    }).then(res => {
       const data = res.data;
       setAccountNFT([...data]);
     });
@@ -55,7 +58,6 @@ const MyPageContents = () => {
 
   const status = ["owned", "selling", "used", "selled"];
   const [border, setBorder] = useState([true, false, false, false]);
-  console.log(firstOsaka)
 
   const handleClick = (e) => {
     const text = e.target.textContent;
@@ -64,7 +66,9 @@ const MyPageContents = () => {
       setBorder([true, false, false, false]);
       setBs("sell");
       setBs2("change");
-      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`).then(res => {
+      axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`,{
+        withCredentials: true
+      }).then(res => {
         const data = res.data;
         setAccountNFT([...data]);
       });
@@ -73,7 +77,9 @@ const MyPageContents = () => {
       setBorder([false, true, false, false]);
       setBs("");
       setBs2("retrieve")
-      axios.get(`http://localhost:5001/user/selling?seller=${userData.wallet_address}`).then(res => {
+      axios.get(`http://localhost:5001/user/selling?seller=${userData.wallet_address}`,{
+        withCredentials: true
+      }).then(res => {
         const data = res.data;
         setAccountNFT([...data])
       })
@@ -82,7 +88,9 @@ const MyPageContents = () => {
       setBs("");
       setBs2("");
       setBorder([false, false, true, false]);
-      axios.get(`http://localhost:5001/user/selled?seller=${userData.wallet_address}`).then(res => {
+      axios.get(`http://localhost:5001/user/selled?seller=${userData.wallet_address}`,{
+        withCredentials: true
+      }).then(res => {
         const data = res.data;
         setAccountNFT([...data])
       })

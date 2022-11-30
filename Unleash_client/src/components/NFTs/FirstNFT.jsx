@@ -14,7 +14,7 @@ const FirstNFT = (props) => {
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
   const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
-
+  console.log(loginStatus)
   const handleActive = (e) => {
     setActive(() => !active);
   }
