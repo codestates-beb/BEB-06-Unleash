@@ -1,9 +1,8 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import DefaultNft from "../components/NFTs/DefaultNft";
 import FirstNFT from "../components/NFTs/FirstNFT"
 import BusinessNFT from "../components/NFTs/BusinessNFT"
 import { romaDummy, osakaDummy, sydneyDummy, newYorkDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
-import { filterOsaka, filterNewYork, filterSydney, filterParis, filterRoma } from "../components/utils/utils";
 import { ListContext } from "../resources/context_store/ListContext";
 import axios from "axios";
 

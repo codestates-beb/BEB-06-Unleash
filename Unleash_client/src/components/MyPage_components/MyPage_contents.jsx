@@ -16,7 +16,6 @@ import { ListContext } from '../../resources/context_store/ListContext';
 const MyPageContents = () => {
   const context = useContext(ListContext);
   const { accountNFT, setAccountNFT, userData } = context;
-  console.log(userData);
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -33,8 +32,9 @@ const MyPageContents = () => {
         withCredentials: true,
       })
       .then(res => {
-        const data = res.data;
-        setAccountNFT([...data]);
+        const myToken = res.data.myToken;
+        const priceList = res.data.price_list;
+        setAccountNFT([...myToken]);
       });
   }, []);
 
@@ -85,8 +85,8 @@ const MyPageContents = () => {
           withCredentials: true,
         })
         .then(res => {
-          const data = res.data;
-          setAccountNFT([...data]);
+          const myToken = res.data.myToken;
+          setAccountNFT([...myToken]);
         });
     }
     if (text === status[1]) {
