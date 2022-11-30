@@ -58,11 +58,6 @@ const Header = () => {
     }
   };
 
-  // (Done) 탭, 창 껐을때, 새로 켰을때 다시 들어오면, 로그인유지
-  // (Done) 쿠키 소멸시 유저 state 삭제
-  // (ing) 유저 state 없을시 받아오는
-  // 유저
-
   const handleNetworkChanged = (...args) => {
     const networkId = args[0];
     if (networkId !== '5') {

@@ -21,12 +21,12 @@ const login = async (req, res) => {
       userInfo[0].dataValues,
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: '10sec',
+        expiresIn: '10min',
       }
     );
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      expiresIn: '10sec',
+      expiresIn: '10min',
     });
     console.log(userInfo[0].dataValues);
     return res.status(200).json(userInfo[0].dataValues);
