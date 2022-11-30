@@ -23,11 +23,7 @@ const login = async (req, res) => {
     );
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-<<<<<<< HEAD
-      expiresIn: "10min",
-=======
       expiresIn: '30min',
->>>>>>> 68f7370a0715124298d32fe979e668940709c555
     });
     return res.status(200).json(userInfo[0].dataValues);
   } catch (err) {
