@@ -3,6 +3,10 @@ import Nationality_selectBox from "../components/Ticketing_selectBox/Nationality
 import CountryCode_selectBox from "../components/Ticketing_selectBox/CountryCode_selectBox";
 import { ListContext } from "../resources/context_store/ListContext";
 
+
+import  VcPopup  from "./VcPopup";
+
+
 import {
   verifyJWT,
   DIDtoAddress,
@@ -15,6 +19,7 @@ import axios from "axios";
 function DidCertification(props) {
   const context = useContext(ListContext);
   const { userData } = context;
+  const [vcPopup , setVcPopup] = useState(false);
 
   const [month, setMonth] = useState([ "Month" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "11" , "12"  ]);
   const [day , setDay] = useState([]);
@@ -118,6 +123,7 @@ function DidCertification(props) {
       }
       alert(error);
     } finally {
+      setVcPopup(true);
       props.setDidLoading(false);
     }
   };
@@ -249,13 +255,13 @@ function DidCertification(props) {
       <div className="didCertification_box">
         <div className="tiketing_box" style={{ marginTop: "100px" }} >
           <div className="tiketing_top">
-            <div
+            {/* <div
               className="tiketing_finsh_button did"
               style={{ marginRight: "40px" }}
               onClick={requestVC}
             >
               Request VC
-            </div>
+            </div> */}
             <div className="tiketing_finsh_button did" onClick={claimVC}>
               Claim VC
             </div>
@@ -263,15 +269,19 @@ function DidCertification(props) {
           </div>
 
           <div className="tiketing_oneLine">
-            <div className="tiketing_Line full">
+            <div className="tiketing_Line sixty">
               <div className="tiketing_Line_text">JWT Of Verifiable Credential</div>
               <input
                 className="tiketing_Line_input"
                 placeholder="Verifiable Credential"
-                value={vcJwt}
-                onChange={(e) => setvc(e.target.value)}
+                // value={vcJwt}
+                // onChange={(e) => setvc(e.target.value)}
               />
             </div>
+
+            <div className="connect_wallet_button on"  ></div>
+
+
           </div>
 
           <div className="tiketing_oneLine">
@@ -362,6 +372,10 @@ function DidCertification(props) {
             <div>{verifyMsg}</div>
         </div>
       </div>
+
+      { vcPopup && (
+          <VcPopup vcJwt={vcJwt} setVcPopup={setVcPopup} />
+      )}
     </Fragment>
   );
 }

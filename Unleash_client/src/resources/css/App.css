@@ -1919,6 +1919,74 @@
   cursor: pointer;
 }
 
+.vc_Popup_copy_text {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: #23252f;
+  position: relative;
+  cursor: pointer;
+  height: 120px;
+}
+
+.vcPopup_complete {
+  position: fixed;
+  left: calc(50% - 26px);
+  top: 58%;
+  width: 150px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  background-color: #5b5c62;
+  border-radius: 22px;
+  font-weight: 700;
+}
+
+.vcPopup_span {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  margin-top: 20px;
+  margin-left: 10px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.2em;
+  height: 4.8em;
+}
+
+.vcPopup_download {
+  width: 170px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: #23252f;
+  color: white;
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.copy_icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+}
+
+#copy_text {
+  border: 0px;
+  outline: 0px;
+  background-color: rgb(35, 37, 47);
+}
+
 .login_box {
   width: 600px;
   height: 450px;
@@ -3058,6 +3126,25 @@ option {
 
 
 /****************TicketChangePage*******************/
+
+.vcPopup {
+  width: 500px;
+  height: 400px;
+  position: absolute;
+  background-color: white;
+  top: calc(50% - 250px);
+  left: calc(50% - 200px);
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.vcPopup_main_text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 500;
+}
+
 
 
 .ticketChange {
