@@ -1752,6 +1752,15 @@
   border-radius: 50%;
 }
 
+.mypage_approve {
+  position: absolute;
+  
+  left: 20%;
+}
+.mypage_approve button {
+  font-size: 30px;
+}
+
 
 .mypage_contents {
   display: grid;

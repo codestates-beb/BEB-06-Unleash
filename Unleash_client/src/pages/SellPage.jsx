@@ -6,8 +6,6 @@ import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, sydneyDummy, newYorkDummy, osakaDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 import axios from "axios";
 import { ListContext } from "../resources/context_store/ListContext";
-import {ethers, Contract} from "ethers";
-import MarketAbi from "../resources/MarketAbi.json"
 
 
 const SellPage =() => {
@@ -18,11 +16,6 @@ const SellPage =() => {
     const [destination, setDestination] = useState('');
 
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
-
-    const marketContractAddress = "0xd3430935ca701c2aF5844574275D7DB60D08120c";
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
     useEffect(() => {
       axios.get(`http://localhost:5001/user/owned?user_id=${userData.id}`)
@@ -51,7 +44,7 @@ const SellPage =() => {
             <span>List for sale</span>
             <div className="sellpage_listing_wrapper">
               <span>Choose a type of sale</span>
-              <SellForm />
+              <SellForm nft={nft}/>
             </div>
           </div>
           <div className="sellpage_item">

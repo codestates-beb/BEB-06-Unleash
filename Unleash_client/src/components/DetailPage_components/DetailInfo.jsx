@@ -80,7 +80,6 @@ const DetailInfo = props => {
       );
       // price * number 해서 이더 보내기.
       const txResult =  await txHash.wait();
-      console.log(userData.id, nft[0].token_id, number, nft[0].nftvoucher.price, userData.wallet_address)
       if (txResult) {
         setActive(false); 
         const a = await axios.post("http://localhost:5001/marketplace/mint", {
@@ -89,7 +88,7 @@ const DetailInfo = props => {
           amount: number,
           price: nft[0].nftvoucher.price,
           buyer: userData.wallet_address
-        })
+        }, {withCredentials: true})
         console.log(a)
       }
     } catch(e) {
