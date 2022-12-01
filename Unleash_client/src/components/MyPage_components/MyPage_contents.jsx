@@ -438,7 +438,7 @@ const MyPageContents = () => {
             />
           ))}
       </div>
-      {active ? <DidLoading text={"판매를 취소하는 중입니다."}/> : ""}
+      {active ? <DidLoading /> : ""}
     </div>
   );
 };

@@ -1775,6 +1775,29 @@
   letter-spacing: 1px;
 }
 
+.mypage_approve_money {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 540px;
+  top: 350px;
+}
+.mypage_approve_money button {
+  color: white;
+  background: linear-gradient(180deg, rgb(208, 0, 0) 0%, rgb(193, 193, 193) 100%);
+  box-shadow: 1px 2px 6px #c7b9b9;
+  width: 200px;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 27px;
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow: 0 0 1px white;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
 
 .mypage_contents {
   display: grid;

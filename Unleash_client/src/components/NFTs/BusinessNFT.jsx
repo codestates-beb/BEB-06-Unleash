@@ -92,10 +92,32 @@ const BusinessNFT = (props) => {
             <div className={active ? "default_nft_img_back_active" : "default_nft_img_back"} style={{backgroundImage: `url(${bg})`}}/>
           </div>
           <div className={active ? "nft_buy_button_active" : 'nft_buy_button'}>
-            {bs === "buy" && <Link to={loginStatus ? locate : "" }><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
-            {bs === "sell" && <Link to={loginStatus ? locate : "" }><button onClick={handleSellClick}>{bs}</button></Link>}
-            {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
-            {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
+            {bs === "buy"
+            &&  <Link to={loginStatus ? locate : "" }>
+                  <button onClick={handleDefaultBuyClick}>
+                    {bs}
+                  </button>
+                </Link>
+              }
+            {bs === "sell"
+            &&  <Link to={loginStatus ? locate : "" }>
+                  <button onClick={handleSellClick}>
+                    {bs}
+                  </button>
+                </Link>
+              }
+            {bs2 === "retrieve"
+            &&  <Link to="">
+                  <button onClick={handleRetrieve}>
+                    {bs2}
+                  </button>
+                </Link>
+              }
+            {bs2 === "change"
+            &&  <Link to={locate2}>
+                  <button>{bs2}</button>
+                </Link>
+              }
           </div>
         </Tilt>
 
