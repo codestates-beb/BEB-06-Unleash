@@ -159,7 +159,7 @@ function DidCertification(props) {
       const userInfo = result_verifyJWT.payload.vc.credentialSubject.user;
       // const issuerInfo = result_verifyJWT.payload.vc.credentialSubject.issuer;
       const vcID = result_verifyJWT.issuer;
-      // console.log(vcID);
+
 
       // 인증서 유효기간 검증
       const ID_Address = DIDtoAddress(vcID);
