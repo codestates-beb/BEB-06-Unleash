@@ -14,57 +14,62 @@ import { ethers, Contract } from 'ethers';
 import { Data, LineChart, setChartDatas } from './LineChart';
 import { ListContext } from '../resources/context_store/ListContext';
 import LoadingPage from './LoadingPage';
-import Abi from '../resources/exAbi.json';
 import MarketAbi from '../resources/MarketAbi.json';
+import { useNavigate } from 'react-router-dom';
 
 const P2pDetailPage = () => {
   const context = useContext(ListContext);
   const { p2pMarketList, active, setActive, userData } = context;
+  const navigate = useNavigate();
 
   const p2pinfo = JSON.parse(localStorage.getItem('p2pNFT'));
   const [destination, setDestination] = useState({});
-  const [realOne, setRealOne] = useState('');
   const [chartData, setChartData] = useState(setChartDatas(Data));
   const [totalPrice, setTotalPrice] = useState(p2pinfo[0].price);
 
-  const contractAddress = '0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D';
+  //const contractAddress = '0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D';
 
   const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
+  const filtered = [...p2pMarketList].filter(item => {
+    return (
+      item.offer_id === p2pinfo[0].offer_id &&
+      item.token_id === p2pinfo[0].token_id &&
+      item.price === p2pinfo[0].price &&
+      item.seller === p2pinfo[0].seller &&
+      item.token.to === p2pinfo[0].token.to
+    );
+  });
+
   useEffect(() => {
     axios
       .get(
         `http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`
-      )
-      .then(res => {
+      ).then(res => {
         const data = res.data;
         setChartData(setChartDatas(data));
+      }).catch((e) => {
+        console.log(e);
+        return e;
       });
-    const filtered = [...p2pMarketList].filter(item => {
-      return (
-        item.offer_id === p2pinfo[0].offer_id &&
-        item.token_id === p2pinfo[0].token_id &&
-        item.price === p2pinfo[0].price &&
-        item.seller === p2pinfo[0].seller &&
-        item.token.to === p2pinfo[0].token.to
-      );
-    });
-    setRealOne(filtered);
     if (p2pinfo[0].token.to === 'ITM') return setDestination(osakaDummy); // 뒷정리함수.
     if (p2pinfo[0].token.to === 'JFK') return setDestination(newYorkDummy);
     if (p2pinfo[0].token.to === 'CDG') return setDestination(parisDummy);
     if (p2pinfo[0].token.to === 'SYD') return setDestination(sydneyDummy);
     if (p2pinfo[0].token.to === 'FCO') return setDestination(romaDummy);
-  }, []);
+  }, [p2pinfo]);
 
   const handleSubmit = async (e) => {
+    if(filtered.length === 0) {
+      alert("올바르지 않은 거래입니다.");
+      return navigate("/marketplacep2p");
+    }
     try {
       e.preventDefault();
       setActive(true);
-      if (!realOne) return alert('올바르지 않은 방식의 거래입니다.');
       const txHash = await contract
         .buy(
           p2pinfo[0].offer_id,
@@ -122,7 +127,7 @@ const P2pDetailPage = () => {
                 amount={p2pinfo[0].amount}
               />
             )}
-            {p2pinfo[0].token.class == '비지니스' && (
+            {p2pinfo[0].token.class === '비지니스' && (
               <BusinessNFT
                 bg={destination.nftImg}
                 city={destination.city}
@@ -132,7 +137,7 @@ const P2pDetailPage = () => {
                 amount={p2pinfo[0].amount}
               />
             )}
-            {p2pinfo[0].token.class == '이코노미' && (
+            {p2pinfo[0].token.class === '이코노미' && (
               <DefaultNFT
                 bg={destination.nftImg}
                 city={destination.city}
