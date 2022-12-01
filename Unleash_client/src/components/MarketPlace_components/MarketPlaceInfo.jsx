@@ -20,7 +20,7 @@ const MarketPlaceInfo = () => {
     if (list[0].to === "CDG") return setDestination(parisDummy);
     if (list[0].to === "SYD") return setDestination(sydneyDummy);
     if (list[0].to === "FCO") return setDestination(romaDummy);
-  }, [destination]);
+  }, [destination, list]);
 
   return (
     <>

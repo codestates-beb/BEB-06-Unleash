@@ -715,6 +715,7 @@
   display: flex;
   flex-direction: column;
   margin-right: 50px;
+  margin-bottom: 70px;
 }
 .marketplace_description_eth span {
   color: rgb(40, 65, 80);
@@ -1462,6 +1463,7 @@
   width: 100%;
   height: 300px;
   box-sizing: border-box;
+  box-shadow: 2px 4px 10px #c7b9b9;
   border-bottom-left-radius: 800px;
   border-bottom-right-radius: 800px;
 }
@@ -1478,21 +1480,6 @@
   height: 100%;
   font-weight: 600;
   text-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black,0 0 20px black;
-}
-
-.marketplacep2p_nfts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-  grid-gap: 50px;
-  gap: 50px;
-  justify-items: center;
-  margin: 50px;
-  padding: 100px;
-  justify-content: center;
-  background-color: #FBAB7E;
-  background-image: linear-gradient(190deg, #FBAB7E 0%, #F7CE68 100%);
-  box-shadow: 0 0 2px black, 0 0 4px black;
-  border-radius: 10px
 }
 
 .marketplacep2p_info {
@@ -1540,7 +1527,7 @@
   left: 41%;
   width: 250px;
   background-color: white;
-  box-shadow: 0 0 2px , 0 0 4px, 0 0 8px;
+  box-shadow: 1px 2px 6px #c7b9b9;
   border-radius: 10px;
   margin-top: 40px;
   color: rgb(40, 65, 80);
@@ -1559,6 +1546,21 @@
     transform: translateX(0%);
     font-style: normal;
   }
+}
+
+.marketplacep2p_nfts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 50px;
+  gap: 50px;
+  justify-items: center;
+  margin: 50px;
+  padding: 100px;
+  justify-content: center;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(174.2deg, rgb(255, 244, 228) 7.1%, rgb(240, 246, 238) 67.4%);
+  box-shadow: 1px 2px 6px #c7b9b9;
+  border-radius: 10px
 }
 
 
