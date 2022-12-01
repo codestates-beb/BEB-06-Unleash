@@ -220,6 +220,37 @@ const myPageSelled = async (req, res) => {
   }
 };
 
+const myPageUsed = async (req, res) => {
+  const client_data = req.query;
+
+  try {
+    const data = await db.transactionHistory.findAll({
+      where: {
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            buyer: "burn",
+          },
+        ],
+      },
+      include: [
+        {
+          model: db.ticket,
+          as: "token",
+          required: true,
+          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+        },
+      ],
+    });
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("실패");
+  }
+};
+
 const tokenApprove = async (req, res) => {
   const client_data = req.body;
 
@@ -250,4 +281,5 @@ module.exports = {
   approve,
   logout,
   tokenApprove,
+  myPageUsed,
 };
