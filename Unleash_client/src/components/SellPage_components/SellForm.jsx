@@ -9,7 +9,7 @@ const SellForm = (props) => {
   const context = useContext(ListContext);
   const navigate = useNavigate();
   const {userData} = context;
-  const {nft} = props
+  const {nft, setActive} = props
 
   const result = (110 - 110*0.025).toFixed(2);
   const [price, setPrice] = useState('');
@@ -25,10 +25,11 @@ const SellForm = (props) => {
   }
   console.log(userData)
   const handleSubmit = async (e) => {
+    setActive(true);
     console.log(nft[0].token_id, price)
     e.preventDefault();
     try {
-      const txHash = await contract.connect(signer).sell(
+      const txHash = await contract.sell(
         nft[0].token_id,
         price,
         1
@@ -39,6 +40,7 @@ const SellForm = (props) => {
       console.log(eventLogs);
 
       if (txResult) {
+        setActive(false);
         axios.post("http://localhost:5001/marketplace/sell", {
           offer_id: eventLogs[1].args.offerId.toString(),
           token_id: nft[0].token_id,
@@ -49,7 +51,9 @@ const SellForm = (props) => {
         }, {
           withCredentials: true
         })
-        .then(res => console.log(res))
+        .then(res => {
+          navigate("/marketplacep2p");
+        })
         .catch(e => console.log(e));
       }
     } catch (e) {

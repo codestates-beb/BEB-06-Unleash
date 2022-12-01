@@ -6,6 +6,7 @@ import BusinessNFT from "../components/NFTs/BusinessNFT";
 import { romaDummy, sydneyDummy, newYorkDummy, osakaDummy, parisDummy } from "../components/MarketPlace_components/MarketplaceDummy";
 import axios from "axios";
 import { ListContext } from "../resources/context_store/ListContext";
+import LoadingPage from "./LoadingPage";
 
 
 const SellPage =() => {
@@ -14,6 +15,7 @@ const SellPage =() => {
     //ethers 이용해서 complete 버튼 누르면 메타마스크에서 tx 보내기.
     const [sellNFT, setSellNFT] = useState([]);
     const [destination, setDestination] = useState('');
+    const [active, setActive] = useState(false);
 
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
 
@@ -39,14 +41,14 @@ const SellPage =() => {
     }, []);
 
     return (
+      active ? (<LoadingPage />) :
       <main className="sellpage_main">
-      {/* 헤더헤더 */}
         <div className="sellpage_container">
           <div className="sellpage_listing">
             <span>List for sale</span>
             <div className="sellpage_listing_wrapper">
               <span>Choose a type of sale</span>
-              <SellForm nft={nft}/>
+              <SellForm nft={nft} setActive={setActive}/>
             </div>
           </div>
           <div className="sellpage_item">

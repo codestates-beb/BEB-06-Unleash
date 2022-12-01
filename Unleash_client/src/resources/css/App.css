@@ -954,6 +954,12 @@
   font-size: 22px;
 }
 
+.marketplace_contents_li.on {
+  background-color: white;
+  color: rgb(40, 65, 80);
+  border: none;
+}
+
 
 /***********MarketPlace_Contents_Css**************/
 
@@ -1859,6 +1865,7 @@
   display: inline-block;
   margin-left: 8px;
   font-size: 24px;
+  
 }
 
 .Header_text {
@@ -1871,6 +1878,7 @@
   padding: 0 20px;
   box-sizing: border-box;
   margin: 0;
+  font-weight: 300;
 }
 
 .Header_text:hover {
