@@ -120,6 +120,7 @@ const sell = async (req, res) => {
     await transaction.commit();
     return res.status(200).send("성공");
   } catch (err) {
+    console.log(err);
     await transaction.rollback();
     return res.status(400).send(err);
   }
