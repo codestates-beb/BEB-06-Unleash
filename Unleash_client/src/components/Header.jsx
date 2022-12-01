@@ -30,7 +30,7 @@ const Header = () => {
     };
   });
 
-  const approve = logout => {
+  const approve = () => {
     const sessionInitial = sessionStorage?.getItem('initial');
     const localIsLogout = localStorage?.getItem('isLogout');
 
