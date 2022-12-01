@@ -1,16 +1,23 @@
+import {  useEffect} from 'react';
+
 function LoadingPage() {
 
-  window.onload = function(){
+  const onProgress = () => {
     var elm = document.querySelector('#progress');
-    setInterval(function(){
-      if(!elm.innerHTML.match(/100%/gi)){
-        elm.innerHTML = (parseInt(elm.innerHTML) + 1) + '%';
-      } else {
-        clearInterval();
-      }
-    }, 18)
+    if(!elm.innerHTML.match(/99%/gi)){
+      elm.innerHTML = (parseInt(elm.innerHTML) + 1) + '%';
+    } else {
+      clearInterval();
+    }
+
   }
 
+
+  useEffect(() => {
+    let progress = setInterval(() => onProgress(),15)
+
+    return () => clearInterval(progress);
+});
 
     return (
       <div className="loading">
