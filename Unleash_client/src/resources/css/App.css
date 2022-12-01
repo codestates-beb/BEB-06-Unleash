@@ -954,6 +954,12 @@
   font-size: 22px;
 }
 
+.marketplace_contents_li.on {
+  background-color: white;
+  color: rgb(40, 65, 80);
+  border: none;
+}
+
 
 /***********MarketPlace_Contents_Css**************/
 
@@ -1311,7 +1317,7 @@
 }
 
 .default_nft_contents_contentwrapper_active p {
-  margin: 5px 0;
+  margin: 2px 0;
 }
 
 .default_nft_contents_contentwrapper_active p:nth-child(2) {
@@ -1471,16 +1477,7 @@
   font-size: 100px;
   height: 100%;
   font-weight: 600;
-  animation: textshadow 2s ease-in-out infinite alternate forwards;
-}
-
-@keyframes textshadow {
-  0% {
-    text-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black;
-  }
-  100% {
-    text-shadow: 0 0 20px black, 0 0 40px black, 0 0 80px black;
-  }
+  text-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black,0 0 20px black;
 }
 
 .marketplacep2p_nfts {
@@ -1778,6 +1775,29 @@
   letter-spacing: 1px;
 }
 
+.mypage_approve_money {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 540px;
+  top: 350px;
+}
+.mypage_approve_money button {
+  color: white;
+  background: linear-gradient(180deg, rgb(208, 0, 0) 0%, rgb(193, 193, 193) 100%);
+  box-shadow: 1px 2px 6px #c7b9b9;
+  width: 200px;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 27px;
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow: 0 0 1px white;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
 
 .mypage_contents {
   display: grid;
@@ -1859,6 +1879,7 @@
   display: inline-block;
   margin-left: 8px;
   font-size: 24px;
+  
 }
 
 .Header_text {
@@ -1871,6 +1892,7 @@
   padding: 0 20px;
   box-sizing: border-box;
   margin: 0;
+  font-weight: 300;
 }
 
 .Header_text:hover {

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DefaultNft from '../NFTs/DefaultNft';
 import FirstNFT from '../NFTs/FirstNFT';
 import BusinessNFT from '../NFTs/BusinessNFT';
@@ -12,10 +12,11 @@ import {
 } from '../../components/MarketPlace_components/MarketplaceDummy';
 import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
+import DidLoading from '../DidLoading';
 
 const MyPageContents = () => {
   const context = useContext(ListContext);
-  const { accountNFT, setAccountNFT, userData } = context;
+  const { accountNFT, setAccountNFT, userData, active } = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -109,19 +110,33 @@ const MyPageContents = () => {
       setBs('');
       setBs2('');
       setBorder([false, false, true, false]);
-      axios
-        .get(
-          `http://localhost:5001/user/selled?seller=${userData.wallet_address}`,
-          {
-            withCredentials: true,
-          }
-        )
-        .then(res => {
-          const data = res.data;
-          setAccountNFT([...data]);
-        });
+      axios.get(`http://localhost:5001/user/selled?seller=${userData.wallet_address}`, {
+        withCredentials: true,
+      })
+      .then(res => {
+        const data = res.data;
+        setAccountNFT([...data]);
+      }).catch(e => {
+        console.log(e);
+        return e;
+      })
     }
-    if (text === status[3]) return setBorder([false, false, false, true]);
+    if (text === status[3]) {
+      setBs('');
+      setBs2('');
+      setBorder([false, false, false, true]);
+      axios
+      .get(
+        `http://localhost:5001/user/selled?seller=${userData.wallet_address}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(res => {
+        const data = res.data;
+        setAccountNFT([...data]);
+      });
+    };
   };
   // if status 가 selling일 경우에, nft 보여줄때 bs를 retrieve로 바꿔서.
 
@@ -423,6 +438,7 @@ const MyPageContents = () => {
             />
           ))}
       </div>
+      {active ? <DidLoading /> : ""}
     </div>
   );
 };

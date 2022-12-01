@@ -25,7 +25,7 @@ function initModels(sequelize) {
   transactionHistory.belongsTo(ticket, { as: "token", foreignKey: "token_id"});
   ticket.hasMany(transactionHistory, { as: "transactionHistories", foreignKey: "token_id"});
   token_holder.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasOne(token_holder, { as: "token_holder", foreignKey: "user_id"});
+  user.hasMany(token_holder, { as: "token_holders", foreignKey: "user_id"});
 
   return {
     marketplace,

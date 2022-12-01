@@ -9,12 +9,12 @@ const SellForm = (props) => {
   const context = useContext(ListContext);
   const navigate = useNavigate();
   const {userData} = context;
-  const {nft} = props
+  const {nft, setActive} = props
 
-  const result = (110 - 110*0.025).toFixed(2);
+  
   const [price, setPrice] = useState('');
 
-
+  const result = (price - price*0.025).toFixed(2);
   const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -23,12 +23,13 @@ const SellForm = (props) => {
   const handleChange = (e) => {
     setPrice(e.target.value);
   }
-
+  console.log(userData)
   const handleSubmit = async (e) => {
+    setActive(true);
     console.log(nft[0].token_id, price)
     e.preventDefault();
     try {
-      const txHash = await contract.connect(signer).sell(
+      const txHash = await contract.sell(
         nft[0].token_id,
         price,
         1
@@ -39,19 +40,31 @@ const SellForm = (props) => {
       console.log(eventLogs);
 
       if (txResult) {
+        alert("리스팅에 성공했습니다.")
+        setActive(false);
         axios.post("http://localhost:5001/marketplace/sell", {
           offer_id: eventLogs[1].args.offerId.toString(),
           token_id: nft[0].token_id,
           price: price,
           amount: 1,
-          seller: userData.wallet_address
+          seller: userData.wallet_address,
+          user_id: userData.id
         }, {
           withCredentials: true
         })
-        .then(res => console.log(res))
-        .catch(e => console.log(e));
+        .then(res => {
+          navigate("/marketplacep2p");
+        })
+        .catch(e => {
+          setActive(false);
+          alert("리스팅에 실패했습니다.")
+          console.log(e);
+          return e;
+        });
       }
     } catch (e) {
+      setActive(false);
+      alert("리스팅에 실패했습니다.");
       console.log(e);
       return e;
     }
@@ -71,7 +84,7 @@ const SellForm = (props) => {
         <span>Summary</span>
         <div className="sellpage_summary_details">
           <span>Listing price</span>
-          <span>110ETH</span>
+          <span>{price} ETH</span>
         </div>
         <div className="sellpage_summary_details">
           <span>Service fee</span>
@@ -79,7 +92,7 @@ const SellForm = (props) => {
         </div>
         <div className="sellpage_summary_details">
           <span>Listing price</span>
-          <span>{result}ETH</span>
+          <span>{result} ETH</span>
         </div>
       </div>
       <div className="sellpage_total">

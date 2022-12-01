@@ -13,8 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       references: {
         model: 'user',
         key: 'id'
-      },
-      unique: "FK_token_holder_user"
+      }
     },
     token_id: {
       type: DataTypes.INTEGER,
@@ -42,18 +41,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "user_id",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "user_id" },
-        ]
-      },
-      {
         name: "FK_token_holder_ticket",
         using: "BTREE",
         fields: [
           { name: "token_id" },
+        ]
+      },
+      {
+        name: "user_id",
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
         ]
       },
     ]
