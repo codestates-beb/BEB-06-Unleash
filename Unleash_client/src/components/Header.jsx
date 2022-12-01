@@ -193,11 +193,11 @@ const Header = () => {
       <Link to="/marketplacep2p">
         <div
           className={
-            'Header_text' + (locationName == '/marketplace' ? ' on' : '')
+            'Header_text' + (  (locationName == '/marketplace' || locationName == '/marketplacep2p' ) ? ' on' : '')
           }
         >
           MarketPlace
-          {locationName == '/marketplace' && (
+          {  (locationName == '/marketplace' || locationName == '/marketplacep2p' ) && (
             <div className="Header_text_border"></div>
           )}
         </div>

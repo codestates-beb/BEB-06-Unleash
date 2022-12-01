@@ -74,7 +74,8 @@ const DefaultNft = (props) => {
   }
   
   const handleChange = () => {
-    setSelectedNft(token_Id);
+    const selectedNftData = [...accountNFT].filter(item => item.token_id === token_Id);
+    setSelectedNft(selectedNftData);
   }
 
   return ( 

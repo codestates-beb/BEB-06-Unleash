@@ -92,6 +92,7 @@ function DidCertification(props) {
   const claimVC = async () => {
     try {
       props.setDidLoading(true);
+      props.setText( "승인 처리중입니다 약 5~15초 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.");
       // VC 발급 및 갱신 요청
       const result = await axios.post(
         process.env.REACT_APP_IATA_BACKEND_URL + "/did/claimVC",
@@ -192,6 +193,7 @@ function DidCertification(props) {
       // 유저가 제출한 JWT VC와 IATA가 발급해준 ID 비교
       // setVerifyMsg("Verifiable Credential 검증 진행...")
       props.setDidLoading(true);
+      props.setText( "승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.");
       const _DID_DOCUMENT = await IATA_DID_Document();
       const _VCID = DIDtoAddress(VCID);
       const result = await verifyVCID(_VCID,_DID_DOCUMENT);  
@@ -212,27 +214,28 @@ function DidCertification(props) {
       const tx = await contract.connect(signer).safeTransferFrom(
           userData.wallet_address,
           "0x0000000000000000000000000000000000000001",
-          selectedNft,
+          selectedNft[0].token_id,
           1,
           "0x00"
       )
       const rxResult = await tx.wait();
 
       console.log(rxResult);
-
+      if (rxResult) {
       await axios.put("http://localhost:5001/marketplace/exchange", {
         amount : 1,
         user_id : userData.id,
-        token_id : selectedNft,
+        token_id : selectedNft[0].token_id,
         seller: userData.wallet_address
       }, {
         withCredentials: true
       }).catch(e => {
         console.log(e);
-        return e;
+        return;
       })
 
-
+      props.setticket(true);
+    }
       
     } catch (error) {
       alert(error)
@@ -240,7 +243,7 @@ function DidCertification(props) {
     } finally {
       // setVerifyMsg("End Request")
       props.setDidLoading(false);
-      props.setticket(true);
+    
     }
   }
 

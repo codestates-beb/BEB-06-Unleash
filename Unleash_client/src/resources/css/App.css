@@ -3298,7 +3298,7 @@ option {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 0;
+  margin: 10px 0 30px 0;
   box-sizing: border-box;
 }
 .ticket-system .receipts .receipt .route .plane-icon {
@@ -3306,6 +3306,25 @@ option {
   height: 30px;
   transform: rotate(90deg);
 }
+
+.receipt .Header_logo_border {
+  color: black;
+  border: 1px solid black;
+  margin-top: 0;
+  padding: 8px;
+  margin-left: 0;
+}
+
+
+.receipt .Header_logo {
+  color: black;
+  font-size: 16px;
+}
+
+.receipt .Header_logo_text {
+  color: black;
+}
+
 .ticket-system .receipts .receipt .route h2 {
   font-weight: 300;
   font-size: 2.2em;
@@ -3405,7 +3424,8 @@ option {
   position: fixed;
   color: white;
   top: 613px;
-  left: 738px;
+  left: 762px;
+  width: 400px;
 }
 
 .gradientContainer {
