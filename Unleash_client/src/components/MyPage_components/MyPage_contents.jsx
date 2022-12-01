@@ -110,6 +110,16 @@ const MyPageContents = () => {
       setBs('');
       setBs2('');
       setBorder([false, false, true, false]);
+      axios.get(`http://localhost:5001/user/selled?seller=${userData.wallet_address}`, {
+        withCredentials: true,
+      })
+      .then(res => {
+        const data = res.data
+        setAccountNFT([...data]);
+      }).catch(e => {
+        console.log(e);
+        return e;
+      })
     }
     if (text === status[3]) {
       setBs('');
@@ -428,7 +438,7 @@ const MyPageContents = () => {
             />
           ))}
       </div>
-      {active ? <DidLoading/> : ""}
+      {active ? <DidLoading text={"판매를 취소하는 중입니다."}/> : ""}
     </div>
   );
 };
