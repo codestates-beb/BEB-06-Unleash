@@ -1,8 +1,8 @@
-const { db, sequelize } = require("../sequelize/models/index.js");
-const { Op } = require("sequelize");
-const jwt = require("jsonwebtoken");
+const { db, sequelize } = require('../sequelize/models/index.js');
+const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
 
-require("dotenv").config();
+require('dotenv').config();
 
 const login = async (req, res) => {
   const client_data = req.body;
@@ -11,19 +11,19 @@ const login = async (req, res) => {
       where: {
         wallet_address: client_data.wallet_address,
       },
-      attributes: ["id", "wallet_address", "approve"],
+      attributes: ['id', 'wallet_address', 'approve'],
     });
-    if (!userInfo.length) {
-      return res.status(400).send("invalid user");
+    if (userInfo === undefined || userInfo.length === 0) {
+      return res.status(400).send('invalid user');
     }
-    // 1000*60*30 = 1800000 (30분)
-    const expireTime = { time: "1800000" };
+    // 1000*60*30 = 1800000 (= 30min)
+    const expireTime = { time: '1800000' };
     const accessToken = jwt.sign(
       userInfo[0].dataValues,
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: expireTime.time }
     );
-    res.cookie("accessToken", accessToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
       expiresIn: expireTime.time,
     });
@@ -37,8 +37,8 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    res.cookie("accessToken", "");
-    return res.status(200).send("logout");
+    res.clearCookie('accessToken', '');
+    return res.status(200).send('logout');
   } catch (err) {
     return res.status(400).send(err);
   }
@@ -49,25 +49,21 @@ const approve = async (req, res) => {
 
   try {
     const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-    // if (!req.body.data) {
-    // 클라이언트로부터 온 isUserData가 false이면 상태가 없는것이므로 값을 보내줌
     return res.status(200).send({
-      message: "ok",
+      message: 'ok',
       data: {
         userInfo: data,
       },
     });
-    // }
   } catch (e) {
-    if (e.name === "TokenExpiredError") {
+    console.log(e);
+    if (e.name === 'TokenExpiredError') {
       // 유효기간이 지났을때
-      res.clearCookie("accessToken", "");
-      res.cookie("accessToken", "");
-      return res.status(400).send("expired access token");
-    } else if (typeof cookie == "undefined") {
+      res.clearCookie('accessToken', '');
+      return res.status(400).send('expired access token');
+    } else if (typeof cookie == 'undefined') {
       // 쿠키가 제대로 안들어왔을때
-      return res.json({ message: "token undefined" });
+      return res.json({ message: 'token undefined' });
     }
   }
 };
@@ -86,7 +82,7 @@ const joinMembership = async (req, res) => {
     client_data.wallet_address === undefined ||
     client_data.birth === undefined
   ) {
-    return res.status(400).send("정보가 올바르지 않습니다");
+    return res.status(400).send('정보가 올바르지 않습니다');
   }
   try {
     await db.user.create({
@@ -100,11 +96,11 @@ const joinMembership = async (req, res) => {
       wallet_address: client_data.wallet_address,
       birth: client_data.birth,
     });
-    return res.status(200).send("성공");
+    return res.status(200).send('성공');
   } catch (err) {
-    if (err.name === "SequelizeUniqueConstraintError") {
+    if (err.name === 'SequelizeUniqueConstraintError') {
       console.log(err.message);
-      return res.status(400).send("중복된 주소나 메일입니다.");
+      return res.status(400).send('중복된 주소나 메일입니다.');
     }
     console.log(err);
     return res.status(400).send(err);
@@ -131,20 +127,20 @@ const myPageOwned = async (req, res) => {
         include: [
           {
             model: db.ticket,
-            as: "token",
+            as: 'token',
             required: true,
-            attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+            attributes: ['from', 'to', 'departuretime', 'arrivaltime', 'class'],
           },
         ],
       },
       { transaction }
     );
-    const token_list = myToken.map((el) => {
+    const token_list = myToken.map(el => {
       return el.token_id;
     });
     const price_list = await db.nftvoucher.findAll(
       {
-        attributes: ["token_id", "price"],
+        attributes: ['token_id', 'price'],
         where: {
           token_id: { [Op.in]: token_list },
         },
@@ -178,9 +174,9 @@ const myPageSelling = async (req, res) => {
       include: [
         {
           model: db.ticket,
-          as: "token",
+          as: 'token',
           required: true,
-          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+          attributes: ['from', 'to', 'departuretime', 'arrivaltime', 'class'],
         },
       ],
     });
@@ -201,22 +197,22 @@ const myPageSelled = async (req, res) => {
             seller: client_data.seller,
           },
           {
-            buyer: { [Op.ne]: "Unleash" },
+            buyer: { [Op.ne]: 'Unleash' },
           },
         ],
       },
       include: [
         {
           model: db.ticket,
-          as: "token",
+          as: 'token',
           required: true,
-          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+          attributes: ['from', 'to', 'departuretime', 'arrivaltime', 'class'],
         },
       ],
     });
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(400).send("에러");
+    return res.status(400).send('에러');
   }
 };
 
@@ -231,23 +227,23 @@ const myPageUsed = async (req, res) => {
             seller: client_data.seller,
           },
           {
-            buyer: "burn",
+            buyer: 'burn',
           },
         ],
       },
       include: [
         {
           model: db.ticket,
-          as: "token",
+          as: 'token',
           required: true,
-          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+          attributes: ['from', 'to', 'departuretime', 'arrivaltime', 'class'],
         },
       ],
     });
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("실패");
+    return res.status(400).send('실패');
   }
 };
 
@@ -257,7 +253,7 @@ const tokenApprove = async (req, res) => {
   try {
     await db.user.update(
       {
-        approve: "true",
+        approve: 'true',
       },
       {
         where: {
@@ -265,10 +261,10 @@ const tokenApprove = async (req, res) => {
         },
       }
     );
-    return res.status(200).send("성공");
+    return res.status(200).send('성공');
   } catch (err) {
     console.log(err);
-    return res.status(400).send("실패");
+    return res.status(400).send('실패');
   }
 };
 

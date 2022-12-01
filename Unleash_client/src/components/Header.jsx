@@ -20,7 +20,7 @@ const Header = () => {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', accounts => {
         if (accounts.length > 0) {
-          logOut();
+          logout();
         }
       });
     }
@@ -30,36 +30,43 @@ const Header = () => {
     };
   });
 
-  const approve = () => {
-    if (
-      sessionStorage?.getItem('initial') || // 맨 처음, 로그인 버튼 누르기 전까지는 로그인 관련 함수가 실행 X
-      (!sessionStorage?.getItem('initial') && // 탭 새로 켰을때, 이전에 로그인 상태였으면 실행 // => 새로켰으므로 session인 initial은 null,
-        localStorage?.getItem('isLogout') === 'false') //local에 있는 isLogout은 탭 닫기 이전의 기록이 있음
-    ) {
-      axios
-        .get('http://localhost:5001/user/approve', {
-          withCredentials: true,
-        })
-        .then(res => {
-          const userInformation = res.data.data.userInfo;
+  const approve = logout => {
+    const sessionInitial = sessionStorage?.getItem('initial');
+    const localIsLogout = localStorage?.getItem('isLogout');
 
-          setUserData(userInformation);
-          const data = userInformation.wallet_address;
-          if (data && localStorage?.getItem('isLogout') === 'false') {
-            connect4approve();
-            setLoginStatus(() => true);
-          } // 로그인 된 상태로 렌더링 시, jwt 토큰 verify가 된 상태면
-          // connect4approve 실행해서 지갑 연결 자동 실행
-          sessionStorage.setItem('doubleCheck', userData);
-        })
-        .catch(err => {
-          if (err.response.data === 'expired access token') {
-            // jwt 만료가 된 처음 시점에만 이 에러가 옴
-            alert('다시 로그인하세요');
-            setUserData([]); // jwt 만료되었으므로 유저 정보도 초기화
-            logOut();
-          }
-        });
+    if (sessionInitial || (!sessionInitial && localIsLogout === 'false')) {
+      // 맨 처음, 로그인 버튼 누르기 전까지는 로그인 관련 함수가 실행 X
+      // 탭 새로 켰을때, 이전에 로그인 상태였으면 실행 // => 새로켰으므로 session인 initial은 null,
+      //local에 있는 isLogout은 탭 닫기 이전의 기록이 있음
+      if (sessionInitial && localIsLogout === 'false') {
+        // 탭을 처음킨건 아니지만
+        // 로그아웃 된 상태 // 이미 logout 상태면 approve 할 필요가 없음
+        axios
+          .get('http://localhost:5001/user/approve', {
+            withCredentials: true,
+          })
+          .then(res => {
+            const userInformation = res.data.data.userInfo;
+
+            setUserData(userInformation);
+            const data = userInformation.wallet_address;
+            if (data && localStorage?.getItem('isLogout') === 'false') {
+              connect4approve();
+              setLoginStatus(() => true);
+            } // 로그인 된 상태로 렌더링 시, jwt 토큰 verify가 된 상태면
+            // connect4approve 실행해서 지갑 연결 자동 실행
+            sessionStorage.setItem('doubleCheck', userData);
+          })
+          .catch(err => {
+            if (err.response.data === 'expired access token') {
+              // jwt 만료가 된 처음 시점에만 이 에러가 옴
+              alert('다시 로그인하세요');
+              setUserData([]); // jwt 만료되었으므로 유저 정보도 초기화
+              logout();
+            }
+          });
+        console.log(userData);
+      }
     }
   };
 
@@ -78,7 +85,7 @@ const Header = () => {
   const handleNetworkChanged = (...args) => {
     const networkId = args[0];
     if (networkId !== '5') {
-      logOut();
+      logout();
     }
   };
 
@@ -125,13 +132,13 @@ const Header = () => {
     }
   };
 
-  const logOut = () => {
+  const logout = () => {
     setUserData([]);
     setCurrentAccount('');
     setLoginStatus(() => false);
     sessionStorage.setItem('doubleCheck', '');
     localStorage.setItem('isLogout', true);
-    window.location.reload();
+    navigate(`/mainpage`);
     axios
       .get('http://localhost:5001/user/logout', {
         withCredentials: true,
@@ -156,7 +163,7 @@ const Header = () => {
           Connect Wallet
         </div>
       ) : (
-        <div className="Header_text" onClick={logOut}>
+        <div className="Header_text" onClick={logout}>
           Logout
         </div>
       )}
