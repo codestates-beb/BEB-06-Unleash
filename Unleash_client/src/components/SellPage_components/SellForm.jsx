@@ -11,10 +11,10 @@ const SellForm = (props) => {
   const {userData} = context;
   const {nft, setActive} = props
 
-  const result = (110 - 110*0.025).toFixed(2);
+  
   const [price, setPrice] = useState('');
 
-
+  const result = (price - price*0.025).toFixed(2);
   const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -76,7 +76,7 @@ const SellForm = (props) => {
         <span>Summary</span>
         <div className="sellpage_summary_details">
           <span>Listing price</span>
-          <span>110ETH</span>
+          <span>{price} ETH</span>
         </div>
         <div className="sellpage_summary_details">
           <span>Service fee</span>
@@ -84,7 +84,7 @@ const SellForm = (props) => {
         </div>
         <div className="sellpage_summary_details">
           <span>Listing price</span>
-          <span>{result}ETH</span>
+          <span>{result} ETH</span>
         </div>
       </div>
       <div className="sellpage_total">

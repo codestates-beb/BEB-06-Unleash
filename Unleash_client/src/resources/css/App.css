@@ -1317,7 +1317,7 @@
 }
 
 .default_nft_contents_contentwrapper_active p {
-  margin: 5px 0;
+  margin: 2px 0;
 }
 
 .default_nft_contents_contentwrapper_active p:nth-child(2) {
@@ -1477,16 +1477,7 @@
   font-size: 100px;
   height: 100%;
   font-weight: 600;
-  animation: textshadow 2s ease-in-out infinite alternate forwards;
-}
-
-@keyframes textshadow {
-  0% {
-    text-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black;
-  }
-  100% {
-    text-shadow: 0 0 20px black, 0 0 40px black, 0 0 80px black;
-  }
+  text-shadow: 0 0 2px black, 0 0 4px black, 0 0 8px black,0 0 20px black;
 }
 
 .marketplacep2p_nfts {

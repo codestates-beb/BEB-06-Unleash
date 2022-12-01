@@ -43,14 +43,9 @@ const FirstNFT = (props) => {
     const local3 = JSON.stringify([...filtered3]);
     localStorage.setItem("sellNFT", local3);
   }
-  
-  console.log(offer_id)
+  // 고래 추가해야됨.
   const handleRetrieve = async () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
-    const selectOne = [...accountNFT].filter((item) => {
-      return item.offer_id === offer_id;
-    })
-    console.log(selectOne);
     try {
       const txHash = await contract.cancel(
         parseInt(offer_id)
@@ -59,12 +54,14 @@ const FirstNFT = (props) => {
       console.log(txResult);
       if (txResult) {
         axios.put("http://localhost:5001/marketplace/cancel", {
-          offer_id : selectOne.offer_id,
-          amount : selectOne.amount,
+          offer_id : offer_id,
+          amount : amount,
           user_id : userData.id,
-          token_id : selectOne.token_id
+          token_id : token_Id
         }, {
           withCredentials: true
+        }).then(res => {
+          console.log(res);
         }).catch(e => {
           console.log(e);
           return e;

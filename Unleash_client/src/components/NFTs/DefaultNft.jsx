@@ -41,7 +41,8 @@ const DefaultNft = (props) => {
     const local3 = JSON.stringify([...filtered3]);
     localStorage.setItem("sellNFT", local3);
   }
-  console.log(token_Id, amount)
+
+  
   const handleRetrieve = async () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
     try {
