@@ -58,7 +58,7 @@ const MainPage = () => {
     setToPlaceSelectBox(true);
   };
 
-  const { list, setList, a } = context;
+  const { setList } = context;
 
   const onClickSearch = () => {
     let To = ToBox[toPlace];

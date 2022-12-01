@@ -88,7 +88,7 @@ const BusinessNFT = (props) => {
                   <p>Travel with Unleash</p>
                   {left && <p>left : {left}</p>}
                   {amount && <p>amount: {amount}</p>}
-                  <p>{price}ETH</p>
+                  {price && <p>{price}ETH</p>}
                   <p>{departure}</p>
                   <p>{arrival}</p>
                 </div>
