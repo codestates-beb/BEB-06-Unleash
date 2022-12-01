@@ -13,10 +13,10 @@ const login = async (req, res) => {
       },
       attributes: ["id", "wallet_address", "approve"],
     });
-    if (!userInfo.length) {
+    if (userInfo === undefined || userInfo.length === 0) {
       return res.status(400).send("invalid user");
     }
-    // 1000*60*30 = 1800000 (30분)
+    // 1000*60*30 = 1800000 (= 30min)
     const expireTime = { time: "1800000" };
     const accessToken = jwt.sign(
       userInfo[0].dataValues,
@@ -37,7 +37,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    res.cookie("accessToken", "");
+    res.clearCookie("accessToken", "");
     return res.status(200).send("logout");
   } catch (err) {
     return res.status(400).send(err);
@@ -49,21 +49,17 @@ const approve = async (req, res) => {
 
   try {
     const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-    // if (!req.body.data) {
-    // 클라이언트로부터 온 isUserData가 false이면 상태가 없는것이므로 값을 보내줌
     return res.status(200).send({
       message: "ok",
       data: {
         userInfo: data,
       },
     });
-    // }
   } catch (e) {
+    console.log(e);
     if (e.name === "TokenExpiredError") {
       // 유효기간이 지났을때
       res.clearCookie("accessToken", "");
-      res.cookie("accessToken", "");
       return res.status(400).send("expired access token");
     } else if (typeof cookie == "undefined") {
       // 쿠키가 제대로 안들어왔을때
@@ -201,7 +197,7 @@ const myPageSelled = async (req, res) => {
             seller: client_data.seller,
           },
           {
-            buyer: { [Op.ne]: "Unleash" },
+            buyer: { [Op.notIn]: ["Unleash", "burn"] },
           },
         ],
       },
