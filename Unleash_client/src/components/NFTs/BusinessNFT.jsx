@@ -11,7 +11,7 @@ const BusinessNFT = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
+  const marketContractAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
