@@ -110,43 +110,41 @@ module.exports = {
       );
 
       // 기존 VC 있는지 확인
-      const vcInfo = await db['vc_list'].findOne({
-        where: {
-          user_id: userInfo.id,
-        },
-      });
+      // const vcInfo = await db['vc_list'].findOne({
+      //   where: {
+      //     user_id: userInfo.id,
+      //   },
+      // });
 
       // RETURN : 기존 VC 있는 경우 갱신, UPDATE
-      if (vcInfo !== null) {
-        const vcSaveInfo = await db['vc_list'].update(
-          {
-            vc: vcJwt,
-          },
-          {
-            where: {
-              user_id: userInfo.id,
-            },
-          }
-        );
-        responseData = {
-          user_id: vcInfo.user_id,
-          did: vcInfo.did,
-          vc: vcJwt,
-        };
-        return res.status(200).send(responseData);
-      }
+      // if (vcInfo !== null) {
+      //   const vcSaveInfo = await db['vc_list'].update(
+      //     {
+      //       vc: vcJwt,
+      //     },
+      //     {
+      //       where: {
+      //         user_id: userInfo.id,
+      //       },
+      //     }
+      //   );
+      //   responseData = {
+      //     user_id: vcInfo.user_id,
+      //     did: vcInfo.did,
+      //     vc: vcJwt,
+      //   };
+      //   return res.status(200).send(responseData);
+      // }
 
       // 기존 VC 없는 경우 발급, INSERT
-      const vcSaveInfo = await db['vc_list'].create({
-        user_id: userInfo.id,
-        did: subjectDid.did,
-        vc: vcJwt,
-      });
+      // const vcSaveInfo = await db['vc_list'].create({
+      //   user_id: userInfo.id,
+      //   did: subjectDid.did,
+      //   vc: vcJwt,
+      // });
 
       responseData = {
-        user_id: vcSaveInfo.user_id,
-        did: vcSaveInfo.did,
-        vc: vcSaveInfo.vc,
+        vc: vcJwt,
       };
       return res.status(200).send(responseData);
     } catch (error) {
