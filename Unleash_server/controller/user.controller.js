@@ -16,16 +16,19 @@ const login = async (req, res) => {
     if (!userInfo.length) {
       return res.status(400).send("invalid user");
     }
+    // 1000*60*30 = 1800000 (30분)
+    const expireTime = { time: "1800000" };
     const accessToken = jwt.sign(
       userInfo[0].dataValues,
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "30min" }
+      { expiresIn: expireTime.time }
     );
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      expiresIn: "30min",
+      expiresIn: expireTime.time,
     });
-    return res.status(200).json(userInfo[0].dataValues);
+    const data = [userInfo[0].dataValues, expireTime];
+    return res.status(200).json(data);
   } catch (err) {
     console.log(err);
     return res.status(400).send(err);
@@ -121,7 +124,7 @@ const myPageOwned = async (req, res) => {
               user_id: client_data.user_id,
             },
             {
-              amount: { [Op.gte]: 0 },
+              amount: { [Op.gt]: 0 },
             },
           ],
         },
