@@ -65,11 +65,7 @@ const MainPage = () => {
     console.log(To);
     let params = { from: 'ICN' };
     params['to'] = To;
-    params['departuretime'] = new Date(
-      departDate.getTime() - departDate.getTimezoneOffset() * 60000
-    )
-      .toISOString()
-      .substr(0, 11);
+    params['departuretime'] = new Date(departDate.getTime() - departDate.getTimezoneOffset() * 60000).toISOString().substr(0, 11);
 
     axios
       .get('http://localhost:5001/marketplace/ticket', { params })
@@ -99,111 +95,55 @@ const MainPage = () => {
                     <div className="mainPage_ticketing_name">From</div>
                     <div className="mainPage_ticketing_select">seoul</div>
                   </div>
-                  <div
-                    className="mainPage_ticketing_detail_form"
-                    onClick={onClickToPlaceSelectBox}
-                  >
+                  <div className="mainPage_ticketing_detail_form" onClick={onClickToPlaceSelectBox}>
                     <div className="mainPage_ticketing_name">To</div>
                     <div className="mainPage_ticketing_select">{toPlace}</div>
                     {toPlaceSelectBox && (
                       <div className="mainPage_ticketing_select_box">
-                        <div
-                          className="mainPage_ticketing_select_text"
-                          onClick={onClickToValue}
-                          value={'paris'}
-                        >
+                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'paris'}>
                           paris
                         </div>
-                        <div
-                          className="mainPage_ticketing_select_text"
-                          onClick={onClickToValue}
-                          value={'osaka'}
-                        >
+                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'osaka'}>
                           osaka
                         </div>
-                        <div
-                          className="mainPage_ticketing_select_text"
-                          onClick={onClickToValue}
-                          value={'sydney'}
-                        >
+                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'sydney'}>
                           sydney
                         </div>
-                        <div
-                          className="mainPage_ticketing_select_text"
-                          onClick={onClickToValue}
-                          value={'newyork'}
-                        >
+                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'newyork'}>
                           newyork
                         </div>
-                        <div
-                          className="mainPage_ticketing_select_text"
-                          onClick={onClickToValue}
-                          value={'roma'}
-                        >
+                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'roma'}>
                           roma
                         </div>
                       </div>
                     )}
                   </div>
-                  <div
-                    className="mainPage_ticketing_detail_form"
-                    onClick={onOpenDepartDate}
-                  >
+                  <div className="mainPage_ticketing_detail_form" onClick={onOpenDepartDate}>
                     <div className="mainPage_ticketing_name">Depart date</div>
-                    <div className="mainPage_ticketing_select">
-                      {moment(departDate).format('YYYY년 MM월 DD일')}{' '}
-                    </div>
+                    <div className="mainPage_ticketing_select">{moment(departDate).format('YYYY년 MM월 DD일')} </div>
                     {departDateOpen && (
                       <div className="mainPage_tiketting_calendar_box">
-                        <Calendar
-                          onChange={onChangeDepartDate}
-                          value={departDate}
-                          formatDay={(locale, date) =>
-                            date.toLocaleString('en', { day: 'numeric' })
-                          }
-                        />
+                        <Calendar onChange={onChangeDepartDate} value={departDate} formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })} />
                       </div>
                     )}
                   </div>
 
-                  <div
-                    className="mainPage_ticketing_detail_form"
-                    onClick={onOpenReturnDate}
-                  >
+                  <div className="mainPage_ticketing_detail_form" onClick={onOpenReturnDate}>
                     <div className="mainPage_ticketing_name">Return date</div>
-                    <div className="mainPage_ticketing_select">
-                      {moment(returnDate).format('YYYY년 MM월 DD일')}{' '}
-                    </div>
+                    <div className="mainPage_ticketing_select">{moment(returnDate).format('YYYY년 MM월 DD일')} </div>
                     {returnDateOpen && (
                       <div className="mainPage_tiketting_calendar_box">
-                        <Calendar
-                          onChange={onChangeReturnDate}
-                          value={returnDate}
-                          formatDay={(locale, date) =>
-                            date.toLocaleString('en', { day: 'numeric' })
-                          }
-                        />
+                        <Calendar onChange={onChangeReturnDate} value={returnDate} formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })} />
                       </div>
                     )}
                   </div>
 
-                  <div
-                    style={{ display: 'inline-block', position: 'relative' }}
-                  >
-                    <input
-                      placeholder="1"
-                      className="mainPage_tiketing_input"
-                    />
-                    <div className="mainPage_tiketting_input_text">
-                      {' '}
-                      Number of people
-                    </div>
+                  <div style={{ display: 'inline-block', position: 'relative' }}>
+                    <input placeholder="1" className="mainPage_tiketing_input" />
+                    <div className="mainPage_tiketting_input_text"> Number of people</div>
                   </div>
 
-                  <div
-                    className="mainPage_tiketing_button"
-                    onClick={onClickSearch}
-                  >
+                  <div className="mainPage_tiketing_button" onClick={onClickSearch}>
                     Search
                   </div>
                 </div>

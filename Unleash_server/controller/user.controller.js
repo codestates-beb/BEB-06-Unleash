@@ -11,9 +11,9 @@ const login = async (req, res) => {
       where: {
         wallet_address: client_data.wallet_address,
       },
-      attributes: ['id', 'wallet_address'],
+      attributes: ['id', 'wallet_address', 'approve'],
     });
-    if (userInfo === undefined) {
+    if (userInfo === undefined || userInfo.length === 0) {
       return res.status(400).send('invalid user');
     }
     // 1000*60*30 = 1800000 (= 30min)
@@ -120,7 +120,7 @@ const myPageOwned = async (req, res) => {
               user_id: client_data.user_id,
             },
             {
-              amount: { [Op.gte]: 0 },
+              amount: { [Op.gt]: 0 },
             },
           ],
         },
@@ -192,7 +192,14 @@ const myPageSelled = async (req, res) => {
   try {
     const data = await db.transactionHistory.findAll({
       where: {
-        seller: client_data.seller,
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            buyer: { [Op.ne]: 'Unleash' },
+          },
+        ],
       },
       include: [
         {
@@ -209,6 +216,58 @@ const myPageSelled = async (req, res) => {
   }
 };
 
+const myPageUsed = async (req, res) => {
+  const client_data = req.query;
+
+  try {
+    const data = await db.transactionHistory.findAll({
+      where: {
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            buyer: 'burn',
+          },
+        ],
+      },
+      include: [
+        {
+          model: db.ticket,
+          as: 'token',
+          required: true,
+          attributes: ['from', 'to', 'departuretime', 'arrivaltime', 'class'],
+        },
+      ],
+    });
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send('실패');
+  }
+};
+
+const tokenApprove = async (req, res) => {
+  const client_data = req.body;
+
+  try {
+    await db.user.update(
+      {
+        approve: 'true',
+      },
+      {
+        where: {
+          id: client_data.user_id,
+        },
+      }
+    );
+    return res.status(200).send('성공');
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send('실패');
+  }
+};
+
 module.exports = {
   myPageOwned,
   myPageSelling,
@@ -217,4 +276,6 @@ module.exports = {
   myPageSelled,
   approve,
   logout,
+  tokenApprove,
+  myPageUsed,
 };

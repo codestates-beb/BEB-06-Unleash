@@ -138,7 +138,7 @@ const Header = () => {
     setLoginStatus(() => false);
     sessionStorage.setItem('doubleCheck', '');
     localStorage.setItem('isLogout', true);
-    window.location.reload();
+    navigate(`/mainpage`);
     axios
       .get('http://localhost:5001/user/logout', {
         withCredentials: true,

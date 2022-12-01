@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
 
-const DidLoading = (props) => {
+const DidLoading = () => {
 
-  const text = props.text;
   return (
     <Fragment>
       <div className="dim" style={{ opacity: "0.7" }}></div>
-      <div className="loading_text" >{text} 약 5~15초 정도 소요되며, <br />
+      <div className="loading_text" >승인 처리중입니다 약 5~15초 정도 소요되며, <br />
          이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.
       </div>
       <div className="container">

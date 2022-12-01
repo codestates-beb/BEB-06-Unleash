@@ -11,12 +11,13 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
 import Abi from '../../resources/exAbi.json';
+import { useNavigate } from 'react-router-dom';
 
 const DetailInfo = props => {
   const context = useContext(ListContext);
   const { listAll, userData, setActive } = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
-  const [realOne, setRealOne] = useState('');
+  const navigate = useNavigate();
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem('airlineNFT'));
 
@@ -27,33 +28,35 @@ const DetailInfo = props => {
 
   const [destination, setDestination] = useState({});
   const [totalprice, setTotalPrice] = useState(nft[0].nftvoucher.price);
-  // 요청만 백에 요청해서 받아오기.
+  const filtered = listAll.filter(item => {
+    return (
+      item.token_id === nft[0].token_id &&
+      item.class === nft[0].class &&
+      item.to === nft[0].to &&
+      item.nftvoucher.price === nft[0].nftvoucher.price
+    );
+  });
 
   useEffect(() => {
-    const filtered = listAll.filter(item => {
-      return (
-        item.token_id === nft[0].token_id &&
-        item.class === nft[0].class &&
-        item.to === nft[0].to &&
-        item.nftvoucher.price === nft[0].nftvoucher.price
-      );
-    });
-    setRealOne(filtered);
     if (nft[0].to === 'ITM') return setDestination(osakaDummy); // 뒷정리함수.
     if (nft[0].to === 'JFK') return setDestination(newYorkDummy);
     if (nft[0].to === 'CDG') return setDestination(parisDummy);
     if (nft[0].to === 'SYD') return setDestination(sydneyDummy);
     if (nft[0].to === 'FCO') return setDestination(romaDummy);
   }, []);
+
   const handleChange = e => {
     setNumber(e.target.value);
     setTotalPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
   };
 
   const handleSubmit = async e => {
+    if(filtered.length === 0) {
+      alert("올바르지 않은 거래입니다.");
+      return navigate("/marketplace");
+    }
     setActive(true);
     e.preventDefault();
-    if (!realOne) return alert('올바르지 않은 방식의 거래입니다.');
     try {
       const call = await axios.get(
         `http://localhost:5001/marketplace/signature?token_id=${Number(
@@ -65,7 +68,6 @@ const DetailInfo = props => {
       );
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
-      console.log(signature);
       const { token_id, price, totalsupply } = voucher[0];
 
       const txHash = await contract
@@ -82,6 +84,7 @@ const DetailInfo = props => {
       // price * number 해서 이더 보내기.
       const txResult = await txHash.wait();
       if (txResult) {
+        alert("구매에 성공했습니다.");
         setActive(false);
         const a = await axios.post(
           'http://localhost:5001/marketplace/mint',
@@ -93,12 +96,19 @@ const DetailInfo = props => {
             buyer: userData.wallet_address,
           },
           { withCredentials: true }
-        );
+        ).then(res => console.log(res))
+        .catch((e) => {
+          alert("구매에 실패했습니다.");
+          setActive(false);
+          console.log(e);
+          return e;
+        });
         console.log(a);
       }
     } catch (e) {
-      console.log(e);
+      alert("구매에 실패했습니다.");
       setActive(false);
+      console.log(e);
       return e;
     }
   };
