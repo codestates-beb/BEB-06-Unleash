@@ -2,14 +2,22 @@ import React, {useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import Tilt from 'react-parallax-tilt';
 import { ListContext } from "../../resources/context_store/ListContext";
+import {ethers, Contract} from "ethers"
+import MarketAbi from "../../resources/MarketAbi.json"
+import axios from "axios";
 
 const BusinessNFT = (props) => {
   const context = useContext(ListContext);
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
+  const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new Contract(marketContractAddress, MarketAbi, signer);
+
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus } = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus, userData} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
@@ -32,18 +40,35 @@ const BusinessNFT = (props) => {
     localStorage.setItem("sellNFT", local3);
   }
 
-  const handleRetrieve = () => {
+  const handleRetrieve = async () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
     const selectOne = [...accountNFT].filter((item) => {
       return item.offer_id === offer_id;
     })
     console.log(selectOne);
-    /* axios.put("http://localhost:5001/marketplace/cancel", {
-      offer_id : selectOne.offer_id,
-      amount : selectOne.amount,
-      user_id : selectOne.user_id,
-      token_id : selectOne.token_id
-    }) */
+    try {
+      const txHash = await contract.cancel(
+        parseInt(offer_id)
+      )
+      const txResult = await txHash.wait();
+      console.log(txResult);
+      if (txResult) {
+        axios.put("http://localhost:5001/marketplace/cancel", {
+          offer_id : offer_id,
+          amount : selectOne.amount,
+          user_id : userData.id,
+          token_id : selectOne.token_id
+        }, {
+          withCredentials: true
+        }).catch(e => {
+          console.log(e);
+          return e;
+        })
+      }
+    } catch(e) {
+      console.log(e);
+      return e;
+    }
   }
 
 
