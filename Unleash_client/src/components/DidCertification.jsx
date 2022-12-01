@@ -2,9 +2,13 @@ import { Fragment, useEffect, useState , useContext } from "react";
 import Nationality_selectBox from "../components/Ticketing_selectBox/Nationality_selectBox";
 import CountryCode_selectBox from "../components/Ticketing_selectBox/CountryCode_selectBox";
 import { ListContext } from "../resources/context_store/ListContext";
+import {ethers, Contract} from "ethers";
+import erc1155ABI from '../resources/exAbi.json';
+
 
 
 import  VcPopup  from "./VcPopup";
+
 
 
 import {
@@ -17,6 +21,8 @@ import {
 import axios from "axios";
 
 function DidCertification(props) {
+  const erc1155Address = "0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D"
+  // const erc1155ABI = "abi data"
   const context = useContext(ListContext);
   const { userData } = context;
   const [vcPopup , setVcPopup] = useState(false);
@@ -174,7 +180,7 @@ function DidCertification(props) {
       setCredentialSubject(userInfo);
       setVCID(vcID);
       setUserData(userInfo);
-      setvc(vcID);
+      
     } catch (error) {
       console.log(error);
       alert(error);
@@ -194,6 +200,26 @@ function DidCertification(props) {
         return;
       }
       // todo : NFT 회수
+
+          // 메타마스크
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const contract = new Contract(erc1155Address, erc1155ABI, signer);
+
+  //   const sendERC1155 = async() => {
+  //     const tx = await contract.connect(signer).safeTransferFrom(
+  //         userData.wallet_address,
+  //         "0x0000000000000000000000000000000000000001",
+  //         id,
+  //         "1",
+  //         "0x00"
+  //     )
+  //     const rxResult = await tx.wait();
+
+  //     console.log(rxResult);
+  // }
+
       
     } catch (error) {
       alert(error)
@@ -249,6 +275,44 @@ function DidCertification(props) {
     } 
   }
 
+  const vcSolve = async() => {
+
+    if (vc.length == 0) {
+      alert("vc를 입력 해주세요");
+      return;
+    }
+
+    // JWT 검증
+    const result_verifyJWT = await verifyJWT(vc);
+
+    // 검증 실패 시
+    if (!result_verifyJWT) {
+      alert("유효하지 않은 VC 입니다.");
+      return;
+    }
+
+    // 검증 성공시 JWT Payload 데이터 조회
+    const userInfo = result_verifyJWT.payload.vc.credentialSubject.user;
+    // const issuerInfo = result_verifyJWT.payload.vc.credentialSubject.issuer;
+    const vcID = result_verifyJWT.issuer;
+    // console.log(vcID);
+
+    // 인증서 유효기간 검증
+    const ID_Address = DIDtoAddress(vcID);
+    const result_verifyValidDelegate = await verifyValidDelegate(ID_Address);
+
+    //  유효기간 지나면
+    if (!result_verifyValidDelegate) {
+      alert("인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.");
+      return;
+    }
+
+    setCredentialSubject(userInfo);
+    setVCID(vcID);
+    setUserData(userInfo);
+    
+  }
+
   return (
     <Fragment>
      
@@ -274,12 +338,12 @@ function DidCertification(props) {
               <input
                 className="tiketing_Line_input"
                 placeholder="Verifiable Credential"
-                // value={vcJwt}
-                // onChange={(e) => setvc(e.target.value)}
+                value={vc}
+                onChange={(e) => setvc(e.target.value)}
               />
             </div>
 
-            <div className="connect_wallet_button on"  ></div>
+            <div className="connect_wallet_button" onClick={vcSolve}  >Vc Solve</div>
 
 
           </div>

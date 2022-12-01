@@ -10,7 +10,7 @@ const DefaultNft = (props) => {
   const [active, setActive] = useState(false);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus} = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus , setSelectedNft} = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
@@ -46,6 +46,10 @@ const DefaultNft = (props) => {
       token_id : selectOne.token_id
     }) */
   }
+
+  const handleChange = () => {
+    setSelectedNft(token_Id);
+  }
   
 
   return ( 
@@ -73,7 +77,7 @@ const DefaultNft = (props) => {
             {bs === "buy" && <Link to={loginStatus ? locate : "" }><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
             {bs === "sell" && <Link to={loginStatus ? locate : "" }><button onClick={handleSellClick}>{bs}</button></Link>}
             {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
-            {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
+            {bs2 === "change" && <Link  onClick={handleChange} to={locate2}><button>{bs2}</button></Link>}
           </div>
         </Tilt>
 
