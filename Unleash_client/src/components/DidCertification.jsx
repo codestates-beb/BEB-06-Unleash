@@ -24,7 +24,7 @@ function DidCertification(props) {
   const erc1155Address = "0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D"
   // const erc1155ABI = "abi data"
   const context = useContext(ListContext);
-  const { userData } = context;
+  const { userData , selectedNft } = context;
   const [vcPopup , setVcPopup] = useState(false);
 
   const [month, setMonth] = useState([ "Month" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "11" , "12"  ]);
@@ -190,7 +190,8 @@ function DidCertification(props) {
   const verifyVC = async() => {
     try {
       // 유저가 제출한 JWT VC와 IATA가 발급해준 ID 비교
-      setVerifyMsg("Verifiable Credential 검증 진행...")
+      // setVerifyMsg("Verifiable Credential 검증 진행...")
+      props.setDidLoading(true);
       const _DID_DOCUMENT = await IATA_DID_Document();
       const _VCID = DIDtoAddress(VCID);
       const result = await verifyVCID(_VCID,_DID_DOCUMENT);  
@@ -207,24 +208,27 @@ function DidCertification(props) {
 
     const contract = new Contract(erc1155Address, erc1155ABI, signer);
 
-  //   const sendERC1155 = async() => {
-  //     const tx = await contract.connect(signer).safeTransferFrom(
-  //         userData.wallet_address,
-  //         "0x0000000000000000000000000000000000000001",
-  //         id,
-  //         "1",
-  //         "0x00"
-  //     )
-  //     const rxResult = await tx.wait();
+    // const sendERC1155 = async() => {
+      const tx = await contract.connect(signer).safeTransferFrom(
+          userData.wallet_address,
+          "0x0000000000000000000000000000000000000001",
+          selectedNft,
+          1,
+          "0x00"
+      )
+      const rxResult = await tx.wait();
 
-  //     console.log(rxResult);
-  // }
+      console.log(rxResult);
+
 
       
     } catch (error) {
       alert(error)
+      props.setDidLoading(false);
     } finally {
-      setVerifyMsg("End Request")
+      // setVerifyMsg("End Request")
+      props.setDidLoading(false);
+      props.setticket(true);
     }
   }
 
@@ -269,7 +273,7 @@ function DidCertification(props) {
   const onClickFinsh = async() => {
     try {
       await verifyVC();
-      props.setticket(true);
+   
     } catch (error) {
       
     } 
@@ -432,7 +436,7 @@ function DidCertification(props) {
               <div className="connect_wallet_button on"  >Connect Wallet</div>
             </div>
 
-            <div className="tiketing_finsh_button" onClick={onClickFinsh} >Finsh</div>
+            <div className="tiketing_finsh_button" onClick={onClickFinsh} >swap</div>
             <div>{verifyMsg}</div>
         </div>
       </div>

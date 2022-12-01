@@ -9,7 +9,7 @@ import axios from "axios";
 const BusinessNFT = (props) => {
   const context = useContext(ListContext);
   const arr = Array.from(Array(11));
-  const [active, setActive1] = useState(false);
+  const [active, setActive] = useState(false);
 
   const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -17,10 +17,10 @@ const BusinessNFT = (props) => {
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus } = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus , setSelectedNft , userData } = context;
 
   const handleActive = (e) => {
-    setActive1(() => !active);
+    setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
     if (!loginStatus) return alert("지갑을 연결하세요!");
@@ -99,7 +99,7 @@ const BusinessNFT = (props) => {
             {bs === "buy" && <Link to={loginStatus ? locate : "" }><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
             {bs === "sell" && <Link to={loginStatus ? locate : "" }><button onClick={handleSellClick}>{bs}</button></Link>}
             {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
-            {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
+            {bs2 === "change" && <Link to={locate2}><button onClick={handleChange} >{bs2}</button></Link>}
           </div>
         </Tilt>
 
