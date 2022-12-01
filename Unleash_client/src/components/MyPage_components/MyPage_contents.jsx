@@ -110,7 +110,7 @@ const MyPageContents = () => {
       setBs('');
       setBs2('');
       setBorder([false, false, true, false]);
-      axios.get(`http://localhost:5001/user/selled?seller=${userData.wallet_address}`, {
+      axios.get(`http://localhost:5001/user/used?seller=${userData.wallet_address}`, {
         withCredentials: true,
       })
       .then(res => {

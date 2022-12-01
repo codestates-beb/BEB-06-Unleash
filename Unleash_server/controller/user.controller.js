@@ -11,7 +11,7 @@ const login = async (req, res) => {
       where: {
         wallet_address: client_data.wallet_address,
       },
-      attributes: ["id", "wallet_address"],
+      attributes: ["id", "wallet_address", "approve"],
     });
     if (!userInfo.length) {
       return res.status(400).send("invalid user");

@@ -19,7 +19,7 @@ const DefaultNft = (props) => {
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus , userData , setSelectedNft} = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus , userData , setSelectedNft, setActive} = context;
 
   const handleActive = (e) => {
     setActive1(() => !active);
@@ -44,7 +44,7 @@ const DefaultNft = (props) => {
 
   
   const handleRetrieve = async () => {
-    setActive1(true)
+    setActive(true);
     try {
       const txHash = await contract.cancel(
         parseInt(offer_id)
@@ -52,7 +52,8 @@ const DefaultNft = (props) => {
       const txResult = await txHash.wait();
       console.log(txResult);
       if (txResult) {
-        setActive1(false)
+        alert("리스팅이 취소되었습니다.");
+        setActive(false)
         axios.put("http://localhost:5001/marketplace/cancel", {
           offer_id : offer_id,
           amount : amount,
@@ -66,7 +67,7 @@ const DefaultNft = (props) => {
         })
       }
     } catch(e) {
-      setActive1(false)
+      setActive(false);
       console.log(e);
       return e;
     }
