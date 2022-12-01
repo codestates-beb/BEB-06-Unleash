@@ -44,7 +44,7 @@ const DefaultNft = (props) => {
 
   
   const handleRetrieve = async () => {
-    setActive(true)
+    setActive(true);
     try {
       const txHash = await contract.cancel(
         parseInt(offer_id)
@@ -52,6 +52,7 @@ const DefaultNft = (props) => {
       const txResult = await txHash.wait();
       console.log(txResult);
       if (txResult) {
+        alert("리스팅이 취소되었습니다.");
         setActive(false)
         axios.put("http://localhost:5001/marketplace/cancel", {
           offer_id : offer_id,
@@ -66,7 +67,7 @@ const DefaultNft = (props) => {
         })
       }
     } catch(e) {
-      setActive(false)
+      setActive(false);
       console.log(e);
       return e;
     }

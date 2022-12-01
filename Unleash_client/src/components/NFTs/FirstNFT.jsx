@@ -54,7 +54,8 @@ const FirstNFT = (props) => {
       const txResult = await txHash.wait();
       console.log(txResult);
       if (txResult) {
-        setActive(false)
+        alert("리스팅이 취소되었습니다.");
+        setActive(false);
         axios.put("http://localhost:5001/marketplace/cancel", {
           offer_id : offer_id,
           amount : amount,
@@ -70,6 +71,7 @@ const FirstNFT = (props) => {
         })
       }
     } catch(e) {
+      setActive(false);
       console.log(e);
       return e;
     }
