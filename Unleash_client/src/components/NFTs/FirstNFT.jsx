@@ -15,7 +15,7 @@ const FirstNFT = (props) => {
   const glare2 = "rgb(255, 119, 115) 10%, rgba(255,237,95,1) 20%, rgba(168,255,95,1) 30%, rgba(131,255,247,1) 40%, rgba(120,148,255,1) 50%, rgb(216, 117, 255) 60%, rgb(255, 119, 115) 70%, rgb(255, 119, 115) 80%, rgba(255,237,95,1) 90%, rgba(168,255,95,1) 100%"
   const [active, setActive1] = useState(false);
 
-  const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
+  const marketContractAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);

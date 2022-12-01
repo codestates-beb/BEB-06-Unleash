@@ -21,7 +21,7 @@ const DetailInfo = props => {
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem('airlineNFT'));
 
-  const contractAddress = '0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D';
+  const contractAddress = '0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87';
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
