@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DefaultNft from '../NFTs/DefaultNft';
 import FirstNFT from '../NFTs/FirstNFT';
 import BusinessNFT from '../NFTs/BusinessNFT';
@@ -114,7 +114,7 @@ const MyPageContents = () => {
         withCredentials: true,
       })
       .then(res => {
-        const data = res.data
+        const data = res.data;
         setAccountNFT([...data]);
       }).catch(e => {
         console.log(e);

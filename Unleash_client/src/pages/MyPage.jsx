@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useContext} from "react";
 import MyPageContents from "../components/MyPage_components/MyPage_contents";
 import Layer from "../components/MyPage_components/Layer";
 import { ethers, Contract } from "ethers";

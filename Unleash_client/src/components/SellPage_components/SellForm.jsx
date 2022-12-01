@@ -40,6 +40,7 @@ const SellForm = (props) => {
       console.log(eventLogs);
 
       if (txResult) {
+        alert("리스팅에 성공했습니다.")
         setActive(false);
         axios.post("http://localhost:5001/marketplace/sell", {
           offer_id: eventLogs[1].args.offerId.toString(),
@@ -54,9 +55,16 @@ const SellForm = (props) => {
         .then(res => {
           navigate("/marketplacep2p");
         })
-        .catch(e => console.log(e));
+        .catch(e => {
+          setActive(false);
+          alert("리스팅에 실패했습니다.")
+          console.log(e);
+          return e;
+        });
       }
     } catch (e) {
+      setActive(false);
+      alert("리스팅에 실패했습니다.");
       console.log(e);
       return e;
     }

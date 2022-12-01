@@ -60,7 +60,7 @@ const P2pDetailPage = () => {
     if (p2pinfo[0].token.to === 'CDG') return setDestination(parisDummy);
     if (p2pinfo[0].token.to === 'SYD') return setDestination(sydneyDummy);
     if (p2pinfo[0].token.to === 'FCO') return setDestination(romaDummy);
-  }, [p2pinfo]);
+  }, []);
 
   const handleSubmit = async (e) => {
     if(filtered.length === 0) {
@@ -80,6 +80,7 @@ const P2pDetailPage = () => {
       console.log(txHash);
       const txResult = await txHash.wait();
       if (txResult) {
+        alert("구매에 성공했습니다.")
         const a = await axios.put("http://localhost:5001/marketplace/buy", {
           amount: 1,
           offer_id: p2pinfo[0].offer_id,
