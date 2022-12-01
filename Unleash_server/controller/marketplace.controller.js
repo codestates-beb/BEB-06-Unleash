@@ -431,7 +431,7 @@ const ticketExchange = async (req, res) => {
     await db.transactionHistory.create(
       {
         token_id: client_data.token_id,
-        offer_id: client_data.offer_id,
+        offer_id: 0,
         amount: client_data.amount,
         buyer: "burn",
         seller: client_data.seller,

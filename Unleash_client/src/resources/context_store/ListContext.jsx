@@ -9,7 +9,7 @@ const ListStore = props => {
   const [listAll, setListAll] = useState([]);
   const [accountNFT, setAccountNFT] = useState([]);
   const [active, setActive] = useState(false);
-  
+  const [selectedNft, setSelectedNft] = useState("");
 
   // useState React hook
   return (
@@ -28,6 +28,8 @@ const ListStore = props => {
       setLoginStatus,
       active,
       setActive,
+      selectedNft,
+      setSelectedNft
       }}>
       {props.children}
     </ListContext.Provider>
