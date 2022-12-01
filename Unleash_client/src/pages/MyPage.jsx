@@ -21,7 +21,10 @@ const MyPage = () => {
   const handleApprove = async () => {
     setActive(true);
     try {
-      const txHash = await contract.setApprovalForAll(marketContractAddress, true);
+      const txHash = await contract.setApprovalForAll(
+        marketContractAddress,
+        true
+      );
       const txResult = await txHash.wait();
       if (txResult) {
         setActive(false);

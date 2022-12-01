@@ -6,8 +6,8 @@ const unleashAbi = require("../initialSignSet/contract/exAbi.json");
 const marketAbi = require("../initialSignSet/contract/MarketAbi.json");
 
 const test = async () => {
-  const unleashAddress = "0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D";
-  const marketAddress = "0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D";
+  const unleashAddress = "0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87";
+  const marketAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
   const privateKey = process.env.PRIVATE_KEY;
   const provider = ethers.providers.getDefaultProvider({
     name: "goerli",
