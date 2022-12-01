@@ -34,10 +34,10 @@ const MyPageContents = () => {
       })
       .then(res => {
         const myToken = res.data.myToken;
-        const priceList = res.data.price_list;
+        //const priceList = res.data.price_list;
         setAccountNFT([...myToken]);
       });
-  }, []);
+  }, [setAccountNFT, userData.id]);
 
   useEffect(() => {
     setFirst(() =>

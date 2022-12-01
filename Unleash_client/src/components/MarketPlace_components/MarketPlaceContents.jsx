@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useContext, useEffect, useCallback} from "react";
 import {Link} from "react-router-dom";
 import DefaultNft from "../NFTs/DefaultNft";
 import BusinessNFT from "../NFTs/BusinessNFT";
@@ -14,13 +14,17 @@ const MarketPlaceContents = () => {
   const [destination, setDestination] = useState({});
   const list = JSON.parse(localStorage.getItem("marketList"));
 
-  useEffect(() => {
+  const filterList = useCallback(() => {
     if (list[0].to === "ITM") setDestination(osakaDummy); // 뒷정리함수.
     if (list[0].to === "JFK") setDestination(newYorkDummy);
     if (list[0].to === "CDG") setDestination(parisDummy);
     if (list[0].to === "SYD") setDestination(sydneyDummy);
     if (list[0].to === "FCO") setDestination(romaDummy);
-  }, [destination, context]);
+  }, [list])
+
+  useEffect(() => {
+    filterList();
+  }, [destination, context, list, filterList]);
 
   // nft 필터링
   const first = [...list].filter((item) => item.class === "퍼스트");
@@ -34,7 +38,7 @@ const MarketPlaceContents = () => {
         <div className="marketplace_contents_b2c" >
           <Link to="/marketplacep2p" >
             <button className='marketplace_button_default'>
-              <span>Let's Go to P2P macket</span>
+              <span>Let's Go to P2P market</span>
             </button>
           </Link>
         </div>

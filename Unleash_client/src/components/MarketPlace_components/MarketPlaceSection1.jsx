@@ -1,11 +1,5 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./MarketplaceDummy";
-import { ListContext } from "../../resources/context_store/ListContext";
-//import city2 from "../../resources/image/main.jpg"
-// 파일명과 전역 설정된 목적지랑 맞춤.
-// import Tokyo from 'Tokyo'
-// import NewYork from 'NewYork'
-// ,,,,
 
 const MarketPlaceSection1 = () => {
   const [destination, setDestination] = useState({});

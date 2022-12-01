@@ -62,11 +62,13 @@ const DefaultNft = (props) => {
         }, {
           withCredentials: true
         }).catch(e => {
+          alert("데이터 베이스에 해당 리스팅을 넘겨줄 수 없습니다.")
           console.log(e);
           return e;
         })
       }
     } catch(e) {
+      alert("트랜젝션에 실패했습니다.")
       setActive(false);
       console.log(e);
       return e;
@@ -88,6 +90,7 @@ const DefaultNft = (props) => {
                 <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
+                  {token_Id && <p>token_id : {token_Id}</p>}
                   {left && <p>left : {left}</p>}
                   {amount && <p>amount: {amount}</p>}
                   {price && <p>{price}ETH</p>}

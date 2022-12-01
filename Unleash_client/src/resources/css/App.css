@@ -1832,6 +1832,16 @@
   justify-items: center;
   padding: 60px 60px;
 }
+
+.mypage .loading_text {
+  z-index: 100;
+  position: fixed;
+  color: white;
+  top: 613px;
+  left: 675px;
+  width: 400px;
+  text-align: center;
+}
 /***********MarketPlace_mypage_Css**************/
 
 

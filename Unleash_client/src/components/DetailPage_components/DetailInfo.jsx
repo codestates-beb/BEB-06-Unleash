@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   romaDummy,
   newYorkDummy,
@@ -36,14 +36,17 @@ const DetailInfo = props => {
       item.nftvoucher.price === nft[0].nftvoucher.price
     );
   });
-
-  useEffect(() => {
+  const filterNft = useCallback(() => {
     if (nft[0].to === 'ITM') return setDestination(osakaDummy); // 뒷정리함수.
     if (nft[0].to === 'JFK') return setDestination(newYorkDummy);
     if (nft[0].to === 'CDG') return setDestination(parisDummy);
     if (nft[0].to === 'SYD') return setDestination(sydneyDummy);
     if (nft[0].to === 'FCO') return setDestination(romaDummy);
-  }, []);
+  }, [nft])
+
+  useEffect(() => {
+    filterNft()
+  }, [nft, filterNft]);
 
   const handleChange = e => {
     setNumber(e.target.value);
@@ -51,7 +54,7 @@ const DetailInfo = props => {
   };
 
   const handleSubmit = async e => {
-    if(filtered.length === 0) {
+    if(filtered.length === 0 || number === 0) {
       alert("올바르지 않은 거래입니다.");
       return navigate("/marketplace");
     }

@@ -1,6 +1,6 @@
 import TicketChange from "../components/TicketChange";
 import DidCertification from "../components/DidCertification";
-import { Fragment, useEffect , useState } from "react";
+import { Fragment , useState } from "react";
 import  DidLoading  from "../components/DidLoading";
 
 

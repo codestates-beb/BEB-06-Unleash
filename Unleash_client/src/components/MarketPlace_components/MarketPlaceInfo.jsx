@@ -1,6 +1,5 @@
-import React, {useState, useContext, useEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./MarketplaceDummy";
-import { ListContext } from "../../resources/context_store/ListContext";
 import { BsGlobe2, BsFillInfoSquareFill, BsFillTelephoneFill } from "react-icons/bs";
 import {MdHotel} from "react-icons/md"
 // 나중에 해야할것.

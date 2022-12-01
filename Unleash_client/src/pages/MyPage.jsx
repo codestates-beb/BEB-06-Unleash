@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import MyPageContents from '../components/MyPage_components/MyPage_contents';
 import Layer from '../components/MyPage_components/Layer';
 import { ethers, Contract } from 'ethers';
@@ -10,6 +10,7 @@ import DidLoading from '../components/DidLoading';
 const MyPage = () => {
   const context = useContext(ListContext);
   const { active, setActive } = context;
+  const [active2, setActive2] = useState(false);
 
   const contractAddress = '0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87';
   const marketContractAddress = '0x1351130058AD0A28F4568BCDB72010b7436ABC4F';
@@ -17,6 +18,9 @@ const MyPage = () => {
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
   const contract2 = new Contract(marketContractAddress, MarketAbi, signer);
+
+  const text1 = "승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다."
+  const text2 = "승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다."
 
   const handleApprove = async () => {
     setActive(true);
@@ -38,16 +42,16 @@ const MyPage = () => {
     }
   };
   const handleTake = async () => {
-    setActive(true);
+    setActive2(true);
     try {
       const txHash = await contract2.withdraw();
       const txResult = await txHash.wait();
       if (txResult) {
-        setActive(false);
+        setActive2(false);
         alert('인출이 완료되었습니다.');
       }
     } catch (e) {
-      setActive(false);
+      setActive2(false);
       alert('인출에 실패했습니다.');
       console.log(e);
       return e;
@@ -56,6 +60,7 @@ const MyPage = () => {
 
   return (
     <div className="mypage">
+      {active ? <DidLoading text={text1}/> : ''}
       <div className="mypage_section1">
         <div className="mypage_section1_stage">
           <Layer />
@@ -73,7 +78,7 @@ const MyPage = () => {
         </button>
       </div>
       <MyPageContents />
-      {active ? <DidLoading /> : ''}
+      {active2 ? <DidLoading text={text2}/> : ''}
     </div>
   );
 };

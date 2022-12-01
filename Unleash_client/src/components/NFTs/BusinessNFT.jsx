@@ -87,6 +87,7 @@ const BusinessNFT = (props) => {
                 <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
+                  {token_Id && <p>token_id : {token_Id}</p>}
                   {left && <p>left : {left}</p>}
                   {amount && <p>amount: {amount}</p>}
                   {price && <p>{price}ETH</p>}

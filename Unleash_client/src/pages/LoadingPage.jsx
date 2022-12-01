@@ -31,7 +31,9 @@ function LoadingPage() {
           <span className='loading_span_right'  id="progress">0%</span>
         </div>
       </div>
-
+      <div>
+        <p>승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.</p>
+      </div>
       <div  >
         <svg
           className="waves"

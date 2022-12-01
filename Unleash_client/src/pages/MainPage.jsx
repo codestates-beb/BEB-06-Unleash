@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, useContext } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
