@@ -196,7 +196,14 @@ const myPageSelled = async (req, res) => {
   try {
     const data = await db.transactionHistory.findAll({
       where: {
-        seller: client_data.seller,
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            buyer: { [Op.ne]: "Unleash" },
+          },
+        ],
       },
       include: [
         {
