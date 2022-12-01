@@ -17,14 +17,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     offer_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'marketplace',
-        key: 'offer_id'
-      }
+      allowNull: true
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true
     },
     amount: {
@@ -37,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     seller: {
       type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    state: {
+      type: DataTypes.STRING(50),
       allowNull: true
     }
   }, {
@@ -57,13 +57,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "token_id" },
-        ]
-      },
-      {
-        name: "FK_transactionHistory_marketplace",
-        using: "BTREE",
-        fields: [
-          { name: "offer_id" },
         ]
       },
     ]

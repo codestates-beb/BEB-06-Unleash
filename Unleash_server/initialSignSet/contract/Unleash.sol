@@ -11,7 +11,7 @@ contract Unleash is ERC1155Supply, Ownable, AccessControl,EIP712 {
     using ECDSA for bytes32;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     uint256 ownerprice;
-    uint256 toWei = 100000000000000;
+    uint256 toWei = 1;
 
     constructor() 
         ERC1155("")

@@ -1,32 +1,28 @@
-const Abi = require("./contract/Abi.js");
-const ethers = require("ethers");
-const dotenv = require("dotenv");
+const Abi = require('./contract/Abi.js');
+const exAbi = require('./contract/exAbi.json');
+const ethers = require('ethers');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-const Sign = async (props) => {
+const Sign = async props => {
   // props로 구매원하는 티켓의 voucher을 보낸다.
 
   const { token_id, price, totalsupply } = props;
-  const token_price = price * 10000;
-  console.log(token_id);
-  console.log(token_price);
-  console.log(totalsupply);
-
-  const contractAddress = "0xB1f3E9B1B8765a6dc40A2752edAaF2B224Ad6fee";
+  const contractAddress = '0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D';
   const privateKey = process.env.PRIVATE_KEY;
 
   let wallet = new ethers.Wallet(privateKey);
   let provider = ethers.providers.getDefaultProvider({
-    name: "goerli",
+    name: 'goerli',
     chainId: 5,
   });
   let walletWithProvider = new ethers.Wallet(privateKey, provider);
 
-  const msg = [token_id, token_price, totalsupply];
+  const msg = [token_id, price, totalsupply];
   const contract = new ethers.Contract(
     contractAddress,
-    Abi,
+    exAbi,
     walletWithProvider
   );
   const msgHx = await contract._hash(msg);

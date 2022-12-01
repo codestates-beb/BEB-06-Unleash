@@ -4,9 +4,9 @@ import 'react-calendar/dist/Calendar.css';
 import moment from "moment";
 
 
-const MarketPlaceCalander = () => {
-  const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
+const MarketPlaceCalander = (props) => {
   const [departDateOpen, setDepartDateOpen] = useState(false);
+  const {departDate, setDepartDate} = props;
 
   const onOpenDepartDate = () => {
     setDepartDateOpen(true);
@@ -15,7 +15,6 @@ const MarketPlaceCalander = () => {
 const onChangeDepartDate = (e) => {
   setDepartDate(e);
   const a = new Date(departDate.getTime() - (departDate.getTimezoneOffset() * 60000)).toISOString().substr(0, 11)
-  console.log(a);
   setDepartDateOpen(false);
 }
   return (

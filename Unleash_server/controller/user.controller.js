@@ -1,22 +1,74 @@
-const { db } = require("../sequelize/models/index.js");
+const { db, sequelize } = require("../sequelize/models/index.js");
 const { Op } = require("sequelize");
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
 
 const login = async (req, res) => {
   const client_data = req.body;
-
   try {
     const userInfo = await db.user.findAll({
       where: {
         wallet_address: client_data.wallet_address,
       },
+      attributes: ["id", "wallet_address"],
     });
-    if (userInfo.length === 0) {
-      return res.status(400).send("일치하는 유저가 없습니다.");
+    if (!userInfo.length) {
+      return res.status(400).send("invalid user");
     }
-    return res.status(200).json(userInfo);
+    // 1000*60*30 = 1800000 (30분)
+    const expireTime = { time: "1800000" };
+    const accessToken = jwt.sign(
+      userInfo[0].dataValues,
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: expireTime.time }
+    );
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      expiresIn: expireTime.time,
+    });
+    const data = [userInfo[0].dataValues, expireTime];
+    return res.status(200).json(data);
   } catch (err) {
     console.log(err);
     return res.status(400).send(err);
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    res.cookie("accessToken", "");
+    return res.status(200).send("logout");
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+const approve = async (req, res) => {
+  const token = req.cookies.accessToken;
+
+  try {
+    const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // if (!req.body.data) {
+    // 클라이언트로부터 온 isUserData가 false이면 상태가 없는것이므로 값을 보내줌
+    return res.status(200).send({
+      message: "ok",
+      data: {
+        userInfo: data,
+      },
+    });
+    // }
+  } catch (e) {
+    if (e.name === "TokenExpiredError") {
+      // 유효기간이 지났을때
+      res.clearCookie("accessToken", "");
+      res.cookie("accessToken", "");
+      return res.status(400).send("expired access token");
+    } else if (typeof cookie == "undefined") {
+      // 쿠키가 제대로 안들어왔을때
+      return res.json({ message: "token undefined" });
+    }
   }
 };
 
@@ -61,23 +113,48 @@ const joinMembership = async (req, res) => {
 
 const myPageOwned = async (req, res) => {
   const client_data = req.query;
+  const transaction = await sequelize.transaction();
 
   try {
-    const myToken = await db.token_holder.findAll({
-      where: {
-        user_id: client_data.user_id,
-      },
-      include: [
-        {
-          model: db.ticket,
-          as: "token",
-          required: true,
-          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+    const myToken = await db.token_holder.findAll(
+      {
+        where: {
+          [Op.and]: [
+            {
+              user_id: client_data.user_id,
+            },
+            {
+              amount: { [Op.gt]: 0 },
+            },
+          ],
         },
-      ],
+        include: [
+          {
+            model: db.ticket,
+            as: "token",
+            required: true,
+            attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+          },
+        ],
+      },
+      { transaction }
+    );
+    const token_list = myToken.map((el) => {
+      return el.token_id;
     });
-    return res.status(200).json(myToken);
+    const price_list = await db.nftvoucher.findAll(
+      {
+        attributes: ["token_id", "price"],
+        where: {
+          token_id: { [Op.in]: token_list },
+        },
+      },
+      { transaction }
+    );
+    await transaction.commit();
+    return res.status(200).json({ myToken: myToken, price_list: price_list });
   } catch (err) {
+    await transaction.rollback();
     console.log(err);
     return res.status(400).send(err);
   }
@@ -119,7 +196,14 @@ const myPageSelled = async (req, res) => {
   try {
     const data = await db.transactionHistory.findAll({
       where: {
-        seller: client_data.seller,
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            buyer: { [Op.ne]: "Unleash" },
+          },
+        ],
       },
       include: [
         {
@@ -136,10 +220,66 @@ const myPageSelled = async (req, res) => {
   }
 };
 
+const myPageUsed = async (req, res) => {
+  const client_data = req.query;
+
+  try {
+    const data = await db.transactionHistory.findAll({
+      where: {
+        [Op.and]: [
+          {
+            seller: client_data.seller,
+          },
+          {
+            buyer: "burn",
+          },
+        ],
+      },
+      include: [
+        {
+          model: db.ticket,
+          as: "token",
+          required: true,
+          attributes: ["from", "to", "departuretime", "arrivaltime", "class"],
+        },
+      ],
+    });
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("실패");
+  }
+};
+
+const tokenApprove = async (req, res) => {
+  const client_data = req.body;
+
+  try {
+    await db.user.update(
+      {
+        approve: "true",
+      },
+      {
+        where: {
+          id: client_data.user_id,
+        },
+      }
+    );
+    return res.status(200).send("성공");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("실패");
+  }
+};
+
 module.exports = {
   myPageOwned,
   myPageSelling,
   joinMembership,
   login,
   myPageSelled,
+  approve,
+  logout,
+  tokenApprove,
+  myPageUsed,
 };

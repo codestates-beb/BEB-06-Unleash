@@ -8,7 +8,6 @@ const DetailDesc = () => {
   
   const [destination, setDestination] = useState({});
   const nft = JSON.parse(localStorage.getItem("airlineNFT"));
-  console.log(nft)
 
 
   useEffect(() => {
