@@ -12,10 +12,11 @@ import {
 } from '../../components/MarketPlace_components/MarketplaceDummy';
 import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
+import DidLoading from '../DidLoading';
 
 const MyPageContents = () => {
   const context = useContext(ListContext);
-  const { accountNFT, setAccountNFT, userData } = context;
+  const { accountNFT, setAccountNFT, userData, active } = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -427,6 +428,7 @@ const MyPageContents = () => {
             />
           ))}
       </div>
+      {active ? <DidLoading/> : ""}
     </div>
   );
 };

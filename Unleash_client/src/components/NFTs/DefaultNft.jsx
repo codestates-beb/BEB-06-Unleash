@@ -11,7 +11,7 @@ import axios from "axios";
 const DefaultNft = (props) => {
   const context = useContext(ListContext);
   const arr = Array.from(Array(11));
-  const [active, setActive] = useState(false);
+  const [active, setActive1] = useState(false);
 
   const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -19,10 +19,10 @@ const DefaultNft = (props) => {
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus, userData} = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus, userData, setActive} = context;
 
   const handleActive = (e) => {
-    setActive(() => !active);
+    setActive1(() => !active);
   }
   const handleDefaultBuyClick = () => {
     if (!loginStatus) return alert("지갑을 연결하세요!");
@@ -44,7 +44,7 @@ const DefaultNft = (props) => {
 
   
   const handleRetrieve = async () => {
-    // 여기서 retireve. contract에서 cancel 함수 호출.
+    setActive(true)
     try {
       const txHash = await contract.cancel(
         parseInt(offer_id)
@@ -52,6 +52,7 @@ const DefaultNft = (props) => {
       const txResult = await txHash.wait();
       console.log(txResult);
       if (txResult) {
+        setActive(false)
         axios.put("http://localhost:5001/marketplace/cancel", {
           offer_id : offer_id,
           amount : amount,

@@ -11,11 +11,10 @@ import LoadingPage from "./LoadingPage";
 
 const SellPage =() => {
     const context = useContext(ListContext);
-    const {userData} = context;
+    const {userData, active, setActive} = context;
     //ethers 이용해서 complete 버튼 누르면 메타마스크에서 tx 보내기.
     const [sellNFT, setSellNFT] = useState([]);
     const [destination, setDestination] = useState('');
-    const [active, setActive] = useState(false);
 
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
 
