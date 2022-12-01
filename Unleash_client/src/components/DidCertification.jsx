@@ -220,6 +220,18 @@ function DidCertification(props) {
 
       console.log(rxResult);
 
+      await axios.put("http://localhost:5001/marketplace/exchange", {
+        amount : 1,
+        user_id : userData.id,
+        token_id : selectedNft,
+        seller: userData.wallet_address
+      }, {
+        withCredentials: true
+      }).catch(e => {
+        console.log(e);
+        return e;
+      })
+
 
       
     } catch (error) {
