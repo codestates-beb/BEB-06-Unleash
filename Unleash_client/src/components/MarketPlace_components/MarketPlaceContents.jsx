@@ -28,7 +28,6 @@ const MarketPlaceContents = () => {
   const economy = [...list].filter((item) => item.class === "이코노미");
 
   return (
-    
     <>
     <div className="marketplace_contents_container">
       <div className="marketplace_contents_dividing">
