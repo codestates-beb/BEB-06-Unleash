@@ -13,5 +13,6 @@ router.post("/mint", authorityCheckPost, controller.mint);
 router.post("/sell", authorityCheckPost, controller.sell);
 router.put("/cancel", authorityCheckPost, controller.cancel);
 router.put("/buy", authorityCheckPost, controller.buy);
+router.put("/exchange", authorityCheckPost, controller.ticketExchange);
 
 module.exports = router;
