@@ -213,6 +213,27 @@ const myPageSelled = async (req, res) => {
   }
 };
 
+const tokenApprove = async (req, res) => {
+  const client_data = req.body;
+
+  try {
+    await db.user.update(
+      {
+        approve: "true",
+      },
+      {
+        where: {
+          id: client_data.user_id,
+        },
+      }
+    );
+    return res.status(200).send("성공");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("실패");
+  }
+};
+
 module.exports = {
   myPageOwned,
   myPageSelling,
@@ -221,4 +242,5 @@ module.exports = {
   myPageSelled,
   approve,
   logout,
+  tokenApprove,
 };

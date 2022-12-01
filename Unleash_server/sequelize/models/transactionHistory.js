@@ -34,6 +34,10 @@ module.exports = function(sequelize, DataTypes) {
     seller: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    state: {
+      type: DataTypes.STRING(50),
+      allowNull: true
     }
   }, {
     sequelize,

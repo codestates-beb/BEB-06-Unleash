@@ -9,6 +9,7 @@ router.get("/owned", authorityCheckGet, controller.myPageOwned);
 router.get("/selling", authorityCheckGet, controller.myPageSelling);
 router.post("/joinMembership", controller.joinMembership);
 router.post("/login", controller.login);
+router.put("/tokenApprove", authorityCheckPost, controller.tokenApprove);
 router.get("/selled", authorityCheckGet, controller.myPageSelled);
 router.get("/approve", controller.approve);
 router.get("/logout", controller.logout);
