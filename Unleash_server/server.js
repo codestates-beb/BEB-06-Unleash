@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = 5001;
 const db = require("./sequelize/models");
 var cookieParser = require("cookie-parser");
-const { test } = require("./controller/dbload.controller");
+const { test } = require("./controller/scandb.controller");
 
 app.use(
   cors({ origin: true, credentials: true }),
