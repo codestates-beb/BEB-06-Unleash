@@ -46,6 +46,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false,
       defaultValue: ""
+    },
+    approve: {
+      type: DataTypes.ENUM('true','false'),
+      allowNull: true,
+      defaultValue: "false"
     }
   }, {
     sequelize,
