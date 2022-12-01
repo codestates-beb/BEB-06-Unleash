@@ -135,6 +135,9 @@ const MyPageContents = () => {
       .then(res => {
         const data = res.data;
         setAccountNFT([...data]);
+      }).catch(e => {
+        console.log(e);
+        return e;
       });
     };
   };
