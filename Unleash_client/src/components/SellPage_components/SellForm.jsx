@@ -23,7 +23,7 @@ const SellForm = (props) => {
   const handleChange = (e) => {
     setPrice(e.target.value);
   }
-  console.log(userData)
+  
   const handleSubmit = async (e) => {
     setActive(true);
     console.log(nft[0].token_id, price)

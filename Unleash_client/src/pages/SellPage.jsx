@@ -26,12 +26,13 @@ const SellPage =() => {
         const data = res.data.myToken;
         setSellNFT([...data]);
       }).catch((e) => {
+        alert("DB에서 정보를 불러오지 못했습니다.")
         console.log(e);
         return e;
       });
-      const filtering = sellNFT.filter(item => item.token_id == nft[0].token_id);
-      //console.log(filtering); // 여기서 Id 값은 뭐임?
-      //if (!filtering) return alert("올바르지 않은 거래방식입니다.");
+      //const filtering = sellNFT.filter(item => item.token_id == nft[0].token_id);
+      //console.log(filtering);
+      
       if (nft[0].token.to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
       if (nft[0].token.to === "JFK") return setDestination(newYorkDummy);
       if (nft[0].token.to === "CDG") return setDestination(parisDummy);

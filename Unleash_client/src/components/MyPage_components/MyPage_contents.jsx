@@ -88,6 +88,11 @@ const MyPageContents = () => {
         .then(res => {
           const myToken = res.data.myToken;
           setAccountNFT([...myToken]);
+        })
+        .catch(res => {
+          alert("DB에서 데이터를 불러오지 못했습니다.");
+          console.log(e);
+          return e;
         });
     }
     if (text === status[1]) {
@@ -104,6 +109,11 @@ const MyPageContents = () => {
         .then(res => {
           const data = res.data;
           setAccountNFT([...data]);
+        })
+        .catch(e => {
+          alert("DB에서 데이터를 불러오지 못했습니다.");
+          console.log(e);
+          return e;
         });
     }
     if (text === status[2]) {
@@ -117,6 +127,7 @@ const MyPageContents = () => {
         const data = res.data;
         setAccountNFT([...data]);
       }).catch(e => {
+        alert("DB에서 데이터를 불러오지 못했습니다.");
         console.log(e);
         return e;
       })
@@ -136,6 +147,7 @@ const MyPageContents = () => {
         const data = res.data;
         setAccountNFT([...data]);
       }).catch(e => {
+        alert("DB에서 데이터를 불러오지 못했습니다.");
         console.log(e);
         return e;
       });
