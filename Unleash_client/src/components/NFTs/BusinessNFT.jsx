@@ -11,7 +11,7 @@ const BusinessNFT = (props) => {
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const marketContractAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
+  const marketContractAddress = "0x36358ebbd6550f2277B2F5A9261ee03A812072d7";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
@@ -48,11 +48,12 @@ const BusinessNFT = (props) => {
         parseInt(offer_id)
       )
       const txResult = await txHash.wait();
-      console.log(txResult);
+      const eventLogs = txResult.events;
       if (txResult) {
         alert("리스팅이 취소되었습니다.");
         setActive(false);
         axios.put("http://localhost:5001/marketplace/cancel", {
+          event_id:parseInt(eventLogs[1].args.event_count,16),
           offer_id : offer_id,
           amount : amount,
           user_id : userData.id,

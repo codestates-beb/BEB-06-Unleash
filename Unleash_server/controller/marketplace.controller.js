@@ -117,6 +117,18 @@ const sell = async (req, res) => {
       },
       { transaction }
     );
+    await db.transaction.create(
+      {
+        status: "Sell",
+        event_id: client_data.event_id,
+        token_id: client_data.token_id,
+        offer_id: client_data.offer_id,
+        price: client_data.price,
+        amount: client_data.amount,
+        seller: client_data.seller,
+      },
+      { transaction }
+    );
     await transaction.commit();
     return res.status(200).send("성공");
   } catch (err) {
@@ -162,6 +174,17 @@ const cancel = async (req, res) => {
         amount: client_data.amount,
         seller: "Unleash",
         state: "cancel",
+      },
+      { transaction }
+    );
+    await db.transaction.create(
+      {
+        status: "Cancel",
+        event_id: client_data.event_id,
+        offer_id: client_data.offer_id,
+        token_id: client_data.token_id,
+        amount: client_data.amount,
+        seller: client_data.seller,
       },
       { transaction }
     );
@@ -230,6 +253,17 @@ const mint = async (req, res) => {
       },
       { transaction }
     );
+    await db.transaction.create(
+      {
+        status: "Mint",
+        event_id: client_data.event_id,
+        token_id: client_data.token_id,
+        price: client_data.price,
+        amount: client_data.amount,
+        buyer: client_data.buyer,
+      },
+      { transaction }
+    );
     await transaction.commit();
     return res.status(200).send("성공");
   } catch (err) {
@@ -287,35 +321,23 @@ const buy = async (req, res) => {
         },
         { transaction }
       );
-      await db.transactionHistory.create(
+    }
+    if (token_holder.length !== 0) {
+      await db.token_holder.increment(
         {
-          seller: market_data.dataValues.seller,
-          token_id: market_data.dataValues.token_id,
-          offer_id: client_data.offer_id,
-          buyer: client_data.buyer,
-          price: market_data.dataValues.price,
           amount: client_data.amount,
-          state: "buy",
+        },
+        {
+          where: {
+            [Op.and]: [
+              { user_id: client_data.user_id },
+              { token_id: client_data.token_id },
+            ],
+          },
         },
         { transaction }
       );
-      await transaction.commit();
-      return res.status(200).send("보유하지 않았던 토큰 저장 성공");
     }
-    await db.token_holder.increment(
-      {
-        amount: client_data.amount,
-      },
-      {
-        where: {
-          [Op.and]: [
-            { user_id: client_data.user_id },
-            { token_id: client_data.token_id },
-          ],
-        },
-      },
-      { transaction }
-    );
     await db.transactionHistory.create(
       {
         seller: market_data.dataValues.seller,
@@ -328,8 +350,22 @@ const buy = async (req, res) => {
       },
       { transaction }
     );
+
+    await db.transaction.create(
+      {
+        status: "Buy",
+        event_id: client_data.event_id,
+        offer_id: client_data.offer_id,
+        token_id: market_data.dataValues.token_id,
+        price: market_data.dataValues.price,
+        amount: client_data.amount,
+        buyer: client_data.buyer,
+        seller: market_data.dataValues.seller,
+      },
+      { transaction }
+    );
     await transaction.commit();
-    return res.status(200).send("보유하고 있는 토큰 저장 성공");
+    return res.status(200).send("토큰 저장 성공");
   } catch (err) {
     await transaction.rollback();
     return res.status(400).send(err);

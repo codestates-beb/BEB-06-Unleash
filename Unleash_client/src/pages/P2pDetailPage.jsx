@@ -27,9 +27,9 @@ const P2pDetailPage = () => {
   const [chartData, setChartData] = useState(setChartDatas(Data));
   const [totalPrice, setTotalPrice] = useState(p2pinfo[0].price);
 
-  //const contractAddress = '0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87';
+  //const contractAddress = '0x62b32166F925FA3f7a0b01B87c4354ab5A488018';
 
-  const marketContractAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
+  const marketContractAddress = "0x36358ebbd6550f2277B2F5A9261ee03A812072d7";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
@@ -77,11 +77,12 @@ const P2pDetailPage = () => {
         {
           value: totalPrice,
         });
-      console.log(txHash);
       const txResult = await txHash.wait();
+      const eventLogs = txResult.events;
       if (txResult) {
         alert("구매에 성공했습니다.")
         const a = await axios.put("http://localhost:5001/marketplace/buy", {
+          event_id:parseInt(eventLogs[1].args.event_count,16),
           amount: 1,
           offer_id: p2pinfo[0].offer_id,
           user_id: userData.id,
