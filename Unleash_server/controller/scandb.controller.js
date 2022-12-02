@@ -82,7 +82,7 @@ const dataDecryption = (data, status) => {
   }
 };
 
-cron.schedule("*/30 * * * *", () => {
+cron.schedule("*/10 * * * *", () => {
   request(options, async (err, res, body) => {
     const unleashData = JSON.parse(body)
       .result.filter((data) => data.topics[0] == topics.Mint)

@@ -5,6 +5,7 @@ import { ListContext } from "../../resources/context_store/ListContext";
 import {ethers, Contract} from "ethers"
 import MarketAbi from "../../resources/MarketAbi.json"
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 
 
@@ -25,7 +26,13 @@ const DefaultNft = (props) => {
     setActive1(() => !active);
   }
   const handleDefaultBuyClick = () => {
-    if (!loginStatus) return alert("지갑을 연결하세요!");
+    if (!loginStatus) return Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: '지갑을 연결하세요!',
+      showConfirmButton: false,
+      timer: 1500
+    })
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
     const filtered2 = [...p2pMarketList].filter(item =>
       item.seller === seller && item.offer_id === offer_id);
@@ -36,7 +43,13 @@ const DefaultNft = (props) => {
   }
 
   const handleSellClick = () => {
-    if (!loginStatus) return alert("지갑을 연결하세요!");
+    if (!loginStatus) return Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: '지갑을 연결하세요!',
+      showConfirmButton: false,
+      timer: 1500
+    })
     const filtered3 = [...accountNFT].filter(item => item.token_id === token_Id);
     const local3 = JSON.stringify([...filtered3]);
     localStorage.setItem("sellNFT", local3);
@@ -52,7 +65,13 @@ const DefaultNft = (props) => {
       const txResult = await txHash.wait();
       const eventLogs = txResult.events;
       if (txResult) {
-        alert("리스팅이 취소되었습니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: '  리스팅이 취소되었습니다. ',
+          showConfirmButton: false,
+          timer: 1500
+        })
         setActive(false)
         axios.put("http://localhost:5001/marketplace/cancel", {
           event_id:parseInt(eventLogs[1].args.event_count,16),
@@ -63,13 +82,25 @@ const DefaultNft = (props) => {
         }, {
           withCredentials: true
         }).catch(e => {
-          alert("데이터 베이스에 해당 리스팅을 넘겨줄 수 없습니다.")
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: ' 데이터 베이스에 해당 리스팅을 넘겨줄 수 없습니다. ',
+            showConfirmButton: false,
+            timer: 1500
+          })
           console.log(e);
           return e;
         })
       }
     } catch(e) {
-      alert("트랜젝션에 실패했습니다.")
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: ' 트랜젝션에 실패했습니다. ',
+        showConfirmButton: false,
+        timer: 1500
+      })
       setActive(false);
       console.log(e);
       return e;

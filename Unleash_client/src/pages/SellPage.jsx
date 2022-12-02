@@ -7,6 +7,7 @@ import { romaDummy, sydneyDummy, newYorkDummy, osakaDummy, parisDummy } from "..
 import axios from "axios";
 import { ListContext } from "../resources/context_store/ListContext";
 import LoadingPage from "./LoadingPage";
+import Swal from 'sweetalert2';
 
 
 const SellPage =() => {
@@ -26,7 +27,13 @@ const SellPage =() => {
         const data = res.data.myToken;
         setSellNFT([...data]);
       }).catch((e) => {
-        alert("DB에서 정보를 불러오지 못했습니다.")
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: ' DB에서 정보를 불러오지 못했습니다. ',
+          showConfirmButton: false,
+          timer: 1500
+        })
         console.log(e);
         return e;
       });

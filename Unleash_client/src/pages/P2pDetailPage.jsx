@@ -16,6 +16,7 @@ import { ListContext } from '../resources/context_store/ListContext';
 import LoadingPage from './LoadingPage';
 import MarketAbi from '../resources/MarketAbi.json';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const P2pDetailPage = () => {
   const context = useContext(ListContext);
@@ -64,7 +65,15 @@ const P2pDetailPage = () => {
 
   const handleSubmit = async (e) => {
     if(filtered.length === 0) {
-      alert("올바르지 않은 거래입니다.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: ' 올바르지 않은 거래입니다. ',
+        showConfirmButton: false,
+        timer: 1500
+      })
+
+
       return navigate("/marketplacep2p");
     }
     try {
@@ -80,7 +89,13 @@ const P2pDetailPage = () => {
       const txResult = await txHash.wait();
       const eventLogs = txResult.events;
       if (txResult) {
-        alert("구매에 성공했습니다.")
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '구매에 성공했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         const a = await axios.put("http://localhost:5001/marketplace/buy", {
           event_id:parseInt(eventLogs[1].args.event_count,16),
           amount: 1,

@@ -12,6 +12,7 @@ import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
 import Abi from '../../resources/exAbi.json';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const DetailInfo = props => {
   const context = useContext(ListContext);
@@ -55,7 +56,13 @@ const DetailInfo = props => {
 
   const handleSubmit = async e => {
     if(filtered.length === 0 || number === 0) {
-      alert("올바르지 않은 거래입니다.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '올바르지 않은 거래입니다.',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return navigate("/marketplace");
     }
     setActive(true);
@@ -88,7 +95,13 @@ const DetailInfo = props => {
       const txResult = await txHash.wait();
       const eventLogs = txResult.events;
       if (txResult) {
-        alert("구매에 성공했습니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '구매에 성공했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         setActive(false);
         const a = await axios.post(
           'http://localhost:5001/marketplace/mint',
@@ -103,7 +116,14 @@ const DetailInfo = props => {
           { withCredentials: true }
         ).then(res => console.log(res))
         .catch((e) => {
-          alert("구매에 실패했습니다.");
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '구매에 실패했습니다.',
+            showConfirmButton: false,
+            timer: 1500
+          })
+  
           setActive(false);
           console.log(e);
           return e;
@@ -111,7 +131,13 @@ const DetailInfo = props => {
         console.log(a);
       }
     } catch (e) {
-      alert("구매에 실패했습니다.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '구매에 실패했습니다.',
+        showConfirmButton: false,
+        timer: 1500
+      })
       setActive(false);
       console.log(e);
       return e;
