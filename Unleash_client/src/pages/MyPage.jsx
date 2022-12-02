@@ -11,8 +11,8 @@ const MyPage = () => {
   const context = useContext(ListContext);
   const { active, setActive } = context;
 
-  const contractAddress = "0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87";
-  const marketContractAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
+  const contractAddress = "0x62b32166F925FA3f7a0b01B87c4354ab5A488018";
+  const marketContractAddress = "0x36358ebbd6550f2277B2F5A9261ee03A812072d7";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);

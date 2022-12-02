@@ -12,115 +12,453 @@ const options = {
   qs: {
     module: "logs",
     action: "getLogs",
-    address: "0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87",
+    address: "0x62b32166F925FA3f7a0b01B87c4354ab5A488018",
     apikey: "I6H77CGQG34JZ2K2VCQ5X7V5ZG6KA7Y86F",
     toBlock: "latest",
     fromBlock: 8053206,
   },
 };
-
 const options2 = {
   uri: "https://api-goerli.etherscan.io/api",
   qs: {
     module: "logs",
     action: "getLogs",
-    address: "0x1351130058AD0A28F4568BCDB72010b7436ABC4F",
+    address: "0x36358ebbd6550f2277B2F5A9261ee03A812072d7",
     apikey: "I6H77CGQG34JZ2K2VCQ5X7V5ZG6KA7Y86F",
     toBlock: "latest",
     fromBlock: 8053230,
   },
 };
+const topics = {
+  Mint: "0x5e9f1b91ac2555aca8bb40a54c7f2dce80d64e6691479bdaa76d263ecdf0422a",
+  Sell: "0x52ffae6956c74a8994cf7da63a84f8cb9773701d4f1e3d80c2c0a97a7edbe279",
+  Cancel: "0xc17970b9d27ad5565f566b527c1d2597c87a073a5ac78048e33a843c736aab68",
+  Buy: "0x8d199a82ccc620c20ba34add31f2ae6172dc08c5ce065c0528a3edda296aaf85",
+};
+const dataDecryption = (data, status) => {
+  if (status === "Mint") {
+    return {
+      status: "Mint",
+      event_count: parseInt(data.substr(2, 64), 16),
+      token_id: parseInt(data.substr(66, 64), 16),
+      price: parseInt(data.substr(130, 64), 16),
+      amount: parseInt(data.substr(194, 64), 16),
+      buyer: "0x" + String(data.substr(258, 64)).substr(24, 64),
+    };
+  }
 
-cron.schedule("* 30 * * * *", () => {
-  request(options, (err, res, body) => {
-    const unleashData = JSON.parse(body)
-      .result.filter(
-        (data) =>
-          data.topics[0] ==
-          "0xaacef1bbb194eac329f8f247fbe8cce3eca2ed1f2e0a45a0488c2dd8afe6e516"
-      )
-      .map((el) => {
-        return el.data;
-      })
-      .map((el) => {
-        return {
-          status: "Mint",
-          token_id: parseInt(el.substr(2, 64), 16),
-          price: parseInt(el.substr(66, 64), 16),
-          amount: parseInt(el.substr(130, 64), 16),
-          buyer: "0x" + String(el.substr(194, 64)).substr(24, 64),
-        };
-      });
-    console.log(unleashData);
-  });
+  if (status === "Sell") {
+    return {
+      status: "Sell",
+      event_count: parseInt(data.substr(2, 64), 16),
+      offer_id: parseInt(data.substr(66, 64), 16),
+      token_id: parseInt(data.substr(130, 64), 16),
+      price: parseInt(data.substr(194, 64), 16),
+      amount: parseInt(data.substr(258, 64), 16),
+      seller: "0x" + String(data.substr(322, 64)).substr(24, 64),
+    };
+  }
+  if (status === "Cancel") {
+    return {
+      status: "Cancel",
+      event_count: parseInt(data.substr(2, 64), 16),
+      offer_id: parseInt(data.substr(66, 64), 16),
+      token_id: parseInt(data.substr(130, 64), 16),
+      amount: parseInt(data.substr(194, 64), 16),
+      seller: "0x" + String(data.substr(258, 64)).substr(24, 64),
+    };
+  }
+  if (status === "Buy") {
+    return {
+      status: "Buy",
+      event_count: parseInt(data.substr(2, 64), 16),
+      offer_id: parseInt(data.substr(66, 64), 16),
+      token_id: parseInt(data.substr(130, 64), 16),
+      price: parseInt(data.substr(194, 64), 16),
+      amount: parseInt(data.substr(258, 64), 16),
+      seller: "0x" + String(data.substr(322, 64)).substr(24, 64),
+      buyer: "0x" + String(data.substr(386, 64)).substr(24, 64),
+    };
+  }
+};
 
-  request(options2, (err, res, body) => {
-    const marketData = JSON.parse(body)
-      .result.map((el) => {
-        if (
-          el.topics[0] ==
-          "0xb5592180b48c7b68f85af2d9462bfa952df58573a64912c3f14fe5c3b68ff314"
-        ) {
-          return {
-            status: "Sell",
-            offer_id: parseInt(el.data.substr(2, 64), 16),
-            token_id: parseInt(el.data.substr(66, 64), 16),
-            price: parseInt(el.data.substr(130, 64), 16),
-            amount: parseInt(el.data.substr(194, 64), 16),
-            seller: "0x" + String(el.data.substr(258, 64)).substr(24, 64),
-          };
-        }
-        if (
-          el.topics[0] ==
-          "0xa29189bb2b908a5a5fee6ee07dff271fa01d2cb47a795f57690dfb02d7d722c1"
-        ) {
-          return {
-            status: "Cancel",
-            offer_id: parseInt(el.data.substr(2, 64), 16),
-            token_id: parseInt(el.data.substr(66, 64), 16),
-            amount: parseInt(el.data.substr(130, 64), 16),
-            seller: "0x" + String(el.data.substr(194, 64)).substr(24, 64),
-          };
-        }
-        if (
-          el.topics[0] ==
-          "0x8fb070d5530ac1d7b5e5619abdf76b904f079a77e615f425e79886f67257f945"
-        ) {
-          return {
-            status: "Buy",
-            offer_id: parseInt(el.data.substr(2, 64), 16),
-            token_id: parseInt(el.data.substr(66, 64), 16),
-            price: parseInt(el.data.substr(130, 64), 16),
-            amount: parseInt(el.data.substr(194, 64), 16),
-            seller: "0x" + String(el.data.substr(258, 64)).substr(24, 64),
-            buyer: "0x" + String(el.data.substr(322, 64)).substr(24, 64),
-          };
-        }
-      })
-      .filter((el) => el !== undefined);
-    console.log(marketData);
-  });
-});
+// cron.schedule("* * * * * *", () => {
+
+// });
+const mintTransction = async (el) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const user_id = await db.user.findOne({
+      where: {
+        wallet_address: el.buyer,
+      },
+    });
+    const token_holder = await db.token_holder.findAll(
+      {
+        where: {
+          [Op.and]: [
+            { user_id: user_id.dataValues.id },
+            {
+              token_id: el.token_id,
+            },
+          ],
+        },
+      },
+      { transaction }
+    );
+    if (token_holder.length === 0) {
+      await db.token_holder.create(
+        {
+          user_id: user_id.dataValues.id,
+          token_id: el.token_id,
+          amount: el.amount,
+        },
+        { transaction }
+      );
+    }
+    if (token_holder.length !== 0) {
+      await db.token_holder.increment(
+        {
+          amount: el.amount,
+        },
+        {
+          where: {
+            [Op.and]: [
+              { user_id: user_id.dataValues.id },
+              { token_id: el.token_id },
+            ],
+          },
+        },
+        { transaction }
+      );
+    }
+    await db.transactionHistory.create(
+      {
+        token_id: el.token_id,
+        offer_id: 0,
+        price: el.price,
+        amount: el.amount,
+        buyer: el.buyer,
+        seller: "Unleash",
+        state: "mint",
+      },
+      { transaction }
+    );
+    await db.transaction.create(
+      {
+        status: "Mint",
+        event_id: el.event_count,
+        token_id: el.token_id,
+        price: el.price,
+        amount: el.amount,
+        buyer: el.buyer,
+      },
+      { transaction }
+    );
+    await transaction.commit();
+  } catch (err) {
+    await transaction.rollback();
+    console.log(err);
+  }
+};
+
+const sellTransction = async (el) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const user_id = await db.user.findOne({
+      where: {
+        wallet_address: el.seller,
+      },
+    });
+    await db.marketplace.create(
+      {
+        offer_id: el.offer_id,
+        token_id: el.token_id,
+        price: el.price,
+        amount: el.amount,
+        seller: el.seller,
+      },
+      { transaction }
+    );
+    await db.token_holder.decrement(
+      {
+        amount: el.amount,
+      },
+      {
+        where: {
+          [Op.and]: [
+            {
+              token_id: el.token_id,
+            },
+            {
+              user_id: user_id.dataValues.id,
+            },
+          ],
+        },
+      },
+      { transaction }
+    );
+    await db.transactionHistory.create(
+      {
+        token_id: el.token_id,
+        offer_id: el.offer_id,
+        price: el.price,
+        amount: el.amount,
+        buyer: "Unleash",
+        seller: el.seller,
+        state: "sell",
+      },
+      { transaction }
+    );
+    await db.transaction.create(
+      {
+        status: "Sell",
+        event_id: el.event_count,
+        token_id: el.token_id,
+        offer_id: el.offer_id,
+        price: el.price,
+        amount: el.amount,
+        seller: el.seller,
+      },
+      { transaction }
+    );
+    await transaction.commit();
+  } catch (err) {
+    console.log(err);
+    await transaction.rollback();
+  }
+};
+
+const buyTransction = async (el) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const user_id = await db.user.findOne({
+      where: {
+        wallet_address: el.buyer,
+      },
+    });
+    await db.marketplace.decrement(
+      {
+        amount: el.amount,
+      },
+      {
+        where: {
+          offer_id: el.offer_id,
+        },
+      },
+      { transaction }
+    );
+
+    const token_holder = await db.token_holder.findAll(
+      {
+        where: {
+          [Op.and]: [
+            { user_id: user_id.dataValues.id },
+            {
+              token_id: el.token_id,
+            },
+          ],
+        },
+      },
+      { transaction }
+    );
+    const market_data = await db.marketplace.findOne(
+      {
+        where: {
+          offer_id: el.offer_id,
+        },
+      },
+      { transaction }
+    );
+
+    if (token_holder.length === 0) {
+      await db.token_holder.create(
+        {
+          user_id: user_id.dataValues.id,
+          token_id: el.token_id,
+          amount: el.amount,
+        },
+        { transaction }
+      );
+    }
+    if (token_holder.length !== 0) {
+      await db.token_holder.increment(
+        {
+          amount: el.amount,
+        },
+        {
+          where: {
+            [Op.and]: [
+              { user_id: user_id.dataValues.id },
+              { token_id: el.token_id },
+            ],
+          },
+        },
+        { transaction }
+      );
+    }
+    await db.transactionHistory.create(
+      {
+        seller: el.seller,
+        token_id: el.token_id,
+        offer_id: el.offer_id,
+        buyer: el.buyer,
+        price: el.price,
+        amount: el.amount,
+        state: "buy",
+      },
+      { transaction }
+    );
+
+    await db.transaction.create(
+      {
+        status: "Buy",
+        event_id: el.event_count,
+        offer_id: el.offer_id,
+        token_id: el.token_id,
+        price: el.price,
+        amount: el.amount,
+        buyer: el.buyer,
+        seller: el.seller,
+      },
+      { transaction }
+    );
+    await transaction.commit();
+  } catch (err) {
+    await transaction.rollback();
+  }
+};
+
+const cancelTransction = async (el) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const user_id = await db.user.findOne({
+      where: {
+        wallet_address: el.seller,
+      },
+    });
+    await db.marketplace.update(
+      {
+        amount: 0,
+      },
+      {
+        where: {
+          offer_id: el.offer_id,
+        },
+      },
+      { transaction }
+    );
+    await db.token_holder.increment(
+      {
+        amount: el.amount,
+      },
+      {
+        where: {
+          [Op.and]: [
+            { user_id: user_id.dataValues.id },
+            { token_id: el.token_id },
+          ],
+        },
+      },
+      { transaction }
+    );
+    await db.transactionHistory.create(
+      {
+        token_id: el.token_id,
+        offer_id: el.offer_id,
+        amount: el.amount,
+        seller: "Unleash",
+        state: "cancel",
+      },
+      { transaction }
+    );
+    await db.transaction.create(
+      {
+        status: "Cancel",
+        event_id: el.event_count,
+        offer_id: el.offer_id,
+        token_id: el.token_id,
+        amount: el.amount,
+        seller: el.seller,
+      },
+      { transaction }
+    );
+    await transaction.commit();
+  } catch (err) {
+    await transaction.rollback();
+    console.log(err);
+  }
+};
 
 const test = async () => {
-  const unleashAddress = "0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87";
-  const marketAddress = "0x1351130058AD0A28F4568BCDB72010b7436ABC4F";
-  const privateKey = process.env.PRIVATE_KEY;
-  const provider = ethers.providers.getDefaultProvider({
-    name: "goerli",
-    chainId: 5,
-  });
-  const walletWithProvider = new ethers.Wallet(privateKey, provider);
-  const unleashContract = new ethers.Contract(
-    unleashAddress,
-    unleashAbi,
-    walletWithProvider
+  request(options, async (err, res, body) => {
+    const unleashData = JSON.parse(body)
+      .result.filter((data) => data.topics[0] == topics.Mint)
+      .map((el) => {
+        return dataDecryption(el.data, "Mint");
+      });
+    const dbData = await db.transaction.findAll({
+      where: {
+        status: "Mint",
+      },
+    });
+    if (unleashData.length !== dbData.length) {
+      const dbEvent_lst = dbData.map((el) => {
+        return el.dataValues.event_id;
+      });
+      const event_data = unleashData.filter((el) => {
+        return !dbEvent_lst.includes(el.event_count);
+      });
+      console.log(event_data);
+      event_data.forEach((el) => {
+        if (el.status === "Mint") {
+          mintTransction(el);
+        }
+      });
+    }
+  }).pipe(
+    request(options2, async (err, res, body) => {
+      const marketData = JSON.parse(body)
+        .result.map((el) => {
+          if (el.topics[0] == topics.Sell) {
+            return dataDecryption(el.data, "Sell");
+          }
+          if (el.topics[0] == topics.Cancel) {
+            return dataDecryption(el.data, "Cancel");
+          }
+          if (el.topics[0] == topics.Buy) {
+            return dataDecryption(el.data, "Buy");
+          }
+        })
+        .filter((el) => el !== undefined);
+      const dbData = await db.transaction.findAll({
+        where: {
+          status: { [Op.ne]: "Mint" },
+        },
+      });
+      if (marketData.length !== dbData.length) {
+        const dbEvent_lst = dbData.map((el) => {
+          return el.dataValues.event_id;
+        });
+        const event_data = marketData.filter((el) => {
+          return !dbEvent_lst.includes(el.event_count);
+        });
+        event_data.forEach((el) => {
+          if (el.status === "Sell") {
+            sellTransction(el);
+          }
+          if (el.status === "Buy") {
+            buyTransction(el);
+          }
+          if (el.status === "Cancel") {
+            cancelTransction(el);
+          }
+        });
+      }
+    })
   );
-  const marketContract = new ethers.Contract(
-    marketAddress,
-    marketAbi,
-    walletWithProvider
-  );
+
+  //////////////////////////////////////////////////////////////////////////////
 };
 
 module.exports = {

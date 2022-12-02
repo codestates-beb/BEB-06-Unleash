@@ -21,7 +21,7 @@ import {
 import axios from "axios";
 
 function DidCertification(props) {
-  const erc1155Address = "0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87"
+  const erc1155Address = "0x62b32166F925FA3f7a0b01B87c4354ab5A488018"
   // const erc1155ABI = "abi data"
   const context = useContext(ListContext);
   const { userData , selectedNft } = context;

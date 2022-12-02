@@ -29,6 +29,7 @@ const authorityCheckPost = async (req, res, next) => {
     if (!verification(client_data, data)) {
       return res.status(400).send("위조된 데이터");
     }
+    req.body.seller = data.wallet_address;
     next();
   } catch (err) {
     console.log(err);

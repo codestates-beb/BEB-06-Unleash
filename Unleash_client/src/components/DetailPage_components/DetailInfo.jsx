@@ -21,7 +21,7 @@ const DetailInfo = props => {
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem('airlineNFT'));
 
-  const contractAddress = '0x584916D9Cf08A74Ca99Dd2F1a67cab0f30eaaB87';
+  const contractAddress = '0x62b32166F925FA3f7a0b01B87c4354ab5A488018';
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
@@ -83,12 +83,14 @@ const DetailInfo = props => {
         );
       // price * number 해서 이더 보내기.
       const txResult = await txHash.wait();
+      const eventLogs = txResult.events;
       if (txResult) {
         alert("구매에 성공했습니다.");
         setActive(false);
         const a = await axios.post(
           'http://localhost:5001/marketplace/mint',
           {
+            event_id:parseInt(eventLogs[2].args.event_count,16),
             user_id: userData.id,
             token_id: nft[0].token_id,
             amount: number,
