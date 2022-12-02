@@ -82,9 +82,74 @@ const dataDecryption = (data, status) => {
   }
 };
 
-// cron.schedule("* * * * * *", () => {
-
-// });
+cron.schedule("*/30 * * * *", () => {
+  request(options, async (err, res, body) => {
+    const unleashData = JSON.parse(body)
+      .result.filter((data) => data.topics[0] == topics.Mint)
+      .map((el) => {
+        return dataDecryption(el.data, "Mint");
+      });
+    const dbData = await db.transaction.findAll({
+      where: {
+        status: "Mint",
+      },
+    });
+    if (unleashData.length !== dbData.length) {
+      const dbEvent_lst = dbData.map((el) => {
+        return el.dataValues.event_id;
+      });
+      const event_data = unleashData.filter((el) => {
+        return !dbEvent_lst.includes(el.event_count);
+      });
+      console.log(event_data);
+      event_data.forEach((el) => {
+        if (el.status === "Mint") {
+          mintTransction(el);
+        }
+      });
+    }
+  }).pipe(
+    request(options2, async (err, res, body) => {
+      const marketData = JSON.parse(body)
+        .result.map((el) => {
+          if (el.topics[0] == topics.Sell) {
+            return dataDecryption(el.data, "Sell");
+          }
+          if (el.topics[0] == topics.Cancel) {
+            return dataDecryption(el.data, "Cancel");
+          }
+          if (el.topics[0] == topics.Buy) {
+            return dataDecryption(el.data, "Buy");
+          }
+        })
+        .filter((el) => el !== undefined);
+      const dbData = await db.transaction.findAll({
+        where: {
+          status: { [Op.ne]: "Mint" },
+        },
+      });
+      if (marketData.length !== dbData.length) {
+        const dbEvent_lst = dbData.map((el) => {
+          return el.dataValues.event_id;
+        });
+        const event_data = marketData.filter((el) => {
+          return !dbEvent_lst.includes(el.event_count);
+        });
+        event_data.forEach((el) => {
+          if (el.status === "Sell") {
+            sellTransction(el);
+          }
+          if (el.status === "Buy") {
+            buyTransction(el);
+          }
+          if (el.status === "Cancel") {
+            cancelTransction(el);
+          }
+        });
+      }
+    })
+  );
+});
 const mintTransction = async (el) => {
   const transaction = await sequelize.transaction();
   try {
@@ -388,79 +453,4 @@ const cancelTransction = async (el) => {
     await transaction.rollback();
     console.log(err);
   }
-};
-
-const test = async () => {
-  request(options, async (err, res, body) => {
-    const unleashData = JSON.parse(body)
-      .result.filter((data) => data.topics[0] == topics.Mint)
-      .map((el) => {
-        return dataDecryption(el.data, "Mint");
-      });
-    const dbData = await db.transaction.findAll({
-      where: {
-        status: "Mint",
-      },
-    });
-    if (unleashData.length !== dbData.length) {
-      const dbEvent_lst = dbData.map((el) => {
-        return el.dataValues.event_id;
-      });
-      const event_data = unleashData.filter((el) => {
-        return !dbEvent_lst.includes(el.event_count);
-      });
-      console.log(event_data);
-      event_data.forEach((el) => {
-        if (el.status === "Mint") {
-          mintTransction(el);
-        }
-      });
-    }
-  }).pipe(
-    request(options2, async (err, res, body) => {
-      const marketData = JSON.parse(body)
-        .result.map((el) => {
-          if (el.topics[0] == topics.Sell) {
-            return dataDecryption(el.data, "Sell");
-          }
-          if (el.topics[0] == topics.Cancel) {
-            return dataDecryption(el.data, "Cancel");
-          }
-          if (el.topics[0] == topics.Buy) {
-            return dataDecryption(el.data, "Buy");
-          }
-        })
-        .filter((el) => el !== undefined);
-      const dbData = await db.transaction.findAll({
-        where: {
-          status: { [Op.ne]: "Mint" },
-        },
-      });
-      if (marketData.length !== dbData.length) {
-        const dbEvent_lst = dbData.map((el) => {
-          return el.dataValues.event_id;
-        });
-        const event_data = marketData.filter((el) => {
-          return !dbEvent_lst.includes(el.event_count);
-        });
-        event_data.forEach((el) => {
-          if (el.status === "Sell") {
-            sellTransction(el);
-          }
-          if (el.status === "Buy") {
-            buyTransction(el);
-          }
-          if (el.status === "Cancel") {
-            cancelTransction(el);
-          }
-        });
-      }
-    })
-  );
-
-  //////////////////////////////////////////////////////////////////////////////
-};
-
-module.exports = {
-  test,
 };
