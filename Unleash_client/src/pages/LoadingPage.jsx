@@ -1,16 +1,23 @@
+import {  useEffect} from 'react';
+
 function LoadingPage() {
 
-  window.onload = function(){
+  const onProgress = () => {
     var elm = document.querySelector('#progress');
-    setInterval(function(){
-      if(!elm.innerHTML.match(/100%/gi)){
-        elm.innerHTML = (parseInt(elm.innerHTML) + 1) + '%';
-      } else {
-        clearInterval();
-      }
-    }, 18)
+    if(!elm.innerHTML.match(/99%/gi)){
+      elm.innerHTML = (parseInt(elm.innerHTML) + 1) + '%';
+    } else {
+      clearInterval();
+    }
+
   }
 
+
+  useEffect(() => {
+    let progress = setInterval(() => onProgress(),15)
+
+    return () => clearInterval(progress);
+});
 
     return (
       <div className="loading">
@@ -24,7 +31,9 @@ function LoadingPage() {
           <span className='loading_span_right'  id="progress">0%</span>
         </div>
       </div>
-
+      <div>
+        <p>승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.</p>
+      </div>
       <div  >
         <svg
           className="waves"

@@ -73,7 +73,8 @@ const BusinessNFT = (props) => {
   }
 
   const handleChange = () => {
-    setSelectedNft(token_Id);
+    const selectedNftData = [...accountNFT].filter(item => item.token_id === token_Id);
+    setSelectedNft(selectedNftData);
   }
 
 
@@ -87,9 +88,10 @@ const BusinessNFT = (props) => {
                 <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
+                  {token_Id && <p>token_id : {token_Id}</p>}
                   {left && <p>left : {left}</p>}
                   {amount && <p>amount: {amount}</p>}
-                  <p>{price}ETH</p>
+                  {price && <p>{price}ETH</p>}
                   <p>{departure}</p>
                   <p>{arrival}</p>
                 </div>

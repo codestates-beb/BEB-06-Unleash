@@ -23,7 +23,7 @@ const SellForm = (props) => {
   const handleChange = (e) => {
     setPrice(e.target.value);
   }
-  console.log(userData)
+  
   const handleSubmit = async (e) => {
     setActive(true);
     console.log(nft[0].token_id, price)
@@ -55,7 +55,7 @@ const SellForm = (props) => {
         })
         .catch(e => {
           setActive(false);
-          alert("리스팅에 실패했습니다.")
+          alert("데이터베이스와의 연결에 실패했습니다.")
           console.log(e);
           return e;
         });

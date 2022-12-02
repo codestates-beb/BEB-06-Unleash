@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, useContext } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -58,7 +58,7 @@ const MainPage = () => {
     setToPlaceSelectBox(true);
   };
 
-  const { list, setList, a } = context;
+  const { setList } = context;
 
   const onClickSearch = () => {
     let To = ToBox[toPlace];

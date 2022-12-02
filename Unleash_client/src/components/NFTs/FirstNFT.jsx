@@ -79,7 +79,8 @@ const FirstNFT = (props) => {
   }
 
   const handleChange = () => {
-    setSelectedNft(token_Id);
+    const selectedNftData = [...accountNFT].filter(item => item.token_id === token_Id);
+    setSelectedNft(selectedNftData);
   }
 
     return (
@@ -96,7 +97,7 @@ const FirstNFT = (props) => {
                     {token_Id && <p>token_id : {token_Id}</p>}
                     {left && <p>left : {left}</p>}
                     {amount && <p>amount: {amount}</p>}
-                    <p>{price} ETH</p>
+                    {price && <p>{price}ETH</p>}
                     <p>{departure}</p>
                     <p>{arrival}</p>
                   </div>
