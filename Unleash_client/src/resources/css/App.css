@@ -1837,8 +1837,8 @@
   z-index: 100;
   position: fixed;
   color: white;
-  top: 613px;
-  left: 675px;
+  top: calc(50% + 130px);
+  left: calc(50% - 200px);
   width: 400px;
   text-align: center;
 }
