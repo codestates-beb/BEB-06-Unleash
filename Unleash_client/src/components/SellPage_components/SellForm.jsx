@@ -4,6 +4,8 @@ import {ethers, Contract} from "ethers";
 import MarketAbi from "../../resources/MarketAbi.json"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
+
 
 const SellForm = (props) => {
   const context = useContext(ListContext);
@@ -37,7 +39,13 @@ const SellForm = (props) => {
       const txResult =  await txHash.wait();
       const eventLogs = txResult.events;
       if (txResult) {
-        alert("리스팅에 성공했습니다.")
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '리스팅에 성공했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         setActive(false);
         axios.post("http://localhost:5001/marketplace/sell", {
           event_id:parseInt(eventLogs[1].args.event_count,16),
@@ -55,14 +63,26 @@ const SellForm = (props) => {
         })
         .catch(e => {
           setActive(false);
-          alert("데이터베이스와의 연결에 실패했습니다.")
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: ' 데이터베이스와의 연결에 실패했습니다. ',
+            showConfirmButton: false,
+            timer: 1500
+          })
           console.log(e);
           return e;
         });
       }
     } catch (e) {
       setActive(false);
-      alert("리스팅에 실패했습니다.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: ' 리스팅에 실패했습니다. ',
+        showConfirmButton: false,
+        timer: 1500
+      })
       console.log(e);
       return e;
     }

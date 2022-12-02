@@ -4,7 +4,7 @@ import CountryCode_selectBox from "../components/Ticketing_selectBox/CountryCode
 import { ListContext } from "../resources/context_store/ListContext";
 import {ethers, Contract} from "ethers";
 import erc1155ABI from '../resources/exAbi.json';
-
+import Swal from 'sweetalert2';
 
 
 import  VcPopup  from "./VcPopup";
@@ -108,7 +108,13 @@ function DidCertification(props) {
 
       // 검증 실패 시
       if (!result_verifyJWT) {
-        alert("유효하지 않은 VC 입니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: '유효하지 않은 VC 입니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         props.setDidLoading(false);
         return;
       }
@@ -123,12 +129,22 @@ function DidCertification(props) {
     } catch (error) {
       if (error.response.status === 400) {
         props.setDidLoading(false);
-        alert(
-          "IATA에 회원가입된 정보가 없습니다. 회원가입을 먼저 진행해주세요."
-        );
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'IATA에 회원가입된 정보가 없습니다. 회원가입을 먼저 진행해주세요.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
-      alert(error);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+      })
     } finally {
       setVcPopup(true);
       props.setDidLoading(false);
@@ -147,7 +163,13 @@ function DidCertification(props) {
       );
 
       if (result.status == 204) {
-        alert("발급된 VC가 없습니다. 새로 발급 받아주세요.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "발급된 VC가 없습니다. 새로 발급 받아주세요.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
 
@@ -158,7 +180,13 @@ function DidCertification(props) {
 
       // 검증 실패 시
       if (!result_verifyJWT) {
-        alert("유효하지 않은 VC 입니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "유효하지 않은 VC 입니다.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
 
@@ -174,7 +202,13 @@ function DidCertification(props) {
 
       //  유효기간 지나면
       if (!result_verifyValidDelegate) {
-        alert("인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
 
@@ -184,7 +218,13 @@ function DidCertification(props) {
       
     } catch (error) {
       console.log(error);
-      alert(error);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   };
   // VC 검증
@@ -199,7 +239,13 @@ function DidCertification(props) {
       const result = await verifyVCID(_VCID,_DID_DOCUMENT);  
 
       if(!result) {
-        alert("IATA로부터 인증받은 VC가 아닙니다.")
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "IATA로부터 인증받은 VC가 아닙니다.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
       // todo : NFT 회수
@@ -238,7 +284,13 @@ function DidCertification(props) {
     }
       
     } catch (error) {
-      alert(error)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+      })
       props.setDidLoading(false);
     } finally {
       // setVerifyMsg("End Request")
@@ -297,7 +349,13 @@ function DidCertification(props) {
   const vcSolve = async() => {
 
     if (vc.length == 0) {
-      alert("vc를 입력 해주세요");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: "vc를 입력 해주세요",
+        showConfirmButton: false,
+        timer: 1500
+      })
       return;
     }
 
@@ -306,7 +364,13 @@ function DidCertification(props) {
 
     // 검증 실패 시
     if (!result_verifyJWT) {
-      alert("유효하지 않은 VC 입니다.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: "유효하지 않은 VC 입니다.",
+        showConfirmButton: false,
+        timer: 1500
+      })
       return;
     }
 
@@ -322,7 +386,13 @@ function DidCertification(props) {
 
     //  유효기간 지나면
     if (!result_verifyValidDelegate) {
-      alert("인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: "인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.",
+        showConfirmButton: false,
+        timer: 1500
+      })
       return;
     }
 

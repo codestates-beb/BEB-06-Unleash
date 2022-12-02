@@ -13,6 +13,7 @@ import {
 import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
 import DidLoading from '../DidLoading';
+import Swal from 'sweetalert2';
 
 const MyPageContents = () => {
   const context = useContext(ListContext);
@@ -90,7 +91,13 @@ const MyPageContents = () => {
           setAccountNFT([...myToken]);
         })
         .catch(res => {
-          alert("DB에서 데이터를 불러오지 못했습니다.");
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'DB에서 데이터를 불러오지 못했습니다.',
+            showConfirmButton: false,
+            timer: 1500
+          })
           console.log(e);
           return e;
         });
@@ -111,7 +118,13 @@ const MyPageContents = () => {
           setAccountNFT([...data]);
         })
         .catch(e => {
-          alert("DB에서 데이터를 불러오지 못했습니다.");
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'DB에서 데이터를 불러오지 못했습니다.',
+            showConfirmButton: false,
+            timer: 1500
+          })
           console.log(e);
           return e;
         });
@@ -127,7 +140,13 @@ const MyPageContents = () => {
         const data = res.data;
         setAccountNFT([...data]);
       }).catch(e => {
-        alert("DB에서 데이터를 불러오지 못했습니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'DB에서 데이터를 불러오지 못했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         console.log(e);
         return e;
       })
@@ -147,7 +166,13 @@ const MyPageContents = () => {
         const data = res.data;
         setAccountNFT([...data]);
       }).catch(e => {
-        alert("DB에서 데이터를 불러오지 못했습니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'DB에서 데이터를 불러오지 못했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         console.log(e);
         return e;
       });

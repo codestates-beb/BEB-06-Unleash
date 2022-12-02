@@ -4,6 +4,7 @@ import { TestContext } from "../../resources/context_store/Test";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import { ListContext } from "../../resources/context_store/ListContext";
+import Swal from 'sweetalert2';
 
 const MarketPlaceAside = () => {
   const context = useContext(TestContext);
@@ -25,7 +26,14 @@ const MarketPlaceAside = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!city || !departDate) return alert("도시와 출발일자를 선택해주세요.")
+    if (!city || !departDate){ return Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: '도시와 출발일자를 선택해주세요.',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
     let filter = {city: city, departDate: departDate}
     let To = ToBox[filter.city];
     let params = {  "from" : "ICN" };

@@ -6,6 +6,7 @@ import Abi from '../resources/exAbi.json';
 import MarketAbi from '../resources/MarketAbi.json';
 import { ListContext } from '../resources/context_store/ListContext';
 import DidLoading from '../components/DidLoading';
+import Swal from 'sweetalert2';
 
 const MyPage = () => {
   const context = useContext(ListContext);
@@ -33,11 +34,23 @@ const MyPage = () => {
       const txResult = await txHash.wait();
       if (txResult) {
         setActive(false);
-        alert('승인이 완료되었습니다.');
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '승인이 완료되었습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     } catch (e) {
       setActive(false);
-      alert('승인에 실패했습니다.');
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: ' 승인에 실패했습니다. ',
+        showConfirmButton: false,
+        timer: 1500
+      })
       console.log(e);
       return e;
     }
@@ -49,11 +62,24 @@ const MyPage = () => {
       const txResult = await txHash.wait();
       if (txResult) {
         setActive2(false);
-        alert('인출이 완료되었습니다.');
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '인출이 완료되었습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     } catch (e) {
       setActive2(false);
-      alert('인출에 실패했습니다.');
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: ' 인출에 실패했습니다. ',
+        showConfirmButton: false,
+        timer: 1500
+      })
+
       console.log(e);
       return e;
     }

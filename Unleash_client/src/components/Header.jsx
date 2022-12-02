@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Fragment, useEffect, useState, useContext } from 'react';
 import { ListContext } from '../resources/context_store/ListContext';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Header = () => {
   const context = useContext(ListContext);
@@ -60,7 +61,13 @@ const Header = () => {
           .catch(err => {
             if (err.response.data === 'expired access token') {
               // jwt 만료가 된 처음 시점에만 이 에러가 옴
-              alert('다시 로그인하세요');
+              Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: '다시 로그인하세요',
+                showConfirmButton: false,
+                timer: 1500
+              })
               setUserData([]); // jwt 만료되었으므로 유저 정보도 초기화
               logout();
             }
@@ -95,7 +102,13 @@ const Header = () => {
       const { ethereum } = window;
 
       if (!ethereum) {
-        alert('Get MetaMask!');
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Get MetaMask!',
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
       const accounts = await ethereum.request({
@@ -123,7 +136,13 @@ const Header = () => {
         .catch(function (error) {
           console.log(error);
           if (error.response.data === 'invalid user') {
-            alert('일치하는 유저가 없습니다. \n회원가입 페이지로 이동합니다.');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: '일치하는 유저가 없습니다. \n회원가입 페이지로 이동합니다.',
+              showConfirmButton: false,
+              timer: 1500
+            })
             navigate(`/signup`);
           }
         });
