@@ -35,7 +35,7 @@ const MarketPlaceInfo = () => {
             <a href={destination.url}><BsGlobe2 /></a>
             <a href="https://www.0404.go.kr/dev/country.mofa?idx=&hash=&chkvalue=no2&stext=&group_idx=&alert_level=0"><BsFillInfoSquareFill /></a>
             <a href={destination.url2}><BsFillTelephoneFill style={{color: "#03ad"}}/></a>
-            <a href={"https://www.hotels.com"}><MdHotel style={{color: "rgb(40, 80, 66)", fontSize: "35px"}}/></a>
+            <a href={"https://www.hotels.com"}><MdHotel style={{color: "black", fontSize: "35px"}}/></a>
           </div>
         </div>
         <div className="marketplace_description_container">

@@ -12,12 +12,12 @@ const MarketPlaceAside = () => {
   const navigate = useNavigate();
   const {isOpen, setIsOpen} = context;
   const {setList} = conetext2;
-  const ToBox = { Roma : "FCO" , Osaka : "ITM" , Sydney : "SYD" , NewYork : "JFK" , Paris: "CDG"}
+  const ToBox = { Rome : "FCO" , Osaka : "ITM" , Sydney : "SYD" , NewYork : "JFK" , Paris: "CDG"}
 
   const [city, setCity] = useState('');
   const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
 
-  const cities = ["Paris", "NewYork", "Osaka", "Sydney", "Roma"]
+  const cities = ["Paris", "NewYork", "Osaka", "Sydney", "Rome"]
   const [destination, setDestination] = useState("");
   const [bg, setBg] = useState(false);
 

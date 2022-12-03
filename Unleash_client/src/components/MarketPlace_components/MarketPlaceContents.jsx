@@ -38,7 +38,7 @@ const MarketPlaceContents = () => {
         <div className="marketplace_contents_b2c" >
           <Link to="/marketplacep2p" >
             <button className='marketplace_button_default'>
-              <span>Let's Go to P2P market</span>
+              <span>Search P2P market</span>
             </button>
           </Link>
         </div>

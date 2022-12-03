@@ -20,7 +20,7 @@ const MainPage = () => {
   const [toPlaceSelectBox, setToPlaceSelectBox] = useState(false);
 
   const ToBox = {
-    roma: 'FCO',
+    rome: 'FCO',
     osaka: 'ITM',
     sydney: 'SYD',
     newyork: 'JFK',
@@ -112,8 +112,8 @@ const MainPage = () => {
                         <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'newyork'}>
                           newyork
                         </div>
-                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'roma'}>
-                          roma
+                        <div className="mainPage_ticketing_select_text" onClick={onClickToValue} value={'rome'}>
+                          rome
                         </div>
                       </div>
                     )}

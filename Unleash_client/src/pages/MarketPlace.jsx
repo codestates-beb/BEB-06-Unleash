@@ -25,7 +25,7 @@ const MarketPlace = (props) => {
           <div className="marketplace_container">
           <Test>
             <MarketPlaceSection1 />
-            <MarketPlaceInfo />~
+            <MarketPlaceInfo />
             <MarketPlaceContents />
           </Test>
           </div>

@@ -72,7 +72,7 @@ const MyPageContents = () => {
   const businessParis = [...business].filter(item => item.token.to === 'CDG');
   const economyParis = [...economy].filter(item => item.token.to === 'CDG');
 
-  const status = ['owned', 'selling', 'used', 'selled'];
+  const status = ['owned', 'onSale', 'used', 'sold'];
   const [border, setBorder] = useState([true, false, false, false]);
 
   const handleClick = e => {
