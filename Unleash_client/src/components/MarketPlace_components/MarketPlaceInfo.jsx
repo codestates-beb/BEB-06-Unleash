@@ -1,6 +1,5 @@
-import React, {useState, useContext, useEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import { newYorkDummy, sydneyDummy, parisDummy, romaDummy, osakaDummy } from "./MarketplaceDummy";
-import { ListContext } from "../../resources/context_store/ListContext";
 import { BsGlobe2, BsFillInfoSquareFill, BsFillTelephoneFill } from "react-icons/bs";
 import {MdHotel} from "react-icons/md"
 // 나중에 해야할것.
@@ -20,7 +19,7 @@ const MarketPlaceInfo = () => {
     if (list[0].to === "CDG") return setDestination(parisDummy);
     if (list[0].to === "SYD") return setDestination(sydneyDummy);
     if (list[0].to === "FCO") return setDestination(romaDummy);
-  }, [destination]);
+  }, [destination, list]);
 
   return (
     <>
@@ -36,7 +35,7 @@ const MarketPlaceInfo = () => {
             <a href={destination.url}><BsGlobe2 /></a>
             <a href="https://www.0404.go.kr/dev/country.mofa?idx=&hash=&chkvalue=no2&stext=&group_idx=&alert_level=0"><BsFillInfoSquareFill /></a>
             <a href={destination.url2}><BsFillTelephoneFill style={{color: "#03ad"}}/></a>
-            <a href={"https://www.hotels.com"}><MdHotel style={{color: "rgb(40, 80, 66)", fontSize: "35px"}}/></a>
+            <a href={"https://www.hotels.com"}><MdHotel style={{color: "black", fontSize: "35px"}}/></a>
           </div>
         </div>
         <div className="marketplace_description_container">

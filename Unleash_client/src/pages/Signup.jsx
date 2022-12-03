@@ -3,6 +3,8 @@ import Nationality_selectBox from '../components/Ticketing_selectBox/Nationality
 import CountryCode_selectBox from '../components/Ticketing_selectBox/CountryCode_selectBox'; 
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 
 function Signup() {
@@ -55,7 +57,13 @@ function Signup() {
       const { ethereum } = window;
 
       if (!ethereum) {
-        alert("Get MetaMask!");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: ' Get MetaMask! ',
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
@@ -68,17 +76,35 @@ function Signup() {
   const onSignUp = () => {
     let data = {};
     if ( r_month == "Month") {
-      alert("Please enter the Month");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Please enter the Month ',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return;
     }
 
     if ( r_day == "Day") {
-      alert("Please enter the Day");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Please enter the Day ',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return;
     }
 
     if ( r_year == "Year") {
-      alert("Please enter the Year");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Please enter the Year ',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return;
     }
     let birth = r_year + "-" + r_month.padStart(2 ,'0') + "-" + r_day.padStart(2 ,'0');
@@ -96,11 +122,24 @@ function Signup() {
     axios.post('http://localhost:5001/user/joinMembership', data )
     .then(function(res){
       console.log(res);
-      alert("회원가입에 성공했습니다");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '회원가입에 성공했습니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       navigate("/mainpage");
     }).catch(function (error) {
       console.log(error);
-      alert(error.response.data);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error.response.data,
+        showConfirmButton: false,
+        timer: 1500
+      })
+
     });
   }
 

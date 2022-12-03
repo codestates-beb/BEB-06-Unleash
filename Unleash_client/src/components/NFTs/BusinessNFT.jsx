@@ -5,25 +5,32 @@ import { ListContext } from "../../resources/context_store/ListContext";
 import {ethers, Contract} from "ethers"
 import MarketAbi from "../../resources/MarketAbi.json"
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const BusinessNFT = (props) => {
   const context = useContext(ListContext);
   const arr = Array.from(Array(11));
   const [active, setActive] = useState(false);
 
-  const marketContractAddress = "0xD97423f13396D1a7EF1090Cd040b3339eAC8AaC2";
+  const marketContractAddress = "0x36358ebbd6550f2277B2F5A9261ee03A812072d7";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(marketContractAddress, MarketAbi, signer);
 
   const {bg, locate, bs, locate2, bs2, price, departure, arrival, left, city, token_Id, seller, offer_id, amount} = props;
-  const {listAll, p2pMarketList, accountNFT, loginStatus, userData} = context;
+  const {listAll, p2pMarketList, accountNFT, loginStatus , setSelectedNft , userData } = context;
 
   const handleActive = (e) => {
     setActive(() => !active);
   }
   const handleDefaultBuyClick = () => {
-    if (!loginStatus) return alert("지갑을 연결하세요!");
+    if (!loginStatus) return Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: '지갑을 연결하세요!',
+      showConfirmButton: false,
+      timer: 1500
+    })
     const filtered = [...listAll].filter((item) => item.token_id === token_Id);
     const filtered2 = [...p2pMarketList].filter(item =>
       item.seller === seller && item.offer_id === offer_id);
@@ -34,7 +41,13 @@ const BusinessNFT = (props) => {
   }
 
   const handleSellClick = () => {
-    if (!loginStatus) return alert("지갑을 연결하세요!");
+    if (!loginStatus) return Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: '지갑을 연결하세요!',
+      showConfirmButton: false,
+      timer: 1500
+    })
     const filtered3 = [...accountNFT].filter(item => item.token_id === token_Id);
     const local3 = JSON.stringify([...filtered3]);
     localStorage.setItem("sellNFT", local3);
@@ -42,14 +55,24 @@ const BusinessNFT = (props) => {
 
   const handleRetrieve = async () => {
     // 여기서 retireve. contract에서 cancel 함수 호출.
+    setActive(true);
     try {
       const txHash = await contract.cancel(
         parseInt(offer_id)
       )
       const txResult = await txHash.wait();
-      console.log(txResult);
+      const eventLogs = txResult.events;
       if (txResult) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: '리스팅이 취소되었습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setActive(false);
         axios.put("http://localhost:5001/marketplace/cancel", {
+          event_id:parseInt(eventLogs[1].args.event_count,16),
           offer_id : offer_id,
           amount : amount,
           user_id : userData.id,
@@ -62,9 +85,15 @@ const BusinessNFT = (props) => {
         })
       }
     } catch(e) {
+      setActive(false);
       console.log(e);
       return e;
     }
+  }
+
+  const handleChange = () => {
+    const selectedNftData = [...accountNFT].filter(item => item.token_id === token_Id);
+    setSelectedNft(selectedNftData);
   }
 
 
@@ -78,9 +107,10 @@ const BusinessNFT = (props) => {
                 <div className={active ? "default_nft_contents_contentwrapper_active" : "default_nft_contents_contentwrapper"}>
                   <h2>{city}</h2>
                   <p>Travel with Unleash</p>
+                  {token_Id && <p>token_id : {token_Id}</p>}
                   {left && <p>left : {left}</p>}
                   {amount && <p>amount: {amount}</p>}
-                  <p>{price}ETH</p>
+                  {price && <p>{price}ETH</p>}
                   <p>{departure}</p>
                   <p>{arrival}</p>
                 </div>
@@ -93,7 +123,7 @@ const BusinessNFT = (props) => {
             {bs === "buy" && <Link to={loginStatus ? locate : "" }><button onClick={handleDefaultBuyClick}>{bs}</button></Link>}
             {bs === "sell" && <Link to={loginStatus ? locate : "" }><button onClick={handleSellClick}>{bs}</button></Link>}
             {bs2 === "retrieve" && <Link to=""><button onClick={handleRetrieve}>{bs2}</button></Link>}
-            {bs2 === "change" && <Link to={locate2}><button>{bs2}</button></Link>}
+            {bs2 === "change" && <Link to={locate2}><button onClick={handleChange} >{bs2}</button></Link>}
           </div>
         </Tilt>
 

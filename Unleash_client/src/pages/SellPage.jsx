@@ -7,15 +7,15 @@ import { romaDummy, sydneyDummy, newYorkDummy, osakaDummy, parisDummy } from "..
 import axios from "axios";
 import { ListContext } from "../resources/context_store/ListContext";
 import LoadingPage from "./LoadingPage";
+import Swal from 'sweetalert2';
 
 
 const SellPage =() => {
     const context = useContext(ListContext);
-    const {userData} = context;
+    const {userData, active, setActive} = context;
     //ethers 이용해서 complete 버튼 누르면 메타마스크에서 tx 보내기.
     const [sellNFT, setSellNFT] = useState([]);
     const [destination, setDestination] = useState('');
-    const [active, setActive] = useState(false);
 
     const nft = JSON.parse(localStorage.getItem("sellNFT"));
 
@@ -27,12 +27,19 @@ const SellPage =() => {
         const data = res.data.myToken;
         setSellNFT([...data]);
       }).catch((e) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: ' DB에서 정보를 불러오지 못했습니다. ',
+          showConfirmButton: false,
+          timer: 1500
+        })
         console.log(e);
         return e;
       });
-      const filtering = sellNFT.filter(item => item.token_id == nft[0].token_id);
-      //console.log(filtering); // 여기서 Id 값은 뭐임?
-      //if (!filtering) return alert("올바르지 않은 거래방식입니다.");
+      //const filtering = sellNFT.filter(item => item.token_id == nft[0].token_id);
+      //console.log(filtering);
+      
       if (nft[0].token.to === "ITM") return setDestination(osakaDummy); // 뒷정리함수.
       if (nft[0].token.to === "JFK") return setDestination(newYorkDummy);
       if (nft[0].token.to === "CDG") return setDestination(parisDummy);

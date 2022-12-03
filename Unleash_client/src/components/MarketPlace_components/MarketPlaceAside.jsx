@@ -4,6 +4,7 @@ import { TestContext } from "../../resources/context_store/Test";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import { ListContext } from "../../resources/context_store/ListContext";
+import Swal from 'sweetalert2';
 
 const MarketPlaceAside = () => {
   const context = useContext(TestContext);
@@ -11,12 +12,12 @@ const MarketPlaceAside = () => {
   const navigate = useNavigate();
   const {isOpen, setIsOpen} = context;
   const {setList} = conetext2;
-  const ToBox = { Roma : "FCO" , Osaka : "ITM" , Sydney : "SYD" , NewYork : "JFK" , Paris: "CDG"}
+  const ToBox = { Rome : "FCO" , Osaka : "ITM" , Sydney : "SYD" , NewYork : "JFK" , Paris: "CDG"}
 
   const [city, setCity] = useState('');
   const [departDate, setDepartDate] = useState(new Date('12/01/2022'));
 
-  const cities = ["Paris", "NewYork", "Osaka", "Sydney", "Roma"]
+  const cities = ["Paris", "NewYork", "Osaka", "Sydney", "Rome"]
   const [destination, setDestination] = useState("");
   const [bg, setBg] = useState(false);
 
@@ -25,7 +26,14 @@ const MarketPlaceAside = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!city || !departDate) return alert("도시와 출발일자를 선택해주세요.")
+    if (!city || !departDate){ return Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: '도시와 출발일자를 선택해주세요.',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
     let filter = {city: city, departDate: departDate}
     let To = ToBox[filter.city];
     let params = {  "from" : "ICN" };

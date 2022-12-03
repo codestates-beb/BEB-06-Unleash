@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   romaDummy,
   newYorkDummy,
@@ -11,49 +11,62 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
 import Abi from '../../resources/exAbi.json';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const DetailInfo = props => {
   const context = useContext(ListContext);
   const { listAll, userData, setActive } = context;
   // 상태로 만들어버려서 로컬스토리지 고친 후 새로고침 하지 못하게.
-  const [realOne, setRealOne] = useState('');
+  const navigate = useNavigate();
   const [number, setNumber] = useState('');
   const nft = JSON.parse(localStorage.getItem('airlineNFT'));
 
-  const contractAddress = '0xB7c26E7F3d7AE71cE62A97Edc59Fe4F4d94AAA3D';
+  const contractAddress = '0x62b32166F925FA3f7a0b01B87c4354ab5A488018';
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new Contract(contractAddress, Abi, signer);
 
   const [destination, setDestination] = useState({});
   const [totalprice, setTotalPrice] = useState(nft[0].nftvoucher.price);
-  // 요청만 백에 요청해서 받아오기.
-
-  useEffect(() => {
-    const filtered = listAll.filter(item => {
-      return (
-        item.token_id === nft[0].token_id &&
-        item.class === nft[0].class &&
-        item.to === nft[0].to &&
-        item.nftvoucher.price === nft[0].nftvoucher.price
-      );
-    });
-    setRealOne(filtered);
+  const filtered = listAll.filter(item => {
+    return (
+      item.token_id === nft[0].token_id &&
+      item.class === nft[0].class &&
+      item.to === nft[0].to &&
+      item.nftvoucher.price === nft[0].nftvoucher.price
+    );
+  });
+  const filterNft = useCallback(() => {
     if (nft[0].to === 'ITM') return setDestination(osakaDummy); // 뒷정리함수.
     if (nft[0].to === 'JFK') return setDestination(newYorkDummy);
     if (nft[0].to === 'CDG') return setDestination(parisDummy);
     if (nft[0].to === 'SYD') return setDestination(sydneyDummy);
     if (nft[0].to === 'FCO') return setDestination(romaDummy);
-  }, []);
+  }, [nft])
+
+  useEffect(() => {
+    filterNft()
+  }, [nft, filterNft]);
+
   const handleChange = e => {
     setNumber(e.target.value);
     setTotalPrice(() => Number(e.target.value) * nft[0].nftvoucher.price);
   };
 
   const handleSubmit = async e => {
+    if(filtered.length === 0 || number === 0) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '올바르지 않은 거래입니다.',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return navigate("/marketplace");
+    }
     setActive(true);
     e.preventDefault();
-    if (!realOne) return alert('올바르지 않은 방식의 거래입니다.');
     try {
       const call = await axios.get(
         `http://localhost:5001/marketplace/signature?token_id=${Number(
@@ -65,7 +78,6 @@ const DetailInfo = props => {
       );
       const signature = call.data.signature_data;
       const voucher = call.data.nftvoucher;
-      console.log(signature);
       const { token_id, price, totalsupply } = voucher[0];
 
       const txHash = await contract
@@ -81,11 +93,20 @@ const DetailInfo = props => {
         );
       // price * number 해서 이더 보내기.
       const txResult = await txHash.wait();
+      const eventLogs = txResult.events;
       if (txResult) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '구매에 성공했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         setActive(false);
         const a = await axios.post(
           'http://localhost:5001/marketplace/mint',
           {
+            event_id:parseInt(eventLogs[2].args.event_count,16),
             user_id: userData.id,
             token_id: nft[0].token_id,
             amount: number,
@@ -93,12 +114,32 @@ const DetailInfo = props => {
             buyer: userData.wallet_address,
           },
           { withCredentials: true }
-        );
+        ).then(res => console.log(res))
+        .catch((e) => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '구매에 실패했습니다.',
+            showConfirmButton: false,
+            timer: 1500
+          })
+  
+          setActive(false);
+          console.log(e);
+          return e;
+        });
         console.log(a);
       }
     } catch (e) {
-      console.log(e);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '구매에 실패했습니다.',
+        showConfirmButton: false,
+        timer: 1500
+      })
       setActive(false);
+      console.log(e);
       return e;
     }
   };

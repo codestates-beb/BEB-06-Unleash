@@ -26,7 +26,7 @@ export const osakaDummy = {
   url2: "https://overseas.mofa.go.kr/jp-ko/index.do"
 }
 export const romaDummy = {
-  city: "Roma",
+  city: "Rome",
   section1: Romabg,
   nftImg: Roma,
   description: "Rome is the capital city of Italy. It is also the capital of the Lazio region, the centre of the Metropolitan City of Rome, and a special comune named Comune di Roma Capitale.",

@@ -2,9 +2,13 @@ import { Fragment, useEffect, useState , useContext } from "react";
 import Nationality_selectBox from "../components/Ticketing_selectBox/Nationality_selectBox";
 import CountryCode_selectBox from "../components/Ticketing_selectBox/CountryCode_selectBox";
 import { ListContext } from "../resources/context_store/ListContext";
+import {ethers, Contract} from "ethers";
+import erc1155ABI from '../resources/exAbi.json';
+import Swal from 'sweetalert2';
 
 
 import  VcPopup  from "./VcPopup";
+
 
 
 import {
@@ -17,8 +21,10 @@ import {
 import axios from "axios";
 
 function DidCertification(props) {
+  const erc1155Address = "0x62b32166F925FA3f7a0b01B87c4354ab5A488018"
+  // const erc1155ABI = "abi data"
   const context = useContext(ListContext);
-  const { userData } = context;
+  const { userData , selectedNft } = context;
   const [vcPopup , setVcPopup] = useState(false);
 
   const [month, setMonth] = useState([ "Month" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "11" , "12"  ]);
@@ -86,6 +92,7 @@ function DidCertification(props) {
   const claimVC = async () => {
     try {
       props.setDidLoading(true);
+      props.setText( "승인 처리중입니다 약 5~15초 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.");
       // VC 발급 및 갱신 요청
       const result = await axios.post(
         process.env.REACT_APP_IATA_BACKEND_URL + "/did/claimVC",
@@ -101,7 +108,13 @@ function DidCertification(props) {
 
       // 검증 실패 시
       if (!result_verifyJWT) {
-        alert("유효하지 않은 VC 입니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: '유효하지 않은 VC 입니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         props.setDidLoading(false);
         return;
       }
@@ -116,12 +129,22 @@ function DidCertification(props) {
     } catch (error) {
       if (error.response.status === 400) {
         props.setDidLoading(false);
-        alert(
-          "IATA에 회원가입된 정보가 없습니다. 회원가입을 먼저 진행해주세요."
-        );
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'IATA에 회원가입된 정보가 없습니다. 회원가입을 먼저 진행해주세요.',
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
-      alert(error);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+      })
     } finally {
       setVcPopup(true);
       props.setDidLoading(false);
@@ -140,7 +163,13 @@ function DidCertification(props) {
       );
 
       if (result.status == 204) {
-        alert("발급된 VC가 없습니다. 새로 발급 받아주세요.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "발급된 VC가 없습니다. 새로 발급 받아주세요.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
 
@@ -151,7 +180,13 @@ function DidCertification(props) {
 
       // 검증 실패 시
       if (!result_verifyJWT) {
-        alert("유효하지 않은 VC 입니다.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "유효하지 않은 VC 입니다.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
 
@@ -167,38 +202,100 @@ function DidCertification(props) {
 
       //  유효기간 지나면
       if (!result_verifyValidDelegate) {
-        alert("인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
 
       setCredentialSubject(userInfo);
       setVCID(vcID);
       setUserData(userInfo);
-      setvc(vcID);
+      
     } catch (error) {
       console.log(error);
-      alert(error);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   };
   // VC 검증
   const verifyVC = async() => {
     try {
       // 유저가 제출한 JWT VC와 IATA가 발급해준 ID 비교
-      setVerifyMsg("Verifiable Credential 검증 진행...")
+      // setVerifyMsg("Verifiable Credential 검증 진행...")
+      props.setDidLoading(true);
+      props.setText( "승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.");
       const _DID_DOCUMENT = await IATA_DID_Document();
       const _VCID = DIDtoAddress(VCID);
       const result = await verifyVCID(_VCID,_DID_DOCUMENT);  
 
       if(!result) {
-        alert("IATA로부터 인증받은 VC가 아닙니다.")
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: "IATA로부터 인증받은 VC가 아닙니다.",
+          showConfirmButton: false,
+          timer: 1500
+        })
         return;
       }
       // todo : NFT 회수
+
+          // 메타마스크
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const contract = new Contract(erc1155Address, erc1155ABI, signer);
+
+    // const sendERC1155 = async() => {
+      const tx = await contract.connect(signer).safeTransferFrom(
+          userData.wallet_address,
+          "0x0000000000000000000000000000000000000001",
+          selectedNft[0].token_id,
+          1,
+          "0x00"
+      )
+      const rxResult = await tx.wait();
+
+      console.log(rxResult);
+      if (rxResult) {
+      await axios.put("http://localhost:5001/marketplace/exchange", {
+        amount : 1,
+        user_id : userData.id,
+        token_id : selectedNft[0].token_id,
+        seller: userData.wallet_address
+      }, {
+        withCredentials: true
+      }).catch(e => {
+        console.log(e);
+        return;
+      })
+
+      props.setticket(true);
+    }
       
     } catch (error) {
-      alert(error)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+      })
+      props.setDidLoading(false);
     } finally {
-      setVerifyMsg("End Request")
+      // setVerifyMsg("End Request")
+      props.setDidLoading(false);
+    
     }
   }
 
@@ -243,10 +340,66 @@ function DidCertification(props) {
   const onClickFinsh = async() => {
     try {
       await verifyVC();
-      props.setticket(true);
+   
     } catch (error) {
       
     } 
+  }
+
+  const vcSolve = async() => {
+
+    if (vc.length == 0) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: "vc를 입력 해주세요",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return;
+    }
+
+    // JWT 검증
+    const result_verifyJWT = await verifyJWT(vc);
+
+    // 검증 실패 시
+    if (!result_verifyJWT) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: "유효하지 않은 VC 입니다.",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return;
+    }
+
+    // 검증 성공시 JWT Payload 데이터 조회
+    const userInfo = result_verifyJWT.payload.vc.credentialSubject.user;
+    // const issuerInfo = result_verifyJWT.payload.vc.credentialSubject.issuer;
+    const vcID = result_verifyJWT.issuer;
+    // console.log(vcID);
+
+    // 인증서 유효기간 검증
+    const ID_Address = DIDtoAddress(vcID);
+    const result_verifyValidDelegate = await verifyValidDelegate(ID_Address);
+
+    //  유효기간 지나면
+    if (!result_verifyValidDelegate) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: "인증서의 유효기간이 지났습니다. VC 유효기간 갱신을 해주세요.",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return;
+    }
+
+    setCredentialSubject(userInfo);
+    setVCID(vcID);
+    setUserData(userInfo);
+    
   }
 
   return (
@@ -274,12 +427,12 @@ function DidCertification(props) {
               <input
                 className="tiketing_Line_input"
                 placeholder="Verifiable Credential"
-                // value={vcJwt}
-                // onChange={(e) => setvc(e.target.value)}
+                value={vc}
+                onChange={(e) => setvc(e.target.value)}
               />
             </div>
 
-            <div className="connect_wallet_button on"  ></div>
+            <div className="connect_wallet_button" onClick={vcSolve}  >Vc Solve</div>
 
 
           </div>
@@ -368,7 +521,7 @@ function DidCertification(props) {
               <div className="connect_wallet_button on"  >Connect Wallet</div>
             </div>
 
-            <div className="tiketing_finsh_button" onClick={onClickFinsh} >Finsh</div>
+            <div className="tiketing_finsh_button" onClick={onClickFinsh} >swap</div>
             <div>{verifyMsg}</div>
         </div>
       </div>

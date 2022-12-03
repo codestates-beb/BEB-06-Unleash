@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DefaultNft from '../NFTs/DefaultNft';
 import FirstNFT from '../NFTs/FirstNFT';
 import BusinessNFT from '../NFTs/BusinessNFT';
@@ -12,10 +12,12 @@ import {
 } from '../../components/MarketPlace_components/MarketplaceDummy';
 import { useContext } from 'react';
 import { ListContext } from '../../resources/context_store/ListContext';
+import DidLoading from '../DidLoading';
+import Swal from 'sweetalert2';
 
 const MyPageContents = () => {
   const context = useContext(ListContext);
-  const { accountNFT, setAccountNFT, userData } = context;
+  const { accountNFT, setAccountNFT, userData, active } = context;
 
   const [first, setFirst] = useState([]);
   const [business, setBusiness] = useState([]);
@@ -33,10 +35,10 @@ const MyPageContents = () => {
       })
       .then(res => {
         const myToken = res.data.myToken;
-        const priceList = res.data.price_list;
+        //const priceList = res.data.price_list;
         setAccountNFT([...myToken]);
       });
-  }, []);
+  }, [setAccountNFT, userData.id]);
 
   useEffect(() => {
     setFirst(() =>
@@ -70,7 +72,7 @@ const MyPageContents = () => {
   const businessParis = [...business].filter(item => item.token.to === 'CDG');
   const economyParis = [...economy].filter(item => item.token.to === 'CDG');
 
-  const status = ['owned', 'selling', 'used', 'selled'];
+  const status = ['owned', 'onSale', 'used', 'sold'];
   const [border, setBorder] = useState([true, false, false, false]);
 
   const handleClick = e => {
@@ -87,6 +89,17 @@ const MyPageContents = () => {
         .then(res => {
           const myToken = res.data.myToken;
           setAccountNFT([...myToken]);
+        })
+        .catch(res => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'DB에서 데이터를 불러오지 못했습니다.',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          console.log(e);
+          return e;
         });
     }
     if (text === status[1]) {
@@ -103,12 +116,40 @@ const MyPageContents = () => {
         .then(res => {
           const data = res.data;
           setAccountNFT([...data]);
+        })
+        .catch(e => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'DB에서 데이터를 불러오지 못했습니다.',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          console.log(e);
+          return e;
         });
     }
     if (text === status[2]) {
       setBs('');
       setBs2('');
       setBorder([false, false, true, false]);
+      axios.get(`http://localhost:5001/user/used?seller=${userData.wallet_address}`, {
+        withCredentials: true,
+      })
+      .then(res => {
+        const data = res.data;
+        setAccountNFT([...data]);
+      }).catch(e => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'DB에서 데이터를 불러오지 못했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        console.log(e);
+        return e;
+      })
     }
     if (text === status[3]) {
       setBs('');
@@ -124,6 +165,16 @@ const MyPageContents = () => {
       .then(res => {
         const data = res.data;
         setAccountNFT([...data]);
+      }).catch(e => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'DB에서 데이터를 불러오지 못했습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        console.log(e);
+        return e;
       });
     };
   };
@@ -427,6 +478,7 @@ const MyPageContents = () => {
             />
           ))}
       </div>
+      {active ? <DidLoading /> : ""}
     </div>
   );
 };
