@@ -11,7 +11,7 @@ const MarketPlace = (props) => {
   const {setListAll} = context;
 
   useEffect(() => {
-    axios.get("http://localhost:5001/marketplace/ticket").then(res => {
+    axios.get("http://54.180.81.43:5001/marketplace/ticket").then(res => {
       const data = res.data;
       setListAll([...data]);
     })

@@ -73,7 +73,7 @@ const DefaultNft = (props) => {
           timer: 1500
         })
         setActive(false)
-        axios.put("http://localhost:5001/marketplace/cancel", {
+        axios.put("http://54.180.81.43:5001/marketplace/cancel", {
           event_id:parseInt(eventLogs[1].args.event_count,16),
           offer_id : offer_id,
           amount : amount,

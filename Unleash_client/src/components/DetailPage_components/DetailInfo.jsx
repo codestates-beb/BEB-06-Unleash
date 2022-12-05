@@ -69,7 +69,7 @@ const DetailInfo = props => {
     e.preventDefault();
     try {
       const call = await axios.get(
-        `http://localhost:5001/marketplace/signature?token_id=${Number(
+        `http://54.180.81.43:5001/marketplace/signature?token_id=${Number(
           nft[0].token_id
         )}`,
         {
@@ -104,7 +104,7 @@ const DetailInfo = props => {
         })
         setActive(false);
         const a = await axios.post(
-          'http://localhost:5001/marketplace/mint',
+          'http://54.180.81.43:5001/marketplace/mint',
           {
             event_id:parseInt(eventLogs[2].args.event_count,16),
             user_id: userData.id,

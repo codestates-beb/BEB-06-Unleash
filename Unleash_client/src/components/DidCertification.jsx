@@ -268,7 +268,7 @@ function DidCertification(props) {
 
       console.log(rxResult);
       if (rxResult) {
-      await axios.put("http://localhost:5001/marketplace/exchange", {
+      await axios.put("http://54.180.81.43:5001/marketplace/exchange", {
         amount : 1,
         user_id : userData.id,
         token_id : selectedNft[0].token_id,

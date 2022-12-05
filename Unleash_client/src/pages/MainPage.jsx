@@ -68,7 +68,7 @@ const MainPage = () => {
     params['departuretime'] = new Date(departDate.getTime() - departDate.getTimezoneOffset() * 60000).toISOString().substr(0, 11);
 
     axios
-      .get('http://localhost:5001/marketplace/ticket', { params })
+      .get('http://54.180.81.43:5001/marketplace/ticket', { params })
       .then(function (res) {
         const data = res.data;
         const list = JSON.stringify([...data]);

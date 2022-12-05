@@ -48,7 +48,7 @@ const P2pDetailPage = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`
+        `http://54.180.81.43:5001/marketplace/history?token_id=${p2pinfo[0].token_id}`
       ).then(res => {
         const data = res.data;
         setChartData(setChartDatas(data));
@@ -96,7 +96,7 @@ const P2pDetailPage = () => {
           showConfirmButton: false,
           timer: 1500
         })
-        const a = await axios.put("http://localhost:5001/marketplace/buy", {
+        const a = await axios.put("http://54.180.81.43:5001/marketplace/buy", {
           event_id:parseInt(eventLogs[1].args.event_count,16),
           amount: 1,
           offer_id: p2pinfo[0].offer_id,

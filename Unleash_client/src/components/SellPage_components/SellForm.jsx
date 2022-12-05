@@ -47,7 +47,7 @@ const SellForm = (props) => {
           timer: 1500
         })
         setActive(false);
-        axios.post("http://localhost:5001/marketplace/sell", {
+        axios.post("http://54.180.81.43:5001/marketplace/sell", {
           event_id:parseInt(eventLogs[1].args.event_count,16),
           offer_id: parseInt(eventLogs[1].args.offerId,16),
           token_id: nft[0].token_id,
