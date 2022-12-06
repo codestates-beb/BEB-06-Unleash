@@ -56,11 +56,13 @@ const P2pDetailPage = () => {
         console.log(e);
         return e;
       });
-    if (p2pinfo[0].token.to === 'ITM') return setDestination(osakaDummy); // 뒷정리함수.
+      
+    if (p2pinfo[0].token.to === 'ITM') return setDestination(osakaDummy);
     if (p2pinfo[0].token.to === 'JFK') return setDestination(newYorkDummy);
     if (p2pinfo[0].token.to === 'CDG') return setDestination(parisDummy);
     if (p2pinfo[0].token.to === 'SYD') return setDestination(sydneyDummy);
     if (p2pinfo[0].token.to === 'FCO') return setDestination(romaDummy);
+    
   }, []);
 
   const handleSubmit = async (e) => {
@@ -72,8 +74,6 @@ const P2pDetailPage = () => {
         showConfirmButton: false,
         timer: 1500
       })
-
-
       return navigate("/marketplacep2p");
     }
     try {
@@ -120,8 +120,7 @@ const P2pDetailPage = () => {
     // contract 연결
   };
   const handleChange = e => {
-    setTotalPrice(Number(e.target.value) * p2pinfo[0].price);
-    
+    setTotalPrice(p2pinfo[0].price);
   };
 
   return active ? (
@@ -202,10 +201,10 @@ const P2pDetailPage = () => {
         </div>
         <div className="detailp2ppage_container_info">
           <div className="detailp2ppage_personal_info">
-            <span>Osaka {p2pinfo[0].token_id}</span>
+            <span>{destination.city} {p2pinfo[0].token_id}</span>
             <span>owned by {p2pinfo[0].seller}</span>
             <form onSubmit={handleSubmit}>
-              <input type="text" value={totalPrice} onChange={handleChange} />
+              <input type="text" value={1} onChange={handleChange} />
               <button type="submit">Buy</button>
             </form>
           </div>
