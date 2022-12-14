@@ -151,7 +151,7 @@ function DidCertification(props) {
     }
   };
 
-  // VC 요청
+  // DID VC는 SSI를 실형하기 위해 유저가 보관해야 한다는 피드백으로 DB에 저장된 VC JWT 요청 API 삭제
   const requestVC = async () => {
     try {
       // IATA DB에 내 JWT VC 요청
@@ -227,10 +227,11 @@ function DidCertification(props) {
       })
     }
   };
+
+  
   // VC 검증
   const verifyVC = async() => {
     try {
-      // 유저가 제출한 JWT VC와 IATA가 발급해준 ID 비교
       // setVerifyMsg("Verifiable Credential 검증 진행...")
       props.setDidLoading(true);
       props.setText( "승인 처리중입니다 약 1~2분 정도 소요되며, 이더리움 Goerli 네트워크 상태에 따라 지연될수 있습니다.");
