@@ -1,6 +1,6 @@
 {
   "config": {
-    "target": "http:54.180.81.43:5001",
+    "target": "http:43.200.166.146:5001",
     "phases": [
       {
         "duration": 60,
